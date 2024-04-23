@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="200" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="16" nextobjectid="216">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="200" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="16" nextobjectid="217">
  <tileset firstgid="1" source="Tilemaps/StarRealmsCozyForestPack24x24.tsx"/>
  <tileset firstgid="529" source="Tilemaps/RCH.tsx"/>
  <tileset firstgid="649" source="Tilemaps/compsci.tsx"/>
@@ -1413,12 +1413,12 @@
     <property name="event" value="accomodation"/>
    </properties>
   </object>
-  <object id="178" name="accommodation" x="1390.83" y="1957.52" width="39.2748" height="57.4707">
+  <object id="178" name="accommodation" x="1388.58" y="1780.27" width="54.7748" height="198.971">
    <properties>
     <property name="event" value="accomodation"/>
    </properties>
   </object>
-  <object id="179" name="accommodation" x="1304.27" y="1780.38" width="138.664" height="222.832">
+  <object id="179" name="accommodation" x="1304.27" y="1780.38" width="86.664" height="222.832">
    <properties>
     <property name="event" value="accomodation"/>
    </properties>
@@ -1517,6 +1517,11 @@
   <object id="215" x="2170.5" y="1677.33" width="45" height="87.3333">
    <properties>
     <property name="event" value="comp_sci"/>
+   </properties>
+  </object>
+  <object id="216" name="accommodation" x="1430.61" y="1811.76" width="13.7748" height="193.471">
+   <properties>
+    <property name="event" value="accomodation"/>
    </properties>
   </object>
  </objectgroup>

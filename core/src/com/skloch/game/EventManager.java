@@ -341,20 +341,21 @@ public class EventManager {
             } else if (args.length == 1) {
                 // If the player has not yet chosen how many hours, ask
                 game.dialogueBox.setText("Buy food for how long?");
-                game.dialogueBox.getSelectBox().setOptions(new String[]{"1 Hour (10)", "2 Hours (20)", "3 Hours (30)"}, new String[]{"town-1", "town-2", "town-3"});
+                game.dialogueBox.getSelectBox().setOptions(new String[]{"1 Hour (10)", "2 Hours (20)", "3 Hours (30)"}, new String[]{"shop-1", "shop-2", "shop-3"});
             } else {
                 int hours = Integer.parseInt(args[1]);
                 // If the player does not have enough energy for the selected hours
                 if (game.getEnergy() < hours*energyCost) {
                     game.dialogueBox.setText("You don't have the energy to buy food right now!");
                 } else {
-                    // If they do have the energy to buy bought food for for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
+                    // If they do have the energy to buy  food
+                    game.dialogueBox.setText(String.format("You spent %s hours buying then eating food.\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.passTime(hours * 60); // in seconds
                 }
             }
         } else {
-            game.dialogueBox.setText("It's too early in the morning to go into town, there are no buses yet!");
+            game.dialogueBox.setText("It's too early to buy food, the shop's not open yet!");
         }
     }
 
