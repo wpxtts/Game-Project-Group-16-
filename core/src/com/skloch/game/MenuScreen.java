@@ -51,7 +51,7 @@ public class MenuScreen implements Screen {
 
         // Title image
         titleImage = new Image(new Texture(Gdx.files.internal("title.png")));
-        titleImage.setPosition((viewport.getWorldWidth() / 2f) - (titleImage.getWidth() / 2f), 500);
+        titleImage.setPosition((viewport.getWorldWidth() / 2f) - (titleImage.getWidth() / 2f), 525);
         menuStage.addActor(titleImage);
 
         // Play menu music
@@ -81,15 +81,19 @@ public class MenuScreen implements Screen {
         TextButton startButton = new TextButton("New Game", game.skin);
         TextButton settingsButton = new TextButton("Settings", game.skin);
         TextButton creditsButton = new TextButton("Credits", game.skin);
+        TextButton leaderboardButton = new TextButton("Leaderboard", game.skin);
         TextButton exitButton = new TextButton("Exit", game.skin);
+
 
         // Add everything to the table using row() to go to a new line
         int buttonWidth = 340;
-        buttonTable.add(startButton).uniformX().width(buttonWidth).padBottom(10).padTop(280);
+        buttonTable.add(startButton).uniformX().width(buttonWidth).padBottom(10).padTop(240);
         buttonTable.row();
         buttonTable.add(settingsButton).uniformX().width(buttonWidth).padBottom(10);
         buttonTable.row();
-        buttonTable.add(creditsButton).uniformX().width(buttonWidth).padBottom(30);
+        buttonTable.add(creditsButton).uniformX().width(buttonWidth).padBottom(10);
+        buttonTable.row();
+        buttonTable.add(leaderboardButton).uniformX().width(buttonWidth).padBottom(10);
         buttonTable.row();
         buttonTable.add(exitButton).uniformX().width(buttonWidth);
         buttonTable.top();
@@ -141,6 +145,17 @@ public class MenuScreen implements Screen {
                }
            }
         );
+        // LEADERBOARD BUTTON
+        leaderboardButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.soundManager.playButton();
+                game.setScreen(new LeaderboardScreen(game, thisScreen));
+            }
+        }
+        );
+
+
 
         game.batch.setProjectionMatrix(camera.combined);
 
