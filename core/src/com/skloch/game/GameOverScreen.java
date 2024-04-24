@@ -17,6 +17,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A screen that displays the player's stats at the end of the game.
@@ -24,11 +26,13 @@ import java.awt.*;
  */
 public class GameOverScreen implements Screen {
     private HustleGame game;
+    private EventManager events;
     Stage gameOverStage;
     Viewport viewport;
     OrthographicCamera camera;
 
     // Hidden achievement badges
+    public HashMap<String, Integer> streakGoals;
     private Texture rch;
     private Texture flower;
     private Texture bus;
@@ -76,6 +80,7 @@ public class GameOverScreen implements Screen {
 
         Integer score = Integer.valueOf(hoursStudied) + Integer.valueOf(hoursRecreational) + Integer.valueOf(hoursSlept);
         String scoreString = "Total Score: " + String.valueOf(Integer.valueOf(hoursStudied) + Integer.valueOf(hoursRecreational) + Integer.valueOf(hoursSlept));
+
         // Display scores
         scoresTable.add(new Label("Hours Studied", game.skin, "interaction")).padBottom(5);
         scoresTable.row();
@@ -87,67 +92,100 @@ public class GameOverScreen implements Screen {
         scoresTable.row();
         scoresTable.add(new Label("Hours Slept", game.skin, "interaction")).padBottom(5);
         scoresTable.row();
-        scoresTable.add(new Label(String.valueOf(hoursSlept), game.skin, "button")).padBottom(15);
-        scoresTable.row();
-        scoresTable.add(new Label(scoreString, game.skin, "interaction")).padBottom(5);
+        scoresTable.add(new Label(String.valueOf(hoursSlept), game.skin, "button"));
 
-//
-//        // Hidden achievements
-//        // Load your texture
-//        rch = new Texture(Gdx.files.internal("Sprites/achievements/hub.png"));
-//        flower  = new Texture(Gdx.files.internal("Sprites/achievements/flower.png"));
-//        bus = new Texture(Gdx.files.internal("Sprites/achievements/bus.png"));
-//        shopping_basket = new Texture(Gdx.files.internal("Sprites/achievements/shopping_basket.png"));
-//        fire = new Texture(Gdx.files.internal("Sprites/achievements/fire.png"));
-//        long_boi = new Texture(Gdx.files.internal("Sprites/achievements/early_bird.png"));
-//        talk = new Texture(Gdx.files.internal("Sprites/achievements/talk.png"));
-//        chest = new Texture(Gdx.files.internal("Sprites/achievements/chest.png"));
-//
-//        // Create an Image widget with the texture
-//        com.badlogic.gdx.scenes.scene2d.ui.Image rch_image = new com.badlogic.gdx.scenes.scene2d.ui.Image(rch);
-//        com.badlogic.gdx.scenes.scene2d.ui.Image flower_image = new com.badlogic.gdx.scenes.scene2d.ui.Image(flower);
-//        com.badlogic.gdx.scenes.scene2d.ui.Image bus_image = new com.badlogic.gdx.scenes.scene2d.ui.Image(bus);
-//        com.badlogic.gdx.scenes.scene2d.ui.Image shopping_basket_image = new com.badlogic.gdx.scenes.scene2d.ui.Image(shopping_basket);
-//        com.badlogic.gdx.scenes.scene2d.ui.Image fire_image = new com.badlogic.gdx.scenes.scene2d.ui.Image(fire);
-//        com.badlogic.gdx.scenes.scene2d.ui.Image long_boi_image = new com.badlogic.gdx.scenes.scene2d.ui.Image(long_boi);
-//        com.badlogic.gdx.scenes.scene2d.ui.Image talk_image = new com.badlogic.gdx.scenes.scene2d.ui.Image(talk);
-//        com.badlogic.gdx.scenes.scene2d.ui.Image chest_image = new Image(chest);
-//
-//        // Set position of the image
-//        rch_image.setPosition(10, 100);
-//        flower_image.setPosition(20, 100);
-//        bus_image.setPosition(30, 100);
-//        shopping_basket_image.setPosition(40, 100);
-//        fire_image.setPosition(50, 100);
-//        long_boi_image.setPosition(60, 100);
-//        talk_image.setPosition(70, 100);
-//        chest_image.setPosition(80, 100);
-//
-//        // Add the image to the stage
-//        gameOverStage.addActor(rch_image);
-//        gameOverStage.addActor(flower_image);
-//        gameOverStage.addActor(bus_image);
-//        gameOverStage.addActor(shopping_basket_image);
-//        gameOverStage.addActor(fire_image);
-//        gameOverStage.addActor(long_boi_image);
-//        gameOverStage.addActor(chest_image);
+        // Hidden achievements
+        // How much energy an hour of each activity should take
+        streakGoals = new HashMap<String, Integer>();
+        streakGoals.put("studying", 10);
+        streakGoals.put("eating", 10);
+        streakGoals.put("flowers", 0);
+        streakGoals.put("town", 10);
+        streakGoals.put("shop", 0);
+        streakGoals.put("determined", 0);
+        streakGoals.put("early_bird", 10);
+        streakGoals.put("talkative", 0);
+        streakGoals.put("secretive", 0);
 
-//        for (String goal : streakGoals){
-//            if (streak > streakGoals){
-//                // Events related to objects
-//                switch (streak) {
-//                    case "talktative":
-//                        gameOverStage.addActor(talk_image);
-//                        break;
-//                    case "rch":
-//                        gameOverStage.addActor(rch_image);
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//        }
+//        streakGoals.put("studying", 0);
+//        streakGoals.put("meet_friends", 4);
+//        streakGoals.put("eating", 11);
+//        streakGoals.put("flowers", 6);
+//        streakGoals.put("town", 8);
+//        streakGoals.put("shop", 11);
+//        streakGoals.put("determined", 10);
+//        streakGoals.put("early_bird", 10);
+//        streakGoals.put("talkative", 10);
+//        streakGoals.put("secretive", 5);
 
+        // Load your texture
+        rch = new Texture(Gdx.files.internal("Sprites/achievements/hub.png"));
+        flower  = new Texture(Gdx.files.internal("Sprites/achievements/flower.png")); //
+        bus = new Texture(Gdx.files.internal("Sprites/achievements/bus.png")); //
+        shopping_basket = new Texture(Gdx.files.internal("Sprites/achievements/shopping_basket.png")); //
+        fire = new Texture(Gdx.files.internal("Sprites/achievements/fire.png")); //
+        long_boi = new Texture(Gdx.files.internal("Sprites/achievements/early_bird.png")); //bird
+        talk = new Texture(Gdx.files.internal("Sprites/achievements/talk.png")); //
+        chest = new Texture(Gdx.files.internal("Sprites/achievements/chest.png")); //use actual
+
+        // Create an Image widget with the texture
+        Image rch_image = new Image(rch);
+        Image flower_image = new Image(flower);
+        Image bus_image = new Image(bus);
+        Image shopping_basket_image = new Image(shopping_basket);
+        Image fire_image = new Image(fire);
+        Image long_boi_image = new Image(long_boi);
+        Image talk_image = new Image(talk);
+        Image chest_image = new Image(chest);
+
+        // Set position of the image
+        rch_image.setPosition(100, 100);
+        flower_image.setPosition(200, 200);
+        bus_image.setPosition(300, 300);
+        shopping_basket_image.setPosition(400, 400);
+        fire_image.setPosition(500, 500);
+        long_boi_image.setPosition(100, 500);
+        talk_image.setPosition(200, 400);
+        chest_image.setPosition(300, 300);
+
+        //Iterate through the streaks to see which achievements were compeleted
+        GameScreen game_ = null;
+        events = new EventManager(game_);
+        HashMap<String, Integer> streaksAchieved = events.streaks;
+        for (Map.Entry<String, Integer> entry : streaksAchieved.entrySet()) {
+            String task = entry.getKey();
+            //render the acheivement on the GameOver screen if the acheivement requirements have been met
+            if (streaksAchieved.get(task) >= streakGoals.get(task)){
+                switch (task) {
+                    case "rch":
+                        gameOverStage.addActor(rch_image);
+                        break;
+                    case "flowers":
+                        gameOverStage.addActor(flower_image);
+                        break;
+                    case "bus":
+                        gameOverStage.addActor(bus_image);
+                        break;
+                    case "shop":
+                        gameOverStage.addActor(shopping_basket_image);
+                        break;
+                    case "determined":
+                        gameOverStage.addActor(fire_image);
+                        break;
+                    case "early_bird":
+                        gameOverStage.addActor(long_boi_image);
+                        break;
+                    case "secretive":
+                        gameOverStage.addActor(chest_image);
+                        break;
+                    case "talktative":
+                        gameOverStage.addActor(talk_image);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
 
         // Exit button
         TextButton exitButton = new TextButton("Next", game.skin);
@@ -159,7 +197,7 @@ public class GameOverScreen implements Screen {
                 game.soundManager.playButton();
                 game.setScreen(new SaveScreen(game, score));
                 dispose();
-
+                game.setScreen(new SaveScreen(game, score));
             }
         });
 
@@ -225,5 +263,10 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void dispose() {
+        gameOverStage.dispose();
+
+
     }
 }
+
+
