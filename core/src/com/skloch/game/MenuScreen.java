@@ -35,6 +35,7 @@ public class MenuScreen implements Screen {
      * @param game An instance of HustleGame with loaded variables
      */
     public MenuScreen(final HustleGame game) {
+
         this.game = game;
         this.game.menuScreen = this;
         // Create stage to draw UI on

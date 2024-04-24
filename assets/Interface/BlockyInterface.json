@@ -182,4 +182,12 @@ com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 		titleFont: W95FA3
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+	"default": {
+		"font": "interaction_font"
+		"fontColor": "black"
+		"background": "window"
+}
+}
+
 }
