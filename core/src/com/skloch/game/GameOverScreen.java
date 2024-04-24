@@ -62,31 +62,35 @@ public class GameOverScreen implements Screen {
         gameOverTable.add(scoresTable).prefHeight(380).prefWidth(450);
         gameOverTable.row();
 
+        Integer score = Integer.valueOf(hoursStudied) + Integer.valueOf(hoursRecreational) + Integer.valueOf(hoursSlept);
+        String scoreString = "Total Score: " + String.valueOf(Integer.valueOf(hoursStudied) + Integer.valueOf(hoursRecreational) + Integer.valueOf(hoursSlept));
         // Display scores
         scoresTable.add(new Label("Hours Studied", game.skin, "interaction")).padBottom(5);
         scoresTable.row();
-        scoresTable.add(new Label(String.valueOf(hoursStudied), game.skin, "button")).padBottom(20);
+        scoresTable.add(new Label(String.valueOf(hoursStudied), game.skin, "button")).padBottom(15);
         scoresTable.row();
         scoresTable.add(new Label("Recreational hours", game.skin, "interaction")).padBottom(5);
         scoresTable.row();
-        scoresTable.add(new Label(String.valueOf(hoursRecreational), game.skin, "button")).padBottom(20);
+        scoresTable.add(new Label(String.valueOf(hoursRecreational), game.skin, "button")).padBottom(15);
         scoresTable.row();
         scoresTable.add(new Label("Hours Slept", game.skin, "interaction")).padBottom(5);
         scoresTable.row();
-        scoresTable.add(new Label(String.valueOf(hoursSlept), game.skin, "button"));
+        scoresTable.add(new Label(String.valueOf(hoursSlept), game.skin, "button")).padBottom(15);
+        scoresTable.row();
+        scoresTable.add(new Label(scoreString, game.skin, "interaction")).padBottom(5);
 
 
         // Exit button
-        TextButton exitButton = new TextButton("Main Menu", game.skin);
+        TextButton exitButton = new TextButton("Next", game.skin);
         gameOverTable.add(exitButton).bottom().width(300).padTop(10);
 
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.soundManager.playButton();
-                game.soundManager.overworldMusic.stop();
+                game.setScreen(new SaveScreen(game, score));
                 dispose();
-                game.setScreen(new MenuScreen(game));
+
             }
         });
 
