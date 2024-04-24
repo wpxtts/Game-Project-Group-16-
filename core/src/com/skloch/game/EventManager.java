@@ -33,6 +33,10 @@ public class EventManager {
         activityEnergies.put("studying", 10);
         activityEnergies.put("meet_friends", 10);
         activityEnergies.put("eating", 10);
+        activityEnergies.put("flowers", 10);
+        activityEnergies.put("town", 10);
+        activityEnergies.put("shop", 10);
+
 
 
         // Define what to say when interacting with an object who's text won't change
@@ -43,7 +47,8 @@ public class EventManager {
         objectInteractions.put("accomodation", "Go to sleep for the night?\nYour alarm is set for 8am.");
         objectInteractions.put("rch", null); // Changes, dynamically returned in getObjectInteraction
         objectInteractions.put("tree", "Speak to the tree?");
-        objectInteractions.put("secret", "I really shouldn't be here...");
+        objectInteractions.put("flowers", "Smell the flowers?");
+        objectInteractions.put("shop", "Buy food from the shop?");
 
         // Some random topics that can be chatted about
         String[] topics = {"Dogs", "Cats", "Exams", "Celebrities", "Flatmates", "Video games", "Sports", "Food", "Fashion"};
@@ -81,6 +86,15 @@ public class EventManager {
                 break;
             case "accomodation":
                 accomEvent(args);
+                break;
+            case "flowers":
+                flowersEvent(args);
+                break;
+            case "town":
+                busStopEvent(args);
+                break;
+            case "shop":
+                shopEvent(args);
                 break;
             case "exit":
                 // Should do nothing and just close the dialogue menu
@@ -244,6 +258,105 @@ public class EventManager {
             game.dialogueBox.setText("It's too early in the morning to eat food, go to bed!");
         }
 
+    }
+
+    /**
+     * The event to be run when interacting with the flowerbed bench
+     * Gives the player the option to study for 0.5, 1 or 1.5 hours
+     * @param args
+     */
+    public void flowersEvent(String[] args) {
+        if (game.getSeconds() > 8*60) {
+            int energyCost = activityEnergies.get("flowers");
+            // If the player is too tired to smell the flowers
+            if (game.getEnergy() < energyCost) {
+                game.dialogueBox.hideSelectBox();
+                game.dialogueBox.setText("You are too tired to smell the flowers right now!");
+            } else if (args.length == 1) {
+                // If the player has not yet chosen how many hours, ask
+                game.dialogueBox.setText("Smell the flowers for how long?");
+                game.dialogueBox.getSelectBox().setOptions(new String[]{"1 Hour (10)", "2 Hours (20)", "3 Hours (30)"}, new String[]{"flowers-1", "flowers-2", "flowers-3"});
+            } else {
+                int hours = Integer.parseInt(args[1]);
+                // If the player does not have enough energy for the selected hours
+                if (game.getEnergy() < hours*energyCost) {
+                    game.dialogueBox.setText("What if you fell asleep? You don't have the energy!");
+                } else {
+                    // If they do have the energy to smell the flowers
+                    game.dialogueBox.setText(String.format("You smelled the flowers for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
+                    game.decreaseEnergy(energyCost * hours);
+                    game.passTime(hours * 60); // in seconds
+                }
+            }
+        } else {
+            game.dialogueBox.setText("It's too early in the morning to smell the flowers, go to bed!");
+        }
+    }
+
+    /**
+     * The event to be run when interacting with the bus stop
+     * Gives the player the option to study for 2, 3 or 4 hours
+     * @param args
+     */
+    public void busStopEvent(String[] args) {
+        if (game.getSeconds() > 8*60) {
+            int energyCost = activityEnergies.get("town");
+            // If the player is too tired for any travelling:
+            if (game.getEnergy() < energyCost) {
+                game.dialogueBox.hideSelectBox();
+                game.dialogueBox.setText("You are too tired to get the bus right now!");
+            } else if (args.length == 1) {
+                // If the player has not yet chosen how many hours, ask
+                game.dialogueBox.setText("Go into town for how long?");
+                game.dialogueBox.getSelectBox().setOptions(new String[]{"2 Hours (20)", "3 Hours (30)", "4 Hours (40)"}, new String[]{"town-2", "town-3", "town-4"});
+            } else {
+                int hours = Integer.parseInt(args[1]);
+                // If the player does not have enough energy for the selected hours
+                if (game.getEnergy() < hours*energyCost) {
+                    game.dialogueBox.setText("You don't have the energy to go into town right now!");
+                } else {
+                    // If they do have the energy to go into town
+                    game.dialogueBox.setText(String.format("You went into town for for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
+                    game.decreaseEnergy(energyCost * hours);
+                    game.passTime(hours * 60); // in seconds
+                }
+            }
+        } else {
+            game.dialogueBox.setText("It's too early in the morning to go into town, there are no buses yet!");
+        }
+    }
+
+    /**
+     * The event to be run when interacting with the shop
+     * Gives the player the option to buy food for 1, 2 or 3 hours
+     * @param args
+     */
+    public void shopEvent(String[] args) {
+        if (game.getSeconds() > 8*60) {
+            int energyCost = activityEnergies.get("shop");
+            // If the player is too tired for any travelling:
+            if (game.getEnergy() < energyCost) {
+                game.dialogueBox.hideSelectBox();
+                game.dialogueBox.setText("You are too tired to buy food right now!");
+            } else if (args.length == 1) {
+                // If the player has not yet chosen how many hours, ask
+                game.dialogueBox.setText("Buy food for how long?");
+                game.dialogueBox.getSelectBox().setOptions(new String[]{"1 Hour (10)", "2 Hours (20)", "3 Hours (30)"}, new String[]{"shop-1", "shop-2", "shop-3"});
+            } else {
+                int hours = Integer.parseInt(args[1]);
+                // If the player does not have enough energy for the selected hours
+                if (game.getEnergy() < hours*energyCost) {
+                    game.dialogueBox.setText("You don't have the energy to buy food right now!");
+                } else {
+                    // If they do have the energy to buy  food
+                    game.dialogueBox.setText(String.format("You spent %s hours buying then eating food.\nYou lost %d energy", args[1], hours*energyCost));
+                    game.decreaseEnergy(energyCost * hours);
+                    game.passTime(hours * 60); // in seconds
+                }
+            }
+        } else {
+            game.dialogueBox.setText("It's too early to buy food, the shop's not open yet!");
+        }
     }
 
     /**
