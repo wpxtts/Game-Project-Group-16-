@@ -105,6 +105,7 @@ public class SaveScreen implements Screen{
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 SaveScreen.this.game.soundManager.playButton();
+                SaveScreen.this.game.soundManager.stopOverworldMusic();
                 dispose();
                 SaveScreen.this.game.setScreen(new MenuScreen(SaveScreen.this.game));
             }

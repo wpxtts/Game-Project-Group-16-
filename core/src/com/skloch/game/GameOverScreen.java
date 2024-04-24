@@ -155,34 +155,37 @@ public class GameOverScreen implements Screen {
         for (Map.Entry<String, Integer> entry : streaksAchieved.entrySet()) {
             String task = entry.getKey();
             //render the acheivement on the GameOver screen if the acheivement requirements have been met
-            if (streaksAchieved.get(task) >= streakGoals.get(task)){
-                switch (task) {
-                    case "rch":
-                        gameOverStage.addActor(rch_image);
-                        break;
-                    case "flowers":
-                        gameOverStage.addActor(flower_image);
-                        break;
-                    case "bus":
-                        gameOverStage.addActor(bus_image);
-                        break;
-                    case "shop":
-                        gameOverStage.addActor(shopping_basket_image);
-                        break;
-                    case "determined":
-                        gameOverStage.addActor(fire_image);
-                        break;
-                    case "early_bird":
-                        gameOverStage.addActor(long_boi_image);
-                        break;
-                    case "secretive":
-                        gameOverStage.addActor(chest_image);
-                        break;
-                    case "talktative":
-                        gameOverStage.addActor(talk_image);
-                        break;
-                    default:
-                        break;
+            Integer goal = streakGoals.get(task);
+            if (goal != null && streaksAchieved.get(task) >= goal) {
+                if (streaksAchieved.get(task) >= streakGoals.get(task)) {
+                    switch (task) {
+                        case "rch":
+                            gameOverStage.addActor(rch_image);
+                            break;
+                        case "flowers":
+                            gameOverStage.addActor(flower_image);
+                            break;
+                        case "bus":
+                            gameOverStage.addActor(bus_image);
+                            break;
+                        case "shop":
+                            gameOverStage.addActor(shopping_basket_image);
+                            break;
+                        case "determined":
+                            gameOverStage.addActor(fire_image);
+                            break;
+                        case "early_bird":
+                            gameOverStage.addActor(long_boi_image);
+                            break;
+                        case "secretive":
+                            gameOverStage.addActor(chest_image);
+                            break;
+                        case "talktative":
+                            gameOverStage.addActor(talk_image);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
