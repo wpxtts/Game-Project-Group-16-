@@ -9,4 +9,4 @@ Group 16's version of Heslington Hustle
 
 [Documentation](https://docs.google.com/document/d/e/2PACX-1vSv_ceo9WVWkExVdJTcRDvOGG9dvaT4u3FKtMxP3KHxWDgZjG1YxPeSrSR09Ll2qwSzs-jig_dpa5-k/pub)
 
-Our group name is SKLOCH, it's the first letter of everyone's name in the group
+Our group name is Rich Tea(m) 17, it's the first letter of everyone's name in the group
