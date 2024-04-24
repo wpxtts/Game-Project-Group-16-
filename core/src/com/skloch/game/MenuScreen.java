@@ -90,11 +90,11 @@ public class MenuScreen implements Screen {
         int buttonWidth = 340;
         buttonTable.add(startButton).uniformX().width(buttonWidth).padBottom(10).padTop(240);
         buttonTable.row();
+        buttonTable.add(leaderboardButton).uniformX().width(buttonWidth).padBottom(10);
+        buttonTable.row();
         buttonTable.add(settingsButton).uniformX().width(buttonWidth).padBottom(10);
         buttonTable.row();
         buttonTable.add(creditsButton).uniformX().width(buttonWidth).padBottom(10);
-        buttonTable.row();
-        buttonTable.add(leaderboardButton).uniformX().width(buttonWidth).padBottom(10);
         buttonTable.row();
         buttonTable.add(exitButton).uniformX().width(buttonWidth);
         buttonTable.top();

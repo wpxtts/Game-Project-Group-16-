@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -72,9 +73,11 @@ public class SaveScreen implements Screen{
 
         // User text input row
         TextField userInputField = new TextField("", game.skin);
-        userInputField.setMessageText("     Enter player name");
+        userInputField.setMessageText("Enter player name");
+        userInputField.setAlignment(Align.center); // Set alignment to right
         leaderboardTable.add(userInputField).colspan(2).width(600).padTop(10); // colspan to span across both columns
         leaderboardTable.row(); // Move to the next row after adding the text input field
+
 
         // Padding for labels to move them to the right
 
@@ -111,11 +114,14 @@ public class SaveScreen implements Screen{
         saveButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                SaveScreen.this.game.soundManager.playButton();
-                dispose();
-                String name = userInputField.getText(); // Obtain the text from the input box
-                if (!name.isEmpty()) { // Check if the text is not empty
-                    saveScore(name, score); // Append the name and score to the CSV file
+                if (!saveButton.getText().toString().equals("Saved")) { // Check if the button is not already marked as Saved
+                    SaveScreen.this.game.soundManager.playButton();
+                    String name = userInputField.getText(); // Obtain the text from the input box
+                    if (!name.isEmpty()) { // Check if the text is not empty
+                        saveScore(name, score); // Append the name and score to the CSV file
+                        saveButton.setText("Saved"); // Change the button text to Saved
+                        saveButton.setDisabled(true); // Disable the button
+                    }
                 }
             }
         });
