@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CreditScreen.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tests</a> &gt; <a href="index.source.html" class="el_package">com.skloch.game</a> &gt; <span class="el_source">CreditScreen.java</span></div><h1>CreditScreen.java</h1><pre class="source lang-java linenums">package com.skloch.game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
+/**
+ * A scene2d window consisting of a title, a scrollable widget and an exit button.
+ * Used to display the assets used in the game
+ */
+public class CreditScreen implements Screen{
+
+    private HustleGame game;
+    private Stage creditStage;
+    private OrthographicCamera camera;
+    private Viewport viewport;
+
+    /**
+     * A scene2d window consisting of a title, a scrollable widget and an exit button.
+     * Credits are loaded from assets/Text/credits.txt and displayed in the scrollable widget
+     * Thus any changes to assets or licenses must be reflected in credits.txt
+     *
+     * @param game An instance of the HustleGame class
+     * @param previousScreen The screen to return to when the exit button is pressed
+     */
+<span class="nc" id="L36">    public CreditScreen (final HustleGame game, Screen previousScreen) {</span>
+
+        // Basically all the same code as the settings menu
+<span class="nc" id="L39">        this.game = game;</span>
+<span class="nc" id="L40">        creditStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));</span>
+<span class="nc" id="L41">        Gdx.input.setInputProcessor(creditStage);</span>
+
+<span class="nc" id="L43">        camera = new OrthographicCamera();</span>
+<span class="nc" id="L44">        viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);</span>
+<span class="nc" id="L45">        camera.setToOrtho(false, game.WIDTH, game.HEIGHT);</span>
+
+        // Create the window
+<span class="nc" id="L48">        Window creditMenu = new Window(&quot;&quot;, game.skin);</span>
+<span class="nc" id="L49">        creditStage.addActor(creditMenu);</span>
+<span class="nc" id="L50">        creditMenu.setModal(true);</span>
+
+        // Table for UI elements in window
+<span class="nc" id="L53">        Table creditTable = new Table();</span>
+<span class="nc" id="L54">        creditMenu.add(creditTable).prefHeight(600);</span>
+
+        // Title
+<span class="nc" id="L57">        Label title = new Label(&quot;Credits&quot;, game.skin, &quot;button&quot;);</span>
+<span class="nc" id="L58">        creditTable.add(title).padTop(10);</span>
+<span class="nc" id="L59">        creditTable.row();</span>
+
+        // Table for things inside the scrollable widget
+<span class="nc" id="L62">        Table scrollTable = new Table();</span>
+
+        // Scrollable widget
+<span class="nc" id="L65">        ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);</span>
+<span class="nc" id="L66">        scrollWindow.setFadeScrollBars(false);</span>
+        // scrollWindow.setDebug(true);
+
+        // scrollWindow.setFillParent(true);
+<span class="nc" id="L70">        creditTable.add(scrollWindow).padTop(20).height(350);</span>
+<span class="nc" id="L71">        creditTable.row();</span>
+
+        // Actual credits
+        // Credits are loaded when the game is initialised
+<span class="nc" id="L75">        Label text = new Label(game.credits, game.skin, &quot;interaction&quot;);</span>
+<span class="nc" id="L76">        text.setWrap(true);</span>
+<span class="nc" id="L77">        scrollTable.add(text).width(520f).padLeft(15);</span>
+
+        // Exit button
+<span class="nc" id="L80">        TextButton exitButton = new TextButton(&quot;Exit&quot;, game.skin);</span>
+<span class="nc" id="L81">        creditTable.add(exitButton).bottom().width(300).padTop(10);</span>
+
+<span class="nc" id="L83">        creditMenu.pack();</span>
+
+<span class="nc" id="L85">        creditMenu.setSize(600, 600);</span>
+
+        // Centre the window
+<span class="nc" id="L88">        creditMenu.setX((viewport.getWorldWidth() / 2) - (creditMenu.getWidth() / 2));</span>
+<span class="nc" id="L89">        creditMenu.setY((viewport.getWorldHeight() / 2) - (creditMenu.getHeight() / 2));</span>
+
+        // Listener for the exit button
+<span class="nc" id="L92">        exitButton.addListener(new ChangeListener() {</span>
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+<span class="nc" id="L95">                game.soundManager.playButton();</span>
+<span class="nc" id="L96">                dispose();</span>
+<span class="nc" id="L97">                game.setScreen(previousScreen);</span>
+<span class="nc" id="L98">                previousScreen.resume();</span>
+<span class="nc" id="L99">            }</span>
+        });
+
+<span class="nc" id="L102">    }</span>
+
+    /**
+     * Renders the credits window
+     * @param delta The time in seconds since the last render.
+     */
+    @Override
+    public void render (float delta) {
+<span class="nc" id="L110">        ScreenUtils.clear(0, 0, 0, 1);</span>
+<span class="nc" id="L111">        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</span>
+
+<span class="nc" id="L113">        game.blueBackground.draw();</span>
+
+<span class="nc" id="L115">        creditStage.act(delta);</span>
+<span class="nc" id="L116">        creditStage.draw();</span>
+
+<span class="nc" id="L118">        camera.update();</span>
+<span class="nc" id="L119">    }</span>
+
+
+    /**
+     * Correctly resizes the onscreen elements when the window is resized
+     * @param width
+     * @param height
+     */
+    @Override
+    public void resize(int width, int height) {
+<span class="nc" id="L129">        creditStage.getViewport().update(width, height);</span>
+<span class="nc" id="L130">        viewport.update(width, height);</span>
+<span class="nc" id="L131">    }</span>
+
+    // Other required methods from Screen
+    @Override
+    public void show() {
+<span class="nc" id="L136">    }</span>
+
+    @Override
+    public void hide() {
+<span class="nc" id="L140">    }</span>
+
+    @Override
+    public void pause() {
+<span class="nc" id="L144">    }</span>
+
+    @Override
+    public void resume() {
+<span class="nc" id="L148">    }</span>
+
+    @Override
+    public void dispose() {
+<span class="nc" id="L152">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

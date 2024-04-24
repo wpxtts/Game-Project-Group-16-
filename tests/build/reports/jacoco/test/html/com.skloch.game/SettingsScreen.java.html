@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SettingsScreen.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tests</a> &gt; <a href="index.source.html" class="el_package">com.skloch.game</a> &gt; <span class="el_source">SettingsScreen.java</span></div><h1>SettingsScreen.java</h1><pre class="source lang-java linenums">package com.skloch.game;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+
+/**
+ * A screen to display settings to the player, lets the player adjust sound and music volume
+ */
+public class SettingsScreen implements Screen {
+    private HustleGame game;
+    private Stage optionStage;
+    private OrthographicCamera camera;
+    private Viewport viewport;
+    private Window optionMenu;
+    public Slider musicSlider;
+    public Slider sfxSlider;
+    public Screen previousScreen;
+
+
+    /**
+     * Handles the configuration of Music and Sound effect volume using two sliders
+     * @param game An instance of HustleGame
+     * @param previousScreen The previous screen to return to when the exit button is rpessed
+     */
+<span class="nc" id="L36">    public SettingsScreen(final HustleGame game, Screen previousScreen) {</span>
+        // An option screen to let the player adjust the volume of music and sound effects
+<span class="nc" id="L38">        this.game = game;</span>
+<span class="nc" id="L39">        this.previousScreen = previousScreen;</span>
+<span class="nc" id="L40">        optionStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));</span>
+<span class="nc" id="L41">        Gdx.input.setInputProcessor(optionStage);</span>
+
+<span class="nc" id="L43">        camera = new OrthographicCamera();</span>
+<span class="nc" id="L44">        viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);</span>
+<span class="nc" id="L45">        camera.setToOrtho(false, game.WIDTH, game.HEIGHT);</span>
+
+        // Create the window
+<span class="nc" id="L48">        optionMenu = new Window(&quot;&quot;, game.skin);</span>
+<span class="nc" id="L49">        optionStage.addActor(optionMenu);</span>
+<span class="nc" id="L50">        optionMenu.setModal(true);</span>
+
+        // Table for UI elements
+<span class="nc" id="L53">        Table optionTable = new Table();</span>
+<span class="nc" id="L54">        optionMenu.add(optionTable).prefHeight(600);</span>
+
+        // Create all the UI elements
+        // musicSlider and sfxSlider need to be accessible in render so they are already declared
+<span class="nc" id="L58">        TextButton exitButton = new TextButton(&quot;Exit&quot;, game.skin);</span>
+<span class="nc" id="L59">        Label title = new Label(&quot;Settings&quot;, game.skin, &quot;button&quot;);</span>
+<span class="nc" id="L60">        Label musicTitle = new Label(&quot;Music Volume&quot;, game.skin, &quot;interaction&quot;);</span>
+<span class="nc" id="L61">        musicSlider = new Slider(0, 100, 1, false, game.skin, &quot;default-horizontal&quot;);</span>
+<span class="nc" id="L62">        Label sfxTitle = new Label(&quot;SFX Volume&quot;, game.skin, &quot;interaction&quot;);</span>
+<span class="nc" id="L63">        sfxSlider = new Slider(0, 100, 1, false, game.skin, &quot;default-horizontal&quot;);</span>
+<span class="nc" id="L64">        Table sliderTable = new Table();</span>
+        // optionTable.setDebug(true);
+        // sliderTable.setDebug(true);
+
+        // Set to correct values
+<span class="nc" id="L69">        musicSlider.setValue(game.soundManager.getMusicVolume()*100);</span>
+<span class="nc" id="L70">        sfxSlider.setValue(game.soundManager.getSfxVolume()*100);</span>
+
+        // Add to a smaller table to centre the labels and slider bars
+<span class="nc" id="L73">        sliderTable.add(musicTitle).padRight(20);</span>
+<span class="nc" id="L74">        sliderTable.add(musicSlider).prefWidth(250);</span>
+<span class="nc" id="L75">        sliderTable.row().padTop(20);</span>
+<span class="nc" id="L76">        sliderTable.add(sfxTitle).padRight(20).right();</span>
+<span class="nc" id="L77">        sliderTable.add(sfxSlider).prefWidth(250);</span>
+
+        // Add all the UI elements to the table in the window
+<span class="nc" id="L80">        optionTable.add(title).top().padTop(40).padBottom(50);</span>
+<span class="nc" id="L81">        optionTable.row();</span>
+<span class="nc" id="L82">        optionTable.add(sliderTable).fillX();</span>
+<span class="nc" id="L83">        optionTable.row();</span>
+<span class="nc" id="L84">        optionTable.add(exitButton).pad(40, 50, 60, 50).width(300).bottom().expandY();</span>
+
+<span class="nc" id="L86">        optionMenu.pack();</span>
+
+<span class="nc" id="L88">        optionMenu.setSize(600, 600);</span>
+
+        // Centre the window
+<span class="nc" id="L91">        optionMenu.setX((viewport.getWorldWidth() / 2f) - (optionMenu.getWidth() / 2f));</span>
+<span class="nc" id="L92">        optionMenu.setY((viewport.getWorldHeight() / 2f) - (optionMenu.getHeight() / 2f));</span>
+
+        // Create exit button listener
+<span class="nc" id="L95">        exitButton.addListener(new ChangeListener() {</span>
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+<span class="nc" id="L98">                game.soundManager.playButton();</span>
+<span class="nc" id="L99">                dispose();</span>
+<span class="nc" id="L100">                game.setScreen(previousScreen);</span>
+<span class="nc" id="L101">                previousScreen.resume();</span>
+<span class="nc" id="L102">            }</span>
+        });
+<span class="nc" id="L104">    }</span>
+
+
+    /**
+     * Renders a settings screen to let the player configure music and sound volume
+     * @param delta The time in seconds since the last render.
+     */
+    @Override
+    public void render (float delta) {
+<span class="nc" id="L113">        ScreenUtils.clear(0, 0, 0, 1);</span>
+<span class="nc" id="L114">        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</span>
+
+        // Draw blue background
+<span class="nc" id="L117">        game.blueBackground.draw();</span>
+
+<span class="nc" id="L119">        optionStage.act(delta);</span>
+<span class="nc" id="L120">        optionStage.draw();</span>
+
+        // Volumes should be between 0 and 1
+<span class="nc" id="L123">        game.soundManager.setMusicVolume(musicSlider.getValue() / 100);</span>
+<span class="nc" id="L124">        game.soundManager.setSfxVolume(sfxSlider.getValue() / 100);</span>
+
+<span class="nc" id="L126">        camera.update();</span>
+
+<span class="nc" id="L128">    }</span>
+
+
+    /**
+     * Correctly resizes the settings screen
+     * @param width
+     * @param height
+     */
+    @Override
+    public void resize(int width, int height) {
+<span class="nc" id="L138">        optionStage.getViewport().update(width, height);</span>
+<span class="nc" id="L139">        viewport.update(width, height);</span>
+<span class="nc" id="L140">    }</span>
+
+    // Other required methods
+    @Override
+    public void show() {
+<span class="nc" id="L145">    }</span>
+
+    @Override
+    public void hide() {
+<span class="nc" id="L149">    }</span>
+
+    @Override
+    public void pause() {
+<span class="nc" id="L153">    }</span>
+
+    @Override
+    public void resume() {
+<span class="nc" id="L157">    }</span>
+
+    /**
+     * Disposes of the option settings stage
+     */
+    @Override
+    public void dispose() {
+<span class="nc" id="L164">        optionStage.dispose();</span>
+<span class="nc" id="L165">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
