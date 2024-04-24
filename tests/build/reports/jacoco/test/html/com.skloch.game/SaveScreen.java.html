@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SaveScreen.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tests</a> &gt; <a href="index.source.html" class="el_package">com.skloch.game</a> &gt; <span class="el_source">SaveScreen.java</span></div><h1>SaveScreen.java</h1><pre class="source lang-java linenums">package com.skloch.game;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+/**
+ * A scene2d window consisting of a title, a scrollable widget and an exit button.
+ * Used to display the assets used in the game
+ */
+public class SaveScreen implements Screen{
+
+    private HustleGame game;
+    private Stage leaderboardStage;
+    private OrthographicCamera camera;
+    private Viewport viewport;
+
+    /**
+     * A scene2d window consisting of a title, a scrollable widget and an exit button.
+     * Credits are loaded from assets/Text/credits.txt and displayed in the scrollable widget
+     * Thus any changes to assets or licenses must be reflected in credits.txt
+     *
+     */
+<span class="nc" id="L39">    public SaveScreen(HustleGame game, Integer score) {</span>
+        
+        // Basically all the same code as the settings menu
+<span class="nc" id="L42">        this.game = game;</span>
+<span class="nc" id="L43">        leaderboardStage = new Stage(new FitViewport(this.game.WIDTH, this.game.HEIGHT));</span>
+<span class="nc" id="L44">        Gdx.input.setInputProcessor(leaderboardStage);</span>
+
+<span class="nc" id="L46">        camera = new OrthographicCamera();</span>
+<span class="nc" id="L47">        viewport = new FitViewport(this.game.WIDTH, this.game.HEIGHT, camera);</span>
+<span class="nc" id="L48">        camera.setToOrtho(false, this.game.WIDTH, this.game.HEIGHT);</span>
+
+        // Create the window
+<span class="nc" id="L51">        Window leaderboardMenu = new Window(&quot;&quot;, this.game.skin);</span>
+<span class="nc" id="L52">        leaderboardStage.addActor(leaderboardMenu);</span>
+<span class="nc" id="L53">        leaderboardMenu.setModal(true);</span>
+
+        // Table for UI elements in window
+<span class="nc" id="L56">        Table leaderboardTable = new Table();</span>
+<span class="nc" id="L57">        leaderboardMenu.add(leaderboardTable).prefHeight(600);</span>
+<span class="nc" id="L58">        Table saveTable = new Table();</span>
+        // Title
+<span class="nc" id="L60">        Label title = new Label(&quot;Save Score&quot;, this.game.skin, &quot;button&quot;);</span>
+<span class="nc" id="L61">        leaderboardTable.add(title).padTop(10).padLeft(60);</span>
+<span class="nc" id="L62">        leaderboardTable.row();</span>
+
+        // Table for things inside the scrollable widget
+
+<span class="nc" id="L66">        saveTable.add(new Label(&quot;Save total score of &quot;, game.skin, &quot;interaction&quot;)).padBottom(5).padLeft(60);</span>
+<span class="nc" id="L67">        saveTable.row();</span>
+<span class="nc" id="L68">        saveTable.add(new Label((String.valueOf(score)+&quot;?&quot;), game.skin, &quot;button&quot;)).padBottom(15).padLeft(60);</span>
+<span class="nc" id="L69">        saveTable.row();</span>
+<span class="nc" id="L70">        leaderboardTable.add(saveTable).padTop(10).row();</span>
+
+
+        // User text input row
+<span class="nc" id="L74">        TextField userInputField = new TextField(&quot;&quot;, game.skin);</span>
+<span class="nc" id="L75">        userInputField.setMessageText(&quot;     Enter player name&quot;);</span>
+<span class="nc" id="L76">        leaderboardTable.add(userInputField).colspan(2).width(600).padTop(10); // colspan to span across both columns</span>
+<span class="nc" id="L77">        leaderboardTable.row(); // Move to the next row after adding the text input field</span>
+
+        // Padding for labels to move them to the right
+
+
+        // Save button
+<span class="nc" id="L83">        TextButton saveButton = new TextButton(&quot;Save&quot;, this.game.skin);</span>
+<span class="nc" id="L84">        leaderboardTable.add(saveButton).bottom().width(300).padTop(10).padLeft(60);</span>
+<span class="nc" id="L85">        leaderboardTable.row();</span>
+
+
+        // Exit button
+<span class="nc" id="L89">        TextButton exitButton = new TextButton(&quot;Exit&quot;, this.game.skin);</span>
+<span class="nc" id="L90">        leaderboardTable.add(exitButton).bottom().width(300).padTop(10).padLeft(60);</span>
+
+<span class="nc" id="L92">        leaderboardMenu.pack();</span>
+
+<span class="nc" id="L94">        leaderboardMenu.setSize(600, 600);</span>
+
+        // Centre the window
+<span class="nc" id="L97">        leaderboardMenu.setX((viewport.getWorldWidth() / 2) - (leaderboardMenu.getWidth() / 2));</span>
+<span class="nc" id="L98">        leaderboardMenu.setY((viewport.getWorldHeight() / 2) - (leaderboardMenu.getHeight() / 2));</span>
+
+        // Listener for the exit button
+<span class="nc" id="L101">        exitButton.addListener(new ChangeListener() {</span>
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+<span class="nc" id="L104">                SaveScreen.this.game.soundManager.playButton();</span>
+<span class="nc" id="L105">                dispose();</span>
+<span class="nc" id="L106">                SaveScreen.this.game.setScreen(new MenuScreen(SaveScreen.this.game));</span>
+<span class="nc" id="L107">            }</span>
+        });
+
+        // Listener for the save button
+<span class="nc" id="L111">        saveButton.addListener(new ChangeListener() {</span>
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+<span class="nc" id="L114">                SaveScreen.this.game.soundManager.playButton();</span>
+<span class="nc" id="L115">                dispose();</span>
+<span class="nc" id="L116">                String name = userInputField.getText(); // Obtain the text from the input box</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">                if (!name.isEmpty()) { // Check if the text is not empty</span>
+<span class="nc" id="L118">                    saveScore(name, score); // Append the name and score to the CSV file</span>
+                }
+<span class="nc" id="L120">            }</span>
+        });
+<span class="nc" id="L122">    }</span>
+
+    /**
+     * Renders the savemenu window
+     * @param delta The time in seconds since the last render.
+     */
+    @Override
+    public void render (float delta) {
+<span class="nc" id="L130">        ScreenUtils.clear(0, 0, 0, 1);</span>
+<span class="nc" id="L131">        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</span>
+
+<span class="nc" id="L133">        game.blueBackground.draw();</span>
+
+<span class="nc" id="L135">        leaderboardStage.act(delta);</span>
+<span class="nc" id="L136">        leaderboardStage.draw();</span>
+
+<span class="nc" id="L138">        camera.update();</span>
+<span class="nc" id="L139">    }</span>
+
+
+    /**
+     * Correctly resizes the onscreen elements when the window is resized
+     * @param width
+     * @param height
+     */
+    @Override
+    public void resize(int width, int height) {
+<span class="nc" id="L149">        leaderboardStage.getViewport().update(width, height);</span>
+<span class="nc" id="L150">        viewport.update(width, height);</span>
+<span class="nc" id="L151">    }</span>
+
+    private void saveScore(String name, int score) {
+<span class="nc" id="L154">        String filename = &quot;Text/leaderboard.csv&quot;; // Specify the CSV file name</span>
+<span class="nc" id="L155">        String data = name + &quot;,&quot; + score + &quot;\n&quot;; // Format the data to append</span>
+
+        try {
+<span class="nc" id="L158">            FileWriter writer = new FileWriter(filename, true); // Create a FileWriter in append mode</span>
+<span class="nc" id="L159">            writer.write(data); // Write the data to the file</span>
+<span class="nc" id="L160">            writer.close(); // Close the FileWriter</span>
+<span class="nc" id="L161">        } catch (IOException e) {</span>
+<span class="nc" id="L162">            e.printStackTrace();</span>
+<span class="nc" id="L163">        }</span>
+<span class="nc" id="L164">    }</span>
+
+    // Other required methods from Screen
+    @Override
+    public void show() {
+<span class="nc" id="L169">    }</span>
+
+    @Override
+    public void hide() {
+<span class="nc" id="L173">    }</span>
+
+    @Override
+    public void pause() {
+<span class="nc" id="L177">    }</span>
+
+    @Override
+    public void resume() {
+<span class="nc" id="L181">    }</span>
+
+    @Override
+    public void dispose() {
+<span class="nc" id="L185">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
