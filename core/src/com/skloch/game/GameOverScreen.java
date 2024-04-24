@@ -3,8 +3,10 @@ package com.skloch.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -25,6 +27,16 @@ public class GameOverScreen implements Screen {
     Stage gameOverStage;
     Viewport viewport;
     OrthographicCamera camera;
+
+    // Hidden achievement badges
+    private Texture rch;
+    private Texture flower;
+    private Texture bus;
+    private Texture shopping_basket;
+    private Texture fire;
+    private Texture long_boi;
+    private Texture talk;
+    private Texture chest;
 
     /**
      * A screen to display a 'Game Over' screen when the player finishes their exams
@@ -78,6 +90,63 @@ public class GameOverScreen implements Screen {
         scoresTable.add(new Label(String.valueOf(hoursSlept), game.skin, "button")).padBottom(15);
         scoresTable.row();
         scoresTable.add(new Label(scoreString, game.skin, "interaction")).padBottom(5);
+
+//
+//        // Hidden achievements
+//        // Load your texture
+//        rch = new Texture(Gdx.files.internal("Sprites/achievements/hub.png"));
+//        flower  = new Texture(Gdx.files.internal("Sprites/achievements/flower.png"));
+//        bus = new Texture(Gdx.files.internal("Sprites/achievements/bus.png"));
+//        shopping_basket = new Texture(Gdx.files.internal("Sprites/achievements/shopping_basket.png"));
+//        fire = new Texture(Gdx.files.internal("Sprites/achievements/fire.png"));
+//        long_boi = new Texture(Gdx.files.internal("Sprites/achievements/early_bird.png"));
+//        talk = new Texture(Gdx.files.internal("Sprites/achievements/talk.png"));
+//        chest = new Texture(Gdx.files.internal("Sprites/achievements/chest.png"));
+//
+//        // Create an Image widget with the texture
+//        com.badlogic.gdx.scenes.scene2d.ui.Image rch_image = new com.badlogic.gdx.scenes.scene2d.ui.Image(rch);
+//        com.badlogic.gdx.scenes.scene2d.ui.Image flower_image = new com.badlogic.gdx.scenes.scene2d.ui.Image(flower);
+//        com.badlogic.gdx.scenes.scene2d.ui.Image bus_image = new com.badlogic.gdx.scenes.scene2d.ui.Image(bus);
+//        com.badlogic.gdx.scenes.scene2d.ui.Image shopping_basket_image = new com.badlogic.gdx.scenes.scene2d.ui.Image(shopping_basket);
+//        com.badlogic.gdx.scenes.scene2d.ui.Image fire_image = new com.badlogic.gdx.scenes.scene2d.ui.Image(fire);
+//        com.badlogic.gdx.scenes.scene2d.ui.Image long_boi_image = new com.badlogic.gdx.scenes.scene2d.ui.Image(long_boi);
+//        com.badlogic.gdx.scenes.scene2d.ui.Image talk_image = new com.badlogic.gdx.scenes.scene2d.ui.Image(talk);
+//        com.badlogic.gdx.scenes.scene2d.ui.Image chest_image = new Image(chest);
+//
+//        // Set position of the image
+//        rch_image.setPosition(10, 100);
+//        flower_image.setPosition(20, 100);
+//        bus_image.setPosition(30, 100);
+//        shopping_basket_image.setPosition(40, 100);
+//        fire_image.setPosition(50, 100);
+//        long_boi_image.setPosition(60, 100);
+//        talk_image.setPosition(70, 100);
+//        chest_image.setPosition(80, 100);
+//
+//        // Add the image to the stage
+//        gameOverStage.addActor(rch_image);
+//        gameOverStage.addActor(flower_image);
+//        gameOverStage.addActor(bus_image);
+//        gameOverStage.addActor(shopping_basket_image);
+//        gameOverStage.addActor(fire_image);
+//        gameOverStage.addActor(long_boi_image);
+//        gameOverStage.addActor(chest_image);
+
+//        for (String goal : streakGoals){
+//            if (streak > streakGoals){
+//                // Events related to objects
+//                switch (streak) {
+//                    case "talktative":
+//                        gameOverStage.addActor(talk_image);
+//                        break;
+//                    case "rch":
+//                        gameOverStage.addActor(rch_image);
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        }
 
 
         // Exit button
