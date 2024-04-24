@@ -58,21 +58,21 @@ public class SaveScreen implements Screen{
         Table saveTable = new Table();
         // Title
         Label title = new Label("Save Score", this.game.skin, "button");
-        leaderboardTable.add(title).padTop(10);
+        leaderboardTable.add(title).padTop(10).padLeft(60);
         leaderboardTable.row();
 
         // Table for things inside the scrollable widget
 
-        saveTable.add(new Label("Save total score of ", game.skin, "interaction")).padBottom(5);
+        saveTable.add(new Label("Save total score of ", game.skin, "interaction")).padBottom(5).padLeft(60);
         saveTable.row();
-        saveTable.add(new Label((String.valueOf(score)+"?"), game.skin, "button")).padBottom(15);
+        saveTable.add(new Label((String.valueOf(score)+"?"), game.skin, "button")).padBottom(15).padLeft(60);
         saveTable.row();
         leaderboardTable.add(saveTable).padTop(10).row();
 
 
         // User text input row
         TextField userInputField = new TextField("", game.skin);
-        userInputField.setMessageText("Enter player name");
+        userInputField.setMessageText("     Enter player name");
         leaderboardTable.add(userInputField).colspan(2).width(600).padTop(10); // colspan to span across both columns
         leaderboardTable.row(); // Move to the next row after adding the text input field
 
@@ -81,13 +81,13 @@ public class SaveScreen implements Screen{
 
         // Save button
         TextButton saveButton = new TextButton("Save", this.game.skin);
-        leaderboardTable.add(saveButton).bottom().width(300).padTop(10);
+        leaderboardTable.add(saveButton).bottom().width(300).padTop(10).padLeft(60);
         leaderboardTable.row();
 
 
         // Exit button
         TextButton exitButton = new TextButton("Exit", this.game.skin);
-        leaderboardTable.add(exitButton).bottom().width(300).padTop(10);
+        leaderboardTable.add(exitButton).bottom().width(300).padTop(10).padLeft(60);
 
         leaderboardMenu.pack();
 
@@ -111,6 +111,8 @@ public class SaveScreen implements Screen{
         saveButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                SaveScreen.this.game.soundManager.playButton();
+                dispose();
                 String name = userInputField.getText(); // Obtain the text from the input box
                 if (!name.isEmpty()) { // Check if the text is not empty
                     saveScore(name, score); // Append the name and score to the CSV file

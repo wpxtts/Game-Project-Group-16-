@@ -136,6 +136,10 @@ public class LeaderboardScreen implements Screen{
             }
         });
 
+
+        ArrayList leaderboard10 = new ArrayList(leaderboardData.subList(0,10));
+
+
         // Populate the scroll window with the sorted data
         for (String[] entry : leaderboardData) {
             // Create labels for name and score
