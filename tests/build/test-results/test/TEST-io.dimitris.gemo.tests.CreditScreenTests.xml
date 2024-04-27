@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.dimitris.gemo.tests.CreditScreenTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-04-25T19:35:13" hostname="LAPTOP-3JGMF3J6" time="0.013">
-  <properties/>
-  <testcase name="testCreditScreenExit" classname="io.dimitris.gemo.tests.CreditScreenTests" time="0.013"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

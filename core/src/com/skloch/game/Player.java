@@ -13,6 +13,8 @@ import com.badlogic.gdx.utils.Array;
  * A class handling everything needed to control and draw a player, including animation, movement and collision
  */
 public class Player {
+    public static String atlasConfig = "../assets/Sprites/Player/player_sprites.atlas";
+    public static String playerSprite = "../assets/Sprites/Player/player_sprites.png";
     // Hitboxes
     public Rectangle sprite, feet, eventHitbox;
     public float centreX, centreY;
@@ -39,7 +41,7 @@ public class Player {
      */
     public Player (String avatar) {
         // Load the player's textures from the atlas
-        TextureAtlas playerAtlas = new TextureAtlas(Gdx.files.internal("Sprites/Player/player_sprites.atlas"));
+        TextureAtlas playerAtlas = new TextureAtlas(Gdx.files.internal(atlasConfig));
 
         walkingAnimation = new Array<Animation<TextureRegion>>(4);
         idleAnimation = new Array<Animation<TextureRegion>>(4);
@@ -106,23 +108,19 @@ public class Player {
             // Move the player and their 2 other hitboxes
             moving = false;
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
-                this.setX(sprite.getX() - speed * delta); // Note: Setting all the values with a constant delta removes hitbox desyncing issues
-                direction = 3;
+                direction = movePlayer("left",speed,delta);
                 moving = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
-                this.setX(sprite.getX() + speed * delta);
-                direction = 1;
+                direction = movePlayer("right",speed,delta);
                 moving = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
-                this.setY(sprite.getY() + speed * delta);
-                direction = 0;
+                direction = movePlayer("up",speed,delta);
                 moving = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
-                this.setY(sprite.getY() - speed * delta);
-                direction = 2;
+                direction = movePlayer("down",speed,delta);
                 moving = true;
             }
 
@@ -188,6 +186,33 @@ public class Player {
         // Increment the animation
         updateAnimation();
 
+    }
+
+    public int movePlayer(String direction,float speed, float delta){
+        // Direction
+        int directionNum = -1;
+        switch(direction) {
+            case "left":
+                this.setX(sprite.getX() - speed * delta); // Note: Setting all the values with a constant delta removes hitbox desyncing issues
+                directionNum = 3;
+                break;
+            case "right":
+                this.setX(sprite.getX() + speed * delta);
+                directionNum = 1;
+                break;
+            case "up":
+                this.setY(sprite.getY() + speed * delta);
+                directionNum = 0;
+                break;
+            case "down":
+                this.setY(sprite.getY() - speed * delta);
+                directionNum = 2;
+                moving = true;
+                break;
+            default:
+                // Do exception (Invalid Direction!!!)
+        }
+        return directionNum;
     }
 
     /**

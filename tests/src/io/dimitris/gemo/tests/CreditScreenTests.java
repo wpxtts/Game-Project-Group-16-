@@ -13,7 +13,7 @@ import static org.junit.Assert.assertFalse;
 public class CreditScreenTests {
     @Test
     public void testCreditScreenExit(){
-        //HustleGame hustleGame = new HustleGame(800,800);
+        HustleGame hustleGame = new HustleGame(800,800);
         int h = 1;
         //Screen previousScreen = hustleGame.getScreen();
         //CreditScreen creditScreen = new CreditScreen(hustleGame,previousScreen);
