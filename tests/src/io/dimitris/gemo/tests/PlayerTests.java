@@ -1,6 +1,5 @@
 package io.dimitris.gemo.tests;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Rectangle;
 import com.skloch.game.*;
 import org.junit.Test;
@@ -93,5 +92,33 @@ public class PlayerTests {
         player.movePlayerWithinBounds();
         assertEquals(100-player.feet.getWidth()-4*player.scale,player.getX(),0.0001);
         assertEquals(100-player.feet.getHeight(),player.getY(),0.0001);
+    }
+
+    @Test
+    public void testFindClosestInteractableObject(){
+        Player player = new Player("avatar1");
+        GameObject closestObject = new GameObject(player.getX()-1,player.getY()-1,1,1);
+        GameObject midObject = new GameObject(player.getX()-2,player.getY()-2,1,1);
+        GameObject furthestObject = new GameObject(player.getX()-3,player.getY()-3,1,1);
+        GameObject outOfRangeObject = new GameObject(player.getX()-1000, player.getY()-1000,1,1);
+        GameObject unInteractableObject = new GameObject(player.getX()-1,player.getY()-1,1,1);
+
+        closestObject.put("text","hello");
+        midObject.put("text","hello");
+        furthestObject.put("text","hello");
+        outOfRangeObject.put("text","hello");
+
+        assertNull(player.findClosestInteractableObject());
+        player.addCollidable(unInteractableObject);
+        assertNull(player.findClosestInteractableObject());
+        player.addCollidable(outOfRangeObject);
+        assertNull(player.findClosestInteractableObject());
+
+        player.addCollidable(midObject);
+        assertEquals(midObject,player.findClosestInteractableObject());
+        player.addCollidable(furthestObject);
+        assertEquals(midObject,player.findClosestInteractableObject());
+        player.addCollidable(closestObject);
+        assertEquals(closestObject,player.findClosestInteractableObject());
     }
 }

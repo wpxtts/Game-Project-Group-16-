@@ -30,7 +30,7 @@ public class Player {
     private float stateTime = 0;
     private final Array<Animation<TextureRegion>> walkingAnimation, idleAnimation;
     // Stats
-    public float speed = 1000f;
+    public float speed = 500f;
     public Array<GameObject> collidables;
     public int scale = 4;
     private Rectangle bounds;
@@ -135,7 +135,6 @@ public class Player {
 
             // Get all objects you are colliding with
             ArrayList<GameObject> collidingObjects = collisionCheck();
-            System.out.println(collidingObjects);
             for (GameObject collidingObject : collidingObjects){
 
                 // Find the direction that the player needs to be moved back to
@@ -155,46 +154,10 @@ public class Player {
 
 
             // Check the player is in bounds
-//            if (bounds != null) {
-//                // If player is out of bounds, move them back
-//                if (feet.getX() < bounds.getX()) {
-//                    sprite.x = bounds.getX()-4*scale;
-//                    feet.x = sprite.x + 4*scale;
-//                }
-//                if (feet.getX()+feet.getWidth() > bounds.getWidth()) {
-//                    sprite.x = (bounds.getWidth() - feet.getWidth()) - (4*scale);
-//                    feet.x = sprite.x + 4*scale;
-//                }
-//                if (feet.getY() < bounds.getY()) {
-//                    sprite.y = bounds.getY();
-//                    feet.y = bounds.getY();
-//                }
-//                if (feet.getY()+feet.getHeight() > bounds.getHeight()) {
-//                    sprite.y = bounds.getHeight()-feet.getHeight();
-//                    feet.y = sprite.y;
-//                }
-//            }
             movePlayerWithinBounds();
         }
 
-
-
-        // Find the closest object to the player so they can interact with it
-        recalcCentre(); // Just recalculates the centre of the player now we have moved them
-        float distance = -1;
-        closestObject = null;
-        for (GameObject object : this.collidables) {
-            // Check if this object is even interactable
-            if (object.get("event") != null || object.get("text") != null) {
-                if (eventHitbox.overlaps(object)) {
-                    // Check if this is the closest object to the player
-                    if (distance == -1 || distanceFrom(object) < distance) {
-                        closestObject = object;
-                        distance = distanceFrom(object);
-                    }
-                }
-            }
-        }
+        GameObject closestObject = findClosestInteractableObject();
 
         // Increment the animation
         updateAnimation();
@@ -270,6 +233,25 @@ public class Player {
         }
     }
 
+    public GameObject findClosestInteractableObject(){
+        // Find the closest object to the player so they can interact with it
+        recalcCentre(); // Just recalculates the centre of the player now we have moved them
+        float distance = -1;
+        closestObject = null;
+        for (GameObject object : this.collidables) {
+            // Check if this object is even interactable
+            if (object.get("event") != null || object.get("text") != null) {
+                if (eventHitbox.overlaps(object)) {
+                    // Check if this is the closest object to the player
+                    if (distance == -1 || distanceFrom(object) < distance) {
+                        closestObject = object;
+                        distance = distanceFrom(object);
+                    }
+                }
+            }
+        }
+        return closestObject;
+    }
 
     /**
      * Advances the current animation based on the time since the last render
