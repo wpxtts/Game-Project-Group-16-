@@ -23,7 +23,22 @@ public class PlayerTests {
         // Sprite starts at (0,0)
 
         //Check left movement
-        assertEquals(player.movePlayer("left",10, 1),3);
+        assertEquals(player.movePlayer(Player.left,10, 1),Player.left);
         assertEquals(player.getX(),-10,0.0001);
+
+        //Check right movement
+        assertEquals(player.movePlayer(Player.right,10, 1),Player.right);
+        assertEquals(player.getX(),0,0.0001);
+
+        //Check up movement
+        assertEquals(player.movePlayer(Player.up,10, 1),Player.up);
+        assertEquals(player.getY(),10,0.0001);
+
+        //Check down movement
+        assertEquals(player.movePlayer(Player.down,10, 1),Player.down);
+        assertEquals(player.getY(),0,0.0001);
+
+        //Check invalid direction
+        Exception exception = assertThrows(IllegalArgumentException.class,()->player.movePlayer(1323,10,1));
     }
 }

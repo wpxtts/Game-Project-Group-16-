@@ -19,13 +19,17 @@ public class Player {
     public Rectangle sprite, feet, eventHitbox;
     public float centreX, centreY;
 <span class="fc" id="L21">    public int direction = 2; // 0 = up, 1 = right, 2 = down, 3 = left (like a clock)</span>
+    public static final int up = 0;
+    public static final int right = 1;
+    public static final int left =3;
+    public static final int down = 2;
     private TextureRegion currentFrame;
-<span class="fc" id="L23">    private float stateTime = 0;</span>
+<span class="fc" id="L27">    private float stateTime = 0;</span>
     private final Array&lt;Animation&lt;TextureRegion&gt;&gt; walkingAnimation, idleAnimation;
     // Stats
-<span class="fc" id="L26">    public float speed = 1000f;</span>
+<span class="fc" id="L30">    public float speed = 1000f;</span>
     public Array&lt;GameObject&gt; collidables;
-<span class="fc" id="L28">    public int scale = 4;</span>
+<span class="fc" id="L32">    public int scale = 4;</span>
     private Rectangle bounds;
     private GameObject closestObject;
     public boolean frozen, moving;
@@ -39,46 +43,46 @@ public class Player {
      * @param avatar &quot;avatar1&quot; for the more masculine character, &quot;avatar2&quot; for the more feminine character,
      *               player animations are packed in the player_sprites atlas
      */
-<span class="fc" id="L42">    public Player (String avatar) {</span>
+<span class="fc" id="L46">    public Player (String avatar) {</span>
         // Load the player's textures from the atlas
-<span class="fc" id="L44">        TextureAtlas playerAtlas = new TextureAtlas(Gdx.files.internal(atlasConfig));</span>
+<span class="fc" id="L48">        TextureAtlas playerAtlas = new TextureAtlas(Gdx.files.internal(atlasConfig));</span>
 
-<span class="fc" id="L46">        walkingAnimation = new Array&lt;Animation&lt;TextureRegion&gt;&gt;(4);</span>
-<span class="fc" id="L47">        idleAnimation = new Array&lt;Animation&lt;TextureRegion&gt;&gt;(4);</span>
+<span class="fc" id="L50">        walkingAnimation = new Array&lt;Animation&lt;TextureRegion&gt;&gt;(4);</span>
+<span class="fc" id="L51">        idleAnimation = new Array&lt;Animation&lt;TextureRegion&gt;&gt;(4);</span>
 
         // Load walking animation from Sprite atlas
-<span class="fc" id="L50">        walkingAnimation.add(</span>
-<span class="fc" id="L51">                new Animation&lt;TextureRegion&gt;(0.25f, playerAtlas.findRegions(avatar + &quot;_walk_back&quot;), Animation.PlayMode.LOOP),</span>
-<span class="fc" id="L52">                new Animation&lt;TextureRegion&gt;(0.25f, playerAtlas.findRegions(avatar + &quot;_walk_right&quot;), Animation.PlayMode.LOOP),</span>
-<span class="fc" id="L53">                new Animation&lt;TextureRegion&gt;(0.25f, playerAtlas.findRegions(avatar + &quot;_walk_front&quot;), Animation.PlayMode.LOOP),</span>
-<span class="fc" id="L54">                new Animation&lt;TextureRegion&gt;(0.25f, playerAtlas.findRegions(avatar + &quot;_walk_left&quot;), Animation.PlayMode.LOOP));</span>
+<span class="fc" id="L54">        walkingAnimation.add(</span>
+<span class="fc" id="L55">                new Animation&lt;TextureRegion&gt;(0.25f, playerAtlas.findRegions(avatar + &quot;_walk_back&quot;), Animation.PlayMode.LOOP),</span>
+<span class="fc" id="L56">                new Animation&lt;TextureRegion&gt;(0.25f, playerAtlas.findRegions(avatar + &quot;_walk_right&quot;), Animation.PlayMode.LOOP),</span>
+<span class="fc" id="L57">                new Animation&lt;TextureRegion&gt;(0.25f, playerAtlas.findRegions(avatar + &quot;_walk_front&quot;), Animation.PlayMode.LOOP),</span>
+<span class="fc" id="L58">                new Animation&lt;TextureRegion&gt;(0.25f, playerAtlas.findRegions(avatar + &quot;_walk_left&quot;), Animation.PlayMode.LOOP));</span>
         // Load idle animation
-<span class="fc" id="L56">        idleAnimation.add(</span>
-<span class="fc" id="L57">                new Animation&lt;TextureRegion&gt;(0.40f, playerAtlas.findRegions(avatar + &quot;_idle_back&quot;), Animation.PlayMode.LOOP),</span>
-<span class="fc" id="L58">                new Animation&lt;TextureRegion&gt;(0.40f, playerAtlas.findRegions(avatar + &quot;_idle_right&quot;), Animation.PlayMode.LOOP),</span>
-<span class="fc" id="L59">                new Animation&lt;TextureRegion&gt;(0.40f, playerAtlas.findRegions(avatar + &quot;_idle_front&quot;), Animation.PlayMode.LOOP),</span>
-<span class="fc" id="L60">                new Animation&lt;TextureRegion&gt;(0.40f, playerAtlas.findRegions(avatar + &quot;_idle_left&quot;), Animation.PlayMode.LOOP)</span>
+<span class="fc" id="L60">        idleAnimation.add(</span>
+<span class="fc" id="L61">                new Animation&lt;TextureRegion&gt;(0.40f, playerAtlas.findRegions(avatar + &quot;_idle_back&quot;), Animation.PlayMode.LOOP),</span>
+<span class="fc" id="L62">                new Animation&lt;TextureRegion&gt;(0.40f, playerAtlas.findRegions(avatar + &quot;_idle_right&quot;), Animation.PlayMode.LOOP),</span>
+<span class="fc" id="L63">                new Animation&lt;TextureRegion&gt;(0.40f, playerAtlas.findRegions(avatar + &quot;_idle_front&quot;), Animation.PlayMode.LOOP),</span>
+<span class="fc" id="L64">                new Animation&lt;TextureRegion&gt;(0.40f, playerAtlas.findRegions(avatar + &quot;_idle_left&quot;), Animation.PlayMode.LOOP)</span>
         );
 
-<span class="fc" id="L63">        collidables = new Array&lt;GameObject&gt;();</span>
+<span class="fc" id="L67">        collidables = new Array&lt;GameObject&gt;();</span>
 
         // Sprite is a rectangle covering the whole player
-<span class="fc" id="L66">        sprite = new Rectangle(0, 0, 17*scale, 28*scale);</span>
+<span class="fc" id="L70">        sprite = new Rectangle(0, 0, 17*scale, 28*scale);</span>
 
         // Feet is a rectangle just covering the player's feet, so is better for collision
-<span class="fc" id="L69">        feet = new Rectangle(4*scale, 0, 9*scale, 7*scale);</span>
+<span class="fc" id="L73">        feet = new Rectangle(4*scale, 0, 9*scale, 7*scale);</span>
 
         // Hitbox for triggering events with objects
-<span class="fc" id="L72">        float hitboxScaleX = 2.2f;</span>
-<span class="fc" id="L73">        float hitboxScaley = 1.7f;</span>
-<span class="fc" id="L74">        eventHitbox = new Rectangle(</span>
-<span class="fc" id="L75">                sprite.getX() - (sprite.getWidth()*hitboxScaleX - sprite.getWidth()) / 2,</span>
-<span class="fc" id="L76">                sprite.getY() - (sprite.getHeight()*hitboxScaley - sprite.getHeight()) / 2,</span>
-<span class="fc" id="L77">                sprite.getWidth()*hitboxScaleX,</span>
-<span class="fc" id="L78">                sprite.getHeight()*hitboxScaley</span>
+<span class="fc" id="L76">        float hitboxScaleX = 2.2f;</span>
+<span class="fc" id="L77">        float hitboxScaley = 1.7f;</span>
+<span class="fc" id="L78">        eventHitbox = new Rectangle(</span>
+<span class="fc" id="L79">                sprite.getX() - (sprite.getWidth()*hitboxScaleX - sprite.getWidth()) / 2,</span>
+<span class="fc" id="L80">                sprite.getY() - (sprite.getHeight()*hitboxScaley - sprite.getHeight()) / 2,</span>
+<span class="fc" id="L81">                sprite.getWidth()*hitboxScaleX,</span>
+<span class="fc" id="L82">                sprite.getHeight()*hitboxScaley</span>
         );
 
-<span class="fc" id="L81">    }</span>
+<span class="fc" id="L85">    }</span>
 
     /**
      * Handles all the logic involved in moving the player given keyboard inputs
@@ -97,69 +101,69 @@ public class Player {
         // Also updates the direction they are facing, and whether they are currently moving
         // And also does collision
 
-<span class="nc" id="L100">        moving = false;</span>
+<span class="nc" id="L104">        moving = false;</span>
         // To check collision, store the player's current position
-<span class="nc" id="L102">        float oldX = sprite.x;</span>
-<span class="nc" id="L103">        float oldY = sprite.y;</span>
-<span class="nc" id="L104">        float oldFeetX = feet.x;</span>
+<span class="nc" id="L106">        float oldX = sprite.x;</span>
+<span class="nc" id="L107">        float oldY = sprite.y;</span>
+<span class="nc" id="L108">        float oldFeetX = feet.x;</span>
 
         // If not frozen, react to keyboard input presses
-<span class="nc bnc" id="L107" title="All 2 branches missed.">        if (!frozen) {</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        if (!frozen) {</span>
             // Move the player and their 2 other hitboxes
-<span class="nc" id="L109">            moving = false;</span>
-<span class="nc bnc" id="L110" title="All 4 branches missed.">            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {</span>
-<span class="nc" id="L111">                direction = movePlayer(&quot;left&quot;,speed,delta);</span>
-<span class="nc" id="L112">                moving = true;</span>
-            }
-<span class="nc bnc" id="L114" title="All 4 branches missed.">            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {</span>
-<span class="nc" id="L115">                direction = movePlayer(&quot;right&quot;,speed,delta);</span>
+<span class="nc" id="L113">            moving = false;</span>
+<span class="nc bnc" id="L114" title="All 4 branches missed.">            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {</span>
+<span class="nc" id="L115">                direction = movePlayer(left,speed,delta);</span>
 <span class="nc" id="L116">                moving = true;</span>
             }
-<span class="nc bnc" id="L118" title="All 4 branches missed.">            if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {</span>
-<span class="nc" id="L119">                direction = movePlayer(&quot;up&quot;,speed,delta);</span>
+<span class="nc bnc" id="L118" title="All 4 branches missed.">            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {</span>
+<span class="nc" id="L119">                direction = movePlayer(right,speed,delta);</span>
 <span class="nc" id="L120">                moving = true;</span>
             }
-<span class="nc bnc" id="L122" title="All 4 branches missed.">            if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {</span>
-<span class="nc" id="L123">                direction = movePlayer(&quot;down&quot;,speed,delta);</span>
+<span class="nc bnc" id="L122" title="All 4 branches missed.">            if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {</span>
+<span class="nc" id="L123">                direction = movePlayer(up,speed,delta);</span>
 <span class="nc" id="L124">                moving = true;</span>
+            }
+<span class="nc bnc" id="L126" title="All 4 branches missed.">            if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {</span>
+<span class="nc" id="L127">                direction = movePlayer(down,speed,delta);</span>
+<span class="nc" id="L128">                moving = true;</span>
             }
 
             // Check if the player's feet are inside an object, if they are, move them back in that axis
-<span class="nc bnc" id="L128" title="All 2 branches missed.">            for (GameObject object : this.collidables) {</span>
-<span class="nc bnc" id="L129" title="All 2 branches missed.">                if (feet.overlaps(object)) {</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">            for (GameObject object : this.collidables) {</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">                if (feet.overlaps(object)) {</span>
                     // Find the direction that the player needs to be moved back to
                     // Reset x
-<span class="nc bnc" id="L132" title="All 4 branches missed.">                    if (!(oldFeetX &lt; object.x + object.width &amp;&amp; oldFeetX + feet.width &gt; object.x)) {</span>
-<span class="nc" id="L133">                        this.setX(oldX);</span>
+<span class="nc bnc" id="L136" title="All 4 branches missed.">                    if (!(oldFeetX &lt; object.x + object.width &amp;&amp; oldFeetX + feet.width &gt; object.x)) {</span>
+<span class="nc" id="L137">                        this.setX(oldX);</span>
                     }
                     // If overlapping in y direction
-<span class="nc bnc" id="L136" title="All 4 branches missed.">                    if (!(oldY &lt; object.y + object.height &amp;&amp; oldY + feet.height &gt; object.y)) {</span>
-<span class="nc" id="L137">                        this.setY(oldY);</span>
+<span class="nc bnc" id="L140" title="All 4 branches missed.">                    if (!(oldY &lt; object.y + object.height &amp;&amp; oldY + feet.height &gt; object.y)) {</span>
+<span class="nc" id="L141">                        this.setY(oldY);</span>
                     }
                     // The above two are essentially the same code as Rectangle.overlaps()
                     // Just separated into the x and y dimensions
                 }
-<span class="nc" id="L142">            }</span>
+<span class="nc" id="L146">            }</span>
 
 
             // Check the player is in bounds
-<span class="nc bnc" id="L146" title="All 2 branches missed.">            if (bounds != null) {</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">            if (bounds != null) {</span>
                 // If player is out of bounds, move them back
-<span class="nc bnc" id="L148" title="All 2 branches missed.">                if (feet.getX() &lt; bounds.getX()) {</span>
-<span class="nc" id="L149">                    sprite.x = bounds.getX()-4*scale;</span>
-<span class="nc" id="L150">                    feet.x = sprite.x + 4*scale;</span>
-                }
-<span class="nc bnc" id="L152" title="All 2 branches missed.">                if (feet.getX()+feet.getWidth() &gt; bounds.getWidth()) {</span>
-<span class="nc" id="L153">                    sprite.x = (bounds.getWidth() - feet.getWidth()) - (4*scale);</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">                if (feet.getX() &lt; bounds.getX()) {</span>
+<span class="nc" id="L153">                    sprite.x = bounds.getX()-4*scale;</span>
 <span class="nc" id="L154">                    feet.x = sprite.x + 4*scale;</span>
                 }
-<span class="nc bnc" id="L156" title="All 2 branches missed.">                if (feet.getY() &lt; bounds.getY()) {</span>
-<span class="nc" id="L157">                    sprite.y = bounds.getY();</span>
-<span class="nc" id="L158">                    feet.y = bounds.getY();</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">                if (feet.getX()+feet.getWidth() &gt; bounds.getWidth()) {</span>
+<span class="nc" id="L157">                    sprite.x = (bounds.getWidth() - feet.getWidth()) - (4*scale);</span>
+<span class="nc" id="L158">                    feet.x = sprite.x + 4*scale;</span>
                 }
-<span class="nc bnc" id="L160" title="All 2 branches missed.">                if (feet.getY()+feet.getHeight() &gt; bounds.getHeight()) {</span>
-<span class="nc" id="L161">                    sprite.y = bounds.getHeight()-feet.getHeight();</span>
-<span class="nc" id="L162">                    feet.y = sprite.y;</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">                if (feet.getY() &lt; bounds.getY()) {</span>
+<span class="nc" id="L161">                    sprite.y = bounds.getY();</span>
+<span class="nc" id="L162">                    feet.y = bounds.getY();</span>
+                }
+<span class="nc bnc" id="L164" title="All 2 branches missed.">                if (feet.getY()+feet.getHeight() &gt; bounds.getHeight()) {</span>
+<span class="nc" id="L165">                    sprite.y = bounds.getHeight()-feet.getHeight();</span>
+<span class="nc" id="L166">                    feet.y = sprite.y;</span>
                 }
             }
         }
@@ -167,52 +171,54 @@ public class Player {
 
 
         // Find the closest object to the player so they can interact with it
-<span class="nc" id="L170">        recalcCentre(); // Just recalculates the centre of the player now we have moved them</span>
-<span class="nc" id="L171">        float distance = -1;</span>
-<span class="nc" id="L172">        closestObject = null;</span>
-<span class="nc bnc" id="L173" title="All 2 branches missed.">        for (GameObject object : this.collidables) {</span>
+<span class="nc" id="L174">        recalcCentre(); // Just recalculates the centre of the player now we have moved them</span>
+<span class="nc" id="L175">        float distance = -1;</span>
+<span class="nc" id="L176">        closestObject = null;</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">        for (GameObject object : this.collidables) {</span>
             // Check if this object is even interactable
-<span class="nc bnc" id="L175" title="All 4 branches missed.">            if (object.get(&quot;event&quot;) != null || object.get(&quot;text&quot;) != null) {</span>
-<span class="nc bnc" id="L176" title="All 2 branches missed.">                if (eventHitbox.overlaps(object)) {</span>
+<span class="nc bnc" id="L179" title="All 4 branches missed.">            if (object.get(&quot;event&quot;) != null || object.get(&quot;text&quot;) != null) {</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">                if (eventHitbox.overlaps(object)) {</span>
                     // Check if this is the closest object to the player
-<span class="nc bnc" id="L178" title="All 4 branches missed.">                    if (distance == -1 || distanceFrom(object) &lt; distance) {</span>
-<span class="nc" id="L179">                        closestObject = object;</span>
-<span class="nc" id="L180">                        distance = distanceFrom(object);</span>
+<span class="nc bnc" id="L182" title="All 4 branches missed.">                    if (distance == -1 || distanceFrom(object) &lt; distance) {</span>
+<span class="nc" id="L183">                        closestObject = object;</span>
+<span class="nc" id="L184">                        distance = distanceFrom(object);</span>
                     }
                 }
             }
-<span class="nc" id="L184">        }</span>
+<span class="nc" id="L188">        }</span>
 
         // Increment the animation
-<span class="nc" id="L187">        updateAnimation();</span>
+<span class="nc" id="L191">        updateAnimation();</span>
 
-<span class="nc" id="L189">    }</span>
+<span class="nc" id="L193">    }</span>
 
-    public int movePlayer(String direction,float speed, float delta){
+    /**
+     * Moves player in direction specified,
+     * @param direction &quot;left&quot;,&quot;right&quot;,&quot;up&quot;, or &quot;down&quot; to indicate which direction to go in
+     * @param speed
+     * @param delta
+     * @return
+     */
+    public int movePlayer(int direction,float speed, float delta){
         // Direction
-<span class="fc" id="L193">        int directionNum = -1;</span>
-<span class="pc bpc" id="L194" title="4 of 5 branches missed.">        switch(direction) {</span>
-            case &quot;left&quot;:
-<span class="fc" id="L196">                this.setX(sprite.getX() - speed * delta); // Note: Setting all the values with a constant delta removes hitbox desyncing issues</span>
-<span class="fc" id="L197">                directionNum = 3;</span>
-<span class="fc" id="L198">                break;</span>
-            case &quot;right&quot;:
-<span class="nc" id="L200">                this.setX(sprite.getX() + speed * delta);</span>
-<span class="nc" id="L201">                directionNum = 1;</span>
-<span class="nc" id="L202">                break;</span>
-            case &quot;up&quot;:
-<span class="nc" id="L204">                this.setY(sprite.getY() + speed * delta);</span>
-<span class="nc" id="L205">                directionNum = 0;</span>
-<span class="nc" id="L206">                break;</span>
-            case &quot;down&quot;:
-<span class="nc" id="L208">                this.setY(sprite.getY() - speed * delta);</span>
-<span class="nc" id="L209">                directionNum = 2;</span>
-<span class="nc" id="L210">                moving = true;</span>
-<span class="nc" id="L211">                break;</span>
+<span class="fc" id="L204">        int directionNum = -1;</span>
+<span class="fc bfc" id="L205" title="All 5 branches covered.">        switch(direction) {</span>
+            case Player.left:
+<span class="fc" id="L207">                this.setX(sprite.getX() - speed * delta); // Note: Setting all the values with a constant delta removes hitbox desyncing issues</span>
+<span class="fc" id="L208">                break;</span>
+            case Player.right:
+<span class="fc" id="L210">                this.setX(sprite.getX() + speed * delta);</span>
+<span class="fc" id="L211">                break;</span>
+            case Player.up:
+<span class="fc" id="L213">                this.setY(sprite.getY() + speed * delta);</span>
+<span class="fc" id="L214">                break;</span>
+            case Player.down:
+<span class="fc" id="L216">                this.setY(sprite.getY() - speed * delta);</span>
+<span class="fc" id="L217">                break;</span>
             default:
-                // Do exception (Invalid Direction!!!)
+<span class="fc" id="L219">                throw new IllegalArgumentException(&quot;Direction must be up, down, left, or right.&quot;);</span>
         }
-<span class="fc" id="L215">        return directionNum;</span>
+<span class="fc" id="L221">        return direction;</span>
     }
 
     /**
@@ -220,15 +226,15 @@ public class Player {
      * The animation frame of the player can be grabbed with getCurrentFrame
      */
     public void updateAnimation() {
-<span class="nc" id="L223">        stateTime += Gdx.graphics.getDeltaTime();</span>
+<span class="nc" id="L229">        stateTime += Gdx.graphics.getDeltaTime();</span>
         // Set the current frame of the animation
         // Show a different animation if the player is moving vs idling
-<span class="nc bnc" id="L226" title="All 2 branches missed.">        if (moving) {</span>
-<span class="nc" id="L227">            currentFrame = walkingAnimation.get(direction).getKeyFrame(stateTime);</span>
+<span class="nc bnc" id="L232" title="All 2 branches missed.">        if (moving) {</span>
+<span class="nc" id="L233">            currentFrame = walkingAnimation.get(direction).getKeyFrame(stateTime);</span>
         } else {
-<span class="nc" id="L229">            currentFrame = idleAnimation.get(direction).getKeyFrame(stateTime);</span>
+<span class="nc" id="L235">            currentFrame = idleAnimation.get(direction).getKeyFrame(stateTime);</span>
         }
-<span class="nc" id="L231">    }</span>
+<span class="nc" id="L237">    }</span>
 
     /**
      * Returns whether the player's eventHitbox overlaps an object
@@ -237,7 +243,7 @@ public class Player {
      * @return true if a player is near enough an object to interact with it
      */
     public boolean nearObject() {
-<span class="nc bnc" id="L240" title="All 2 branches missed.">        return closestObject != null;</span>
+<span class="nc bnc" id="L246" title="All 2 branches missed.">        return closestObject != null;</span>
     }
 
     /**
@@ -246,7 +252,7 @@ public class Player {
      * @return A GameObject that is closest
      */
     public GameObject getClosestObject () {
-<span class="nc" id="L249">        return closestObject;</span>
+<span class="nc" id="L255">        return closestObject;</span>
     }
 
     /**
@@ -255,7 +261,7 @@ public class Player {
      * @return true if the player is moving
      */
     public boolean isMoving() {
-<span class="nc" id="L258">        return moving;</span>
+<span class="nc" id="L264">        return moving;</span>
     }
 
     /**
@@ -264,8 +270,8 @@ public class Player {
      * @param moving The boolean to set moving to
      */
     public void setMoving(boolean moving) {
-<span class="nc" id="L267">        this.moving = moving;</span>
-<span class="nc" id="L268">    }</span>
+<span class="nc" id="L273">        this.moving = moving;</span>
+<span class="nc" id="L274">    }</span>
 
 
     /**
@@ -275,7 +281,7 @@ public class Player {
      */
     public TextureRegion getCurrentFrame () {
         // Returns the current frame the player animation is on
-<span class="nc" id="L278">        return currentFrame;</span>
+<span class="nc" id="L284">        return currentFrame;</span>
     }
 
     /**
@@ -284,8 +290,8 @@ public class Player {
      * @param collidables An array of GameObjects that the player should collide with
      */
     public void setCollidables (Array&lt;GameObject&gt; collidables) {
-<span class="nc" id="L287">        this.collidables = collidables;</span>
-<span class="nc" id="L288">    }</span>
+<span class="nc" id="L293">        this.collidables = collidables;</span>
+<span class="nc" id="L294">    }</span>
 
     /**
      * Adds a GameObeject to the player's list of collidable objects
@@ -293,42 +299,42 @@ public class Player {
      * @param object a GameObject for the player to collide with
      */
     public void addCollidable (GameObject object) {
-<span class="nc" id="L296">        this.collidables.add(object);</span>
-<span class="nc" id="L297">    }</span>
+<span class="nc" id="L302">        this.collidables.add(object);</span>
+<span class="nc" id="L303">    }</span>
 
     /**
      * @return The X coordinate of the player
      */
     public float getX () {
-<span class="fc" id="L303">        return sprite.getX();</span>
+<span class="fc" id="L309">        return sprite.getX();</span>
     }
     /**
      * @return The Y coordinate of the player
      */
     public float getY () {
-<span class="nc" id="L309">        return sprite.getY();</span>
+<span class="fc" id="L315">        return sprite.getY();</span>
     }
 
     /**
      * @return The X coordinate of the centre point of the player's sprite rectangle
      */
     public float getCentreX () {
-<span class="nc" id="L316">        return centreX;</span>
+<span class="nc" id="L322">        return centreX;</span>
     }
     /**
      * @return The Y coordinate of the centre point of the player's sprite rectangle
      */
     public float getCentreY () {
-<span class="nc" id="L322">        return centreY;</span>
+<span class="nc" id="L328">        return centreY;</span>
     }
 
     /**
      * @return The Vector3 representation of the bottom left corner of the player's sprite hitbox
      */
     public Vector3 getPosAsVec3() {
-<span class="nc" id="L329">        return new Vector3(</span>
-<span class="nc" id="L330">                sprite.getX(),</span>
-<span class="nc" id="L331">                sprite.getY(),</span>
+<span class="nc" id="L335">        return new Vector3(</span>
+<span class="nc" id="L336">                sprite.getX(),</span>
+<span class="nc" id="L337">                sprite.getY(),</span>
                 0
         );
     }
@@ -337,20 +343,20 @@ public class Player {
      * Sets the x coordinate of the player, updating all 3 hitboxes at once as opposed to just the sprite rectangle
      */
     public void setX (float x) {
-<span class="fc" id="L340">        this.sprite.setX(x);</span>
-<span class="fc" id="L341">        this.feet.setX(x + 4*scale);</span>
-<span class="fc" id="L342">        this.eventHitbox.setX(this.sprite.getX() - (this.eventHitbox.getWidth() - sprite.getWidth()) / 2);</span>
-<span class="fc" id="L343">        this.recalcCentre();</span>
-<span class="fc" id="L344">    }</span>
+<span class="fc" id="L346">        this.sprite.setX(x);</span>
+<span class="fc" id="L347">        this.feet.setX(x + 4*scale);</span>
+<span class="fc" id="L348">        this.eventHitbox.setX(this.sprite.getX() - (this.eventHitbox.getWidth() - sprite.getWidth()) / 2);</span>
+<span class="fc" id="L349">        this.recalcCentre();</span>
+<span class="fc" id="L350">    }</span>
     /**
      * Sets the Y coordinate of the player, updating all 3 hitboxes at once as opposed to just the sprite rectangle
      */
     public void setY (float y) {
-<span class="nc" id="L349">        this.sprite.setY(y);</span>
-<span class="nc" id="L350">        this.feet.setY(y);</span>
-<span class="nc" id="L351">        this.eventHitbox.setY(this.sprite.getY() - (this.eventHitbox.getHeight() - sprite.getHeight()) / 2);</span>
-<span class="nc" id="L352">        this.recalcCentre();</span>
-<span class="nc" id="L353">    }</span>
+<span class="fc" id="L355">        this.sprite.setY(y);</span>
+<span class="fc" id="L356">        this.feet.setY(y);</span>
+<span class="fc" id="L357">        this.eventHitbox.setY(this.sprite.getY() - (this.eventHitbox.getHeight() - sprite.getHeight()) / 2);</span>
+<span class="fc" id="L358">        this.recalcCentre();</span>
+<span class="fc" id="L359">    }</span>
 
     /**
      *
@@ -358,9 +364,9 @@ public class Player {
      * @param y The Y coordinate to set the player to
      */
     public void setPos (float x, float y) {
-<span class="nc" id="L361">        this.setX(x);</span>
-<span class="nc" id="L362">        this.setY(y);</span>
-<span class="nc" id="L363">    }</span>
+<span class="nc" id="L367">        this.setX(x);</span>
+<span class="nc" id="L368">        this.setY(y);</span>
+<span class="nc" id="L369">    }</span>
 
     /**
      * Set a large rectangle that the player should be kept inside, set to null to set no bounds
@@ -369,8 +375,8 @@ public class Player {
      */
     public void setBounds (Rectangle bounds) {
         // Set a rectangle that the player should not leave
-<span class="nc" id="L372">        this.bounds = bounds;</span>
-<span class="nc" id="L373">    }</span>
+<span class="nc" id="L378">        this.bounds = bounds;</span>
+<span class="nc" id="L379">    }</span>
 
     /**
      * Returns the euclidian distance from a GameObject to the centre of the player
@@ -379,16 +385,16 @@ public class Player {
      * @return The distance from the object
      */
     private float distanceFrom (GameObject object) {
-<span class="nc" id="L382">        return (float) Math.sqrt((Math.pow((centreX - object.centreX), 2) + Math.pow((centreY - object.centreY), 2)));</span>
+<span class="nc" id="L388">        return (float) Math.sqrt((Math.pow((centreX - object.centreX), 2) + Math.pow((centreY - object.centreY), 2)));</span>
     }
 
     /**
      * Recalculates the centre of the player, useful after moving the player
      */
     private void recalcCentre() {
-<span class="fc" id="L389">        centreX = sprite.getX() + sprite.getWidth() / 2;</span>
-<span class="fc" id="L390">        centreY = sprite.getY() + sprite.getHeight() / 2;</span>
-<span class="fc" id="L391">    }</span>
+<span class="fc" id="L395">        centreX = sprite.getX() + sprite.getWidth() / 2;</span>
+<span class="fc" id="L396">        centreY = sprite.getY() + sprite.getHeight() / 2;</span>
+<span class="fc" id="L397">    }</span>
 
     /**
      * Sets the player to frozen, a frozen player can be set to ignore keyboard inputs in render
@@ -396,18 +402,18 @@ public class Player {
      * @param freeze The value to set frozen to
      */
     public void setFrozen (boolean freeze) {
-<span class="nc" id="L399">        this.frozen = freeze;</span>
-<span class="nc bnc" id="L400" title="All 2 branches missed.">        if (freeze) {</span>
+<span class="nc" id="L405">        this.frozen = freeze;</span>
+<span class="nc bnc" id="L406" title="All 2 branches missed.">        if (freeze) {</span>
             // Set to non-moving frame
-<span class="nc" id="L402">            currentFrame = idleAnimation.get(direction).getKeyFrame(stateTime);</span>
+<span class="nc" id="L408">            currentFrame = idleAnimation.get(direction).getKeyFrame(stateTime);</span>
         }
-<span class="nc" id="L404">    }</span>
+<span class="nc" id="L410">    }</span>
 
     /**
      * @return true if the player is frozen
      */
     public boolean isFrozen () {
-<span class="nc" id="L410">        return this.frozen;</span>
+<span class="nc" id="L416">        return this.frozen;</span>
     }
 
 }

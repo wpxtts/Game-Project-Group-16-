@@ -19,6 +19,10 @@ public class Player {
     public Rectangle sprite, feet, eventHitbox;
     public float centreX, centreY;
     public int direction = 2; // 0 = up, 1 = right, 2 = down, 3 = left (like a clock)
+    public static final int up = 0;
+    public static final int right = 1;
+    public static final int left =3;
+    public static final int down = 2;
     private TextureRegion currentFrame;
     private float stateTime = 0;
     private final Array<Animation<TextureRegion>> walkingAnimation, idleAnimation;
@@ -108,19 +112,19 @@ public class Player {
             // Move the player and their 2 other hitboxes
             moving = false;
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
-                direction = movePlayer("left",speed,delta);
+                direction = movePlayer(left,speed,delta);
                 moving = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
-                direction = movePlayer("right",speed,delta);
+                direction = movePlayer(right,speed,delta);
                 moving = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
-                direction = movePlayer("up",speed,delta);
+                direction = movePlayer(up,speed,delta);
                 moving = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
-                direction = movePlayer("down",speed,delta);
+                direction = movePlayer(down,speed,delta);
                 moving = true;
             }
 
@@ -188,31 +192,33 @@ public class Player {
 
     }
 
-    public int movePlayer(String direction,float speed, float delta){
+    /**
+     * Moves player in direction specified,
+     * @param direction "left","right","up", or "down" to indicate which direction to go in
+     * @param speed
+     * @param delta
+     * @return
+     */
+    public int movePlayer(int direction,float speed, float delta){
         // Direction
         int directionNum = -1;
         switch(direction) {
-            case "left":
+            case Player.left:
                 this.setX(sprite.getX() - speed * delta); // Note: Setting all the values with a constant delta removes hitbox desyncing issues
-                directionNum = 3;
                 break;
-            case "right":
+            case Player.right:
                 this.setX(sprite.getX() + speed * delta);
-                directionNum = 1;
                 break;
-            case "up":
+            case Player.up:
                 this.setY(sprite.getY() + speed * delta);
-                directionNum = 0;
                 break;
-            case "down":
+            case Player.down:
                 this.setY(sprite.getY() - speed * delta);
-                directionNum = 2;
-                moving = true;
                 break;
             default:
-                // Do exception (Invalid Direction!!!)
+                throw new IllegalArgumentException("Direction must be up, down, left, or right.");
         }
-        return directionNum;
+        return direction;
     }
 
     /**
