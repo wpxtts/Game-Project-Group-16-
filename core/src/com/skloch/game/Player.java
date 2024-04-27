@@ -1,5 +1,6 @@
 package com.skloch.game;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -8,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+
+import java.util.ArrayList;
 
 /**
  * A class handling everything needed to control and draw a player, including animation, movement and collision
@@ -106,6 +109,7 @@ public class Player {
         float oldX = sprite.x;
         float oldY = sprite.y;
         float oldFeetX = feet.x;
+        float oldFeetY = feet.y;
 
         // If not frozen, react to keyboard input presses
         if (!frozen) {
@@ -128,21 +132,25 @@ public class Player {
                 moving = true;
             }
 
-            // Check if the player's feet are inside an object, if they are, move them back in that axis
-            for (GameObject object : this.collidables) {
-                if (feet.overlaps(object)) {
-                    // Find the direction that the player needs to be moved back to
-                    // Reset x
-                    if (!(oldFeetX < object.x + object.width && oldFeetX + feet.width > object.x)) {
+
+            // Get all objects you are colliding with
+            ArrayList<GameObject> collidingObjects = collisionCheck();
+            System.out.println(collidingObjects);
+            for (GameObject collidingObject : collidingObjects){
+
+                // Find the direction that the player needs to be moved back to
+                // Reset x
+                if (!(oldFeetX < collidingObject.x + collidingObject.width
+                        && oldFeetX + feet.width > collidingObject.x)) {
                         this.setX(oldX);
-                    }
-                    // If overlapping in y direction
-                    if (!(oldY < object.y + object.height && oldY + feet.height > object.y)) {
-                        this.setY(oldY);
-                    }
-                    // The above two are essentially the same code as Rectangle.overlaps()
-                    // Just separated into the x and y dimensions
                 }
+                // If overlapping in y direction
+                if (!(oldFeetY < collidingObject.y + collidingObject.height
+                        && oldFeetY + feet.height > collidingObject.y)) {
+                    this.setY(oldY);
+                }
+                // The above two are essentially the same code as Rectangle.overlaps()
+                // Just separated into the x and y dimensions
             }
 
 
@@ -200,8 +208,7 @@ public class Player {
      * @return
      */
     public int movePlayer(int direction,float speed, float delta){
-        // Direction
-        int directionNum = -1;
+        // Switch case to consider each of the different directions the player could go
         switch(direction) {
             case Player.left:
                 this.setX(sprite.getX() - speed * delta); // Note: Setting all the values with a constant delta removes hitbox desyncing issues
@@ -220,6 +227,19 @@ public class Player {
         }
         return direction;
     }
+
+    public ArrayList<GameObject> collisionCheck(){
+        // Check if the player's feet are inside an object, if they are, move them back in that axis
+        ArrayList<GameObject> collidingObjects = new ArrayList<>();
+        for (GameObject object : this.collidables) {
+            if (feet.overlaps(object)) {
+                collidingObjects.add(object);
+            }
+        }
+        return collidingObjects;
+    }
+
+
 
     /**
      * Advances the current animation based on the time since the last render
