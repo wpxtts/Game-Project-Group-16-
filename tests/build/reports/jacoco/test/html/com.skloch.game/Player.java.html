@@ -296,7 +296,7 @@ public class Player {
      * @return true if the player is moving
      */
     public boolean isMoving() {
-<span class="fc" id="L299">        return moving;</span>
+<span class="nc" id="L299">        return moving;</span>
     }
 
     /**
@@ -305,8 +305,8 @@ public class Player {
      * @param moving The boolean to set moving to
      */
     public void setMoving(boolean moving) {
-<span class="fc" id="L308">        this.moving = moving;</span>
-<span class="fc" id="L309">    }</span>
+<span class="nc" id="L308">        this.moving = moving;</span>
+<span class="nc" id="L309">    }</span>
 
 
     /**
@@ -387,11 +387,11 @@ public class Player {
      * Sets the Y coordinate of the player, updating all 3 hitboxes at once as opposed to just the sprite rectangle
      */
     public void setY (float y) {
-<span class="nc" id="L390">        this.sprite.setY(y);</span>
-<span class="nc" id="L391">        this.feet.setY(y);</span>
-<span class="nc" id="L392">        this.eventHitbox.setY(this.sprite.getY() - (this.eventHitbox.getHeight() - sprite.getHeight()) / 2);</span>
-<span class="nc" id="L393">        this.recalcCentre();</span>
-<span class="nc" id="L394">    }</span>
+<span class="fc" id="L390">        this.sprite.setY(y);</span>
+<span class="fc" id="L391">        this.feet.setY(y);</span>
+<span class="fc" id="L392">        this.eventHitbox.setY(this.sprite.getY() - (this.eventHitbox.getHeight() - sprite.getHeight()) / 2);</span>
+<span class="fc" id="L393">        this.recalcCentre();</span>
+<span class="fc" id="L394">    }</span>
 
     /**
      *
@@ -427,9 +427,9 @@ public class Player {
      * Recalculates the centre of the player, useful after moving the player
      */
     private void recalcCentre() {
-<span class="nc" id="L430">        centreX = sprite.getX() + sprite.getWidth() / 2;</span>
-<span class="nc" id="L431">        centreY = sprite.getY() + sprite.getHeight() / 2;</span>
-<span class="nc" id="L432">    }</span>
+<span class="fc" id="L430">        centreX = sprite.getX() + sprite.getWidth() / 2;</span>
+<span class="fc" id="L431">        centreY = sprite.getY() + sprite.getHeight() / 2;</span>
+<span class="fc" id="L432">    }</span>
 
     /**
      * Sets the player to frozen, a frozen player can be set to ignore keyboard inputs in render

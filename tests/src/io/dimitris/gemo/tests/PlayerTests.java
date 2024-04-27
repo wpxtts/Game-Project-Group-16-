@@ -1,6 +1,7 @@
 package io.dimitris.gemo.tests;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.skloch.game.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -200,5 +201,41 @@ public class PlayerTests {
         assertFalse(player.isMoving());
         player.setMoving(true);
         assertTrue(player.isMoving());
+    }
+
+    @Test
+    public void getPosAsVec3(){
+        Player player = new Player("avatar1");
+        player.setX(10);
+        player.setY(10);
+        assertEquals(new Vector3(10,10,0),player.getPosAsVec3());
+    }
+
+    @Test
+    public void testSetX(){
+        Player player = new Player("avatar1");
+        // Set up values
+        player.scale = 4;
+        player.eventHitbox.setWidth(20);
+        player.sprite.setWidth(10);
+
+        player.setX(100);
+
+        System.out.println(player.eventHitbox.getWidth());
+        assertEquals(100,player.sprite.getX(),0.0001);
+        assertEquals(116,player.feet.getX(),0.0001);
+        assertEquals(95,player.eventHitbox.getX(),0.0001);
+    }
+
+    @Test
+    public void testSetY(){
+        Player player = new Player("avatar1");
+        player.eventHitbox.setHeight(20);
+        player.sprite.setHeight(10);
+
+        player.setY(100);
+        assertEquals(100,player.sprite.getY(),0.0001);
+        assertEquals(100,player.feet.getY(),0.0001);
+        assertEquals(95,player.eventHitbox.getY(),0.0001);
     }
 }
