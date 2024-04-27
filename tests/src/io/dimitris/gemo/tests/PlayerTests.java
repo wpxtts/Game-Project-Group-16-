@@ -53,7 +53,7 @@ public class PlayerTests {
 
         ArrayList<GameObject> notCollidingObjects = new ArrayList<>();
         notCollidingObjects.add(new GameObject(player.feet.getX()+200,player.feet.getY()+200,10,10));
-        // 
+        //
         notCollidingObjects.add(new GameObject(player.feet.getX()-10,player.feet.getY()-10,9,9));
 
         player.addCollidable(collidingObjects.get(0));

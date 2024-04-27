@@ -228,6 +228,10 @@ public class Player {
         return direction;
     }
 
+    /**
+     * Returns all game objects player is colliding with
+     * @return ArrayList of GameObject's that the player is colliding with
+     */
     public ArrayList<GameObject> collisionCheck(){
         // Check if the player's feet are inside an object, if they are, move them back in that axis
         ArrayList<GameObject> collidingObjects = new ArrayList<>();
