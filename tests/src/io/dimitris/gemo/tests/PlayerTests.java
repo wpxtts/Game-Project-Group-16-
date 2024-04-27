@@ -183,4 +183,22 @@ public class PlayerTests {
         player.findClosestInteractableObject();
         assertEquals(closestObject,player.getClosestObject());
     }
+
+    @Test
+    public void testIsMoving(){
+        Player player = new Player("avatar1");
+        player.moving = false;
+        assertFalse(player.isMoving());
+        player.moving = true;
+        assertTrue(player.isMoving());
+    }
+
+    @Test
+    public void testSetMoving(){
+        Player player = new Player("avatar1");
+        player.setMoving(false);
+        assertFalse(player.isMoving());
+        player.setMoving(true);
+        assertTrue(player.isMoving());
+    }
 }
