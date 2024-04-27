@@ -1,6 +1,7 @@
 package io.dimitris.gemo.tests;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Rectangle;
 import com.skloch.game.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,5 +66,32 @@ public class PlayerTests {
         assertEquals(detectedCollisions, collidingObjects);
         assertFalse(detectedCollisions.contains(notCollidingObjects.get(0)));
         assertFalse(detectedCollisions.contains(notCollidingObjects.get(1)));
+    }
+
+    @Test
+    public void testMovePlayerWithinBounds(){
+        Player player = new Player("avatar1");
+        player.setBounds(new Rectangle(0,0,100,100));
+
+        // Player within bounds
+        player.setX(10);
+        player.setY(10);
+        player.movePlayerWithinBounds();
+        assertEquals(10,player.getX(),0.0001);
+        assertEquals(10,player.getY(),0.0001);
+
+        //Player out of bounds by going under X and Y limits
+        player.setX(-1000);
+        player.setY(-1000);
+        player.movePlayerWithinBounds();
+        assertEquals(-4*player.scale,player.getX(),0.0001);
+        assertEquals(0,player.getY(),0.0001);
+
+        // Player out of bounds by going over X and Y limits
+        player.setX(1000);
+        player.setY(1000);
+        player.movePlayerWithinBounds();
+        assertEquals(100-player.feet.getWidth()-4*player.scale,player.getX(),0.0001);
+        assertEquals(100-player.feet.getHeight(),player.getY(),0.0001);
     }
 }

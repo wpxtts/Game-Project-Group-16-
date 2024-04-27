@@ -155,25 +155,26 @@ public class Player {
 
 
             // Check the player is in bounds
-            if (bounds != null) {
-                // If player is out of bounds, move them back
-                if (feet.getX() < bounds.getX()) {
-                    sprite.x = bounds.getX()-4*scale;
-                    feet.x = sprite.x + 4*scale;
-                }
-                if (feet.getX()+feet.getWidth() > bounds.getWidth()) {
-                    sprite.x = (bounds.getWidth() - feet.getWidth()) - (4*scale);
-                    feet.x = sprite.x + 4*scale;
-                }
-                if (feet.getY() < bounds.getY()) {
-                    sprite.y = bounds.getY();
-                    feet.y = bounds.getY();
-                }
-                if (feet.getY()+feet.getHeight() > bounds.getHeight()) {
-                    sprite.y = bounds.getHeight()-feet.getHeight();
-                    feet.y = sprite.y;
-                }
-            }
+//            if (bounds != null) {
+//                // If player is out of bounds, move them back
+//                if (feet.getX() < bounds.getX()) {
+//                    sprite.x = bounds.getX()-4*scale;
+//                    feet.x = sprite.x + 4*scale;
+//                }
+//                if (feet.getX()+feet.getWidth() > bounds.getWidth()) {
+//                    sprite.x = (bounds.getWidth() - feet.getWidth()) - (4*scale);
+//                    feet.x = sprite.x + 4*scale;
+//                }
+//                if (feet.getY() < bounds.getY()) {
+//                    sprite.y = bounds.getY();
+//                    feet.y = bounds.getY();
+//                }
+//                if (feet.getY()+feet.getHeight() > bounds.getHeight()) {
+//                    sprite.y = bounds.getHeight()-feet.getHeight();
+//                    feet.y = sprite.y;
+//                }
+//            }
+            movePlayerWithinBounds();
         }
 
 
@@ -243,6 +244,31 @@ public class Player {
         return collidingObjects;
     }
 
+    /**
+     * Move player back within bounds if they aren't within bounds
+     */
+    public void movePlayerWithinBounds(){
+        // Check the player is in bounds
+        if (bounds != null) {
+            // If player is out of bounds, move them back
+            if (feet.getX() < bounds.getX()) {
+                sprite.x = bounds.getX()-4*scale;
+                feet.x = sprite.x + 4*scale;
+            }
+            if (feet.getX()+feet.getWidth() > bounds.getWidth()) {
+                sprite.x = (bounds.getWidth() - feet.getWidth()) - (4*scale);
+                feet.x = sprite.x + 4*scale;
+            }
+            if (feet.getY() < bounds.getY()) {
+                sprite.y = bounds.getY();
+                feet.y = bounds.getY();
+            }
+            if (feet.getY()+feet.getHeight() > bounds.getHeight()) {
+                sprite.y = bounds.getHeight()-feet.getHeight();
+                feet.y = sprite.y;
+            }
+        }
+    }
 
 
     /**
