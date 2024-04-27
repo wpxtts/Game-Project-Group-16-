@@ -282,6 +282,7 @@ public class Player {
 
     /**
      * Returns the object that is closest to the player, calculated during move()
+     * Needs to have findClosestInteractableObject run before it.
      *
      * @return A GameObject that is closest
      */

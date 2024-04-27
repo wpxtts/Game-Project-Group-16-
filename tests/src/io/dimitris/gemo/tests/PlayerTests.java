@@ -150,4 +150,37 @@ public class PlayerTests {
         player.findClosestInteractableObject();
         assertTrue(player.nearObject());
     }
+    @Test
+    public void testGetClosestObject(){
+        Player player = new Player("avatar1");
+        GameObject closestObject = new GameObject(player.getX()-1,player.getY()-1,1,1);
+        GameObject midObject = new GameObject(player.getX()-2,player.getY()-2,1,1);
+        GameObject furthestObject = new GameObject(player.getX()-3,player.getY()-3,1,1);
+        GameObject outOfRangeObject = new GameObject(player.getX()-1000, player.getY()-1000,1,1);
+        GameObject unInteractableObject = new GameObject(player.getX()-1,player.getY()-1,1,1);
+
+        closestObject.put("text","hello");
+        midObject.put("text","hello");
+        furthestObject.put("text","hello");
+        outOfRangeObject.put("text","hello");
+
+        player.findClosestInteractableObject();
+        assertNull(player.getClosestObject());
+        player.addCollidable(unInteractableObject);
+        player.findClosestInteractableObject();
+        assertNull(player.getClosestObject());
+        player.addCollidable(outOfRangeObject);
+        player.findClosestInteractableObject();
+        assertNull(player.getClosestObject());
+
+        player.addCollidable(midObject);
+        player.findClosestInteractableObject();
+        assertEquals(midObject,player.getClosestObject());
+        player.addCollidable(furthestObject);
+        player.findClosestInteractableObject();
+        assertEquals(midObject,player.getClosestObject());
+        player.addCollidable(closestObject);
+        player.findClosestInteractableObject();
+        assertEquals(closestObject,player.getClosestObject());
+    }
 }
