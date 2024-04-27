@@ -270,7 +270,9 @@ public class Player {
 
     /**
      * Returns whether the player's eventHitbox overlaps an object
-     * Call getClosestObject to get the nearest
+     * Call getClosestObject to get the nearest interactable object.
+     * findClosestInteractableObject needs to be called before this is called
+     * which is done during move()
      *
      * @return true if a player is near enough an object to interact with it
      */

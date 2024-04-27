@@ -121,4 +121,33 @@ public class PlayerTests {
         player.addCollidable(closestObject);
         assertEquals(closestObject,player.findClosestInteractableObject());
     }
+
+    @Test
+    public void testNearObject(){
+        Player player = new Player("avatar1");
+        GameObject closeObject = new GameObject(player.getX()-1,player.getY()-1,1,1);
+        GameObject outOfRangeObject = new GameObject(player.getX()-1000, player.getY()-1000,1,1);
+        GameObject unInteractableObject = new GameObject(player.getX()-1,player.getY()-1,1,1);
+
+        closeObject.put("text","hello");
+        outOfRangeObject.put("text","hello");
+
+        // We run findClosestInteractableObject as by the Javadoc
+        // for the nearObject method, it needs to be run before
+        // nearObject is run.
+        player.findClosestInteractableObject();
+        assertFalse(player.nearObject());
+
+        player.addCollidable(unInteractableObject);
+        player.findClosestInteractableObject();
+        assertFalse(player.nearObject());
+
+        player.addCollidable(outOfRangeObject);
+        player.findClosestInteractableObject();
+        assertFalse(player.nearObject());
+
+        player.addCollidable(closeObject);
+        player.findClosestInteractableObject();
+        assertTrue(player.nearObject());
+    }
 }
