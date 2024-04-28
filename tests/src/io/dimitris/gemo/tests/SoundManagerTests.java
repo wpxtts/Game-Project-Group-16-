@@ -36,4 +36,24 @@ public class SoundManagerTests {
         assertTrue("The button sound doesn't exist",
                 Gdx.files.internal(SoundManager.buttonSoundPath).exists());
     }
+
+    @Test
+    public void testSetMusicVolume(){
+        SoundManager soundManager = new SoundManager();
+        // Test valid volume values
+        soundManager.setMusicVolume(0.5f);
+        assertEquals(0.5f, soundManager.getMusicVolume(),0.0001);
+        // Test edge cases
+        soundManager.setMusicVolume(0.0f);
+        assertEquals(0.0f, soundManager.getMusicVolume(),0.0001);
+        soundManager.setMusicVolume(1f);
+        assertEquals(1f, soundManager.getMusicVolume(),0.0001);
+
+        //Note: We can't test to make sure the overworldMusic and menuMusic
+        //has updated volumes because overworldMusic and menuMusic are mockups
+        //and so don't actually get updated.
+
+        assertThrows(IllegalArgumentException.class,()->soundManager.setMusicVolume(-0.1f));
+        assertThrows(IllegalArgumentException.class,()->soundManager.setMusicVolume(1.1f));
+    }
 }

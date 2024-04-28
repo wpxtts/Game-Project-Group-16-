@@ -52,6 +52,9 @@ public class SoundManager implements Disposable {
      * @param volume
      */
     public void setMusicVolume (float volume) {
+        if(volume<0.0f || volume>1.0f){
+            throw new IllegalArgumentException("Volume must be between 0.0 and 1.0");
+        }
         this.musicVolume = volume;
         overworldMusic.setVolume(musicVolume);
         menuMusic.setVolume(musicVolume);
