@@ -92,5 +92,18 @@ public class SoundManagerTests {
     public void testProcessTimers(){
         SoundManager soundManager = new SoundManager();
 
+        soundManager.setFootstepTimer(1.0f);
+        soundManager.processTimers(0.5f);
+        assertEquals(0.5f,soundManager.getFootstepTimer(),0.0001);
+
+        soundManager.setFootstepTimer(1.0f);
+        soundManager.processTimers(1.f);
+        assertEquals(0.0f,soundManager.getFootstepTimer(),0.0001);
+
+        soundManager.setFootstepTimer(1.0f);
+        soundManager.processTimers(1.5f);
+        assertEquals(0.0f,soundManager.getFootstepTimer(),0.0001);
+
+        assertThrows(IllegalArgumentException.class,()->soundManager.processTimers(-0.1f));
     }
 }

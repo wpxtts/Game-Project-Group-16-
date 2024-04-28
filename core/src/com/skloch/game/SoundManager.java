@@ -131,9 +131,21 @@ public class SoundManager implements Disposable {
      * Specifically handles triggering footsteps when the player is moving
      * @param delta Time passed since the last render
      */
+
+    public float getFootstepTimer(){
+        return footstepTimer;
+    }
+
+    public void setFootstepTimer(float time){
+        footstepTimer = time;
+    }
+
     public void processTimers(float delta) {
         // Decrements timers for any recurring sounds, like footsteps
         // Events that make these sounds can then check that their specific timer is zero and play a noise
+        if(delta<0.0f){
+            throw new IllegalArgumentException("delta must be 0 or greater");
+        }
         footstepTimer -= delta;
         if (footstepTimer < 0) {
             footstepTimer = 0;

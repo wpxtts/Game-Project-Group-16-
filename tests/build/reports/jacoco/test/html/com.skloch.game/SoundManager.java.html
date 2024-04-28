@@ -52,13 +52,13 @@ public class SoundManager implements Disposable {
      * @param volume
      */
     public void setMusicVolume (float volume) {
-<span class="fc bfc" id="L55" title="All 4 branches covered.">        if(volume&lt;0.0f || volume&gt;1.0f){</span>
-<span class="fc" id="L56">            throw new IllegalArgumentException(&quot;Volume must be between 0.0 and 1.0&quot;);</span>
+<span class="nc bnc" id="L55" title="All 4 branches missed.">        if(volume&lt;0.0f || volume&gt;1.0f){</span>
+<span class="nc" id="L56">            throw new IllegalArgumentException(&quot;Volume must be between 0.0 and 1.0&quot;);</span>
         }
-<span class="fc" id="L58">        this.musicVolume = volume;</span>
-<span class="fc" id="L59">        overworldMusic.setVolume(musicVolume);</span>
-<span class="fc" id="L60">        menuMusic.setVolume(musicVolume);</span>
-<span class="fc" id="L61">    }</span>
+<span class="nc" id="L58">        this.musicVolume = volume;</span>
+<span class="nc" id="L59">        overworldMusic.setVolume(musicVolume);</span>
+<span class="nc" id="L60">        menuMusic.setVolume(musicVolume);</span>
+<span class="nc" id="L61">    }</span>
 
     /**
      * Sets the sound effect volume
@@ -119,7 +119,7 @@ public class SoundManager implements Disposable {
     /**
      * @return The current music volume
      */
-<span class="fc" id="L122">    public float getMusicVolume() {return musicVolume;}</span>
+<span class="nc" id="L122">    public float getMusicVolume() {return musicVolume;}</span>
 
     /**
      * @return The current sound effect volume
@@ -131,14 +131,26 @@ public class SoundManager implements Disposable {
      * Specifically handles triggering footsteps when the player is moving
      * @param delta Time passed since the last render
      */
+
+    public float getFootstepTimer(){
+<span class="fc" id="L136">        return footstepTimer;</span>
+    }
+
+    public void setFootstepTimer(float time){
+<span class="fc" id="L140">        footstepTimer = time;</span>
+<span class="fc" id="L141">    }</span>
+
     public void processTimers(float delta) {
         // Decrements timers for any recurring sounds, like footsteps
         // Events that make these sounds can then check that their specific timer is zero and play a noise
-<span class="nc" id="L137">        footstepTimer -= delta;</span>
-<span class="nc bnc" id="L138" title="All 2 branches missed.">        if (footstepTimer &lt; 0) {</span>
-<span class="nc" id="L139">            footstepTimer = 0;</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        if(delta&lt;0.0f){</span>
+<span class="fc" id="L147">            throw new IllegalArgumentException(&quot;delta must be 0 or greater&quot;);</span>
         }
-<span class="nc" id="L141">    }</span>
+<span class="fc" id="L149">        footstepTimer -= delta;</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">        if (footstepTimer &lt; 0) {</span>
+<span class="fc" id="L151">            footstepTimer = 0;</span>
+        }
+<span class="fc" id="L153">    }</span>
 
     /**
      * Plays an alternating footstep sound when the player is moving and the footstepTimer variable has hit zero.
@@ -146,17 +158,17 @@ public class SoundManager implements Disposable {
      */
     public void playFootstep() {
         // If it is time to play a footstep, play one
-<span class="nc bnc" id="L149" title="All 2 branches missed.">        if (footstepTimer &lt;= 0) {</span>
-<span class="nc" id="L150">            footstepTimer = 0.5f; // Delay between each footstep sound, increase to have slower steps</span>
-<span class="nc bnc" id="L151" title="All 2 branches missed.">            if (footstepBool == false) {</span>
-<span class="nc" id="L152">                footstep1.play(sfxVolume);</span>
-<span class="nc" id="L153">                footstepBool = true;</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">        if (footstepTimer &lt;= 0) {</span>
+<span class="nc" id="L162">            footstepTimer = 0.5f; // Delay between each footstep sound, increase to have slower steps</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">            if (footstepBool == false) {</span>
+<span class="nc" id="L164">                footstep1.play(sfxVolume);</span>
+<span class="nc" id="L165">                footstepBool = true;</span>
             } else {
-<span class="nc" id="L155">                footstep2.play(sfxVolume);</span>
-<span class="nc" id="L156">                footstepBool = false;</span>
+<span class="nc" id="L167">                footstep2.play(sfxVolume);</span>
+<span class="nc" id="L168">                footstepBool = false;</span>
             }
         }
-<span class="nc" id="L159">    }</span>
+<span class="nc" id="L171">    }</span>
 
 
     /**
@@ -164,13 +176,13 @@ public class SoundManager implements Disposable {
      */
     @Override
     public void dispose () {
-<span class="nc" id="L167">        overworldMusic.dispose();</span>
-<span class="nc" id="L168">        menuMusic.dispose();</span>
-<span class="nc" id="L169">        footstep1.dispose();</span>
-<span class="nc" id="L170">        footstep2.dispose();</span>
-<span class="nc" id="L171">        pauseSound.dispose();</span>
-<span class="nc" id="L172">        dialogueOpenSound.dispose();</span>
-<span class="nc" id="L173">        dialogueOptionSound.dispose();</span>
-<span class="nc" id="L174">    }</span>
+<span class="nc" id="L179">        overworldMusic.dispose();</span>
+<span class="nc" id="L180">        menuMusic.dispose();</span>
+<span class="nc" id="L181">        footstep1.dispose();</span>
+<span class="nc" id="L182">        footstep2.dispose();</span>
+<span class="nc" id="L183">        pauseSound.dispose();</span>
+<span class="nc" id="L184">        dialogueOpenSound.dispose();</span>
+<span class="nc" id="L185">        dialogueOptionSound.dispose();</span>
+<span class="nc" id="L186">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
