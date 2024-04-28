@@ -31,102 +31,110 @@ public class SaveScreen implements Screen{
     private OrthographicCamera camera;
     private Viewport viewport;
 
+<span class="fc" id="L34">    public static String leaderboardPath = &quot;../assets/Text/leaderboard.csv&quot;;</span>
+
     /**
      * A scene2d window consisting of a title, a scrollable widget and an exit button.
      * Credits are loaded from assets/Text/credits.txt and displayed in the scrollable widget
      * Thus any changes to assets or licenses must be reflected in credits.txt
      *
      */
-<span class="nc" id="L40">    public SaveScreen(HustleGame game, Integer score) {</span>
+<span class="fc" id="L42">    public SaveScreen(HustleGame game, Integer score,boolean draw) {</span>
         
         // Basically all the same code as the settings menu
-<span class="nc" id="L43">        this.game = game;</span>
-<span class="nc" id="L44">        leaderboardStage = new Stage(new FitViewport(this.game.WIDTH, this.game.HEIGHT));</span>
-<span class="nc" id="L45">        Gdx.input.setInputProcessor(leaderboardStage);</span>
+<span class="fc" id="L45">        this.game = game;</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        if(draw){</span>
+<span class="nc" id="L47">            drawScreen(score);</span>
+        }
+<span class="fc" id="L49">    }</span>
 
-<span class="nc" id="L47">        camera = new OrthographicCamera();</span>
-<span class="nc" id="L48">        viewport = new FitViewport(this.game.WIDTH, this.game.HEIGHT, camera);</span>
-<span class="nc" id="L49">        camera.setToOrtho(false, this.game.WIDTH, this.game.HEIGHT);</span>
+    public void drawScreen(Integer score){
+<span class="nc" id="L52">        leaderboardStage = new Stage(new FitViewport(this.game.WIDTH, this.game.HEIGHT));</span>
+<span class="nc" id="L53">        Gdx.input.setInputProcessor(leaderboardStage);</span>
+
+<span class="nc" id="L55">        camera = new OrthographicCamera();</span>
+<span class="nc" id="L56">        viewport = new FitViewport(this.game.WIDTH, this.game.HEIGHT, camera);</span>
+<span class="nc" id="L57">        camera.setToOrtho(false, this.game.WIDTH, this.game.HEIGHT);</span>
 
         // Create the window
-<span class="nc" id="L52">        Window leaderboardMenu = new Window(&quot;&quot;, this.game.skin);</span>
-<span class="nc" id="L53">        leaderboardStage.addActor(leaderboardMenu);</span>
-<span class="nc" id="L54">        leaderboardMenu.setModal(true);</span>
+<span class="nc" id="L60">        Window leaderboardMenu = new Window(&quot;&quot;, this.game.skin);</span>
+<span class="nc" id="L61">        leaderboardStage.addActor(leaderboardMenu);</span>
+<span class="nc" id="L62">        leaderboardMenu.setModal(true);</span>
 
         // Table for UI elements in window
-<span class="nc" id="L57">        Table leaderboardTable = new Table();</span>
-<span class="nc" id="L58">        leaderboardMenu.add(leaderboardTable).prefHeight(600);</span>
-<span class="nc" id="L59">        Table saveTable = new Table();</span>
+<span class="nc" id="L65">        Table leaderboardTable = new Table();</span>
+<span class="nc" id="L66">        leaderboardMenu.add(leaderboardTable).prefHeight(600);</span>
+<span class="nc" id="L67">        Table saveTable = new Table();</span>
         // Title
-<span class="nc" id="L61">        Label title = new Label(&quot;Save Score&quot;, this.game.skin, &quot;button&quot;);</span>
-<span class="nc" id="L62">        leaderboardTable.add(title).padTop(10).padLeft(60);</span>
-<span class="nc" id="L63">        leaderboardTable.row();</span>
+<span class="nc" id="L69">        Label title = new Label(&quot;Save Score&quot;, this.game.skin, &quot;button&quot;);</span>
+<span class="nc" id="L70">        leaderboardTable.add(title).padTop(10).padLeft(60);</span>
+<span class="nc" id="L71">        leaderboardTable.row();</span>
 
         // Table for things inside the scrollable widget
 
-<span class="nc" id="L67">        saveTable.add(new Label(&quot;Save total score of &quot;, game.skin, &quot;interaction&quot;)).padBottom(5).padLeft(60);</span>
-<span class="nc" id="L68">        saveTable.row();</span>
-<span class="nc" id="L69">        saveTable.add(new Label((String.valueOf(score)+&quot;?&quot;), game.skin, &quot;button&quot;)).padBottom(15).padLeft(60);</span>
-<span class="nc" id="L70">        saveTable.row();</span>
-<span class="nc" id="L71">        leaderboardTable.add(saveTable).padTop(10).row();</span>
+<span class="nc" id="L75">        saveTable.add(new Label(&quot;Save total score of &quot;, game.skin, &quot;interaction&quot;)).padBottom(5).padLeft(60);</span>
+<span class="nc" id="L76">        saveTable.row();</span>
+<span class="nc" id="L77">        saveTable.add(new Label((String.valueOf(score)+&quot;?&quot;), game.skin, &quot;button&quot;)).padBottom(15).padLeft(60);</span>
+<span class="nc" id="L78">        saveTable.row();</span>
+<span class="nc" id="L79">        leaderboardTable.add(saveTable).padTop(10).row();</span>
 
 
         // User text input row
-<span class="nc" id="L75">        TextField userInputField = new TextField(&quot;&quot;, game.skin);</span>
-<span class="nc" id="L76">        userInputField.setMessageText(&quot;Enter player name&quot;);</span>
-<span class="nc" id="L77">        userInputField.setAlignment(Align.center); // Set alignment to right</span>
-<span class="nc" id="L78">        leaderboardTable.add(userInputField).colspan(2).width(600).padTop(10); // colspan to span across both columns</span>
-<span class="nc" id="L79">        leaderboardTable.row(); // Move to the next row after adding the text input field</span>
+<span class="nc" id="L83">        TextField userInputField = new TextField(&quot;&quot;, game.skin);</span>
+<span class="nc" id="L84">        userInputField.setMessageText(&quot;Enter player name&quot;);</span>
+<span class="nc" id="L85">        userInputField.setAlignment(Align.center); // Set alignment to right</span>
+<span class="nc" id="L86">        leaderboardTable.add(userInputField).colspan(2).width(600).padTop(10); // colspan to span across both columns</span>
+<span class="nc" id="L87">        leaderboardTable.row(); // Move to the next row after adding the text input field</span>
 
 
         // Padding for labels to move them to the right
 
 
         // Save button
-<span class="nc" id="L86">        TextButton saveButton = new TextButton(&quot;Save&quot;, this.game.skin);</span>
-<span class="nc" id="L87">        leaderboardTable.add(saveButton).bottom().width(300).padTop(10).padLeft(60);</span>
-<span class="nc" id="L88">        leaderboardTable.row();</span>
+<span class="nc" id="L94">        TextButton saveButton = new TextButton(&quot;Save&quot;, this.game.skin);</span>
+<span class="nc" id="L95">        leaderboardTable.add(saveButton).bottom().width(300).padTop(10).padLeft(60);</span>
+<span class="nc" id="L96">        leaderboardTable.row();</span>
 
 
         // Exit button
-<span class="nc" id="L92">        TextButton exitButton = new TextButton(&quot;Exit&quot;, this.game.skin);</span>
-<span class="nc" id="L93">        leaderboardTable.add(exitButton).bottom().width(300).padTop(10).padLeft(60);</span>
+<span class="nc" id="L100">        TextButton exitButton = new TextButton(&quot;Exit&quot;, this.game.skin);</span>
+<span class="nc" id="L101">        leaderboardTable.add(exitButton).bottom().width(300).padTop(10).padLeft(60);</span>
 
-<span class="nc" id="L95">        leaderboardMenu.pack();</span>
+<span class="nc" id="L103">        leaderboardMenu.pack();</span>
 
-<span class="nc" id="L97">        leaderboardMenu.setSize(600, 600);</span>
+<span class="nc" id="L105">        leaderboardMenu.setSize(600, 600);</span>
 
         // Centre the window
-<span class="nc" id="L100">        leaderboardMenu.setX((viewport.getWorldWidth() / 2) - (leaderboardMenu.getWidth() / 2));</span>
-<span class="nc" id="L101">        leaderboardMenu.setY((viewport.getWorldHeight() / 2) - (leaderboardMenu.getHeight() / 2));</span>
+<span class="nc" id="L108">        leaderboardMenu.setX((viewport.getWorldWidth() / 2) - (leaderboardMenu.getWidth() / 2));</span>
+<span class="nc" id="L109">        leaderboardMenu.setY((viewport.getWorldHeight() / 2) - (leaderboardMenu.getHeight() / 2));</span>
 
         // Listener for the exit button
-<span class="nc" id="L104">        exitButton.addListener(new ChangeListener() {</span>
+<span class="nc" id="L112">        exitButton.addListener(new ChangeListener() {</span>
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L107">                SaveScreen.this.game.soundManager.playButton();</span>
-<span class="nc" id="L108">                SaveScreen.this.game.soundManager.stopOverworldMusic();</span>
-<span class="nc" id="L109">                dispose();</span>
-<span class="nc" id="L110">                SaveScreen.this.game.setScreen(new MenuScreen(SaveScreen.this.game));</span>
-<span class="nc" id="L111">            }</span>
+<span class="nc" id="L115">                SaveScreen.this.game.soundManager.playButton();</span>
+<span class="nc" id="L116">                SaveScreen.this.game.soundManager.stopOverworldMusic();</span>
+<span class="nc" id="L117">                dispose();</span>
+<span class="nc" id="L118">                SaveScreen.this.game.setScreen(new MenuScreen(SaveScreen.this.game));</span>
+<span class="nc" id="L119">            }</span>
         });
 
         // Listener for the save button
-<span class="nc" id="L115">        saveButton.addListener(new ChangeListener() {</span>
+<span class="nc" id="L123">        saveButton.addListener(new ChangeListener() {</span>
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-<span class="nc bnc" id="L118" title="All 2 branches missed.">                if (!saveButton.getText().toString().equals(&quot;Saved&quot;)) { // Check if the button is not already marked as Saved</span>
-<span class="nc" id="L119">                    SaveScreen.this.game.soundManager.playButton();</span>
-<span class="nc" id="L120">                    String name = userInputField.getText(); // Obtain the text from the input box</span>
-<span class="nc bnc" id="L121" title="All 2 branches missed.">                    if (!name.isEmpty()) { // Check if the text is not empty</span>
-<span class="nc" id="L122">                        saveScore(name, score); // Append the name and score to the CSV file</span>
-<span class="nc" id="L123">                        saveButton.setText(&quot;Saved&quot;); // Change the button text to Saved</span>
-<span class="nc" id="L124">                        saveButton.setDisabled(true); // Disable the button</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">                if (!saveButton.getText().toString().equals(&quot;Saved&quot;)) { // Check if the button is not already marked as Saved</span>
+<span class="nc" id="L127">                    SaveScreen.this.game.soundManager.playButton();</span>
+<span class="nc" id="L128">                    String name = userInputField.getText(); // Obtain the text from the input box</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">                    if (!name.isEmpty()) { // Check if the text is not empty</span>
+<span class="nc" id="L130">                        saveScore(name, score); // Append the name and score to the CSV file</span>
+<span class="nc" id="L131">                        saveButton.setText(&quot;Saved&quot;); // Change the button text to Saved</span>
+<span class="nc" id="L132">                        saveButton.setDisabled(true); // Disable the button</span>
                     }
                 }
-<span class="nc" id="L127">            }</span>
+<span class="nc" id="L135">            }</span>
         });
-<span class="nc" id="L129">    }</span>
+<span class="nc" id="L137">    }</span>
 
     /**
      * Renders the savemenu window
@@ -134,16 +142,16 @@ public class SaveScreen implements Screen{
      */
     @Override
     public void render (float delta) {
-<span class="nc" id="L137">        ScreenUtils.clear(0, 0, 0, 1);</span>
-<span class="nc" id="L138">        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</span>
+<span class="nc" id="L145">        ScreenUtils.clear(0, 0, 0, 1);</span>
+<span class="nc" id="L146">        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</span>
 
-<span class="nc" id="L140">        game.blueBackground.draw();</span>
+<span class="nc" id="L148">        game.blueBackground.draw();</span>
 
-<span class="nc" id="L142">        leaderboardStage.act(delta);</span>
-<span class="nc" id="L143">        leaderboardStage.draw();</span>
+<span class="nc" id="L150">        leaderboardStage.act(delta);</span>
+<span class="nc" id="L151">        leaderboardStage.draw();</span>
 
-<span class="nc" id="L145">        camera.update();</span>
-<span class="nc" id="L146">    }</span>
+<span class="nc" id="L153">        camera.update();</span>
+<span class="nc" id="L154">    }</span>
 
 
     /**
@@ -153,42 +161,42 @@ public class SaveScreen implements Screen{
      */
     @Override
     public void resize(int width, int height) {
-<span class="nc" id="L156">        leaderboardStage.getViewport().update(width, height);</span>
-<span class="nc" id="L157">        viewport.update(width, height);</span>
-<span class="nc" id="L158">    }</span>
+<span class="nc" id="L164">        leaderboardStage.getViewport().update(width, height);</span>
+<span class="nc" id="L165">        viewport.update(width, height);</span>
+<span class="nc" id="L166">    }</span>
 
     private void saveScore(String name, int score) {
-<span class="nc" id="L161">        String filename = &quot;Text/leaderboard.csv&quot;; // Specify the CSV file name</span>
-<span class="nc" id="L162">        String data = name + &quot;,&quot; + score + &quot;\n&quot;; // Format the data to append</span>
+<span class="nc" id="L169">        String filename = leaderboardPath; // Specify the CSV file name</span>
+<span class="nc" id="L170">        String data = name + &quot;,&quot; + score + &quot;\n&quot;; // Format the data to append</span>
 
         try {
-<span class="nc" id="L165">            FileWriter writer = new FileWriter(filename, true); // Create a FileWriter in append mode</span>
-<span class="nc" id="L166">            writer.write(data); // Write the data to the file</span>
-<span class="nc" id="L167">            writer.close(); // Close the FileWriter</span>
-<span class="nc" id="L168">        } catch (IOException e) {</span>
-<span class="nc" id="L169">            e.printStackTrace();</span>
-<span class="nc" id="L170">        }</span>
-<span class="nc" id="L171">    }</span>
+<span class="nc" id="L173">            FileWriter writer = new FileWriter(filename, true); // Create a FileWriter in append mode</span>
+<span class="nc" id="L174">            writer.write(data); // Write the data to the file</span>
+<span class="nc" id="L175">            writer.close(); // Close the FileWriter</span>
+<span class="nc" id="L176">        } catch (IOException e) {</span>
+<span class="nc" id="L177">            e.printStackTrace();</span>
+<span class="nc" id="L178">        }</span>
+<span class="nc" id="L179">    }</span>
 
     // Other required methods from Screen
     @Override
     public void show() {
-<span class="nc" id="L176">    }</span>
-
-    @Override
-    public void hide() {
-<span class="nc" id="L180">    }</span>
-
-    @Override
-    public void pause() {
 <span class="nc" id="L184">    }</span>
 
     @Override
-    public void resume() {
+    public void hide() {
 <span class="nc" id="L188">    }</span>
 
     @Override
-    public void dispose() {
+    public void pause() {
 <span class="nc" id="L192">    }</span>
+
+    @Override
+    public void resume() {
+<span class="nc" id="L196">    }</span>
+
+    @Override
+    public void dispose() {
+<span class="nc" id="L200">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

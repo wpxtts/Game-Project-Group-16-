@@ -198,9 +198,9 @@ public class GameOverScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.soundManager.playButton();
-                game.setScreen(new SaveScreen(game, score));
+                game.setScreen(new SaveScreen(game, score,true));
                 dispose();
-                game.setScreen(new SaveScreen(game, score));
+                game.setScreen(new SaveScreen(game, score,true));
             }
         });
 

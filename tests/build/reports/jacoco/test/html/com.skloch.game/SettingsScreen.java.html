@@ -33,13 +33,13 @@ public class SettingsScreen implements Screen {
      * @param game An instance of HustleGame
      * @param previousScreen The previous screen to return to when the exit button is rpessed
      */
-<span class="fc" id="L36">    public SettingsScreen(final HustleGame game, Screen previousScreen, boolean draw) {</span>
-<span class="fc" id="L37">        this.game = game;</span>
-<span class="fc" id="L38">        this.previousScreen = previousScreen;</span>
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if(draw){</span>
+<span class="nc" id="L36">    public SettingsScreen(final HustleGame game, Screen previousScreen, boolean draw) {</span>
+<span class="nc" id="L37">        this.game = game;</span>
+<span class="nc" id="L38">        this.previousScreen = previousScreen;</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if(draw){</span>
 <span class="nc" id="L40">            drawScreen();</span>
         }
-<span class="fc" id="L42">    }</span>
+<span class="nc" id="L42">    }</span>
 
     private void drawScreen(){
         // An option screen to let the player adjust the volume of music and sound effects
@@ -136,9 +136,12 @@ public class SettingsScreen implements Screen {
      * Updates volume to values based on the slider's value
      */
     public void updateVolume(float musicSliderValue, float sfxSliderValue){
-<span class="fc" id="L139">        game.soundManager.setMusicVolume(musicSliderValue / 100);</span>
-<span class="fc" id="L140">        game.soundManager.setSfxVolume(sfxSliderValue / 100);</span>
-<span class="fc" id="L141">    }</span>
+<span class="nc bnc" id="L139" title="All 8 branches missed.">        if(musicSliderValue&lt;0||musicSliderValue&gt;100||sfxSliderValue&lt;0||sfxSliderValue&gt;100){</span>
+<span class="nc" id="L140">            throw new IllegalArgumentException(&quot;Volume must be between 0 and 100&quot;);</span>
+        }
+<span class="nc" id="L142">        game.soundManager.setMusicVolume(musicSliderValue / 100);</span>
+<span class="nc" id="L143">        game.soundManager.setSfxVolume(sfxSliderValue / 100);</span>
+<span class="nc" id="L144">    }</span>
 
 
     /**
@@ -148,33 +151,33 @@ public class SettingsScreen implements Screen {
      */
     @Override
     public void resize(int width, int height) {
-<span class="nc" id="L151">        optionStage.getViewport().update(width, height);</span>
-<span class="nc" id="L152">        viewport.update(width, height);</span>
-<span class="nc" id="L153">    }</span>
+<span class="nc" id="L154">        optionStage.getViewport().update(width, height);</span>
+<span class="nc" id="L155">        viewport.update(width, height);</span>
+<span class="nc" id="L156">    }</span>
 
     // Other required methods
     @Override
     public void show() {
-<span class="nc" id="L158">    }</span>
+<span class="nc" id="L161">    }</span>
 
     @Override
     public void hide() {
-<span class="nc" id="L162">    }</span>
+<span class="nc" id="L165">    }</span>
 
     @Override
     public void pause() {
-<span class="nc" id="L166">    }</span>
+<span class="nc" id="L169">    }</span>
 
     @Override
     public void resume() {
-<span class="nc" id="L170">    }</span>
+<span class="nc" id="L173">    }</span>
 
     /**
      * Disposes of the option settings stage
      */
     @Override
     public void dispose() {
-<span class="nc" id="L177">        optionStage.dispose();</span>
-<span class="nc" id="L178">    }</span>
+<span class="nc" id="L180">        optionStage.dispose();</span>
+<span class="nc" id="L181">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

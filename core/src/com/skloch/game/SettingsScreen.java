@@ -136,6 +136,9 @@ public class SettingsScreen implements Screen {
      * Updates volume to values based on the slider's value
      */
     public void updateVolume(float musicSliderValue, float sfxSliderValue){
+        if(musicSliderValue<0||musicSliderValue>100||sfxSliderValue<0||sfxSliderValue>100){
+            throw new IllegalArgumentException("Volume must be between 0 and 100");
+        }
         game.soundManager.setMusicVolume(musicSliderValue / 100);
         game.soundManager.setSfxVolume(sfxSliderValue / 100);
     }

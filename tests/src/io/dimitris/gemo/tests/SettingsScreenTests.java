@@ -23,8 +23,25 @@ public class SettingsScreenTests {
         Screen prevScreen = mock(Screen.class);
         // Create SettingsScreen instance
         SettingsScreen settingsScreen = new SettingsScreen(hustleGameMock, prevScreen,false);
-        settingsScreen.updateVolume(50,50);
+
+        // If music volume is set to 50 and sfx is set to 75
+        // then music volume will be 0.5 and sfx volume will be 0.75
+        settingsScreen.updateVolume(50,75);
         verify(hustleGameMock.soundManager).setMusicVolume(0.5f);
-        verify(hustleGameMock.soundManager).setSfxVolume(0.5f);
+        verify(hustleGameMock.soundManager).setSfxVolume(0.75f);
+
+        // Testing boundary cases
+        settingsScreen.updateVolume(0,0);
+        verify(hustleGameMock.soundManager).setMusicVolume(0);
+        verify(hustleGameMock.soundManager).setSfxVolume(0);
+        settingsScreen.updateVolume(100,100);
+        verify(hustleGameMock.soundManager).setMusicVolume(1);
+        verify(hustleGameMock.soundManager).setSfxVolume(1);
+
+        // Testing invalid cases
+        assertThrows(IllegalArgumentException.class,()->settingsScreen.updateVolume(-1,50));
+        assertThrows(IllegalArgumentException.class,()->settingsScreen.updateVolume(50,-1));
+        assertThrows(IllegalArgumentException.class,()->settingsScreen.updateVolume(50,-1));
+        assertThrows(IllegalArgumentException.class,()->settingsScreen.updateVolume(-1,50));
     }
 }

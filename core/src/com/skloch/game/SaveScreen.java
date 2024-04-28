@@ -31,16 +31,24 @@ public class SaveScreen implements Screen{
     private OrthographicCamera camera;
     private Viewport viewport;
 
+    public static String leaderboardPath = "../assets/Text/leaderboard.csv";
+
     /**
      * A scene2d window consisting of a title, a scrollable widget and an exit button.
      * Credits are loaded from assets/Text/credits.txt and displayed in the scrollable widget
      * Thus any changes to assets or licenses must be reflected in credits.txt
      *
      */
-    public SaveScreen(HustleGame game, Integer score) {
+    public SaveScreen(HustleGame game, Integer score,boolean draw) {
         
         // Basically all the same code as the settings menu
         this.game = game;
+        if(draw){
+            drawScreen(score);
+        }
+    }
+
+    public void drawScreen(Integer score){
         leaderboardStage = new Stage(new FitViewport(this.game.WIDTH, this.game.HEIGHT));
         Gdx.input.setInputProcessor(leaderboardStage);
 
@@ -158,7 +166,7 @@ public class SaveScreen implements Screen{
     }
 
     private void saveScore(String name, int score) {
-        String filename = "Text/leaderboard.csv"; // Specify the CSV file name
+        String filename = leaderboardPath; // Specify the CSV file name
         String data = name + "," + score + "\n"; // Format the data to append
 
         try {
