@@ -221,10 +221,12 @@ public class PlayerTests {
 
         player.setX(100);
 
-        System.out.println(player.eventHitbox.getWidth());
+        // We check if after setting the X value, we get the values we expect
+        // for each different metric
         assertEquals(100,player.sprite.getX(),0.0001);
         assertEquals(116,player.feet.getX(),0.0001);
         assertEquals(95,player.eventHitbox.getX(),0.0001);
+        assertEquals(105,player.centreX,0.0001);
     }
 
     @Test
@@ -237,5 +239,10 @@ public class PlayerTests {
         assertEquals(100,player.sprite.getY(),0.0001);
         assertEquals(100,player.feet.getY(),0.0001);
         assertEquals(95,player.eventHitbox.getY(),0.0001);
+        assertEquals(105,player.centreY,0.0001);
     }
+
+    // Note: We do not test methods like distanceFrom or
+    // recalcCentre as they are private. They are tested by testing
+    // the public methods that use them.
 }
