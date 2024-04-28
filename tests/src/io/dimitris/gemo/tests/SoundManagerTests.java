@@ -1,5 +1,6 @@
 package io.dimitris.gemo.tests;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -10,6 +11,7 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 @RunWith(GdxTestRunner.class)
 public class SoundManagerTests {
@@ -40,14 +42,27 @@ public class SoundManagerTests {
     @Test
     public void testSetMusicVolume(){
         SoundManager soundManager = new SoundManager();
+
+        soundManager.overworldMusic = mock(Music.class);
+        soundManager.menuMusic = mock(Music.class);
+
         // Test valid volume values
         soundManager.setMusicVolume(0.5f);
         assertEquals(0.5f, soundManager.getMusicVolume(),0.0001);
+        // Verify checks that the correct .setVolume() call was made
+        verify(soundManager.overworldMusic).setVolume(0.5f);
+        verify(soundManager.menuMusic).setVolume(0.5f);
+
         // Test edge cases
         soundManager.setMusicVolume(0.0f);
         assertEquals(0.0f, soundManager.getMusicVolume(),0.0001);
+        verify(soundManager.overworldMusic).setVolume(0.0f);
+        verify(soundManager.menuMusic).setVolume(0.0f);
+
         soundManager.setMusicVolume(1f);
         assertEquals(1f, soundManager.getMusicVolume(),0.0001);
+        verify(soundManager.overworldMusic).setVolume(1f);
+        verify(soundManager.menuMusic).setVolume(1f);
 
         //Note: We can't test to make sure the overworldMusic and menuMusic
         //has updated volumes because overworldMusic and menuMusic are mockups
@@ -55,5 +70,27 @@ public class SoundManagerTests {
 
         assertThrows(IllegalArgumentException.class,()->soundManager.setMusicVolume(-0.1f));
         assertThrows(IllegalArgumentException.class,()->soundManager.setMusicVolume(1.1f));
+    }
+
+    @Test
+    public void testSetSFXVolume(){
+        SoundManager soundManager = new SoundManager();
+        // Test valid volume values
+        soundManager.setSfxVolume(0.5f);
+        assertEquals(0.5f, soundManager.getSfxVolume(),0.0001);
+        // Test edge cases
+        soundManager.setSfxVolume(0.0f);
+        assertEquals(0.0f, soundManager.getSfxVolume(),0.0001);
+        soundManager.setSfxVolume(1f);
+        assertEquals(1f, soundManager.getSfxVolume(),0.0001);
+
+        assertThrows(IllegalArgumentException.class,()->soundManager.setSfxVolume(-0.1f));
+        assertThrows(IllegalArgumentException.class,()->soundManager.setSfxVolume(1.1f));
+    }
+
+    @Test
+    public void testProcessTimers(){
+        SoundManager soundManager = new SoundManager();
+
     }
 }
