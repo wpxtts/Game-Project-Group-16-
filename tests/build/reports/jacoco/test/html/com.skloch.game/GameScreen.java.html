@@ -423,7 +423,7 @@ public class GameScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
 <span class="nc bnc" id="L424" title="All 2 branches missed.">                if (escapeMenu.isVisible()) {</span>
 <span class="nc" id="L425">                    game.soundManager.playButton();</span>
-<span class="nc" id="L426">                    game.setScreen(new SettingsScreen(game, thisScreen));</span>
+<span class="nc" id="L426">                    game.setScreen(new SettingsScreen(game, thisScreen,true));</span>
                 }
 <span class="nc" id="L428">            }</span>
         });

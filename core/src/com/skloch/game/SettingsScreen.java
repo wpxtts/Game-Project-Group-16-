@@ -33,10 +33,16 @@ public class SettingsScreen implements Screen {
      * @param game An instance of HustleGame
      * @param previousScreen The previous screen to return to when the exit button is rpessed
      */
-    public SettingsScreen(final HustleGame game, Screen previousScreen) {
-        // An option screen to let the player adjust the volume of music and sound effects
+    public SettingsScreen(final HustleGame game, Screen previousScreen, boolean draw) {
         this.game = game;
         this.previousScreen = previousScreen;
+        if(draw){
+            drawScreen();
+        }
+    }
+
+    private void drawScreen(){
+        // An option screen to let the player adjust the volume of music and sound effects
         optionStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
         Gdx.input.setInputProcessor(optionStage);
 
@@ -120,11 +126,18 @@ public class SettingsScreen implements Screen {
         optionStage.draw();
 
         // Volumes should be between 0 and 1
-        game.soundManager.setMusicVolume(musicSlider.getValue() / 100);
-        game.soundManager.setSfxVolume(sfxSlider.getValue() / 100);
+        updateVolume(musicSlider.getValue(),sfxSlider.getValue());
 
         camera.update();
 
+    }
+
+    /**
+     * Updates volume to values based on the slider's value
+     */
+    public void updateVolume(float musicSliderValue, float sfxSliderValue){
+        game.soundManager.setMusicVolume(musicSliderValue / 100);
+        game.soundManager.setSfxVolume(sfxSliderValue / 100);
     }
 
 

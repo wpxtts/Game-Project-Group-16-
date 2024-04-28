@@ -423,7 +423,7 @@ public class GameScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 if (escapeMenu.isVisible()) {
                     game.soundManager.playButton();
-                    game.setScreen(new SettingsScreen(game, thisScreen));
+                    game.setScreen(new SettingsScreen(game, thisScreen,true));
                 }
             }
         });
