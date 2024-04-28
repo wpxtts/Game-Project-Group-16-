@@ -30,7 +30,7 @@ public class SaveScreen implements Screen{
     private Stage leaderboardStage;
     private OrthographicCamera camera;
     private Viewport viewport;
-
+    private boolean saved;
     public static String leaderboardPath = "../assets/Text/leaderboard.csv";
 
     /**
@@ -43,6 +43,7 @@ public class SaveScreen implements Screen{
         
         // Basically all the same code as the settings menu
         this.game = game;
+        this.saved = false;
         if(draw){
             drawScreen(score);
         }
@@ -123,17 +124,21 @@ public class SaveScreen implements Screen{
         saveButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (!saveButton.getText().toString().equals("Saved")) { // Check if the button is not already marked as Saved
-                    SaveScreen.this.game.soundManager.playButton();
-                    String name = userInputField.getText(); // Obtain the text from the input box
-                    if (!name.isEmpty()) { // Check if the text is not empty
-                        saveScore(name, score); // Append the name and score to the CSV file
-                        saveButton.setText("Saved"); // Change the button text to Saved
-                        saveButton.setDisabled(true); // Disable the button
-                    }
-                }
+                saveButtonPress(userInputField.getText(),score,saveButton);
             }
         });
+    }
+
+    public void saveButtonPress(String userInput,Integer score,TextButton button){
+        if (!saved) { // Check if the button is not already marked as Saved
+            SaveScreen.this.game.soundManager.playButton();
+            if (!userInput.isEmpty()) { // Check if the text is not empty
+                saveScore(userInput, score); // Append the name and score to the CSV file
+                button.setText("Saved"); // Change the button text to Saved
+                saved = true;
+                button.setDisabled(true); // Disable the button
+            }
+        }
     }
 
     /**
@@ -165,7 +170,10 @@ public class SaveScreen implements Screen{
         viewport.update(width, height);
     }
 
-    private void saveScore(String name, int score) {
+    public void saveScore(String name, int score) {
+        if(score<0){
+            throw new IllegalArgumentException("Score has to be 0 or greater");
+        }
         String filename = leaderboardPath; // Specify the CSV file name
         String data = name + "," + score + "\n"; // Format the data to append
 

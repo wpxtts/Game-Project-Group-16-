@@ -4,6 +4,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.skloch.game.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +14,8 @@ import org.mockito.Mockito;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -19,12 +23,10 @@ import static org.mockito.Mockito.*;
 
 @RunWith(GdxTestRunner.class)
 public class SaveScreenTests {
-    private SaveScreen saveScreen;
+
     @Before
     public void setUp(){
-        HustleGame game = mock(HustleGame.class);
-        Integer score = 10;
-        SaveScreen saveScreen = new SaveScreen(game,score,false);
+        // Set up test leaderboard file
         SaveScreen.leaderboardPath = "../tests/testAssets/testLeaderboard.csv";
         try {
             FileWriter writer = new FileWriter(SaveScreen.leaderboardPath, false);
@@ -40,6 +42,60 @@ public class SaveScreenTests {
                 Gdx.files.internal(SaveScreen.leaderboardPath).exists());
     }
 
+    @Test
+    public void testSaveScore(){
+        HustleGame game = mock(HustleGame.class);
+        Integer score = 10;
+        SaveScreen saveScreen = new SaveScreen(game,score,false);
 
+        saveScreen.saveScore("George",0);
+        saveScreen.saveScore("Seyi",32);
+        saveScreen.saveScore("Will",16);
+        String leaderboardContents ="";
+        try {
+            leaderboardContents = Files.readString(Path.of(SaveScreen.leaderboardPath));
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        assertEquals("Player Name,Score\n" +
+                "George,0\n" +
+                "Seyi,32\n" +
+                "Will,16\n",
+                leaderboardContents);
+        assertThrows(IllegalArgumentException.class,()->saveScreen.saveScore("George",-1));
+    }
+
+    @Test
+    public void testSaveButtonPress(){
+        HustleGame game = mock(HustleGame.class);
+        Integer score = 10;
+        SaveScreen saveScreen = new SaveScreen(game,score,false);
+        game.soundManager = mock(SoundManager.class);
+        TextButton button = mock(TextButton.class);
+
+        // On first press button should save input
+        saveScreen.saveButtonPress("Ben",10,button);
+        String leaderboardContents ="";
+        try {
+            leaderboardContents = Files.readString(Path.of(SaveScreen.leaderboardPath));
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        assertEquals("Player Name,Score\n" +
+                        "Ben,10\n",
+                leaderboardContents);
+
+        // But if pressed multiple times, the button should not continue to save
+        // as a score should only be saved once
+        saveScreen.saveButtonPress("Ben",10,button);
+        try {
+            leaderboardContents = Files.readString(Path.of(SaveScreen.leaderboardPath));
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        assertEquals("Player Name,Score\n" +
+                        "Ben,10\n",
+                leaderboardContents);
+    }
 
 }
