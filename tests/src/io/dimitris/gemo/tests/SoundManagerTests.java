@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.skloch.game.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 
@@ -105,5 +106,32 @@ public class SoundManagerTests {
         assertEquals(0.0f,soundManager.getFootstepTimer(),0.0001);
 
         assertThrows(IllegalArgumentException.class,()->soundManager.processTimers(-0.1f));
+    }
+
+    @Test
+    public void testPlayFootstep(){
+        SoundManager soundManager = new SoundManager();
+        soundManager.setFootstepTimer(0.5f);
+        soundManager.footstepBool = false;
+        soundManager.footstep1 = mock(Sound.class);
+        soundManager.footstep2 = mock(Sound.class);
+
+        // Before anytime has passed neither footstep should be played
+        verify(soundManager.footstep1,never()).play(soundManager.getSfxVolume());
+        verify(soundManager.footstep2,never()).play(soundManager.getSfxVolume());
+
+        //When 0.5f of time goes past then footstep1 should be played
+        //but footstep 2 should not be played
+        soundManager.processTimers(0.5f);
+        soundManager.playFootstep();
+        verify(soundManager.footstep1, Mockito.times(1)).play(soundManager.getSfxVolume());
+        verify(soundManager.footstep2, never()).play(soundManager.getSfxVolume());
+
+        //When another 0.5f of time goes past then footstep2 should be played
+        //but footstep1 shouldn't be played
+        soundManager.processTimers(0.5f);
+        soundManager.playFootstep();
+        verify(soundManager.footstep1, Mockito.times(1)).play(soundManager.getSfxVolume());
+        verify(soundManager.footstep2, Mockito.times(1)).play(soundManager.getSfxVolume());
     }
 }

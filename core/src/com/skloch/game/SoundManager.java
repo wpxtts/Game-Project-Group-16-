@@ -19,7 +19,7 @@ public class SoundManager implements Disposable {
     public static final String dialogueOpenSoundPath = "../assets/Sounds/DialogueOpen.wav";
     public static final String dialogueOptionSoundPath = "../assets/Sounds/DialogueOption.wav";
     public static final String buttonSoundPath = "../assets/Sounds/Button.wav";
-    private Sound footstep1, footstep2;
+    public Sound footstep1, footstep2;
     public boolean footstepBool;
     private float footstepTimer;
     private float sfxVolume = 0.8f, musicVolume = 0.8f;

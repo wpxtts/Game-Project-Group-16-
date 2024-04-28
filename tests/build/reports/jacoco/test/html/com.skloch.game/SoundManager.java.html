@@ -19,7 +19,7 @@ public class SoundManager implements Disposable {
     public static final String dialogueOpenSoundPath = &quot;../assets/Sounds/DialogueOpen.wav&quot;;
     public static final String dialogueOptionSoundPath = &quot;../assets/Sounds/DialogueOption.wav&quot;;
     public static final String buttonSoundPath = &quot;../assets/Sounds/Button.wav&quot;;
-    private Sound footstep1, footstep2;
+    public Sound footstep1, footstep2;
     public boolean footstepBool;
     private float footstepTimer;
 <span class="fc" id="L25">    private float sfxVolume = 0.8f, musicVolume = 0.8f;</span>
@@ -124,7 +124,7 @@ public class SoundManager implements Disposable {
     /**
      * @return The current sound effect volume
      */
-<span class="nc" id="L127">    public float getSfxVolume() {return sfxVolume;}</span>
+<span class="fc" id="L127">    public float getSfxVolume() {return sfxVolume;}</span>
 
     /**
      * Updates the timers for sounds that repeat regularly, needs to be called every render cycle.
@@ -133,7 +133,7 @@ public class SoundManager implements Disposable {
      */
 
     public float getFootstepTimer(){
-<span class="fc" id="L136">        return footstepTimer;</span>
+<span class="nc" id="L136">        return footstepTimer;</span>
     }
 
     public void setFootstepTimer(float time){
@@ -143,12 +143,12 @@ public class SoundManager implements Disposable {
     public void processTimers(float delta) {
         // Decrements timers for any recurring sounds, like footsteps
         // Events that make these sounds can then check that their specific timer is zero and play a noise
-<span class="fc bfc" id="L146" title="All 2 branches covered.">        if(delta&lt;0.0f){</span>
-<span class="fc" id="L147">            throw new IllegalArgumentException(&quot;delta must be 0 or greater&quot;);</span>
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">        if(delta&lt;0.0f){</span>
+<span class="nc" id="L147">            throw new IllegalArgumentException(&quot;delta must be 0 or greater&quot;);</span>
         }
 <span class="fc" id="L149">        footstepTimer -= delta;</span>
-<span class="fc bfc" id="L150" title="All 2 branches covered.">        if (footstepTimer &lt; 0) {</span>
-<span class="fc" id="L151">            footstepTimer = 0;</span>
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">        if (footstepTimer &lt; 0) {</span>
+<span class="nc" id="L151">            footstepTimer = 0;</span>
         }
 <span class="fc" id="L153">    }</span>
 
@@ -158,17 +158,17 @@ public class SoundManager implements Disposable {
      */
     public void playFootstep() {
         // If it is time to play a footstep, play one
-<span class="nc bnc" id="L161" title="All 2 branches missed.">        if (footstepTimer &lt;= 0) {</span>
-<span class="nc" id="L162">            footstepTimer = 0.5f; // Delay between each footstep sound, increase to have slower steps</span>
-<span class="nc bnc" id="L163" title="All 2 branches missed.">            if (footstepBool == false) {</span>
-<span class="nc" id="L164">                footstep1.play(sfxVolume);</span>
-<span class="nc" id="L165">                footstepBool = true;</span>
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">        if (footstepTimer &lt;= 0) {</span>
+<span class="fc" id="L162">            footstepTimer = 0.5f; // Delay between each footstep sound, increase to have slower steps</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">            if (footstepBool == false) {</span>
+<span class="fc" id="L164">                footstep1.play(sfxVolume);</span>
+<span class="fc" id="L165">                footstepBool = true;</span>
             } else {
-<span class="nc" id="L167">                footstep2.play(sfxVolume);</span>
-<span class="nc" id="L168">                footstepBool = false;</span>
+<span class="fc" id="L167">                footstep2.play(sfxVolume);</span>
+<span class="fc" id="L168">                footstepBool = false;</span>
             }
         }
-<span class="nc" id="L171">    }</span>
+<span class="fc" id="L171">    }</span>
 
 
     /**
