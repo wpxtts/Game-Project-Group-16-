@@ -33,71 +33,74 @@ public class CreditScreen implements Screen{
      * @param game An instance of the HustleGame class
      * @param previousScreen The screen to return to when the exit button is pressed
      */
-    public CreditScreen (final HustleGame game, Screen previousScreen) {
+    public CreditScreen (final HustleGame game, Screen previousScreen,boolean draw) {
 
         // Basically all the same code as the settings menu
         this.game = game;
-        creditStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
-        Gdx.input.setInputProcessor(creditStage);
 
-        camera = new OrthographicCamera();
-        viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
-        camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
+        if(draw) {
+            creditStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
+            Gdx.input.setInputProcessor(creditStage);
 
-        // Create the window
-        Window creditMenu = new Window("", game.skin);
-        creditStage.addActor(creditMenu);
-        creditMenu.setModal(true);
+            camera = new OrthographicCamera();
+            viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
+            camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
 
-        // Table for UI elements in window
-        Table creditTable = new Table();
-        creditMenu.add(creditTable).prefHeight(600);
+            // Create the window
+            Window creditMenu = new Window("", game.skin);
+            creditStage.addActor(creditMenu);
+            creditMenu.setModal(true);
 
-        // Title
-        Label title = new Label("Credits", game.skin, "button");
-        creditTable.add(title).padTop(10);
-        creditTable.row();
+            // Table for UI elements in window
+            Table creditTable = new Table();
+            creditMenu.add(creditTable).prefHeight(600);
 
-        // Table for things inside the scrollable widget
-        Table scrollTable = new Table();
+            // Title
+            Label title = new Label("Credits", game.skin, "button");
+            creditTable.add(title).padTop(10);
+            creditTable.row();
 
-        // Scrollable widget
-        ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);
-        scrollWindow.setFadeScrollBars(false);
-        // scrollWindow.setDebug(true);
+            // Table for things inside the scrollable widget
+            Table scrollTable = new Table();
 
-        // scrollWindow.setFillParent(true);
-        creditTable.add(scrollWindow).padTop(20).height(350);
-        creditTable.row();
+            // Scrollable widget
+            ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);
+            scrollWindow.setFadeScrollBars(false);
+            // scrollWindow.setDebug(true);
 
-        // Actual credits
-        // Credits are loaded when the game is initialised
-        Label text = new Label(game.credits, game.skin, "interaction");
-        text.setWrap(true);
-        scrollTable.add(text).width(520f).padLeft(15);
+            // scrollWindow.setFillParent(true);
+            creditTable.add(scrollWindow).padTop(20).height(350);
+            creditTable.row();
 
-        // Exit button
-        TextButton exitButton = new TextButton("Exit", game.skin);
-        creditTable.add(exitButton).bottom().width(300).padTop(10);
+            // Actual credits
+            // Credits are loaded when the game is initialised
+            Label text = new Label(game.credits, game.skin, "interaction");
+            text.setWrap(true);
+            scrollTable.add(text).width(520f).padLeft(15);
 
-        creditMenu.pack();
+            // Exit button
+            TextButton exitButton = new TextButton("Exit", game.skin);
+            creditTable.add(exitButton).bottom().width(300).padTop(10);
 
-        creditMenu.setSize(600, 600);
+            creditMenu.pack();
 
-        // Centre the window
-        creditMenu.setX((viewport.getWorldWidth() / 2) - (creditMenu.getWidth() / 2));
-        creditMenu.setY((viewport.getWorldHeight() / 2) - (creditMenu.getHeight() / 2));
+            creditMenu.setSize(600, 600);
 
-        // Listener for the exit button
-        exitButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.soundManager.playButton();
-                dispose();
-                game.setScreen(previousScreen);
-                previousScreen.resume();
-            }
-        });
+            // Centre the window
+            creditMenu.setX((viewport.getWorldWidth() / 2) - (creditMenu.getWidth() / 2));
+            creditMenu.setY((viewport.getWorldHeight() / 2) - (creditMenu.getHeight() / 2));
+
+            // Listener for the exit button
+            exitButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    game.soundManager.playButton();
+                    dispose();
+                    game.setScreen(previousScreen);
+                    previousScreen.resume();
+                }
+            });
+        }
 
     }
 

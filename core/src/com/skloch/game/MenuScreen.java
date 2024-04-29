@@ -127,7 +127,7 @@ public class MenuScreen implements Screen {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     game.soundManager.playButton();
-                    game.setScreen(new CreditScreen(game, thisScreen));
+                    game.setScreen(new CreditScreen(game, thisScreen,draw));
                 }
             });
 
@@ -170,6 +170,11 @@ public class MenuScreen implements Screen {
         game.soundManager.playButton();
         SettingsScreen screen = new SettingsScreen(game,thisScreen,draw);
         game.setScreen(screen);
+    }
+
+    public void creditsButtonTask(Screen thisScreen){
+        game.soundManager.playButton();
+        game.setScreen(new CreditScreen(game, thisScreen,draw));
     }
 
     /**

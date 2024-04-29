@@ -23,14 +23,22 @@ import static org.mockito.Mockito.*;
 
 @RunWith(GdxTestRunner.class)
 public class MenuScreenTests {
+    private HustleGame game;
+    private MenuScreen menuScreen;
+
+    @Before
+    public void setUp(){
+        game = mock(HustleGame.class);
+        game.soundManager = mock(SoundManager.class);
+        menuScreen = new MenuScreen(game,false);
+    }
+
     @Test
     public void testStartButtonTask() {
         // Set up
-        HustleGame game = mock(HustleGame.class);
-        game.soundManager = mock(SoundManager.class);
-        MenuScreen menuScreen = new MenuScreen(game,false);
         Window tutorialWindow = mock(Window.class);
-        Table buttonTable = mock(Window.class);
+        Table buttonTable = mock(Table.class);
+        
         menuScreen.startButtonTask(buttonTable,tutorialWindow);
 
         // When the start button is pressed it needs to make
@@ -40,14 +48,17 @@ public class MenuScreenTests {
     }
     @Test
     public void testSettingsButtonTask(){
-        // Set up
-        HustleGame game = mock(HustleGame.class);
-        game.soundManager = mock(SoundManager.class);
-        MenuScreen menuScreen = new MenuScreen(game,false);
         menuScreen.settingsButtonTask(menuScreen);
 
         // When the settings button is pressed we need to set
         // the screen to a SettingsScreen
         verify(game).setScreen(any(SettingsScreen.class));
+    }
+    @Test
+    public void testCreditsButtonTask(){
+        menuScreen.creditsButtonTask(menuScreen);
+        // When the credits button is pressed we need to set
+        // the screen to a CreditScreen
+        verify(game).setScreen(any(CreditScreen.class));
     }
 }
