@@ -98,28 +98,28 @@ public class GameOverScreen implements Screen {
         // Hidden achievements
         // How much energy an hour of each activity should take
         streakGoals = new HashMap<String, Integer>();
-        streakGoals.put("studying", 0);
-        streakGoals.put("meet_friends", 0);
-        streakGoals.put("eating", 0);
-        streakGoals.put("flowers",0);
-        streakGoals.put("town", 0);
-        streakGoals.put("shop", 0);
-        streakGoals.put("determined", 0);
-        streakGoals.put("early_bird", 0);
-        streakGoals.put("talkative", 0);
-        streakGoals.put("secretive", 0);
-
-//        streakGoals = new HashMap<String, Integer>();
 //        streakGoals.put("studying", 0);
+//        streakGoals.put("meet_friends", 0);
+//        streakGoals.put("eating", 0);
+//        streakGoals.put("flowers",0);
+//        streakGoals.put("town", 0);
+//        streakGoals.put("shop", 0);
+//        streakGoals.put("determined", 0);
+//        streakGoals.put("early_bird", 0);
+//        streakGoals.put("talkative", 0);
+//        streakGoals.put("secretive", 0);
+
+        streakGoals = new HashMap<String, Integer>();
+//        streakGoals.put("studying", 100);
 //        streakGoals.put("meet_friends", 4);
-//        streakGoals.put("eating", 11);
-//        streakGoals.put("flowers", 5);
-//        streakGoals.put("town", 8);
-//        streakGoals.put("shop", 11);
-//        streakGoals.put("determined", 10);
-//        streakGoals.put("early_bird", 10);
-//        streakGoals.put("talkative", 10);
-//        streakGoals.put("secretive", 5);
+        streakGoals.put("eating", 11);
+        streakGoals.put("flowers", 5);
+        streakGoals.put("town", 8);
+        streakGoals.put("shop", 11);
+        streakGoals.put("determined", 10);
+        streakGoals.put("early_bird", 10);
+        streakGoals.put("talkative", 10);
+        streakGoals.put("secretive", 5);
 
         // Load your texture
         rch = new Texture(Gdx.files.internal("Sprites/achievements/hub.png")); //for eating at the right times
