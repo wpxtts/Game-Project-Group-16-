@@ -106,70 +106,64 @@ public class MenuScreen implements Screen {
 <span class="nc" id="L106">            startButton.addListener(new ChangeListener() {</span>
                                         @Override
                                         public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L109">                                            game.soundManager.playButton();</span>
-<span class="nc" id="L110">                                            buttonTable.setVisible(false);</span>
-<span class="nc" id="L111">                                            titleImage.setVisible(false);</span>
-<span class="nc" id="L112">                                            tutorialWindow.setVisible(true);</span>
-
-//                dispose();
-//                game.setScreen(new GameScreen(game));
-<span class="nc" id="L116">                                        }</span>
+<span class="nc" id="L109">                                            startButtonTask(buttonTable,tutorialWindow);</span>
+<span class="nc" id="L110">                                        }</span>
                                     }
             );
 
             // SETTINGS BUTTON
-<span class="nc" id="L121">            Screen thisScreen = this;</span>
-<span class="nc" id="L122">            settingsButton.addListener(new ChangeListener() {</span>
+<span class="nc" id="L115">            Screen thisScreen = this;</span>
+<span class="nc" id="L116">            settingsButton.addListener(new ChangeListener() {</span>
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L125">                    game.soundManager.playButton();</span>
-<span class="nc" id="L126">                    game.setScreen(new SettingsScreen(game, thisScreen,true));</span>
-<span class="nc" id="L127">                }</span>
+<span class="nc" id="L119">                    game.soundManager.playButton();</span>
+<span class="nc" id="L120">                    game.setScreen(new SettingsScreen(game, thisScreen,true));</span>
+<span class="nc" id="L121">                }</span>
             });
 
             // CREDITS BUTTON
-<span class="nc" id="L131">            creditsButton.addListener(new ChangeListener() {</span>
+<span class="nc" id="L125">            creditsButton.addListener(new ChangeListener() {</span>
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L134">                    game.soundManager.playButton();</span>
-<span class="nc" id="L135">                    game.setScreen(new CreditScreen(game, thisScreen));</span>
-<span class="nc" id="L136">                }</span>
+<span class="nc" id="L128">                    game.soundManager.playButton();</span>
+<span class="nc" id="L129">                    game.setScreen(new CreditScreen(game, thisScreen));</span>
+<span class="nc" id="L130">                }</span>
             });
 
             // EXIT BUTTON
-<span class="nc" id="L140">            exitButton.addListener(new ChangeListener() {</span>
+<span class="nc" id="L134">            exitButton.addListener(new ChangeListener() {</span>
                                        @Override
                                        public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L143">                                           game.soundManager.playButton();</span>
-<span class="nc" id="L144">                                           game.dispose();</span>
-<span class="nc" id="L145">                                           dispose();</span>
-<span class="nc" id="L146">                                           Gdx.app.exit();</span>
-<span class="nc" id="L147">                                       }</span>
+<span class="nc" id="L137">                                           game.soundManager.playButton();</span>
+<span class="nc" id="L138">                                           game.dispose();</span>
+<span class="nc" id="L139">                                           dispose();</span>
+<span class="nc" id="L140">                                           Gdx.app.exit();</span>
+<span class="nc" id="L141">                                       }</span>
                                    }
             );
             // LEADERBOARD BUTTON
-<span class="nc" id="L151">            leaderboardButton.addListener(new ChangeListener() {</span>
+<span class="nc" id="L145">            leaderboardButton.addListener(new ChangeListener() {</span>
                                               @Override
                                               public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L154">                                                  game.soundManager.playButton();</span>
-<span class="nc" id="L155">                                                  game.setScreen(new LeaderboardScreen(game, thisScreen));</span>
-<span class="nc" id="L156">                                              }</span>
+<span class="nc" id="L148">                                                  game.soundManager.playButton();</span>
+<span class="nc" id="L149">                                                  game.setScreen(new LeaderboardScreen(game, thisScreen));</span>
+<span class="nc" id="L150">                                              }</span>
                                           }
             );
 
 
 
-<span class="nc" id="L162">            game.batch.setProjectionMatrix(camera.combined);</span>
+<span class="nc" id="L156">            game.batch.setProjectionMatrix(camera.combined);</span>
         }
 
-<span class="fc" id="L165">    }</span>
+<span class="fc" id="L159">    }</span>
 
     public void startButtonTask(Table buttonTable, Window tutorialWindow){
-<span class="fc" id="L168">        game.soundManager.playButton();</span>
-<span class="fc" id="L169">        buttonTable.setVisible(false);</span>
-<span class="fc" id="L170">        titleImage.setVisible(false);</span>
-<span class="fc" id="L171">        tutorialWindow.setVisible(true);</span>
-<span class="fc" id="L172">    }</span>
+<span class="fc" id="L162">        game.soundManager.playButton();</span>
+<span class="fc" id="L163">        buttonTable.setVisible(false);</span>
+<span class="fc" id="L164">        titleImage.setVisible(false);</span>
+<span class="fc" id="L165">        tutorialWindow.setVisible(true);</span>
+<span class="fc" id="L166">    }</span>
 
     /**
      * Renders the main menu, and any windows that are displaying information
@@ -177,19 +171,19 @@ public class MenuScreen implements Screen {
      */
     @Override
     public void render(float delta) {
-<span class="nc" id="L180">        ScreenUtils.clear(0, 0, 0, 1);</span>
-<span class="nc" id="L181">        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</span>
+<span class="nc" id="L174">        ScreenUtils.clear(0, 0, 0, 1);</span>
+<span class="nc" id="L175">        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</span>
 
-<span class="nc" id="L183">        camera.update();</span>
+<span class="nc" id="L177">        camera.update();</span>
 
-<span class="nc" id="L185">        game.blueBackground.draw();</span>
+<span class="nc" id="L179">        game.blueBackground.draw();</span>
 
         // Make the stage follow actions and draw itself
-<span class="nc" id="L188">        menuStage.setViewport(viewport);</span>
-<span class="nc" id="L189">        menuStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));</span>
-<span class="nc" id="L190">        menuStage.draw();</span>
+<span class="nc" id="L182">        menuStage.setViewport(viewport);</span>
+<span class="nc" id="L183">        menuStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));</span>
+<span class="nc" id="L184">        menuStage.draw();</span>
 
-<span class="nc" id="L192">    }</span>
+<span class="nc" id="L186">    }</span>
 
     /**
      * Correctly resizes the menu screen
@@ -198,22 +192,22 @@ public class MenuScreen implements Screen {
      */
     @Override
     public void resize(int width, int height) {
-<span class="nc" id="L201">        viewport.update(width, height);</span>
-<span class="nc" id="L202">        menuStage.getViewport().update(width, height);</span>
-<span class="nc" id="L203">    }</span>
+<span class="nc" id="L195">        viewport.update(width, height);</span>
+<span class="nc" id="L196">        menuStage.getViewport().update(width, height);</span>
+<span class="nc" id="L197">    }</span>
 
     // Other required methods
     @Override
     public void show() {
-<span class="nc" id="L208">    }</span>
+<span class="nc" id="L202">    }</span>
 
     @Override
     public void hide() {
-<span class="nc" id="L212">    }</span>
+<span class="nc" id="L206">    }</span>
 
     @Override
     public void pause() {
-<span class="nc" id="L216">    }</span>
+<span class="nc" id="L210">    }</span>
 
     @Override
     /**
@@ -221,19 +215,19 @@ public class MenuScreen implements Screen {
      * Fixes a small graphical bug
      */
     public void resume() {
-<span class="nc" id="L224">        Gdx.input.setInputProcessor(menuStage);</span>
+<span class="nc" id="L218">        Gdx.input.setInputProcessor(menuStage);</span>
 
         // See the comment in the resume() function in GameScreen to see why this pointless line exists
-<span class="nc" id="L227">        Gdx.input.setCursorPosition(Gdx.input.getX(), Gdx.input.getY());</span>
-<span class="nc" id="L228">    }</span>
+<span class="nc" id="L221">        Gdx.input.setCursorPosition(Gdx.input.getX(), Gdx.input.getY());</span>
+<span class="nc" id="L222">    }</span>
 
     /**
      * Dispose of all menu assets
      */
     @Override
     public void dispose() {
-<span class="nc" id="L235">        menuStage.dispose();</span>
-<span class="nc" id="L236">    }</span>
+<span class="nc" id="L229">        menuStage.dispose();</span>
+<span class="nc" id="L230">    }</span>
 
     /**
      * Generates a window to teach the player how to play the game
@@ -242,55 +236,55 @@ public class MenuScreen implements Screen {
      * @return A small window to explain the game
      */
     public Window makeTutorialWindow(Table nextTable) {
-<span class="nc" id="L245">        Window tutWindow = new Window(&quot;&quot;, game.skin);</span>
-<span class="nc" id="L246">        Table tutTable = new Table();</span>
-<span class="nc" id="L247">        tutWindow.add(tutTable).prefHeight(600).prefWidth(800-20);</span>
+<span class="nc" id="L239">        Window tutWindow = new Window(&quot;&quot;, game.skin);</span>
+<span class="nc" id="L240">        Table tutTable = new Table();</span>
+<span class="nc" id="L241">        tutWindow.add(tutTable).prefHeight(600).prefWidth(800-20);</span>
 
         // Title
-<span class="nc" id="L250">        Label title = new Label(&quot;How to play&quot;, game.skin, &quot;button&quot;);</span>
-<span class="nc" id="L251">        tutTable.add(title).padTop(10);</span>
-<span class="nc" id="L252">        tutTable.row();</span>
+<span class="nc" id="L244">        Label title = new Label(&quot;How to play&quot;, game.skin, &quot;button&quot;);</span>
+<span class="nc" id="L245">        tutTable.add(title).padTop(10);</span>
+<span class="nc" id="L246">        tutTable.row();</span>
 
         // Table for things inside the scrollable widget
-<span class="nc" id="L255">        Table scrollTable = new Table();</span>
+<span class="nc" id="L249">        Table scrollTable = new Table();</span>
 
         // Scrollable widget
-<span class="nc" id="L258">        ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);</span>
-<span class="nc" id="L259">        scrollWindow.setFadeScrollBars(false);</span>
+<span class="nc" id="L252">        ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);</span>
+<span class="nc" id="L253">        scrollWindow.setFadeScrollBars(false);</span>
 
-<span class="nc" id="L261">        tutTable.add(scrollWindow).padTop(20).height(350).width(870);</span>
-<span class="nc" id="L262">        tutTable.row();</span>
+<span class="nc" id="L255">        tutTable.add(scrollWindow).padTop(20).height(350).width(870);</span>
+<span class="nc" id="L256">        tutTable.row();</span>
 
-<span class="nc" id="L264">        Label text = new Label(game.tutorialText, game.skin, &quot;interaction&quot;);</span>
-<span class="nc" id="L265">        text.setWrap(true);</span>
-<span class="nc" id="L266">        scrollTable.add(text).width(820f).padLeft(20);</span>
+<span class="nc" id="L258">        Label text = new Label(game.tutorialText, game.skin, &quot;interaction&quot;);</span>
+<span class="nc" id="L259">        text.setWrap(true);</span>
+<span class="nc" id="L260">        scrollTable.add(text).width(820f).padLeft(20);</span>
 
         // Exit button
-<span class="nc" id="L269">        TextButton continueButton = new TextButton(&quot;Continue&quot;, game.skin);</span>
-<span class="nc" id="L270">        tutTable.add(continueButton).bottom().width(300).padTop(10);</span>
+<span class="nc" id="L263">        TextButton continueButton = new TextButton(&quot;Continue&quot;, game.skin);</span>
+<span class="nc" id="L264">        tutTable.add(continueButton).bottom().width(300).padTop(10);</span>
 
-<span class="nc" id="L272">        tutWindow.pack();</span>
+<span class="nc" id="L266">        tutWindow.pack();</span>
 
-<span class="nc" id="L274">        tutWindow.setSize(900, 600);</span>
+<span class="nc" id="L268">        tutWindow.setSize(900, 600);</span>
 
         // Centre the window
-<span class="nc" id="L277">        tutWindow.setX((viewport.getWorldWidth() / 2) - (tutWindow.getWidth() / 2));</span>
-<span class="nc" id="L278">        tutWindow.setY((viewport.getWorldHeight() / 2) - (tutWindow.getHeight() / 2));</span>
+<span class="nc" id="L271">        tutWindow.setX((viewport.getWorldWidth() / 2) - (tutWindow.getWidth() / 2));</span>
+<span class="nc" id="L272">        tutWindow.setY((viewport.getWorldHeight() / 2) - (tutWindow.getHeight() / 2));</span>
 
 
 
-<span class="nc" id="L282">        continueButton.addListener(new ChangeListener() {</span>
+<span class="nc" id="L276">        continueButton.addListener(new ChangeListener() {</span>
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L285">                game.soundManager.playButton();</span>
-<span class="nc" id="L286">                tutWindow.setVisible(false);</span>
-<span class="nc" id="L287">                nextTable.setVisible(true);</span>
-<span class="nc" id="L288">            }</span>
+<span class="nc" id="L279">                game.soundManager.playButton();</span>
+<span class="nc" id="L280">                tutWindow.setVisible(false);</span>
+<span class="nc" id="L281">                nextTable.setVisible(true);</span>
+<span class="nc" id="L282">            }</span>
         });
 
 
 
-<span class="nc" id="L293">        return tutWindow;</span>
+<span class="nc" id="L287">        return tutWindow;</span>
     }
 
 
@@ -300,45 +294,45 @@ public class MenuScreen implements Screen {
      * @return A table containing UI elements
      */
     public Table makeAvatarSelectTable () {
-<span class="nc" id="L303">        Table table = new Table();</span>
-<span class="nc" id="L304">        table.setFillParent(true);</span>
-<span class="nc" id="L305">        table.top();</span>
+<span class="nc" id="L297">        Table table = new Table();</span>
+<span class="nc" id="L298">        table.setFillParent(true);</span>
+<span class="nc" id="L299">        table.top();</span>
 
         // Prompt
-<span class="nc" id="L308">        Label title = new Label(&quot;Select your avatar&quot;, game.skin, &quot;button&quot;);</span>
-<span class="nc" id="L309">        table.add(title).padBottom(120).padTop(80);</span>
-<span class="nc" id="L310">        table.row();</span>
+<span class="nc" id="L302">        Label title = new Label(&quot;Select your avatar&quot;, game.skin, &quot;button&quot;);</span>
+<span class="nc" id="L303">        table.add(title).padBottom(120).padTop(80);</span>
+<span class="nc" id="L304">        table.row();</span>
 
         // Image buttons
-<span class="nc" id="L313">        Table buttonTable = new Table();</span>
-<span class="nc" id="L314">        table.add(buttonTable).width(600);</span>
+<span class="nc" id="L307">        Table buttonTable = new Table();</span>
+<span class="nc" id="L308">        table.add(buttonTable).width(600);</span>
 
-<span class="nc" id="L316">        ImageButton choice1 = new ImageButton(game.skin, &quot;avatar1&quot;);</span>
-<span class="nc" id="L317">        buttonTable.add(choice1).left().expandX();</span>
-<span class="nc" id="L318">        ImageButton choice2 = new ImageButton(game.skin, &quot;avatar2&quot;);</span>
-<span class="nc" id="L319">        buttonTable.add(choice2).right().expandX();</span>
+<span class="nc" id="L310">        ImageButton choice1 = new ImageButton(game.skin, &quot;avatar1&quot;);</span>
+<span class="nc" id="L311">        buttonTable.add(choice1).left().expandX();</span>
+<span class="nc" id="L312">        ImageButton choice2 = new ImageButton(game.skin, &quot;avatar2&quot;);</span>
+<span class="nc" id="L313">        buttonTable.add(choice2).right().expandX();</span>
 
-<span class="nc" id="L321">        choice1.addListener(new ChangeListener() {</span>
+<span class="nc" id="L315">        choice1.addListener(new ChangeListener() {</span>
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L324">                game.soundManager.playButton();</span>
-<span class="nc" id="L325">                game.setScreen(new GameScreen(game, 1));</span>
-<span class="nc" id="L326">                game.soundManager.stopMenuMusic();</span>
-<span class="nc" id="L327">                dispose();</span>
-<span class="nc" id="L328">            }</span>
+<span class="nc" id="L318">                game.soundManager.playButton();</span>
+<span class="nc" id="L319">                game.setScreen(new GameScreen(game, 1));</span>
+<span class="nc" id="L320">                game.soundManager.stopMenuMusic();</span>
+<span class="nc" id="L321">                dispose();</span>
+<span class="nc" id="L322">            }</span>
         });
 
-<span class="nc" id="L331">        choice2.addListener(new ChangeListener() {</span>
+<span class="nc" id="L325">        choice2.addListener(new ChangeListener() {</span>
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L334">                game.soundManager.playButton();</span>
-<span class="nc" id="L335">                game.setScreen(new GameScreen(game, 2));</span>
-<span class="nc" id="L336">                game.soundManager.stopMenuMusic();</span>
-<span class="nc" id="L337">                dispose();</span>
-<span class="nc" id="L338">            }</span>
+<span class="nc" id="L328">                game.soundManager.playButton();</span>
+<span class="nc" id="L329">                game.setScreen(new GameScreen(game, 2));</span>
+<span class="nc" id="L330">                game.soundManager.stopMenuMusic();</span>
+<span class="nc" id="L331">                dispose();</span>
+<span class="nc" id="L332">            }</span>
         });
 
-<span class="nc" id="L341">        return table;</span>
+<span class="nc" id="L335">        return table;</span>
     }
 
 }

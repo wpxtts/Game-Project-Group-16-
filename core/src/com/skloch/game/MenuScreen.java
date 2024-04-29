@@ -106,13 +106,7 @@ public class MenuScreen implements Screen {
             startButton.addListener(new ChangeListener() {
                                         @Override
                                         public void changed(ChangeEvent event, Actor actor) {
-                                            game.soundManager.playButton();
-                                            buttonTable.setVisible(false);
-                                            titleImage.setVisible(false);
-                                            tutorialWindow.setVisible(true);
-
-//                dispose();
-//                game.setScreen(new GameScreen(game));
+                                            startButtonTask(buttonTable,tutorialWindow);
                                         }
                                     }
             );
