@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import java.io.FileNotFoundException;
+
 /**
  * A class that is initially created by DesktopLauncher, loads consistent files at the start of the game and initialises lots of important classes.
  * Loads the map, ui skin, text files and makes sound manager and more
@@ -86,10 +88,14 @@ public class HustleGame extends Game {
 		blueBackground = new Stage();
 		blueBackground.addActor(blueImage);
 
-		credits = readTextFile("Text/credits.txt");
-		tutorialText = readTextFile("Text/tutorial_text.txt");
+        try {
+            credits = readTextFile("Text/credits.txt");
+			tutorialText = readTextFile("Text/tutorial_text.txt");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
-		this.setScreen(new MenuScreen(this,true));
+        this.setScreen(new MenuScreen(this,true));
 	}
 
 	/**
@@ -118,12 +124,12 @@ public class HustleGame extends Game {
 	 * @param filepath The path to the text file
 	 * @return The contents of the file as a String
 	 */
-	public String readTextFile(String filepath) {
+	public String readTextFile(String filepath) throws FileNotFoundException {
 		FileHandle file = Gdx.files.internal(filepath);
 
 		if (!file.exists()) {
 			System.out.println("WARNING: Couldn't load file " + filepath);
-			return "Couldn't load " + filepath;
+			throw new FileNotFoundException("File not found");
 		} else {
 			return file.readString();
 		}

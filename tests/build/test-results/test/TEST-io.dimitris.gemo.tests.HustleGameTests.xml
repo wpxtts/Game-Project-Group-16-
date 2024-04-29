@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.dimitris.gemo.tests.LeaderboardScreenTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-04-29T15:20:12" hostname="LAPTOP-3H729ETC" time="0.415">
+<testsuite name="io.dimitris.gemo.tests.HustleGameTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-04-29T16:04:51" hostname="LAPTOP-3H729ETC" time="0.041">
   <properties/>
-  <testcase name="testGetLeaderboard10" classname="io.dimitris.gemo.tests.LeaderboardScreenTests" time="0.415"/>
-  <system-out><![CDATA[[[Gandelf, 13], [Aragorn, 12], [Dilbert, 11], [Amelie, 10], [Albert, 9], [George, 8], [George, 7], [Fred, 6], [Libby, 5], [Ellie, 4]]
-[[Gandelf, 13], [Aragorn, 12], [Dilbert, 11], [Amelie, 10], [Albert, 9], [George, 8], [George, 7], [Fred, 6], [Libby, 5], [Ellie, 4]]
+  <testcase name="testReadTextFile" classname="io.dimitris.gemo.tests.HustleGameTests" time="0.041"/>
+  <system-out><![CDATA[WARNING: Couldn't load file a/fake/file/path
 ]]></system-out>
   <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (C:\Users\georg\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.14.12\be4984cb6fd1ef1d11f218a648889dfda44b8a15\byte-buddy-agent-1.14.12.jar)
 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
