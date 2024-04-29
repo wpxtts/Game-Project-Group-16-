@@ -26,6 +26,8 @@ public class LeaderboardScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
 
+    public static String leaderboardPath = "../assets/Text/leaderboard.csv";
+
     public LeaderboardScreen(final HustleGame game, Screen previousScreen,boolean draw) {
         this.game = game;
         if(draw){
@@ -75,7 +77,7 @@ public class LeaderboardScreen implements Screen {
             });
 
             ArrayList<String[]> leaderboardData = new ArrayList<>();
-            try (BufferedReader br = new BufferedReader(new FileReader("Text/leaderboard.csv"))) {
+            try (BufferedReader br = new BufferedReader(new FileReader(leaderboardPath))) {
                 String line;
                 while ((line = br.readLine()) != null) {
                     String[] values = line.split(",");
@@ -94,7 +96,7 @@ public class LeaderboardScreen implements Screen {
                 }
             });
 
-            ArrayList<String[]> leaderboard10 = new ArrayList<>(leaderboardData.subList(0, Math.min(leaderboardData.size(), 11)));
+            ArrayList<String[]> leaderboard10 = new ArrayList<>(leaderboardData.subList(1, Math.min(leaderboardData.size(), 11)));
 
             for (String[] entry : leaderboard10) {
                 Label nameLabel = new Label(entry[0], game.skin, "interaction");
@@ -106,6 +108,31 @@ public class LeaderboardScreen implements Screen {
             }
         }
 
+    }
+
+    public ArrayList<String[]> getLeaderboard10(){
+        ArrayList<String[]> leaderboardData = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(leaderboardPath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (values.length >= 2) {
+                    leaderboardData.add(values);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Collections.sort(leaderboardData.subList(leaderboardData.size() > 0 ? 1 : 0, leaderboardData.size()), new Comparator<String[]>() {
+            @Override
+            public int compare(String[] o1, String[] o2) {
+                return Integer.parseInt(o2[1]) - Integer.parseInt(o1[1]); // Sort in descending order
+            }
+        });
+
+        ArrayList<String[]> leaderboard10 = new ArrayList<>(leaderboardData.subList(1, Math.min(leaderboardData.size(), 11)));
+        return leaderboard10;
     }
 
     @Override
