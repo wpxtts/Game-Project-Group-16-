@@ -26,123 +26,126 @@ public class LeaderboardScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
 
-<span class="nc" id="L29">    public LeaderboardScreen(final HustleGame game, Screen previousScreen) {</span>
-<span class="nc" id="L30">        this.game = game;</span>
-<span class="nc" id="L31">        leaderboardStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));</span>
-<span class="nc" id="L32">        Gdx.input.setInputProcessor(leaderboardStage);</span>
+<span class="fc" id="L29">    public LeaderboardScreen(final HustleGame game, Screen previousScreen,boolean draw) {</span>
+<span class="fc" id="L30">        this.game = game;</span>
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        if(draw){</span>
+<span class="nc" id="L32">            leaderboardStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));</span>
+<span class="nc" id="L33">            Gdx.input.setInputProcessor(leaderboardStage);</span>
 
-<span class="nc" id="L34">        camera = new OrthographicCamera();</span>
-<span class="nc" id="L35">        viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);</span>
-<span class="nc" id="L36">        camera.setToOrtho(false, game.WIDTH, game.HEIGHT);</span>
+<span class="nc" id="L35">            camera = new OrthographicCamera();</span>
+<span class="nc" id="L36">            viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);</span>
+<span class="nc" id="L37">            camera.setToOrtho(false, game.WIDTH, game.HEIGHT);</span>
 
-<span class="nc" id="L38">        Window leaderboardMenu = new Window(&quot;&quot;, game.skin);</span>
-<span class="nc" id="L39">        leaderboardStage.addActor(leaderboardMenu);</span>
-<span class="nc" id="L40">        leaderboardMenu.setModal(true);</span>
+<span class="nc" id="L39">            Window leaderboardMenu = new Window(&quot;&quot;, game.skin);</span>
+<span class="nc" id="L40">            leaderboardStage.addActor(leaderboardMenu);</span>
+<span class="nc" id="L41">            leaderboardMenu.setModal(true);</span>
 
-<span class="nc" id="L42">        Table leaderboardTable = new Table();</span>
-<span class="nc" id="L43">        leaderboardMenu.add(leaderboardTable).prefHeight(600);</span>
+<span class="nc" id="L43">            Table leaderboardTable = new Table();</span>
+<span class="nc" id="L44">            leaderboardMenu.add(leaderboardTable).prefHeight(600);</span>
 
-<span class="nc" id="L45">        Label title = new Label(&quot;Leaderboard&quot;, game.skin, &quot;button&quot;);</span>
-<span class="nc" id="L46">        leaderboardTable.add(title).padTop(10);</span>
-<span class="nc" id="L47">        leaderboardTable.row();</span>
+<span class="nc" id="L46">            Label title = new Label(&quot;Leaderboard&quot;, game.skin, &quot;button&quot;);</span>
+<span class="nc" id="L47">            leaderboardTable.add(title).padTop(10);</span>
+<span class="nc" id="L48">            leaderboardTable.row();</span>
 
-<span class="nc" id="L49">        Table scrollTable = new Table();</span>
+<span class="nc" id="L50">            Table scrollTable = new Table();</span>
 
-<span class="nc" id="L51">        ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);</span>
-<span class="nc" id="L52">        scrollWindow.setFadeScrollBars(false);</span>
-<span class="nc" id="L53">        scrollWindow.setScrollingDisabled(true, false);</span>
+<span class="nc" id="L52">            ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);</span>
+<span class="nc" id="L53">            scrollWindow.setFadeScrollBars(false);</span>
+<span class="nc" id="L54">            scrollWindow.setScrollingDisabled(true, false);</span>
 
-<span class="nc" id="L55">        leaderboardTable.add(scrollWindow).padTop(20).height(350);</span>
-<span class="nc" id="L56">        leaderboardTable.row();</span>
+<span class="nc" id="L56">            leaderboardTable.add(scrollWindow).padTop(20).height(350);</span>
+<span class="nc" id="L57">            leaderboardTable.row();</span>
 
-<span class="nc" id="L58">        TextButton exitButton = new TextButton(&quot;Exit&quot;, game.skin);</span>
-<span class="nc" id="L59">        leaderboardTable.add(exitButton).bottom().width(300).padTop(10);</span>
+<span class="nc" id="L59">            TextButton exitButton = new TextButton(&quot;Exit&quot;, game.skin);</span>
+<span class="nc" id="L60">            leaderboardTable.add(exitButton).bottom().width(300).padTop(10);</span>
 
-<span class="nc" id="L61">        leaderboardMenu.pack();</span>
-<span class="nc" id="L62">        leaderboardMenu.setSize(600, 600);</span>
-<span class="nc" id="L63">        leaderboardMenu.setX((viewport.getWorldWidth() / 2) - (leaderboardMenu.getWidth() / 2));</span>
-<span class="nc" id="L64">        leaderboardMenu.setY((viewport.getWorldHeight() / 2) - (leaderboardMenu.getHeight() / 2));</span>
+<span class="nc" id="L62">            leaderboardMenu.pack();</span>
+<span class="nc" id="L63">            leaderboardMenu.setSize(600, 600);</span>
+<span class="nc" id="L64">            leaderboardMenu.setX((viewport.getWorldWidth() / 2) - (leaderboardMenu.getWidth() / 2));</span>
+<span class="nc" id="L65">            leaderboardMenu.setY((viewport.getWorldHeight() / 2) - (leaderboardMenu.getHeight() / 2));</span>
 
-<span class="nc" id="L66">        exitButton.addListener(new ChangeListener() {</span>
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L69">                game.soundManager.playButton();</span>
-<span class="nc" id="L70">                dispose();</span>
-<span class="nc" id="L71">                game.setScreen(previousScreen);</span>
-<span class="nc" id="L72">                previousScreen.resume();</span>
-<span class="nc" id="L73">            }</span>
-        });
+<span class="nc" id="L67">            exitButton.addListener(new ChangeListener() {</span>
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+<span class="nc" id="L70">                    game.soundManager.playButton();</span>
+<span class="nc" id="L71">                    dispose();</span>
+<span class="nc" id="L72">                    game.setScreen(previousScreen);</span>
+<span class="nc" id="L73">                    previousScreen.resume();</span>
+<span class="nc" id="L74">                }</span>
+            });
 
-<span class="nc" id="L76">        ArrayList&lt;String[]&gt; leaderboardData = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L77">        try (BufferedReader br = new BufferedReader(new FileReader(&quot;Text/leaderboard.csv&quot;))) {</span>
-            String line;
-<span class="nc bnc" id="L79" title="All 2 branches missed.">            while ((line = br.readLine()) != null) {</span>
-<span class="nc" id="L80">                String[] values = line.split(&quot;,&quot;);</span>
-<span class="nc bnc" id="L81" title="All 2 branches missed.">                if (values.length &gt;= 2) {</span>
-<span class="nc" id="L82">                    leaderboardData.add(values);</span>
+<span class="nc" id="L77">            ArrayList&lt;String[]&gt; leaderboardData = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L78">            try (BufferedReader br = new BufferedReader(new FileReader(&quot;Text/leaderboard.csv&quot;))) {</span>
+                String line;
+<span class="nc bnc" id="L80" title="All 2 branches missed.">                while ((line = br.readLine()) != null) {</span>
+<span class="nc" id="L81">                    String[] values = line.split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">                    if (values.length &gt;= 2) {</span>
+<span class="nc" id="L83">                        leaderboardData.add(values);</span>
+                    }
+<span class="nc" id="L85">                }</span>
+<span class="nc" id="L86">            } catch (IOException e) {</span>
+<span class="nc" id="L87">                e.printStackTrace();</span>
+<span class="nc" id="L88">            }</span>
+
+<span class="nc bnc" id="L90" title="All 2 branches missed.">            Collections.sort(leaderboardData.subList(leaderboardData.size() &gt; 0 ? 1 : 0, leaderboardData.size()), new Comparator&lt;String[]&gt;() {</span>
+                @Override
+                public int compare(String[] o1, String[] o2) {
+<span class="nc" id="L93">                    return Integer.parseInt(o2[1]) - Integer.parseInt(o1[1]); // Sort in descending order</span>
                 }
-<span class="nc" id="L84">            }</span>
-<span class="nc" id="L85">        } catch (IOException e) {</span>
-<span class="nc" id="L86">            e.printStackTrace();</span>
-<span class="nc" id="L87">        }</span>
+            });
 
-<span class="nc bnc" id="L89" title="All 2 branches missed.">        Collections.sort(leaderboardData.subList(leaderboardData.size() &gt; 0 ? 1 : 0, leaderboardData.size()), new Comparator&lt;String[]&gt;() {</span>
-            @Override
-            public int compare(String[] o1, String[] o2) {
-<span class="nc" id="L92">                return Integer.parseInt(o2[1]) - Integer.parseInt(o1[1]); // Sort in descending order</span>
-            }
-        });
+<span class="nc" id="L97">            ArrayList&lt;String[]&gt; leaderboard10 = new ArrayList&lt;&gt;(leaderboardData.subList(0, Math.min(leaderboardData.size(), 11)));</span>
 
-<span class="nc" id="L96">        ArrayList&lt;String[]&gt; leaderboard10 = new ArrayList&lt;&gt;(leaderboardData.subList(0, Math.min(leaderboardData.size(), 11)));</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">            for (String[] entry : leaderboard10) {</span>
+<span class="nc" id="L100">                Label nameLabel = new Label(entry[0], game.skin, &quot;interaction&quot;);</span>
+<span class="nc" id="L101">                Label scoreLabel = new Label(entry[1], game.skin, &quot;interaction&quot;);</span>
 
-<span class="nc bnc" id="L98" title="All 2 branches missed.">        for (String[] entry : leaderboard10) {</span>
-<span class="nc" id="L99">            Label nameLabel = new Label(entry[0], game.skin, &quot;interaction&quot;);</span>
-<span class="nc" id="L100">            Label scoreLabel = new Label(entry[1], game.skin, &quot;interaction&quot;);</span>
+<span class="nc" id="L103">                scrollTable.add(nameLabel).width(230f).padLeft(30);</span>
+<span class="nc" id="L104">                scrollTable.add(scoreLabel).width(230f).padLeft(60);</span>
+<span class="nc" id="L105">                scrollTable.row();</span>
+<span class="nc" id="L106">            }</span>
+        }
 
-<span class="nc" id="L102">            scrollTable.add(nameLabel).width(230f).padLeft(30);</span>
-<span class="nc" id="L103">            scrollTable.add(scoreLabel).width(230f).padLeft(60);</span>
-<span class="nc" id="L104">            scrollTable.row();</span>
-<span class="nc" id="L105">        }</span>
-<span class="nc" id="L106">    }</span>
+<span class="fc" id="L109">    }</span>
 
     @Override
     public void render(float delta) {
-<span class="nc" id="L110">        ScreenUtils.clear(0, 0, 0, 1);</span>
-<span class="nc" id="L111">        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</span>
+<span class="nc" id="L113">        ScreenUtils.clear(0, 0, 0, 1);</span>
+<span class="nc" id="L114">        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</span>
 
-<span class="nc" id="L113">        game.blueBackground.draw();</span>
+<span class="nc" id="L116">        game.blueBackground.draw();</span>
 
-<span class="nc" id="L115">        leaderboardStage.act(delta);</span>
-<span class="nc" id="L116">        leaderboardStage.draw();</span>
+<span class="nc" id="L118">        leaderboardStage.act(delta);</span>
+<span class="nc" id="L119">        leaderboardStage.draw();</span>
 
-<span class="nc" id="L118">        camera.update();</span>
-<span class="nc" id="L119">    }</span>
+<span class="nc" id="L121">        camera.update();</span>
+<span class="nc" id="L122">    }</span>
 
     @Override
     public void resize(int width, int height) {
-<span class="nc" id="L123">        leaderboardStage.getViewport().update(width, height);</span>
-<span class="nc" id="L124">        viewport.update(width, height);</span>
-<span class="nc" id="L125">    }</span>
+<span class="nc" id="L126">        leaderboardStage.getViewport().update(width, height);</span>
+<span class="nc" id="L127">        viewport.update(width, height);</span>
+<span class="nc" id="L128">    }</span>
 
     @Override
     public void show() {
-<span class="nc" id="L129">    }</span>
+<span class="nc" id="L132">    }</span>
 
     @Override
     public void hide() {
-<span class="nc" id="L133">    }</span>
+<span class="nc" id="L136">    }</span>
 
     @Override
     public void pause() {
-<span class="nc" id="L137">    }</span>
+<span class="nc" id="L140">    }</span>
 
     @Override
     public void resume() {
-<span class="nc" id="L141">    }</span>
+<span class="nc" id="L144">    }</span>
 
     @Override
     public void dispose() {
-<span class="nc" id="L145">        leaderboardStage.dispose();</span>
-<span class="nc" id="L146">    }</span>
+<span class="nc" id="L148">        leaderboardStage.dispose();</span>
+<span class="nc" id="L149">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

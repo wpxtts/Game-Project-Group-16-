@@ -26,83 +26,86 @@ public class LeaderboardScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
 
-    public LeaderboardScreen(final HustleGame game, Screen previousScreen) {
+    public LeaderboardScreen(final HustleGame game, Screen previousScreen,boolean draw) {
         this.game = game;
-        leaderboardStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
-        Gdx.input.setInputProcessor(leaderboardStage);
+        if(draw){
+            leaderboardStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
+            Gdx.input.setInputProcessor(leaderboardStage);
 
-        camera = new OrthographicCamera();
-        viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
-        camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
+            camera = new OrthographicCamera();
+            viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
+            camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
 
-        Window leaderboardMenu = new Window("", game.skin);
-        leaderboardStage.addActor(leaderboardMenu);
-        leaderboardMenu.setModal(true);
+            Window leaderboardMenu = new Window("", game.skin);
+            leaderboardStage.addActor(leaderboardMenu);
+            leaderboardMenu.setModal(true);
 
-        Table leaderboardTable = new Table();
-        leaderboardMenu.add(leaderboardTable).prefHeight(600);
+            Table leaderboardTable = new Table();
+            leaderboardMenu.add(leaderboardTable).prefHeight(600);
 
-        Label title = new Label("Leaderboard", game.skin, "button");
-        leaderboardTable.add(title).padTop(10);
-        leaderboardTable.row();
+            Label title = new Label("Leaderboard", game.skin, "button");
+            leaderboardTable.add(title).padTop(10);
+            leaderboardTable.row();
 
-        Table scrollTable = new Table();
+            Table scrollTable = new Table();
 
-        ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);
-        scrollWindow.setFadeScrollBars(false);
-        scrollWindow.setScrollingDisabled(true, false);
+            ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);
+            scrollWindow.setFadeScrollBars(false);
+            scrollWindow.setScrollingDisabled(true, false);
 
-        leaderboardTable.add(scrollWindow).padTop(20).height(350);
-        leaderboardTable.row();
+            leaderboardTable.add(scrollWindow).padTop(20).height(350);
+            leaderboardTable.row();
 
-        TextButton exitButton = new TextButton("Exit", game.skin);
-        leaderboardTable.add(exitButton).bottom().width(300).padTop(10);
+            TextButton exitButton = new TextButton("Exit", game.skin);
+            leaderboardTable.add(exitButton).bottom().width(300).padTop(10);
 
-        leaderboardMenu.pack();
-        leaderboardMenu.setSize(600, 600);
-        leaderboardMenu.setX((viewport.getWorldWidth() / 2) - (leaderboardMenu.getWidth() / 2));
-        leaderboardMenu.setY((viewport.getWorldHeight() / 2) - (leaderboardMenu.getHeight() / 2));
+            leaderboardMenu.pack();
+            leaderboardMenu.setSize(600, 600);
+            leaderboardMenu.setX((viewport.getWorldWidth() / 2) - (leaderboardMenu.getWidth() / 2));
+            leaderboardMenu.setY((viewport.getWorldHeight() / 2) - (leaderboardMenu.getHeight() / 2));
 
-        exitButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.soundManager.playButton();
-                dispose();
-                game.setScreen(previousScreen);
-                previousScreen.resume();
-            }
-        });
-
-        ArrayList<String[]> leaderboardData = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("Text/leaderboard.csv"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                if (values.length >= 2) {
-                    leaderboardData.add(values);
+            exitButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    game.soundManager.playButton();
+                    dispose();
+                    game.setScreen(previousScreen);
+                    previousScreen.resume();
                 }
+            });
+
+            ArrayList<String[]> leaderboardData = new ArrayList<>();
+            try (BufferedReader br = new BufferedReader(new FileReader("Text/leaderboard.csv"))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] values = line.split(",");
+                    if (values.length >= 2) {
+                        leaderboardData.add(values);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            Collections.sort(leaderboardData.subList(leaderboardData.size() > 0 ? 1 : 0, leaderboardData.size()), new Comparator<String[]>() {
+                @Override
+                public int compare(String[] o1, String[] o2) {
+                    return Integer.parseInt(o2[1]) - Integer.parseInt(o1[1]); // Sort in descending order
+                }
+            });
+
+            ArrayList<String[]> leaderboard10 = new ArrayList<>(leaderboardData.subList(0, Math.min(leaderboardData.size(), 11)));
+
+            for (String[] entry : leaderboard10) {
+                Label nameLabel = new Label(entry[0], game.skin, "interaction");
+                Label scoreLabel = new Label(entry[1], game.skin, "interaction");
+
+                scrollTable.add(nameLabel).width(230f).padLeft(30);
+                scrollTable.add(scoreLabel).width(230f).padLeft(60);
+                scrollTable.row();
+            }
         }
 
-        Collections.sort(leaderboardData.subList(leaderboardData.size() > 0 ? 1 : 0, leaderboardData.size()), new Comparator<String[]>() {
-            @Override
-            public int compare(String[] o1, String[] o2) {
-                return Integer.parseInt(o2[1]) - Integer.parseInt(o1[1]); // Sort in descending order
-            }
-        });
-
-        ArrayList<String[]> leaderboard10 = new ArrayList<>(leaderboardData.subList(0, Math.min(leaderboardData.size(), 11)));
-
-        for (String[] entry : leaderboard10) {
-            Label nameLabel = new Label(entry[0], game.skin, "interaction");
-            Label scoreLabel = new Label(entry[1], game.skin, "interaction");
-
-            scrollTable.add(nameLabel).width(230f).padLeft(30);
-            scrollTable.add(scoreLabel).width(230f).padLeft(60);
-            scrollTable.row();
-        }
     }
 
     @Override

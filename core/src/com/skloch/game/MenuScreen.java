@@ -126,33 +126,24 @@ public class MenuScreen implements Screen {
             creditsButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    game.soundManager.playButton();
-                    game.setScreen(new CreditScreen(game, thisScreen,draw));
+                    creditsButtonTask(thisScreen);
                 }
             });
 
             // EXIT BUTTON
             exitButton.addListener(new ChangeListener() {
-                                       @Override
-                                       public void changed(ChangeEvent event, Actor actor) {
-                                           game.soundManager.playButton();
-                                           game.dispose();
-                                           dispose();
-                                           Gdx.app.exit();
-                                       }
-                                   }
-            );
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    exitButtonTask();
+                }
+            });
             // LEADERBOARD BUTTON
             leaderboardButton.addListener(new ChangeListener() {
-                                              @Override
-                                              public void changed(ChangeEvent event, Actor actor) {
-                                                  game.soundManager.playButton();
-                                                  game.setScreen(new LeaderboardScreen(game, thisScreen));
-                                              }
-                                          }
-            );
-
-
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    leaderboardButtonTask(thisScreen);
+                }
+            });
 
             game.batch.setProjectionMatrix(camera.combined);
         }
@@ -175,6 +166,18 @@ public class MenuScreen implements Screen {
     public void creditsButtonTask(Screen thisScreen){
         game.soundManager.playButton();
         game.setScreen(new CreditScreen(game, thisScreen,draw));
+    }
+
+    public void exitButtonTask(){
+        game.soundManager.playButton();
+        game.dispose();
+        dispose();
+        Gdx.app.exit();
+    }
+
+    public void leaderboardButtonTask(Screen thisScreen){
+        game.soundManager.playButton();
+        game.setScreen(new LeaderboardScreen(game, thisScreen,draw));
     }
 
     /**
