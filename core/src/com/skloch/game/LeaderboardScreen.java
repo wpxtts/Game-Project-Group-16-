@@ -90,6 +90,12 @@ public class LeaderboardScreen implements Screen {
 
     }
 
+    /**
+     * Calculates the top 10 places on the leaderboard
+     * @return The top 10 place on the leaderboard as an array list of strings
+     *      with the first item of each string being the name, and the second item
+     *      being the score
+     */
     public ArrayList<String[]> getLeaderboard10(){
         ArrayList<String[]> leaderboardData = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(leaderboardPath))) {
