@@ -23,6 +23,7 @@ public class HustleGame extends Game {
 	public int HEIGHT;
 	public Skin skin;
 	public TiledMap map;
+	public TiledMap town_map;
 	public String credits, tutorialText;
 	public GameScreen gameScreen;
 	public MenuScreen menuScreen;

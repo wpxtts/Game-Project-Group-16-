@@ -454,6 +454,36 @@ public class EventManager {
         return streaks;
     }
 
+    // Town POIs
+
+    /**
+     * The event to be run when interacting with the bus stop back to east
+     * Gives the player the option to return to east campus map
+     * @param args
+     */
+    public void townBusStopEvent(String[] args) {
+        if (game.getSeconds() > 8*60) {
+            int energyCost = activityEnergies.get("to_east");
+            // increase player's meeting friends streak
+            streaks.put("to_east", streaks.getOrDefault("to_East", 0) + 1);
+            int hours = Integer.parseInt(args[1]);
+            // If the player does not have enough energy for the selected hours
+            if (game.getEnergy() < hours*energyCost) {
+                game.dialogueBox.setText("You don't have the energy to go into town right now!");
+            } else {
+                // If they do have the energy to go into town
+                game.dialogueBox.setText(String.format("You went into town for for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
+                game.decreaseEnergy(energyCost * hours);
+                game.passTime(hours * 60); // in seconds
+            }
+        }else if (game.getSeconds() > 8*60){
+
+        } else {
+            game.dialogueBox.setText("It's too early in the morning to go into town, there are no buses yet!");
+            streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+        }
+    }
+
     /**
      * Fades the screen to black
      */
