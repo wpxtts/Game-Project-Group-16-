@@ -38,7 +38,7 @@ public class MenuScreenTests {
         // Set up
         Window tutorialWindow = mock(Window.class);
         Table buttonTable = mock(Table.class);
-        
+
         menuScreen.startButtonTask(buttonTable,tutorialWindow);
 
         // When the start button is pressed it needs to make
@@ -61,4 +61,17 @@ public class MenuScreenTests {
         // the screen to a CreditScreen
         verify(game).setScreen(any(CreditScreen.class));
     }
+
+    @Test
+    public void testLeaderboardButtonTask(){
+        menuScreen.leaderboardButtonTask(menuScreen);
+
+        // When the settings button is pressed we need to set
+        // the screen to a SettingsScreen
+        verify(game).setScreen(any(LeaderboardScreen.class));
+    }
+
+    // Note: We cannot test the exit button functionality without
+    // excessive effort and using tools like PowerMockito, so we test it manually
+    // instead
 }
