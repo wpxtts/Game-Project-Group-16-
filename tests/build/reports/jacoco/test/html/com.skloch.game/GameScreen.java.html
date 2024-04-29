@@ -669,30 +669,41 @@ public class GameScreen implements Screen {
 <span class="nc" id="L669">    }</span>
 
     /**
+     *
+     * @return catchup_used boolean for if catchup has been used
+     */
+    public static boolean useCatchup(boolean catchup_used) {
+<span class="nc bnc" id="L676" title="All 2 branches missed.">        if (!catchup_used){</span>
+<span class="nc" id="L677">            catchup_used = true;</span>
+        }
+<span class="nc" id="L679">        return catchup_used;</span>
+    }
+
+    /**
      * Adds an amount of recreational hours to the total amount for the current day
      * @param hours The amount of hours to add
      */
     public void addRecreationalHours(int hours) {
-<span class="nc" id="L676">        hoursRecreational += hours;</span>
-<span class="nc" id="L677">    }</span>
+<span class="nc" id="L687">        hoursRecreational += hours;</span>
+<span class="nc" id="L688">    }</span>
 
     /**
      * @return Returns 'breakfast', 'lunch' or 'dinner' depending on the time of day
      */
     public String getMeal() {
-<span class="nc" id="L683">        int hours = Math.floorDiv((int) daySeconds, 60);</span>
-<span class="nc bnc" id="L684" title="All 4 branches missed.">        if (hours &gt;= 7 &amp;&amp; hours &lt;= 10) {</span>
+<span class="nc" id="L694">        int hours = Math.floorDiv((int) daySeconds, 60);</span>
+<span class="nc bnc" id="L695" title="All 4 branches missed.">        if (hours &gt;= 7 &amp;&amp; hours &lt;= 10) {</span>
             //Breakfast between 7:00-10:59am
-<span class="nc" id="L686">            return &quot;breakfast&quot;;</span>
-<span class="nc bnc" id="L687" title="All 4 branches missed.">        } else if (hours &gt; 10 &amp;&amp; hours &lt;= 16) {</span>
+<span class="nc" id="L697">            return &quot;breakfast&quot;;</span>
+<span class="nc bnc" id="L698" title="All 4 branches missed.">        } else if (hours &gt; 10 &amp;&amp; hours &lt;= 16) {</span>
             // Lunch between 10:00am and 4:59pm
-<span class="nc" id="L689">            return &quot;lunch&quot;;</span>
-<span class="nc bnc" id="L690" title="All 4 branches missed.">        } else if (hours &gt; 16 &amp;&amp; hours &lt;= 21) {</span>
+<span class="nc" id="L700">            return &quot;lunch&quot;;</span>
+<span class="nc bnc" id="L701" title="All 4 branches missed.">        } else if (hours &gt; 16 &amp;&amp; hours &lt;= 21) {</span>
             // Dinner served between 4:00pm and 9:59pm
-<span class="nc" id="L692">            return &quot;dinner&quot;;</span>
+<span class="nc" id="L703">            return &quot;dinner&quot;;</span>
         } else {
             // Nothing is served between 10:00pm and 6:59am
-<span class="nc" id="L695">            return &quot;food&quot;;</span>
+<span class="nc" id="L706">            return &quot;food&quot;;</span>
         }
     }
 
@@ -700,11 +711,11 @@ public class GameScreen implements Screen {
      * @return A wake up message based on the time left until the exam
      */
     public String getWakeUpMessage() {
-<span class="nc" id="L703">        int daysLeft = 8 - day;</span>
-<span class="nc bnc" id="L704" title="All 2 branches missed.">        if (daysLeft != 1) {</span>
-<span class="nc" id="L705">            return String.format(&quot;You have %d days left until your exam!\nRemember to eat, study and have fun, but don't overwork yourself!&quot;, daysLeft);</span>
+<span class="nc" id="L714">        int daysLeft = 8 - day;</span>
+<span class="nc bnc" id="L715" title="All 2 branches missed.">        if (daysLeft != 1) {</span>
+<span class="nc" id="L716">            return String.format(&quot;You have %d days left until your exam!\nRemember to eat, study and have fun, but don't overwork yourself!&quot;, daysLeft);</span>
         } else {
-<span class="nc" id="L707">            return &quot;Your exam is tomorrow! I hope you've been studying! Remember not to overwork yourself and get enough sleep!&quot;;</span>
+<span class="nc" id="L718">            return &quot;Your exam is tomorrow! I hope you've been studying! Remember not to overwork yourself and get enough sleep!&quot;;</span>
         }
     }
 
@@ -713,35 +724,35 @@ public class GameScreen implements Screen {
      * @param sleeping Sets the value of sleeping
      */
     public void setSleeping(boolean sleeping) {
-<span class="nc" id="L716">        this.sleeping = sleeping;</span>
-<span class="nc" id="L717">    }</span>
+<span class="nc" id="L727">        this.sleeping = sleeping;</span>
+<span class="nc" id="L728">    }</span>
 
     /**
      * @return true if the player is sleeping
      */
     public boolean getSleeping() {
-<span class="nc" id="L723">        return sleeping;</span>
+<span class="nc" id="L734">        return sleeping;</span>
     }
 
     /**
      * @param hours Add this amount of hours to the total hours slept
      */
     public void addSleptHours(int hours) {
-<span class="nc" id="L730">        hoursSlept += hours;</span>
-<span class="nc" id="L731">    }</span>
+<span class="nc" id="L741">        hoursSlept += hours;</span>
+<span class="nc" id="L742">    }</span>
 
     /**
      * @return The number of seconds elapsed in the day
      */
     public float getSeconds() {
-<span class="nc" id="L737">        return daySeconds;</span>
+<span class="nc" id="L748">        return daySeconds;</span>
     }
 
     /**
      * Ends the game, called at the end of the 7th day, switches to a screen that displays a score
      */
     public void GameOver() {
-<span class="nc" id="L744">        game.setScreen(new GameOverScreen(game, hoursStudied, hoursRecreational, hoursSlept));</span>
-<span class="nc" id="L745">    }</span>
+<span class="nc" id="L755">        game.setScreen(new GameOverScreen(game, hoursStudied, hoursRecreational, hoursSlept));</span>
+<span class="nc" id="L756">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

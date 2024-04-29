@@ -33,73 +33,76 @@ public class CreditScreen implements Screen{
      * @param game An instance of the HustleGame class
      * @param previousScreen The screen to return to when the exit button is pressed
      */
-<span class="nc" id="L36">    public CreditScreen (final HustleGame game, Screen previousScreen) {</span>
+<span class="fc" id="L36">    public CreditScreen (final HustleGame game, Screen previousScreen,boolean draw) {</span>
 
         // Basically all the same code as the settings menu
-<span class="nc" id="L39">        this.game = game;</span>
-<span class="nc" id="L40">        creditStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));</span>
-<span class="nc" id="L41">        Gdx.input.setInputProcessor(creditStage);</span>
+<span class="fc" id="L39">        this.game = game;</span>
 
-<span class="nc" id="L43">        camera = new OrthographicCamera();</span>
-<span class="nc" id="L44">        viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);</span>
-<span class="nc" id="L45">        camera.setToOrtho(false, game.WIDTH, game.HEIGHT);</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">        if(draw) {</span>
+<span class="nc" id="L42">            creditStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));</span>
+<span class="nc" id="L43">            Gdx.input.setInputProcessor(creditStage);</span>
 
-        // Create the window
-<span class="nc" id="L48">        Window creditMenu = new Window(&quot;&quot;, game.skin);</span>
-<span class="nc" id="L49">        creditStage.addActor(creditMenu);</span>
-<span class="nc" id="L50">        creditMenu.setModal(true);</span>
+<span class="nc" id="L45">            camera = new OrthographicCamera();</span>
+<span class="nc" id="L46">            viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);</span>
+<span class="nc" id="L47">            camera.setToOrtho(false, game.WIDTH, game.HEIGHT);</span>
 
-        // Table for UI elements in window
-<span class="nc" id="L53">        Table creditTable = new Table();</span>
-<span class="nc" id="L54">        creditMenu.add(creditTable).prefHeight(600);</span>
+            // Create the window
+<span class="nc" id="L50">            Window creditMenu = new Window(&quot;&quot;, game.skin);</span>
+<span class="nc" id="L51">            creditStage.addActor(creditMenu);</span>
+<span class="nc" id="L52">            creditMenu.setModal(true);</span>
 
-        // Title
-<span class="nc" id="L57">        Label title = new Label(&quot;Credits&quot;, game.skin, &quot;button&quot;);</span>
-<span class="nc" id="L58">        creditTable.add(title).padTop(10);</span>
-<span class="nc" id="L59">        creditTable.row();</span>
+            // Table for UI elements in window
+<span class="nc" id="L55">            Table creditTable = new Table();</span>
+<span class="nc" id="L56">            creditMenu.add(creditTable).prefHeight(600);</span>
 
-        // Table for things inside the scrollable widget
-<span class="nc" id="L62">        Table scrollTable = new Table();</span>
+            // Title
+<span class="nc" id="L59">            Label title = new Label(&quot;Credits&quot;, game.skin, &quot;button&quot;);</span>
+<span class="nc" id="L60">            creditTable.add(title).padTop(10);</span>
+<span class="nc" id="L61">            creditTable.row();</span>
 
-        // Scrollable widget
-<span class="nc" id="L65">        ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);</span>
-<span class="nc" id="L66">        scrollWindow.setFadeScrollBars(false);</span>
-        // scrollWindow.setDebug(true);
+            // Table for things inside the scrollable widget
+<span class="nc" id="L64">            Table scrollTable = new Table();</span>
 
-        // scrollWindow.setFillParent(true);
-<span class="nc" id="L70">        creditTable.add(scrollWindow).padTop(20).height(350);</span>
-<span class="nc" id="L71">        creditTable.row();</span>
+            // Scrollable widget
+<span class="nc" id="L67">            ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);</span>
+<span class="nc" id="L68">            scrollWindow.setFadeScrollBars(false);</span>
+            // scrollWindow.setDebug(true);
 
-        // Actual credits
-        // Credits are loaded when the game is initialised
-<span class="nc" id="L75">        Label text = new Label(game.credits, game.skin, &quot;interaction&quot;);</span>
-<span class="nc" id="L76">        text.setWrap(true);</span>
-<span class="nc" id="L77">        scrollTable.add(text).width(520f).padLeft(15);</span>
+            // scrollWindow.setFillParent(true);
+<span class="nc" id="L72">            creditTable.add(scrollWindow).padTop(20).height(350);</span>
+<span class="nc" id="L73">            creditTable.row();</span>
 
-        // Exit button
-<span class="nc" id="L80">        TextButton exitButton = new TextButton(&quot;Exit&quot;, game.skin);</span>
-<span class="nc" id="L81">        creditTable.add(exitButton).bottom().width(300).padTop(10);</span>
+            // Actual credits
+            // Credits are loaded when the game is initialised
+<span class="nc" id="L77">            Label text = new Label(game.credits, game.skin, &quot;interaction&quot;);</span>
+<span class="nc" id="L78">            text.setWrap(true);</span>
+<span class="nc" id="L79">            scrollTable.add(text).width(520f).padLeft(15);</span>
 
-<span class="nc" id="L83">        creditMenu.pack();</span>
+            // Exit button
+<span class="nc" id="L82">            TextButton exitButton = new TextButton(&quot;Exit&quot;, game.skin);</span>
+<span class="nc" id="L83">            creditTable.add(exitButton).bottom().width(300).padTop(10);</span>
 
-<span class="nc" id="L85">        creditMenu.setSize(600, 600);</span>
+<span class="nc" id="L85">            creditMenu.pack();</span>
 
-        // Centre the window
-<span class="nc" id="L88">        creditMenu.setX((viewport.getWorldWidth() / 2) - (creditMenu.getWidth() / 2));</span>
-<span class="nc" id="L89">        creditMenu.setY((viewport.getWorldHeight() / 2) - (creditMenu.getHeight() / 2));</span>
+<span class="nc" id="L87">            creditMenu.setSize(600, 600);</span>
 
-        // Listener for the exit button
-<span class="nc" id="L92">        exitButton.addListener(new ChangeListener() {</span>
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L95">                game.soundManager.playButton();</span>
-<span class="nc" id="L96">                dispose();</span>
-<span class="nc" id="L97">                game.setScreen(previousScreen);</span>
-<span class="nc" id="L98">                previousScreen.resume();</span>
-<span class="nc" id="L99">            }</span>
-        });
+            // Centre the window
+<span class="nc" id="L90">            creditMenu.setX((viewport.getWorldWidth() / 2) - (creditMenu.getWidth() / 2));</span>
+<span class="nc" id="L91">            creditMenu.setY((viewport.getWorldHeight() / 2) - (creditMenu.getHeight() / 2));</span>
 
-<span class="nc" id="L102">    }</span>
+            // Listener for the exit button
+<span class="nc" id="L94">            exitButton.addListener(new ChangeListener() {</span>
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+<span class="nc" id="L97">                    game.soundManager.playButton();</span>
+<span class="nc" id="L98">                    dispose();</span>
+<span class="nc" id="L99">                    game.setScreen(previousScreen);</span>
+<span class="nc" id="L100">                    previousScreen.resume();</span>
+<span class="nc" id="L101">                }</span>
+            });
+        }
+
+<span class="fc" id="L105">    }</span>
 
     /**
      * Renders the credits window
@@ -107,16 +110,16 @@ public class CreditScreen implements Screen{
      */
     @Override
     public void render (float delta) {
-<span class="nc" id="L110">        ScreenUtils.clear(0, 0, 0, 1);</span>
-<span class="nc" id="L111">        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</span>
+<span class="nc" id="L113">        ScreenUtils.clear(0, 0, 0, 1);</span>
+<span class="nc" id="L114">        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</span>
 
-<span class="nc" id="L113">        game.blueBackground.draw();</span>
+<span class="nc" id="L116">        game.blueBackground.draw();</span>
 
-<span class="nc" id="L115">        creditStage.act(delta);</span>
-<span class="nc" id="L116">        creditStage.draw();</span>
+<span class="nc" id="L118">        creditStage.act(delta);</span>
+<span class="nc" id="L119">        creditStage.draw();</span>
 
-<span class="nc" id="L118">        camera.update();</span>
-<span class="nc" id="L119">    }</span>
+<span class="nc" id="L121">        camera.update();</span>
+<span class="nc" id="L122">    }</span>
 
 
     /**
@@ -126,29 +129,29 @@ public class CreditScreen implements Screen{
      */
     @Override
     public void resize(int width, int height) {
-<span class="nc" id="L129">        creditStage.getViewport().update(width, height);</span>
-<span class="nc" id="L130">        viewport.update(width, height);</span>
-<span class="nc" id="L131">    }</span>
+<span class="nc" id="L132">        creditStage.getViewport().update(width, height);</span>
+<span class="nc" id="L133">        viewport.update(width, height);</span>
+<span class="nc" id="L134">    }</span>
 
     // Other required methods from Screen
     @Override
     public void show() {
-<span class="nc" id="L136">    }</span>
+<span class="nc" id="L139">    }</span>
 
     @Override
     public void hide() {
-<span class="nc" id="L140">    }</span>
+<span class="nc" id="L143">    }</span>
 
     @Override
     public void pause() {
-<span class="nc" id="L144">    }</span>
+<span class="nc" id="L147">    }</span>
 
     @Override
     public void resume() {
-<span class="nc" id="L148">    }</span>
+<span class="nc" id="L151">    }</span>
 
     @Override
     public void dispose() {
-<span class="nc" id="L152">    }</span>
+<span class="nc" id="L155">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
