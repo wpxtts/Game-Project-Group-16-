@@ -52,7 +52,7 @@ public class GameScreen implements Screen {
     private Table uiTable;
     private Image energyBar;
     public DialogueBox dialogueBox;
-    public final Image blackScreen;
+    public final Image blackScreen = new Image(new Texture(Gdx.files.internal("../assets/Sprites/black_square.png")));;
     private boolean sleeping = false;
 
 
@@ -62,7 +62,7 @@ public class GameScreen implements Screen {
      *             initialised once.
      * @param avatarChoice Which avatar the player has picked, 0 for the more masculine avatar, 1 for the more feminine
      */
-    public GameScreen(final HustleGame game, int avatarChoice) {
+    public GameScreen(final HustleGame game, int avatarChoice, boolean draw) {
         // Important game variables
         this.game = game;
         this.game.gameScreen = this;
@@ -72,26 +72,25 @@ public class GameScreen implements Screen {
         hoursStudied = hoursRecreational = hoursSlept = 0;
 
 
-        // Camera and viewport settings
-        camera = new OrthographicCamera();
-        viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
-        camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
-        game.shapeRenderer.setProjectionMatrix(camera.combined);
+        if(draw) {
+            // Camera and viewport settings
+            camera = new OrthographicCamera();
+            viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
+            camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
+            game.shapeRenderer.setProjectionMatrix(camera.combined);
 
 
+            // Create a stage for the user interface to be on
+            uiStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
+            // Add a black image over everything first
+            blackScreen.setSize(viewport.getWorldWidth(), viewport.getWorldHeight());
+            blackScreen.addAction(Actions.alpha(0f));
 
-        // Create a stage for the user interface to be on
-        uiStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
-        // Add a black image over everything first
-        blackScreen = new Image(new Texture(Gdx.files.internal("Sprites/black_square.png")));
-        blackScreen.setSize(viewport.getWorldWidth(), viewport.getWorldHeight());
-        blackScreen.addAction(Actions.alpha(0f));
-
-        // UI table to put everything in
-        uiTable = new Table();
-        uiTable.setSize(game.WIDTH, game.HEIGHT);
-        uiStage.addActor(uiTable);
-
+            // UI table to put everything in
+            uiTable = new Table();
+            uiTable.setSize(game.WIDTH, game.HEIGHT);
+            uiStage.addActor(uiTable);
+        }
 
 
         // Create a player class
@@ -115,7 +114,7 @@ public class GameScreen implements Screen {
 //        // Use addActor to add windows to the scene
 //        uiTable.addActor(optionDialogue.getWindow());
 //        optionDialogue.setVisible(false);
-
+        if(draw){
         // Interaction label to prompt player
         interactionLabel = new Label("E - Interact", game.skin, "default");
 
@@ -230,6 +229,7 @@ public class GameScreen implements Screen {
         // Display a little good morning message
         dialogueBox.show();
         dialogueBox.setText(getWakeUpMessage());
+        }
     }
 
     @Override

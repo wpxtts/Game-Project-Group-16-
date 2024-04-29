@@ -37,6 +37,8 @@ public class Player {
     private GameObject closestObject;
     public boolean frozen, moving;
 
+    public String avatar;
+
     /**
      * A player character, contains methods to move the player and update animations, also includes collision handling
      * and can be used to trigger events of objects near the player.
@@ -47,6 +49,7 @@ public class Player {
      *               player animations are packed in the player_sprites atlas
      */
     public Player (String avatar) {
+        this.avatar = avatar;
         // Load the player's textures from the atlas
         TextureAtlas playerAtlas = new TextureAtlas(Gdx.files.internal(atlasConfig));
 

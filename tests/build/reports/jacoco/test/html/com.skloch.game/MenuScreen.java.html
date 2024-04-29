@@ -151,22 +151,22 @@ public class MenuScreen implements Screen {
 <span class="fc" id="L151">    }</span>
 
     public void startButtonTask(Table buttonTable, Window tutorialWindow){
-<span class="nc" id="L154">        game.soundManager.playButton();</span>
-<span class="nc" id="L155">        buttonTable.setVisible(false);</span>
-<span class="nc" id="L156">        titleImage.setVisible(false);</span>
-<span class="nc" id="L157">        tutorialWindow.setVisible(true);</span>
-<span class="nc" id="L158">    }</span>
+<span class="fc" id="L154">        game.soundManager.playButton();</span>
+<span class="fc" id="L155">        buttonTable.setVisible(false);</span>
+<span class="fc" id="L156">        titleImage.setVisible(false);</span>
+<span class="fc" id="L157">        tutorialWindow.setVisible(true);</span>
+<span class="fc" id="L158">    }</span>
 
     public void settingsButtonTask(Screen thisScreen){
-<span class="nc" id="L161">        game.soundManager.playButton();</span>
-<span class="nc" id="L162">        SettingsScreen screen = new SettingsScreen(game,thisScreen,draw);</span>
-<span class="nc" id="L163">        game.setScreen(screen);</span>
-<span class="nc" id="L164">    }</span>
+<span class="fc" id="L161">        game.soundManager.playButton();</span>
+<span class="fc" id="L162">        SettingsScreen screen = new SettingsScreen(game,thisScreen,draw);</span>
+<span class="fc" id="L163">        game.setScreen(screen);</span>
+<span class="fc" id="L164">    }</span>
 
     public void creditsButtonTask(Screen thisScreen){
-<span class="nc" id="L167">        game.soundManager.playButton();</span>
-<span class="nc" id="L168">        game.setScreen(new CreditScreen(game, thisScreen,draw));</span>
-<span class="nc" id="L169">    }</span>
+<span class="fc" id="L167">        game.soundManager.playButton();</span>
+<span class="fc" id="L168">        game.setScreen(new CreditScreen(game, thisScreen,draw));</span>
+<span class="fc" id="L169">    }</span>
 
     public void exitButtonTask(){
 <span class="nc" id="L172">        game.soundManager.playButton();</span>
@@ -330,25 +330,33 @@ public class MenuScreen implements Screen {
 <span class="nc" id="L330">        choice1.addListener(new ChangeListener() {</span>
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L333">                game.soundManager.playButton();</span>
-<span class="nc" id="L334">                game.setScreen(new GameScreen(game, 1));</span>
-<span class="nc" id="L335">                game.soundManager.stopMenuMusic();</span>
-<span class="nc" id="L336">                dispose();</span>
-<span class="nc" id="L337">            }</span>
+<span class="nc" id="L333">                avatar1ButtonTask();</span>
+<span class="nc" id="L334">                dispose();</span>
+<span class="nc" id="L335">            }</span>
         });
 
-<span class="nc" id="L340">        choice2.addListener(new ChangeListener() {</span>
+<span class="nc" id="L338">        choice2.addListener(new ChangeListener() {</span>
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L343">                game.soundManager.playButton();</span>
-<span class="nc" id="L344">                game.setScreen(new GameScreen(game, 2));</span>
-<span class="nc" id="L345">                game.soundManager.stopMenuMusic();</span>
-<span class="nc" id="L346">                dispose();</span>
-<span class="nc" id="L347">            }</span>
+<span class="nc" id="L341">                avatar2ButtonTask();</span>
+<span class="nc" id="L342">                dispose();</span>
+<span class="nc" id="L343">            }</span>
         });
 
-<span class="nc" id="L350">        return table;</span>
+<span class="nc" id="L346">        return table;</span>
     }
+
+    public void avatar1ButtonTask(){
+<span class="fc" id="L350">        game.soundManager.playButton();</span>
+<span class="fc" id="L351">        game.setScreen(new GameScreen(game, 1,draw));</span>
+<span class="fc" id="L352">        game.soundManager.stopMenuMusic();</span>
+<span class="fc" id="L353">    }</span>
+
+    public void avatar2ButtonTask(){
+<span class="fc" id="L356">        game.soundManager.playButton();</span>
+<span class="fc" id="L357">        game.setScreen(new GameScreen(game, 2,draw));</span>
+<span class="fc" id="L358">        game.soundManager.stopMenuMusic();</span>
+<span class="fc" id="L359">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

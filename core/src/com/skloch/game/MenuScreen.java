@@ -330,9 +330,7 @@ public class MenuScreen implements Screen {
         choice1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.soundManager.playButton();
-                game.setScreen(new GameScreen(game, 1));
-                game.soundManager.stopMenuMusic();
+                avatar1ButtonTask();
                 dispose();
             }
         });
@@ -340,14 +338,24 @@ public class MenuScreen implements Screen {
         choice2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.soundManager.playButton();
-                game.setScreen(new GameScreen(game, 2));
-                game.soundManager.stopMenuMusic();
+                avatar2ButtonTask();
                 dispose();
             }
         });
 
         return table;
+    }
+
+    public void avatar1ButtonTask(){
+        game.soundManager.playButton();
+        game.setScreen(new GameScreen(game, 1,draw));
+        game.soundManager.stopMenuMusic();
+    }
+
+    public void avatar2ButtonTask(){
+        game.soundManager.playButton();
+        game.setScreen(new GameScreen(game, 2,draw));
+        game.soundManager.stopMenuMusic();
     }
 
 }
