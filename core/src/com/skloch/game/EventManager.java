@@ -16,7 +16,9 @@ public class EventManager {
     private final HashMap<String, String> objectInteractions;
     private final Array<String> talkTopics;
 
-    public HashMap<String, Integer> streaks;
+    public static HashMap<String, Integer> streaks;
+    public boolean catchup_used = false;
+    public int daily_study = 0;
 
     /**
      * A class that maps Object's event strings to actual Java functions.
@@ -53,8 +55,8 @@ public class EventManager {
 
         // How much energy an hour of each activity should take
         streaks = new HashMap<String, Integer>();
-        streaks.put("studying", 0);
-        streaks.put("meet_friends", 0);
+//        streaks.put("studying", 0);
+//        streaks.put("meet_friends", 0);
         streaks.put("eating", 0);
         streaks.put("flowers", 0);
         streaks.put("town", 0);
@@ -239,9 +241,15 @@ public class EventManager {
                 game.dialogueBox.setText("You are too tired to study right now!");
                 streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
             } else if (args.length == 1) {
-                // If the player has not yet chosen how many hours, ask
-                game.dialogueBox.setText("Study for how long?");
-                game.dialogueBox.getSelectBox().setOptions(new String[]{"2 Hours (20)", "3 Hours (30)", "4 Hours (40)"}, new String[]{"comp_sci-2", "comp_sci-3", "comp_sci-4"});
+                // If the player has not already studied or used their catchup, they can study
+                if (catchup_used){
+                    game.dialogueBox.hideSelectBox();
+                    game.dialogueBox.setText("You have already studied today!");
+                }else{
+                    // If the player has not yet chosen how many hours, ask
+                    game.dialogueBox.setText("Study for how long?");
+                    game.dialogueBox.getSelectBox().setOptions(new String[]{"2 Hours (20)", "3 Hours (30)", "4 Hours (40)"}, new String[]{"comp_sci-2", "comp_sci-3", "comp_sci-4"});
+                }
             } else {
                 int hours = Integer.parseInt(args[1]);
                 // If the player does not have enough energy for the selected hours
@@ -252,6 +260,10 @@ public class EventManager {
                     game.dialogueBox.setText(String.format("You studied for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.addStudyHours(hours);
+                    daily_study++;
+                    if (daily_study > 1){
+                        GameScreen.useCatchup(catchup_used);
+                    }
                     game.passTime(hours * 60); // in seconds
                 }
             }
@@ -438,6 +450,10 @@ public class EventManager {
         fadeToBlack(setTextAction);
     }
 
+    public static HashMap<String, Integer> getStreaks(){
+        return streaks;
+    }
+
     /**
      * Fades the screen to black
      */
@@ -468,6 +484,7 @@ public class EventManager {
                         // Show a text displaying how many days they have left in the game
                         game.dialogueBox.setText(game.getWakeUpMessage());
                         game.setSleeping(false);
+                        daily_study = 0;
                     }
                 }
             });

@@ -98,20 +98,22 @@ public class GameOverScreen implements Screen {
         // Hidden achievements
         // How much energy an hour of each activity should take
         streakGoals = new HashMap<String, Integer>();
-        streakGoals.put("studying", 10);
-        streakGoals.put("eating", 10);
-        streakGoals.put("flowers", 0);
-        streakGoals.put("town", 10);
+        streakGoals.put("studying", 0);
+        streakGoals.put("meet_friends", 0);
+        streakGoals.put("eating", 0);
+        streakGoals.put("flowers",0);
+        streakGoals.put("town", 0);
         streakGoals.put("shop", 0);
         streakGoals.put("determined", 0);
-        streakGoals.put("early_bird", 10);
+        streakGoals.put("early_bird", 0);
         streakGoals.put("talkative", 0);
         streakGoals.put("secretive", 0);
 
+//        streakGoals = new HashMap<String, Integer>();
 //        streakGoals.put("studying", 0);
 //        streakGoals.put("meet_friends", 4);
 //        streakGoals.put("eating", 11);
-//        streakGoals.put("flowers", 6);
+//        streakGoals.put("flowers", 5);
 //        streakGoals.put("town", 8);
 //        streakGoals.put("shop", 11);
 //        streakGoals.put("determined", 10);
@@ -120,7 +122,7 @@ public class GameOverScreen implements Screen {
 //        streakGoals.put("secretive", 5);
 
         // Load your texture
-        rch = new Texture(Gdx.files.internal("Sprites/achievements/hub.png"));
+        rch = new Texture(Gdx.files.internal("Sprites/achievements/hub.png")); //for eating at the right times
         flower  = new Texture(Gdx.files.internal("Sprites/achievements/flower.png")); //
         bus = new Texture(Gdx.files.internal("Sprites/achievements/bus.png")); //
         shopping_basket = new Texture(Gdx.files.internal("Sprites/achievements/shopping_basket.png")); //
@@ -140,33 +142,31 @@ public class GameOverScreen implements Screen {
         Image chest_image = new Image(chest);
 
         // Set position of the image
-        rch_image.setPosition(100, 100);
-        flower_image.setPosition(200, 200);
-        bus_image.setPosition(300, 300);
-        shopping_basket_image.setPosition(400, 400);
-        fire_image.setPosition(500, 500);
+        rch_image.setPosition(100, 20);
+        flower_image.setPosition(950, 100);
+        bus_image.setPosition(50, 300);
+        shopping_basket_image.setPosition(1050, 300);
+        fire_image.setPosition(950, 500);
         long_boi_image.setPosition(100, 500);
-        talk_image.setPosition(200, 400);
-        chest_image.setPosition(300, 300);
+        talk_image.setPosition(1000, 400);
+        chest_image.setPosition(200, 200);
 
-        //Iterate through the streaks to see which achievements were compeleted
-        GameScreen game_ = null;
-        events = new EventManager(game_);
-        HashMap<String, Integer> streaksAchieved = events.streaks;
+        //Iterate through the streaks to see which achievements were completed
+        HashMap<String, Integer> streaksAchieved = EventManager.getStreaks();
         for (Map.Entry<String, Integer> entry : streaksAchieved.entrySet()) {
             String task = entry.getKey();
-            //render the acheivement on the GameOver screen if the acheivement requirements have been met
+            //render the achievement on the GameOver screen if the achievement requirements have been met
             Integer goal = streakGoals.get(task);
             if (goal != null && streaksAchieved.get(task) >= goal) {
                 if (streaksAchieved.get(task) >= streakGoals.get(task)) {
                     switch (task) {
-                        case "rch":
+                        case "eating":
                             gameOverStage.addActor(rch_image);
                             break;
                         case "flowers":
                             gameOverStage.addActor(flower_image);
                             break;
-                        case "bus":
+                        case "town":
                             gameOverStage.addActor(bus_image);
                             break;
                         case "shop":

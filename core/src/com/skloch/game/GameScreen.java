@@ -669,6 +669,17 @@ public class GameScreen implements Screen {
     }
 
     /**
+     *
+     * @return catchup_used boolean for if catchup has been used
+     */
+    public static boolean useCatchup(boolean catchup_used) {
+        if (!catchup_used){
+            catchup_used = true;
+        }
+        return catchup_used;
+    }
+
+    /**
      * Adds an amount of recreational hours to the total amount for the current day
      * @param hours The amount of hours to add
      */
