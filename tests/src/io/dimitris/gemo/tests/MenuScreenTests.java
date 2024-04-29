@@ -72,13 +72,13 @@ public class MenuScreenTests {
     }
 
     @Test
-    public void testButton1Press(){
+    public void testButton1Task(){
         menuScreen.avatar1ButtonTask();
         verify(game).setScreen(any(GameScreen.class));
     }
 
     @Test
-    public void testButton2Press(){
+    public void testButton2Task(){
         menuScreen.avatar2ButtonTask();
         verify(game).setScreen(any(GameScreen.class));
     }

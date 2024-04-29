@@ -26,9 +26,9 @@ public class LeaderboardScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
 
-<span class="fc" id="L29">    public LeaderboardScreen(final HustleGame game, Screen previousScreen,boolean draw) {</span>
-<span class="fc" id="L30">        this.game = game;</span>
-<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        if(draw){</span>
+<span class="nc" id="L29">    public LeaderboardScreen(final HustleGame game, Screen previousScreen,boolean draw) {</span>
+<span class="nc" id="L30">        this.game = game;</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if(draw){</span>
 <span class="nc" id="L32">            leaderboardStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));</span>
 <span class="nc" id="L33">            Gdx.input.setInputProcessor(leaderboardStage);</span>
 
@@ -106,7 +106,7 @@ public class LeaderboardScreen implements Screen {
 <span class="nc" id="L106">            }</span>
         }
 
-<span class="fc" id="L109">    }</span>
+<span class="nc" id="L109">    }</span>
 
     @Override
     public void render(float delta) {

@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.dimitris.gemo.tests.MenuScreenTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-04-29T14:08:37" hostname="LAPTOP-3H729ETC" time="1.933">
+<testsuite name="io.dimitris.gemo.tests.MenuScreenTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-04-29T14:13:09" hostname="LAPTOP-3H729ETC" time="0.805">
   <properties/>
-  <testcase name="testCreditsButtonTask" classname="io.dimitris.gemo.tests.MenuScreenTests" time="0.61"/>
-  <testcase name="testLeaderboardButtonTask" classname="io.dimitris.gemo.tests.MenuScreenTests" time="0.01"/>
-  <testcase name="testButton1Press" classname="io.dimitris.gemo.tests.MenuScreenTests" time="0.192"/>
-  <testcase name="testButton2Press" classname="io.dimitris.gemo.tests.MenuScreenTests" time="0.019"/>
-  <testcase name="testSettingsButtonTask" classname="io.dimitris.gemo.tests.MenuScreenTests" time="0.018"/>
-  <testcase name="testStartButtonTask" classname="io.dimitris.gemo.tests.MenuScreenTests" time="1.003"/>
+  <testcase name="testButton2Task" classname="io.dimitris.gemo.tests.MenuScreenTests" time="0.805"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (C:\Users\georg\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.14.12\be4984cb6fd1ef1d11f218a648889dfda44b8a15\byte-buddy-agent-1.14.12.jar)
 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
