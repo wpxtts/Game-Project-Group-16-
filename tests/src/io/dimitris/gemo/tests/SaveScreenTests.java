@@ -98,4 +98,17 @@ public class SaveScreenTests {
                 leaderboardContents);
     }
 
+    @Test
+    public void testExitButtonPress(){
+        HustleGame game = mock(HustleGame.class);
+        game.soundManager = mock(SoundManager.class);
+        Integer score = 10;
+        SaveScreen saveScreen = new SaveScreen(game,score,false);
+        saveScreen.drawOnExit=false;
+        saveScreen.exitButtonPress();
+
+        // On exit, game should have its screen set back to the menu
+        verify(game).setScreen(saveScreen.menuScreen);
+    }
+
 }

@@ -89,7 +89,7 @@ public class HustleGame extends Game {
 		credits = readTextFile("Text/credits.txt");
 		tutorialText = readTextFile("Text/tutorial_text.txt");
 
-		this.setScreen(new MenuScreen(this));
+		this.setScreen(new MenuScreen(this,true));
 	}
 
 	/**

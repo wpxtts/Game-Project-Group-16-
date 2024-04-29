@@ -61,6 +61,7 @@ public class GameOverScreen implements Screen {
         viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
         camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
 
+
         // Create the window
         Window gameOverWindow = new Window("", game.skin);
         gameOverStage.addActor(gameOverWindow);

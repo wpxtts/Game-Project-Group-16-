@@ -33,6 +33,9 @@ public class SaveScreen implements Screen{
     private boolean saved;
     public static String leaderboardPath = "../assets/Text/leaderboard.csv";
 
+    public boolean drawOnExit;
+    public MenuScreen menuScreen;
+
     /**
      * A scene2d window consisting of a title, a scrollable widget and an exit button.
      * Credits are loaded from assets/Text/credits.txt and displayed in the scrollable widget
@@ -44,6 +47,8 @@ public class SaveScreen implements Screen{
         // Basically all the same code as the settings menu
         this.game = game;
         this.saved = false;
+        drawOnExit = draw;
+
         if(draw){
             drawScreen(score);
         }
@@ -109,14 +114,13 @@ public class SaveScreen implements Screen{
         leaderboardMenu.setX((viewport.getWorldWidth() / 2) - (leaderboardMenu.getWidth() / 2));
         leaderboardMenu.setY((viewport.getWorldHeight() / 2) - (leaderboardMenu.getHeight() / 2));
 
+
         // Listener for the exit button
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                SaveScreen.this.game.soundManager.playButton();
-                SaveScreen.this.game.soundManager.stopOverworldMusic();
-                dispose();
-                SaveScreen.this.game.setScreen(new MenuScreen(SaveScreen.this.game));
+                menuScreen = new MenuScreen(SaveScreen.this.game,true);
+                exitButtonPress();
             }
         });
 
@@ -139,6 +143,13 @@ public class SaveScreen implements Screen{
                 button.setDisabled(true); // Disable the button
             }
         }
+    }
+
+    public void exitButtonPress(){
+        SaveScreen.this.game.soundManager.playButton();
+        SaveScreen.this.game.soundManager.stopOverworldMusic();
+        dispose();
+        SaveScreen.this.game.setScreen(menuScreen);
     }
 
     /**

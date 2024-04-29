@@ -435,7 +435,7 @@ public class GameScreen implements Screen {
                     game.soundManager.playButton();
                     game.soundManager.stopOverworldMusic();
                     dispose();
-                    game.setScreen(new MenuScreen(game));
+                    game.setScreen(new MenuScreen(game,true));
                 }
             }
         });
