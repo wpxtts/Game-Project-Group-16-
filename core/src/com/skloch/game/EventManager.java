@@ -241,7 +241,7 @@ public class EventManager {
                 game.dialogueBox.setText("You are too tired to study right now!");
                 streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
             } else if (args.length == 1) {
-                // If the player has not already studied or used their catchup, they can study
+                // If the player has already used their catchup and studied that day, they can't study again
                 if (catchup_used){
                     game.dialogueBox.hideSelectBox();
                     game.dialogueBox.setText("You have already studied today!");
@@ -262,7 +262,7 @@ public class EventManager {
                     game.addStudyHours(hours);
                     daily_study++;
                     if (daily_study > 1){
-                        GameScreen.useCatchup(catchup_used);
+                        catchup_used = GameScreen.useCatchup(catchup_used);
                     }
                     game.passTime(hours * 60); // in seconds
                 }
