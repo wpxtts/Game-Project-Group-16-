@@ -1,5 +1,6 @@
 package io.dimitris.gemo.tests;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
@@ -36,5 +37,17 @@ public class MenuScreenTests {
         // the button table vanish and the tutorial window appear
         verify(buttonTable).setVisible(false);
         verify(tutorialWindow).setVisible(true);
+    }
+    @Test
+    public void testSettingsButtonTask(){
+        // Set up
+        HustleGame game = mock(HustleGame.class);
+        game.soundManager = mock(SoundManager.class);
+        MenuScreen menuScreen = new MenuScreen(game,false);
+        menuScreen.settingsButtonTask(menuScreen);
+
+        // When the settings button is pressed we need to set
+        // the screen to a SettingsScreen
+        verify(game).setScreen(any(SettingsScreen.class));
     }
 }

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.dimitris.gemo.tests.SettingsScreenTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-04-29T11:43:17" hostname="LAPTOP-3H729ETC" time="0.074">
-  <properties/>
-  <testcase name="testUpdateVolume" classname="io.dimitris.gemo.tests.SettingsScreenTests" time="0.074"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

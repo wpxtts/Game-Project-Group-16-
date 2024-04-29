@@ -23,6 +23,7 @@ public class MenuScreen implements Screen {
     OrthographicCamera camera;
     private Viewport viewport;
     private Image titleImage = new Image();
+    public boolean draw;
 
     /**
      * A class to display a menu screen, initially gives the player 4 options, Start, Settings, Credits, Quit
@@ -38,6 +39,8 @@ public class MenuScreen implements Screen {
 
         this.game = game;
         this.game.menuScreen = this;
+        this.draw = draw;
+
         if(draw){
             // Create stage to draw UI on
             menuStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
@@ -104,20 +107,18 @@ public class MenuScreen implements Screen {
 
             // START GAME BUTTON - Displays the tutorial window
             startButton.addListener(new ChangeListener() {
-                                        @Override
-                                        public void changed(ChangeEvent event, Actor actor) {
-                                            startButtonTask(buttonTable,tutorialWindow);
-                                        }
-                                    }
-            );
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    startButtonTask(buttonTable,tutorialWindow);
+                }
+            });
 
             // SETTINGS BUTTON
             Screen thisScreen = this;
             settingsButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    game.soundManager.playButton();
-                    game.setScreen(new SettingsScreen(game, thisScreen,true));
+                    settingsButtonTask(thisScreen);
                 }
             });
 
@@ -163,6 +164,12 @@ public class MenuScreen implements Screen {
         buttonTable.setVisible(false);
         titleImage.setVisible(false);
         tutorialWindow.setVisible(true);
+    }
+
+    public void settingsButtonTask(Screen thisScreen){
+        game.soundManager.playButton();
+        SettingsScreen screen = new SettingsScreen(game,thisScreen,draw);
+        game.setScreen(screen);
     }
 
     /**
