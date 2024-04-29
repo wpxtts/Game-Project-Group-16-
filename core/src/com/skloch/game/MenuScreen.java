@@ -22,7 +22,7 @@ public class MenuScreen implements Screen {
     private Stage menuStage;
     OrthographicCamera camera;
     private Viewport viewport;
-    private Image titleImage;
+    private Image titleImage = new Image();
 
     /**
      * A class to display a menu screen, initially gives the player 4 options, Start, Settings, Credits, Quit
@@ -162,6 +162,13 @@ public class MenuScreen implements Screen {
             game.batch.setProjectionMatrix(camera.combined);
         }
 
+    }
+
+    public void startButtonTask(Table buttonTable, Window tutorialWindow){
+        game.soundManager.playButton();
+        buttonTable.setVisible(false);
+        titleImage.setVisible(false);
+        tutorialWindow.setVisible(true);
     }
 
     /**

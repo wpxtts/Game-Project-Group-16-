@@ -98,20 +98,22 @@ public class GameOverScreen implements Screen {
         // Hidden achievements
         // How much energy an hour of each activity should take
 <span class="nc" id="L100">        streakGoals = new HashMap&lt;String, Integer&gt;();</span>
-<span class="nc" id="L101">        streakGoals.put(&quot;studying&quot;, 10);</span>
-<span class="nc" id="L102">        streakGoals.put(&quot;eating&quot;, 10);</span>
-<span class="nc" id="L103">        streakGoals.put(&quot;flowers&quot;, 0);</span>
-<span class="nc" id="L104">        streakGoals.put(&quot;town&quot;, 10);</span>
-<span class="nc" id="L105">        streakGoals.put(&quot;shop&quot;, 0);</span>
-<span class="nc" id="L106">        streakGoals.put(&quot;determined&quot;, 0);</span>
-<span class="nc" id="L107">        streakGoals.put(&quot;early_bird&quot;, 10);</span>
-<span class="nc" id="L108">        streakGoals.put(&quot;talkative&quot;, 0);</span>
-<span class="nc" id="L109">        streakGoals.put(&quot;secretive&quot;, 0);</span>
+<span class="nc" id="L101">        streakGoals.put(&quot;studying&quot;, 0);</span>
+<span class="nc" id="L102">        streakGoals.put(&quot;meet_friends&quot;, 0);</span>
+<span class="nc" id="L103">        streakGoals.put(&quot;eating&quot;, 0);</span>
+<span class="nc" id="L104">        streakGoals.put(&quot;flowers&quot;,0);</span>
+<span class="nc" id="L105">        streakGoals.put(&quot;town&quot;, 0);</span>
+<span class="nc" id="L106">        streakGoals.put(&quot;shop&quot;, 0);</span>
+<span class="nc" id="L107">        streakGoals.put(&quot;determined&quot;, 0);</span>
+<span class="nc" id="L108">        streakGoals.put(&quot;early_bird&quot;, 0);</span>
+<span class="nc" id="L109">        streakGoals.put(&quot;talkative&quot;, 0);</span>
+<span class="nc" id="L110">        streakGoals.put(&quot;secretive&quot;, 0);</span>
 
+//        streakGoals = new HashMap&lt;String, Integer&gt;();
 //        streakGoals.put(&quot;studying&quot;, 0);
 //        streakGoals.put(&quot;meet_friends&quot;, 4);
 //        streakGoals.put(&quot;eating&quot;, 11);
-//        streakGoals.put(&quot;flowers&quot;, 6);
+//        streakGoals.put(&quot;flowers&quot;, 5);
 //        streakGoals.put(&quot;town&quot;, 8);
 //        streakGoals.put(&quot;shop&quot;, 11);
 //        streakGoals.put(&quot;determined&quot;, 10);
@@ -120,53 +122,51 @@ public class GameOverScreen implements Screen {
 //        streakGoals.put(&quot;secretive&quot;, 5);
 
         // Load your texture
-<span class="nc" id="L123">        rch = new Texture(Gdx.files.internal(&quot;Sprites/achievements/hub.png&quot;));</span>
-<span class="nc" id="L124">        flower  = new Texture(Gdx.files.internal(&quot;Sprites/achievements/flower.png&quot;)); //</span>
-<span class="nc" id="L125">        bus = new Texture(Gdx.files.internal(&quot;Sprites/achievements/bus.png&quot;)); //</span>
-<span class="nc" id="L126">        shopping_basket = new Texture(Gdx.files.internal(&quot;Sprites/achievements/shopping_basket.png&quot;)); //</span>
-<span class="nc" id="L127">        fire = new Texture(Gdx.files.internal(&quot;Sprites/achievements/fire.png&quot;)); //</span>
-<span class="nc" id="L128">        long_boi = new Texture(Gdx.files.internal(&quot;Sprites/achievements/early_bird.png&quot;)); //bird</span>
-<span class="nc" id="L129">        talk = new Texture(Gdx.files.internal(&quot;Sprites/achievements/talk.png&quot;)); //</span>
-<span class="nc" id="L130">        chest = new Texture(Gdx.files.internal(&quot;Sprites/achievements/chest.png&quot;)); //use actual</span>
+<span class="nc" id="L125">        rch = new Texture(Gdx.files.internal(&quot;Sprites/achievements/hub.png&quot;)); //for eating at the right times</span>
+<span class="nc" id="L126">        flower  = new Texture(Gdx.files.internal(&quot;Sprites/achievements/flower.png&quot;)); //</span>
+<span class="nc" id="L127">        bus = new Texture(Gdx.files.internal(&quot;Sprites/achievements/bus.png&quot;)); //</span>
+<span class="nc" id="L128">        shopping_basket = new Texture(Gdx.files.internal(&quot;Sprites/achievements/shopping_basket.png&quot;)); //</span>
+<span class="nc" id="L129">        fire = new Texture(Gdx.files.internal(&quot;Sprites/achievements/fire.png&quot;)); //</span>
+<span class="nc" id="L130">        long_boi = new Texture(Gdx.files.internal(&quot;Sprites/achievements/early_bird.png&quot;)); //bird</span>
+<span class="nc" id="L131">        talk = new Texture(Gdx.files.internal(&quot;Sprites/achievements/talk.png&quot;)); //</span>
+<span class="nc" id="L132">        chest = new Texture(Gdx.files.internal(&quot;Sprites/achievements/chest.png&quot;)); //use actual</span>
 
         // Create an Image widget with the texture
-<span class="nc" id="L133">        Image rch_image = new Image(rch);</span>
-<span class="nc" id="L134">        Image flower_image = new Image(flower);</span>
-<span class="nc" id="L135">        Image bus_image = new Image(bus);</span>
-<span class="nc" id="L136">        Image shopping_basket_image = new Image(shopping_basket);</span>
-<span class="nc" id="L137">        Image fire_image = new Image(fire);</span>
-<span class="nc" id="L138">        Image long_boi_image = new Image(long_boi);</span>
-<span class="nc" id="L139">        Image talk_image = new Image(talk);</span>
-<span class="nc" id="L140">        Image chest_image = new Image(chest);</span>
+<span class="nc" id="L135">        Image rch_image = new Image(rch);</span>
+<span class="nc" id="L136">        Image flower_image = new Image(flower);</span>
+<span class="nc" id="L137">        Image bus_image = new Image(bus);</span>
+<span class="nc" id="L138">        Image shopping_basket_image = new Image(shopping_basket);</span>
+<span class="nc" id="L139">        Image fire_image = new Image(fire);</span>
+<span class="nc" id="L140">        Image long_boi_image = new Image(long_boi);</span>
+<span class="nc" id="L141">        Image talk_image = new Image(talk);</span>
+<span class="nc" id="L142">        Image chest_image = new Image(chest);</span>
 
         // Set position of the image
-<span class="nc" id="L143">        rch_image.setPosition(100, 100);</span>
-<span class="nc" id="L144">        flower_image.setPosition(200, 200);</span>
-<span class="nc" id="L145">        bus_image.setPosition(300, 300);</span>
-<span class="nc" id="L146">        shopping_basket_image.setPosition(400, 400);</span>
-<span class="nc" id="L147">        fire_image.setPosition(500, 500);</span>
-<span class="nc" id="L148">        long_boi_image.setPosition(100, 500);</span>
-<span class="nc" id="L149">        talk_image.setPosition(200, 400);</span>
-<span class="nc" id="L150">        chest_image.setPosition(300, 300);</span>
+<span class="nc" id="L145">        rch_image.setPosition(100, 20);</span>
+<span class="nc" id="L146">        flower_image.setPosition(950, 100);</span>
+<span class="nc" id="L147">        bus_image.setPosition(50, 300);</span>
+<span class="nc" id="L148">        shopping_basket_image.setPosition(1050, 300);</span>
+<span class="nc" id="L149">        fire_image.setPosition(950, 500);</span>
+<span class="nc" id="L150">        long_boi_image.setPosition(100, 500);</span>
+<span class="nc" id="L151">        talk_image.setPosition(1000, 400);</span>
+<span class="nc" id="L152">        chest_image.setPosition(200, 200);</span>
 
-        //Iterate through the streaks to see which achievements were compeleted
-<span class="nc" id="L153">        GameScreen game_ = null;</span>
-<span class="nc" id="L154">        events = new EventManager(game_);</span>
-<span class="nc" id="L155">        HashMap&lt;String, Integer&gt; streaksAchieved = events.streaks;</span>
+        //Iterate through the streaks to see which achievements were completed
+<span class="nc" id="L155">        HashMap&lt;String, Integer&gt; streaksAchieved = EventManager.getStreaks();</span>
 <span class="nc bnc" id="L156" title="All 2 branches missed.">        for (Map.Entry&lt;String, Integer&gt; entry : streaksAchieved.entrySet()) {</span>
 <span class="nc" id="L157">            String task = entry.getKey();</span>
-            //render the acheivement on the GameOver screen if the acheivement requirements have been met
+            //render the achievement on the GameOver screen if the achievement requirements have been met
 <span class="nc" id="L159">            Integer goal = streakGoals.get(task);</span>
 <span class="nc bnc" id="L160" title="All 4 branches missed.">            if (goal != null &amp;&amp; streaksAchieved.get(task) &gt;= goal) {</span>
 <span class="nc bnc" id="L161" title="All 2 branches missed.">                if (streaksAchieved.get(task) &gt;= streakGoals.get(task)) {</span>
 <span class="nc bnc" id="L162" title="All 9 branches missed.">                    switch (task) {</span>
-                        case &quot;rch&quot;:
+                        case &quot;eating&quot;:
 <span class="nc" id="L164">                            gameOverStage.addActor(rch_image);</span>
 <span class="nc" id="L165">                            break;</span>
                         case &quot;flowers&quot;:
 <span class="nc" id="L167">                            gameOverStage.addActor(flower_image);</span>
 <span class="nc" id="L168">                            break;</span>
-                        case &quot;bus&quot;:
+                        case &quot;town&quot;:
 <span class="nc" id="L170">                            gameOverStage.addActor(bus_image);</span>
 <span class="nc" id="L171">                            break;</span>
                         case &quot;shop&quot;:

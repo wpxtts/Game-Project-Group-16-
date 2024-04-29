@@ -31,7 +31,7 @@ public class SaveScreen implements Screen{
     private OrthographicCamera camera;
     private Viewport viewport;
     private boolean saved;
-<span class="fc" id="L34">    public static String leaderboardPath = &quot;../assets/Text/leaderboard.csv&quot;;</span>
+<span class="nc" id="L34">    public static String leaderboardPath = &quot;../assets/Text/leaderboard.csv&quot;;</span>
 
     public boolean drawOnExit;
     public MenuScreen menuScreen;
@@ -42,17 +42,17 @@ public class SaveScreen implements Screen{
      * Thus any changes to assets or licenses must be reflected in credits.txt
      *
      */
-<span class="fc" id="L45">    public SaveScreen(HustleGame game, Integer score,boolean draw) {</span>
+<span class="nc" id="L45">    public SaveScreen(HustleGame game, Integer score,boolean draw) {</span>
         
         // Basically all the same code as the settings menu
-<span class="fc" id="L48">        this.game = game;</span>
-<span class="fc" id="L49">        this.saved = false;</span>
-<span class="fc" id="L50">        drawOnExit = draw;</span>
+<span class="nc" id="L48">        this.game = game;</span>
+<span class="nc" id="L49">        this.saved = false;</span>
+<span class="nc" id="L50">        drawOnExit = draw;</span>
 
-<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if(draw){</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        if(draw){</span>
 <span class="nc" id="L53">            drawScreen(score);</span>
         }
-<span class="fc" id="L55">    }</span>
+<span class="nc" id="L55">    }</span>
 
     public void drawScreen(Integer score){
 <span class="nc" id="L58">        leaderboardStage = new Stage(new FitViewport(this.game.WIDTH, this.game.HEIGHT));</span>
@@ -134,23 +134,23 @@ public class SaveScreen implements Screen{
 <span class="nc" id="L134">    }</span>
 
     public void saveButtonPress(String userInput,Integer score,TextButton button){
-<span class="fc bfc" id="L137" title="All 2 branches covered.">        if (!saved) { // Check if the button is not already marked as Saved</span>
-<span class="fc" id="L138">            SaveScreen.this.game.soundManager.playButton();</span>
-<span class="pc bpc" id="L139" title="1 of 2 branches missed.">            if (!userInput.isEmpty()) { // Check if the text is not empty</span>
-<span class="fc" id="L140">                saveScore(userInput, score); // Append the name and score to the CSV file</span>
-<span class="fc" id="L141">                button.setText(&quot;Saved&quot;); // Change the button text to Saved</span>
-<span class="fc" id="L142">                saved = true;</span>
-<span class="fc" id="L143">                button.setDisabled(true); // Disable the button</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        if (!saved) { // Check if the button is not already marked as Saved</span>
+<span class="nc" id="L138">            SaveScreen.this.game.soundManager.playButton();</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">            if (!userInput.isEmpty()) { // Check if the text is not empty</span>
+<span class="nc" id="L140">                saveScore(userInput, score); // Append the name and score to the CSV file</span>
+<span class="nc" id="L141">                button.setText(&quot;Saved&quot;); // Change the button text to Saved</span>
+<span class="nc" id="L142">                saved = true;</span>
+<span class="nc" id="L143">                button.setDisabled(true); // Disable the button</span>
             }
         }
-<span class="fc" id="L146">    }</span>
+<span class="nc" id="L146">    }</span>
 
     public void exitButtonPress(){
-<span class="fc" id="L149">        SaveScreen.this.game.soundManager.playButton();</span>
-<span class="fc" id="L150">        SaveScreen.this.game.soundManager.stopOverworldMusic();</span>
-<span class="fc" id="L151">        dispose();</span>
-<span class="fc" id="L152">        SaveScreen.this.game.setScreen(menuScreen);</span>
-<span class="fc" id="L153">    }</span>
+<span class="nc" id="L149">        SaveScreen.this.game.soundManager.playButton();</span>
+<span class="nc" id="L150">        SaveScreen.this.game.soundManager.stopOverworldMusic();</span>
+<span class="nc" id="L151">        dispose();</span>
+<span class="nc" id="L152">        SaveScreen.this.game.setScreen(menuScreen);</span>
+<span class="nc" id="L153">    }</span>
 
     /**
      * Renders the savemenu window
@@ -182,20 +182,20 @@ public class SaveScreen implements Screen{
 <span class="nc" id="L182">    }</span>
 
     public void saveScore(String name, int score) {
-<span class="fc bfc" id="L185" title="All 2 branches covered.">        if(score&lt;0){</span>
-<span class="fc" id="L186">            throw new IllegalArgumentException(&quot;Score has to be 0 or greater&quot;);</span>
+<span class="nc bnc" id="L185" title="All 2 branches missed.">        if(score&lt;0){</span>
+<span class="nc" id="L186">            throw new IllegalArgumentException(&quot;Score has to be 0 or greater&quot;);</span>
         }
-<span class="fc" id="L188">        String filename = leaderboardPath; // Specify the CSV file name</span>
-<span class="fc" id="L189">        String data = name + &quot;,&quot; + score + &quot;\n&quot;; // Format the data to append</span>
+<span class="nc" id="L188">        String filename = leaderboardPath; // Specify the CSV file name</span>
+<span class="nc" id="L189">        String data = name + &quot;,&quot; + score + &quot;\n&quot;; // Format the data to append</span>
 
         try {
-<span class="fc" id="L192">            FileWriter writer = new FileWriter(filename, true); // Create a FileWriter in append mode</span>
-<span class="fc" id="L193">            writer.write(data); // Write the data to the file</span>
-<span class="fc" id="L194">            writer.close(); // Close the FileWriter</span>
+<span class="nc" id="L192">            FileWriter writer = new FileWriter(filename, true); // Create a FileWriter in append mode</span>
+<span class="nc" id="L193">            writer.write(data); // Write the data to the file</span>
+<span class="nc" id="L194">            writer.close(); // Close the FileWriter</span>
 <span class="nc" id="L195">        } catch (IOException e) {</span>
 <span class="nc" id="L196">            e.printStackTrace();</span>
-<span class="fc" id="L197">        }</span>
-<span class="fc" id="L198">    }</span>
+<span class="nc" id="L197">        }</span>
+<span class="nc" id="L198">    }</span>
 
     // Other required methods from Screen
     @Override
@@ -216,6 +216,6 @@ public class SaveScreen implements Screen{
 
     @Override
     public void dispose() {
-<span class="fc" id="L219">    }</span>
+<span class="nc" id="L219">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
