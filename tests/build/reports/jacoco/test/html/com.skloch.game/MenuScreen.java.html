@@ -22,7 +22,7 @@ public class MenuScreen implements Screen {
     private Stage menuStage;
     OrthographicCamera camera;
     private Viewport viewport;
-<span class="nc" id="L25">    private Image titleImage = new Image();</span>
+<span class="fc" id="L25">    private Image titleImage = new Image();</span>
     public boolean draw;
 
     /**
@@ -35,13 +35,13 @@ public class MenuScreen implements Screen {
      *
      * @param game An instance of HustleGame with loaded variables
      */
-<span class="nc" id="L38">    public MenuScreen(final HustleGame game,boolean draw) {</span>
+<span class="fc" id="L38">    public MenuScreen(final HustleGame game,boolean draw) {</span>
 
-<span class="nc" id="L40">        this.game = game;</span>
-<span class="nc" id="L41">        this.game.menuScreen = this;</span>
-<span class="nc" id="L42">        this.draw = draw;</span>
+<span class="fc" id="L40">        this.game = game;</span>
+<span class="fc" id="L41">        this.game.menuScreen = this;</span>
+<span class="fc" id="L42">        this.draw = draw;</span>
 
-<span class="nc bnc" id="L44" title="All 2 branches missed.">        if(draw){</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        if(draw){</span>
             // Create stage to draw UI on
 <span class="nc" id="L46">            menuStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));</span>
 <span class="nc" id="L47">            Gdx.input.setInputProcessor(menuStage);</span>
@@ -148,7 +148,7 @@ public class MenuScreen implements Screen {
 <span class="nc" id="L148">            game.batch.setProjectionMatrix(camera.combined);</span>
         }
 
-<span class="nc" id="L151">    }</span>
+<span class="fc" id="L151">    }</span>
 
     public void startButtonTask(Table buttonTable, Window tutorialWindow){
 <span class="nc" id="L154">        game.soundManager.playButton();</span>
@@ -230,11 +230,11 @@ public class MenuScreen implements Screen {
      * Fixes a small graphical bug
      */
     public void resume() {
-<span class="nc" id="L233">        Gdx.input.setInputProcessor(menuStage);</span>
+<span class="fc" id="L233">        Gdx.input.setInputProcessor(menuStage);</span>
 
         // See the comment in the resume() function in GameScreen to see why this pointless line exists
-<span class="nc" id="L236">        Gdx.input.setCursorPosition(Gdx.input.getX(), Gdx.input.getY());</span>
-<span class="nc" id="L237">    }</span>
+<span class="fc" id="L236">        Gdx.input.setCursorPosition(Gdx.input.getX(), Gdx.input.getY());</span>
+<span class="fc" id="L237">    }</span>
 
     /**
      * Dispose of all menu assets

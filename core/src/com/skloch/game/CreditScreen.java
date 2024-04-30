@@ -121,7 +121,6 @@ public class CreditScreen implements Screen{
         camera.update();
     }
 
-
     /**
      * Correctly resizes the onscreen elements when the window is resized
      * @param width

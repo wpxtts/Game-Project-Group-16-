@@ -33,12 +33,12 @@ public class CreditScreen implements Screen{
      * @param game An instance of the HustleGame class
      * @param previousScreen The screen to return to when the exit button is pressed
      */
-<span class="nc" id="L36">    public CreditScreen (final HustleGame game, Screen previousScreen,boolean draw) {</span>
+<span class="fc" id="L36">    public CreditScreen (final HustleGame game, Screen previousScreen,boolean draw) {</span>
 
         // Basically all the same code as the settings menu
-<span class="nc" id="L39">        this.game = game;</span>
+<span class="fc" id="L39">        this.game = game;</span>
 
-<span class="nc bnc" id="L41" title="All 2 branches missed.">        if(draw) {</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">        if(draw) {</span>
 <span class="nc" id="L42">            creditStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));</span>
 <span class="nc" id="L43">            Gdx.input.setInputProcessor(creditStage);</span>
 
@@ -102,7 +102,7 @@ public class CreditScreen implements Screen{
             });
         }
 
-<span class="nc" id="L105">    }</span>
+<span class="fc" id="L105">    }</span>
 
     /**
      * Renders the credits window
@@ -121,7 +121,6 @@ public class CreditScreen implements Screen{
 <span class="nc" id="L121">        camera.update();</span>
 <span class="nc" id="L122">    }</span>
 
-
     /**
      * Correctly resizes the onscreen elements when the window is resized
      * @param width
@@ -129,29 +128,29 @@ public class CreditScreen implements Screen{
      */
     @Override
     public void resize(int width, int height) {
-<span class="nc" id="L132">        creditStage.getViewport().update(width, height);</span>
-<span class="nc" id="L133">        viewport.update(width, height);</span>
-<span class="nc" id="L134">    }</span>
+<span class="nc" id="L131">        creditStage.getViewport().update(width, height);</span>
+<span class="nc" id="L132">        viewport.update(width, height);</span>
+<span class="nc" id="L133">    }</span>
 
     // Other required methods from Screen
     @Override
     public void show() {
-<span class="nc" id="L139">    }</span>
+<span class="nc" id="L138">    }</span>
 
     @Override
     public void hide() {
-<span class="nc" id="L143">    }</span>
+<span class="nc" id="L142">    }</span>
 
     @Override
     public void pause() {
-<span class="nc" id="L147">    }</span>
+<span class="nc" id="L146">    }</span>
 
     @Override
     public void resume() {
-<span class="nc" id="L151">    }</span>
+<span class="nc" id="L150">    }</span>
 
     @Override
     public void dispose() {
-<span class="nc" id="L155">    }</span>
+<span class="fc" id="L154">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
