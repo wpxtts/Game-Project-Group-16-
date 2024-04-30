@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="io.dimitris.gemo.tests.HustleGameTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-04-30T13:41:10" hostname="nas-10-240-128-226.york.ac.uk" time="0.014">
+  <properties/>
+  <testcase name="testReadTextFile" classname="io.dimitris.gemo.tests.HustleGameTests" time="0.01"/>
+  <testcase name="testHustleGameAssetsExists" classname="io.dimitris.gemo.tests.HustleGameTests" time="0.001"/>
+  <system-out><![CDATA[WARNING: Couldn't load file a/fake/file/path
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
