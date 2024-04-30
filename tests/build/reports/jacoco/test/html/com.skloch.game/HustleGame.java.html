@@ -25,6 +25,7 @@ public class HustleGame extends Game {
 	public int HEIGHT;
 	public Skin skin;
 	public TiledMap map;
+	public TiledMap town_map;
 	public String credits, tutorialText;
 	public GameScreen gameScreen;
 	public MenuScreen menuScreen;
@@ -50,10 +51,10 @@ public class HustleGame extends Game {
 	 * @param width Width of the window
 	 * @param height Height of the window
 	 */
-<span class="nc" id="L53">	public HustleGame (int width, int height) {</span>
-<span class="nc" id="L54">		WIDTH = width;</span>
-<span class="nc" id="L55">		HEIGHT = height;</span>
-<span class="nc" id="L56">	}</span>
+<span class="nc" id="L54">	public HustleGame (int width, int height) {</span>
+<span class="nc" id="L55">		WIDTH = width;</span>
+<span class="nc" id="L56">		HEIGHT = height;</span>
+<span class="nc" id="L57">	}</span>
 
 	/**
 	 * Loads resources used throughout the game.
@@ -67,61 +68,61 @@ public class HustleGame extends Game {
 	 */
 	@Override
 	public void create () {
-<span class="nc" id="L70">		batch = new SpriteBatch();</span>
-<span class="nc" id="L71">		skin = new Skin(Gdx.files.internal(skinPath));</span>
+<span class="nc" id="L71">		batch = new SpriteBatch();</span>
+<span class="nc" id="L72">		skin = new Skin(Gdx.files.internal(skinPath));</span>
 		// Map
-<span class="nc" id="L73">		map = new TmxMapLoader().load(mapPath);</span>
-<span class="nc" id="L74">		mapProperties = map.getProperties();</span>
+<span class="nc" id="L74">		map = new TmxMapLoader().load(mapPath);</span>
+<span class="nc" id="L75">		mapProperties = map.getProperties();</span>
 
 		// Define background, foreground and object layers
 		// IMPORTANT: CHANGE THESE WHEN UPDATING THE LAYERS IN YOUR EXPORTED MAP FROM TILED
 		// Bottom most layer on 'layers' tab is 0
-<span class="nc" id="L79">		backgroundLayers = new int[] {0, 1, 2, 3, 4, 5, 6}; // Rendered behind player</span>
-<span class="nc" id="L80">		foregroundLayers = new int[] {7}; // Rendered in front of player</span>
-<span class="nc" id="L81">		objectLayers = new int[] {8}; // Rectangles for the player to collide with</span>
-<span class="nc" id="L82">		mapSquareSize = mapProperties.get(&quot;tilewidth&quot;, Integer.class);</span>
-<span class="nc" id="L83">		mapScale = 70f;</span>
+<span class="nc" id="L80">		backgroundLayers = new int[] {0, 1, 2, 3, 4, 5, 6}; // Rendered behind player</span>
+<span class="nc" id="L81">		foregroundLayers = new int[] {7}; // Rendered in front of player</span>
+<span class="nc" id="L82">		objectLayers = new int[] {8}; // Rectangles for the player to collide with</span>
+<span class="nc" id="L83">		mapSquareSize = mapProperties.get(&quot;tilewidth&quot;, Integer.class);</span>
+<span class="nc" id="L84">		mapScale = 70f;</span>
 
-<span class="nc" id="L85">		shapeRenderer = new ShapeRenderer();</span>
-<span class="nc" id="L86">		soundManager = new SoundManager();</span>
+<span class="nc" id="L86">		shapeRenderer = new ShapeRenderer();</span>
+<span class="nc" id="L87">		soundManager = new SoundManager();</span>
 
 		// Make a stage with a blue background that any screen can draw
-<span class="nc" id="L89">		Image blueImage = new Image(new Texture(Gdx.files.internal(whiteSquarePath)));</span>
-<span class="nc" id="L90">		blueImage.setColor(0.53f, 0.81f, 0.92f, 1);</span>
-<span class="nc" id="L91">		blueImage.setName(&quot;blue image&quot;);</span>
-<span class="nc" id="L92">		blueBackground = new Stage();</span>
-<span class="nc" id="L93">		blueBackground.addActor(blueImage);</span>
+<span class="nc" id="L90">		Image blueImage = new Image(new Texture(Gdx.files.internal(whiteSquarePath)));</span>
+<span class="nc" id="L91">		blueImage.setColor(0.53f, 0.81f, 0.92f, 1);</span>
+<span class="nc" id="L92">		blueImage.setName(&quot;blue image&quot;);</span>
+<span class="nc" id="L93">		blueBackground = new Stage();</span>
+<span class="nc" id="L94">		blueBackground.addActor(blueImage);</span>
 
         try {
-<span class="nc" id="L96">            credits = readTextFile(creditsPath);</span>
-<span class="nc" id="L97">			tutorialText = readTextFile(tutorialTextPath);</span>
-<span class="nc" id="L98">        } catch (FileNotFoundException e) {</span>
-<span class="nc" id="L99">            throw new RuntimeException(e);</span>
-<span class="nc" id="L100">        }</span>
+<span class="nc" id="L97">            credits = readTextFile(creditsPath);</span>
+<span class="nc" id="L98">			tutorialText = readTextFile(tutorialTextPath);</span>
+<span class="nc" id="L99">        } catch (FileNotFoundException e) {</span>
+<span class="nc" id="L100">            throw new RuntimeException(e);</span>
+<span class="nc" id="L101">        }</span>
 
-<span class="nc" id="L102">        this.setScreen(new MenuScreen(this,true));</span>
-<span class="nc" id="L103">	}</span>
+<span class="nc" id="L103">        this.setScreen(new MenuScreen(this,true));</span>
+<span class="nc" id="L104">	}</span>
 
 	/**
 	 * Very important, renders the game, remove super.render() to get a black screen
 	 */
 	@Override
 	public void render () {
-<span class="nc" id="L110">		super.render();</span>
-<span class="nc" id="L111">	}</span>
+<span class="nc" id="L111">		super.render();</span>
+<span class="nc" id="L112">	}</span>
 
 	/**
 	 * Disposes of elements that are loaded at the start of the game
 	 */
 	@Override
 	public void dispose () {
-<span class="nc" id="L118">		batch.dispose();</span>
-<span class="nc" id="L119">		blueBackground.dispose();</span>
-<span class="nc" id="L120">		skin.dispose();</span>
-<span class="nc" id="L121">		map.dispose();</span>
-<span class="nc" id="L122">		shapeRenderer.dispose();</span>
-<span class="nc" id="L123">		soundManager.dispose();</span>
-<span class="nc" id="L124">	}</span>
+<span class="nc" id="L119">		batch.dispose();</span>
+<span class="nc" id="L120">		blueBackground.dispose();</span>
+<span class="nc" id="L121">		skin.dispose();</span>
+<span class="nc" id="L122">		map.dispose();</span>
+<span class="nc" id="L123">		shapeRenderer.dispose();</span>
+<span class="nc" id="L124">		soundManager.dispose();</span>
+<span class="nc" id="L125">	}</span>
 
 	/**
 	 * Reads and returns text read from the provided text file path
@@ -129,13 +130,13 @@ public class HustleGame extends Game {
 	 * @return The contents of the file as a String
 	 */
 	public String readTextFile(String filepath) throws FileNotFoundException {
-<span class="nc" id="L132">		FileHandle file = Gdx.files.internal(filepath);</span>
+<span class="nc" id="L133">		FileHandle file = Gdx.files.internal(filepath);</span>
 
-<span class="nc bnc" id="L134" title="All 2 branches missed.">		if (!file.exists()) {</span>
-<span class="nc" id="L135">			System.out.println(&quot;WARNING: Couldn't load file &quot; + filepath);</span>
-<span class="nc" id="L136">			throw new FileNotFoundException(&quot;File not found&quot;);</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">		if (!file.exists()) {</span>
+<span class="nc" id="L136">			System.out.println(&quot;WARNING: Couldn't load file &quot; + filepath);</span>
+<span class="nc" id="L137">			throw new FileNotFoundException(&quot;File not found&quot;);</span>
 		} else {
-<span class="nc" id="L138">			return file.readString();</span>
+<span class="nc" id="L139">			return file.readString();</span>
 		}
 
 	}

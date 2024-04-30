@@ -26,11 +26,7 @@ public class CreditScreenTests {
 
     @Test
     public void testCreditScreenExit(){
-        game.soundManager.playButton();
-        creditScreen.dispose();
-        Screen previousScreen = menuScreen;
-        game.setScreen(previousScreen);
-        previousScreen.resume();
+        creditScreen.exitButtonTask();
         // When the exit button is pressed we need to make sure
         // the screen is returned to the MainScreen
 
