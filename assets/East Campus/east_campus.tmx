@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="200" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="16" nextobjectid="217">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="200" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="16" nextobjectid="223">
  <tileset firstgid="1" source="Tilemaps/StarRealmsCozyForestPack24x24.tsx"/>
  <tileset firstgid="529" source="Tilemaps/RCH.tsx"/>
  <tileset firstgid="649" source="Tilemaps/compsci.tsx"/>
@@ -1453,7 +1453,7 @@
     <property name="event" value="town"/>
    </properties>
   </object>
-  <object id="200" x="-1" y="1846" width="528" height="26"/>
+  <object id="200" x="730" y="806" width="375" height="1226"/>
   <object id="201" name="nisa_local" x="601.471" y="1899.34" width="99.4203" height="121.333">
    <properties>
     <property name="event" value="shop"/>
@@ -1522,8 +1522,11 @@
   <object id="216" name="accommodation" x="1430.61" y="1811.76" width="13.7748" height="193.471">
    <properties>
     <property name="event" value="accomodation"/>
-
    </properties>
   </object>
+  <object id="218" x="-13" y="2071.67" width="1128" height="1205.33"/>
+  <object id="219" x="236.5" y="803" width="337" height="1226"/>
+  <object id="220" x="1.5" y="808" width="43" height="1226"/>
+  <object id="222" x="45" y="805" width="192.333" height="1148.33"/>
  </objectgroup>
 </map>
