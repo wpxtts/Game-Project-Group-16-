@@ -174,26 +174,45 @@ public class Player {
      * @param delta
      * @return
      */
-    public int movePlayer(int direction,float speed, float delta){
-        // Switch case to consider each of the different directions the player could go
-        switch(direction) {
+    public int movePlayer(int direction, float speed, float delta) {
+        // Calculate movement along X and Y axes separately
+        float deltaX = 0;
+        float deltaY = 0;
+
+        // Calculate movement in the X and Y directions based on the given speed and delta time
+        switch (direction) {
             case Player.left:
-                this.setX(sprite.getX() - speed * delta); // Note: Setting all the values with a constant delta removes hitbox desyncing issues
+                deltaX = -speed * delta;
                 break;
             case Player.right:
-                this.setX(sprite.getX() + speed * delta);
+                deltaX = speed * delta;
                 break;
             case Player.up:
-                this.setY(sprite.getY() + speed * delta);
+                deltaY = speed * delta;
                 break;
             case Player.down:
-                this.setY(sprite.getY() - speed * delta);
+                deltaY = -speed * delta;
                 break;
             default:
                 throw new IllegalArgumentException("Direction must be up, down, left, or right.");
         }
+
+        // Adjust movement speed if moving diagonally
+        if (deltaX != 0 && deltaY != 0) {
+            // Normalize the movement vector to maintain consistent speed when moving diagonally
+            float length = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            deltaX /= length;
+            deltaY /= length;
+        }
+
+        // Update player position
+        this.setX(sprite.getX() + deltaX);
+        this.setY(sprite.getY() + deltaY);
+
+        // Return direction
         return direction;
     }
+
 
     /**
      * Returns all game objects player is colliding with
