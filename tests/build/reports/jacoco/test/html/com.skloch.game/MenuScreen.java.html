@@ -176,9 +176,9 @@ public class MenuScreen implements Screen {
 <span class="nc" id="L176">    }</span>
 
     public void leaderboardButtonTask(Screen thisScreen){
-<span class="fc" id="L179">        game.soundManager.playButton();</span>
-<span class="fc" id="L180">        game.setScreen(new LeaderboardScreen(game, thisScreen,draw));</span>
-<span class="fc" id="L181">    }</span>
+<span class="nc" id="L179">        game.soundManager.playButton();</span>
+<span class="nc" id="L180">        game.setScreen(new LeaderboardScreen(game, thisScreen,draw));</span>
+<span class="nc" id="L181">    }</span>
 
     /**
      * Renders the main menu, and any windows that are displaying information
@@ -230,11 +230,11 @@ public class MenuScreen implements Screen {
      * Fixes a small graphical bug
      */
     public void resume() {
-<span class="nc" id="L233">        Gdx.input.setInputProcessor(menuStage);</span>
+<span class="fc" id="L233">        Gdx.input.setInputProcessor(menuStage);</span>
 
         // See the comment in the resume() function in GameScreen to see why this pointless line exists
-<span class="nc" id="L236">        Gdx.input.setCursorPosition(Gdx.input.getX(), Gdx.input.getY());</span>
-<span class="nc" id="L237">    }</span>
+<span class="fc" id="L236">        Gdx.input.setCursorPosition(Gdx.input.getX(), Gdx.input.getY());</span>
+<span class="fc" id="L237">    }</span>
 
     /**
      * Dispose of all menu assets
@@ -330,25 +330,33 @@ public class MenuScreen implements Screen {
 <span class="nc" id="L330">        choice1.addListener(new ChangeListener() {</span>
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L333">                game.soundManager.playButton();</span>
-<span class="nc" id="L334">                game.setScreen(new GameScreen(game, 1));</span>
-<span class="nc" id="L335">                game.soundManager.stopMenuMusic();</span>
-<span class="nc" id="L336">                dispose();</span>
-<span class="nc" id="L337">            }</span>
+<span class="nc" id="L333">                avatar1ButtonTask();</span>
+<span class="nc" id="L334">                dispose();</span>
+<span class="nc" id="L335">            }</span>
         });
 
-<span class="nc" id="L340">        choice2.addListener(new ChangeListener() {</span>
+<span class="nc" id="L338">        choice2.addListener(new ChangeListener() {</span>
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L343">                game.soundManager.playButton();</span>
-<span class="nc" id="L344">                game.setScreen(new GameScreen(game, 2));</span>
-<span class="nc" id="L345">                game.soundManager.stopMenuMusic();</span>
-<span class="nc" id="L346">                dispose();</span>
-<span class="nc" id="L347">            }</span>
+<span class="nc" id="L341">                avatar2ButtonTask();</span>
+<span class="nc" id="L342">                dispose();</span>
+<span class="nc" id="L343">            }</span>
         });
 
-<span class="nc" id="L350">        return table;</span>
+<span class="nc" id="L346">        return table;</span>
     }
+
+    public void avatar1ButtonTask(){
+<span class="nc" id="L350">        game.soundManager.playButton();</span>
+<span class="nc" id="L351">        game.setScreen(new GameScreen(game, 1,draw));</span>
+<span class="nc" id="L352">        game.soundManager.stopMenuMusic();</span>
+<span class="nc" id="L353">    }</span>
+
+    public void avatar2ButtonTask(){
+<span class="nc" id="L356">        game.soundManager.playButton();</span>
+<span class="nc" id="L357">        game.setScreen(new GameScreen(game, 2,draw));</span>
+<span class="nc" id="L358">        game.soundManager.stopMenuMusic();</span>
+<span class="nc" id="L359">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

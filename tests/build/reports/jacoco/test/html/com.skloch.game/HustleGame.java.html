@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import java.io.FileNotFoundException;
+
 /**
  * A class that is initially created by DesktopLauncher, loads consistent files at the start of the game and initialises lots of important classes.
  * Loads the map, ui skin, text files and makes sound manager and more
@@ -34,7 +36,11 @@ public class HustleGame extends Game {
 	public float mapScale;
 	public MapProperties mapProperties;
 
-
+	public static final String skinPath = &quot;../assets/Interface/BlockyInterface.json&quot;;
+	public static final String mapPath = &quot;../assets/East Campus/east_campus.tmx&quot;;
+	public static final String whiteSquarePath = &quot;../assets/Sprites/white_square.png&quot;;
+	public static final String creditsPath = &quot;../assets/Text/credits.txt&quot;;
+	public static final String tutorialTextPath = &quot;../assets/Text/tutorial_text.txt&quot;;
 	/**
 	 * A class to initialise a lot of the assets required for the game, including the map, sound and UI skin.
 	 * A instance of this object should be shared to most screens to allow resources to be shared and disposed of
@@ -44,10 +50,10 @@ public class HustleGame extends Game {
 	 * @param width Width of the window
 	 * @param height Height of the window
 	 */
-<span class="nc" id="L47">	public HustleGame (int width, int height) {</span>
-<span class="nc" id="L48">		WIDTH = width;</span>
-<span class="nc" id="L49">		HEIGHT = height;</span>
-<span class="nc" id="L50">	}</span>
+<span class="nc" id="L53">	public HustleGame (int width, int height) {</span>
+<span class="nc" id="L54">		WIDTH = width;</span>
+<span class="nc" id="L55">		HEIGHT = height;</span>
+<span class="nc" id="L56">	}</span>
 
 	/**
 	 * Loads resources used throughout the game.
@@ -61,71 +67,75 @@ public class HustleGame extends Game {
 	 */
 	@Override
 	public void create () {
-<span class="nc" id="L64">		batch = new SpriteBatch();</span>
-<span class="nc" id="L65">		skin = new Skin(Gdx.files.internal(&quot;Interface/BlockyInterface.json&quot;));</span>
+<span class="nc" id="L70">		batch = new SpriteBatch();</span>
+<span class="nc" id="L71">		skin = new Skin(Gdx.files.internal(skinPath));</span>
 		// Map
-<span class="nc" id="L67">		map = new TmxMapLoader().load(&quot;East Campus/east_campus.tmx&quot;);</span>
-<span class="nc" id="L68">		mapProperties = map.getProperties();</span>
+<span class="nc" id="L73">		map = new TmxMapLoader().load(mapPath);</span>
+<span class="nc" id="L74">		mapProperties = map.getProperties();</span>
 
 		// Define background, foreground and object layers
 		// IMPORTANT: CHANGE THESE WHEN UPDATING THE LAYERS IN YOUR EXPORTED MAP FROM TILED
 		// Bottom most layer on 'layers' tab is 0
-<span class="nc" id="L73">		backgroundLayers = new int[] {0, 1, 2, 3, 4, 5, 6}; // Rendered behind player</span>
-<span class="nc" id="L74">		foregroundLayers = new int[] {7}; // Rendered in front of player</span>
-<span class="nc" id="L75">		objectLayers = new int[] {8}; // Rectangles for the player to collide with</span>
-<span class="nc" id="L76">		mapSquareSize = mapProperties.get(&quot;tilewidth&quot;, Integer.class);</span>
-<span class="nc" id="L77">		mapScale = 70f;</span>
+<span class="nc" id="L79">		backgroundLayers = new int[] {0, 1, 2, 3, 4, 5, 6}; // Rendered behind player</span>
+<span class="nc" id="L80">		foregroundLayers = new int[] {7}; // Rendered in front of player</span>
+<span class="nc" id="L81">		objectLayers = new int[] {8}; // Rectangles for the player to collide with</span>
+<span class="nc" id="L82">		mapSquareSize = mapProperties.get(&quot;tilewidth&quot;, Integer.class);</span>
+<span class="nc" id="L83">		mapScale = 70f;</span>
 
-<span class="nc" id="L79">		shapeRenderer = new ShapeRenderer();</span>
-<span class="nc" id="L80">		soundManager = new SoundManager();</span>
+<span class="nc" id="L85">		shapeRenderer = new ShapeRenderer();</span>
+<span class="nc" id="L86">		soundManager = new SoundManager();</span>
 
 		// Make a stage with a blue background that any screen can draw
-<span class="nc" id="L83">		Image blueImage = new Image(new Texture(Gdx.files.internal(&quot;Sprites/white_square.png&quot;)));</span>
-<span class="nc" id="L84">		blueImage.setColor(0.53f, 0.81f, 0.92f, 1);</span>
-<span class="nc" id="L85">		blueImage.setName(&quot;blue image&quot;);</span>
-<span class="nc" id="L86">		blueBackground = new Stage();</span>
-<span class="nc" id="L87">		blueBackground.addActor(blueImage);</span>
+<span class="nc" id="L89">		Image blueImage = new Image(new Texture(Gdx.files.internal(whiteSquarePath)));</span>
+<span class="nc" id="L90">		blueImage.setColor(0.53f, 0.81f, 0.92f, 1);</span>
+<span class="nc" id="L91">		blueImage.setName(&quot;blue image&quot;);</span>
+<span class="nc" id="L92">		blueBackground = new Stage();</span>
+<span class="nc" id="L93">		blueBackground.addActor(blueImage);</span>
 
-<span class="nc" id="L89">		credits = readTextFile(&quot;Text/credits.txt&quot;);</span>
-<span class="nc" id="L90">		tutorialText = readTextFile(&quot;Text/tutorial_text.txt&quot;);</span>
+        try {
+<span class="nc" id="L96">            credits = readTextFile(creditsPath);</span>
+<span class="nc" id="L97">			tutorialText = readTextFile(tutorialTextPath);</span>
+<span class="nc" id="L98">        } catch (FileNotFoundException e) {</span>
+<span class="nc" id="L99">            throw new RuntimeException(e);</span>
+<span class="nc" id="L100">        }</span>
 
-<span class="nc" id="L92">		this.setScreen(new MenuScreen(this,true));</span>
-<span class="nc" id="L93">	}</span>
+<span class="nc" id="L102">        this.setScreen(new MenuScreen(this,true));</span>
+<span class="nc" id="L103">	}</span>
 
 	/**
 	 * Very important, renders the game, remove super.render() to get a black screen
 	 */
 	@Override
 	public void render () {
-<span class="nc" id="L100">		super.render();</span>
-<span class="nc" id="L101">	}</span>
+<span class="nc" id="L110">		super.render();</span>
+<span class="nc" id="L111">	}</span>
 
 	/**
 	 * Disposes of elements that are loaded at the start of the game
 	 */
 	@Override
 	public void dispose () {
-<span class="nc" id="L108">		batch.dispose();</span>
-<span class="nc" id="L109">		blueBackground.dispose();</span>
-<span class="nc" id="L110">		skin.dispose();</span>
-<span class="nc" id="L111">		map.dispose();</span>
-<span class="nc" id="L112">		shapeRenderer.dispose();</span>
-<span class="nc" id="L113">		soundManager.dispose();</span>
-<span class="nc" id="L114">	}</span>
+<span class="nc" id="L118">		batch.dispose();</span>
+<span class="nc" id="L119">		blueBackground.dispose();</span>
+<span class="nc" id="L120">		skin.dispose();</span>
+<span class="nc" id="L121">		map.dispose();</span>
+<span class="nc" id="L122">		shapeRenderer.dispose();</span>
+<span class="nc" id="L123">		soundManager.dispose();</span>
+<span class="nc" id="L124">	}</span>
 
 	/**
 	 * Reads and returns text read from the provided text file path
 	 * @param filepath The path to the text file
 	 * @return The contents of the file as a String
 	 */
-	public String readTextFile(String filepath) {
-<span class="nc" id="L122">		FileHandle file = Gdx.files.internal(filepath);</span>
+	public String readTextFile(String filepath) throws FileNotFoundException {
+<span class="nc" id="L132">		FileHandle file = Gdx.files.internal(filepath);</span>
 
-<span class="nc bnc" id="L124" title="All 2 branches missed.">		if (!file.exists()) {</span>
-<span class="nc" id="L125">			System.out.println(&quot;WARNING: Couldn't load file &quot; + filepath);</span>
-<span class="nc" id="L126">			return &quot;Couldn't load &quot; + filepath;</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">		if (!file.exists()) {</span>
+<span class="nc" id="L135">			System.out.println(&quot;WARNING: Couldn't load file &quot; + filepath);</span>
+<span class="nc" id="L136">			throw new FileNotFoundException(&quot;File not found&quot;);</span>
 		} else {
-<span class="nc" id="L128">			return file.readString();</span>
+<span class="nc" id="L138">			return file.readString();</span>
 		}
 
 	}

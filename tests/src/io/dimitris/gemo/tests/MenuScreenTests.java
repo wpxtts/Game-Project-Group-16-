@@ -71,6 +71,18 @@ public class MenuScreenTests {
         verify(game).setScreen(any(LeaderboardScreen.class));
     }
 
+    @Test
+    public void testButton1Task(){
+        menuScreen.avatar1ButtonTask();
+        verify(game).setScreen(any(GameScreen.class));
+    }
+
+    @Test
+    public void testButton2Task(){
+        menuScreen.avatar2ButtonTask();
+        verify(game).setScreen(any(GameScreen.class));
+    }
+
     // Note: We cannot test the exit button functionality without
     // excessive effort and using tools like PowerMockito, so we test it manually
     // instead

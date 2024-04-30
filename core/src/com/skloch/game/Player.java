@@ -37,6 +37,8 @@ public class Player {
     private GameObject closestObject;
     public boolean frozen, moving;
 
+    public String avatar;
+
     /**
      * A player character, contains methods to move the player and update animations, also includes collision handling
      * and can be used to trigger events of objects near the player.
@@ -47,6 +49,7 @@ public class Player {
      *               player animations are packed in the player_sprites atlas
      */
     public Player (String avatar) {
+        this.avatar = avatar;
         // Load the player's textures from the atlas
         TextureAtlas playerAtlas = new TextureAtlas(Gdx.files.internal(atlasConfig));
 
@@ -171,26 +174,53 @@ public class Player {
      * @param delta
      * @return
      */
-    public int movePlayer(int direction,float speed, float delta){
-        // Switch case to consider each of the different directions the player could go
-        switch(direction) {
+    public int movePlayer(int direction, float speed, float delta) {
+        // Calculate movement along X and Y axes separately
+        float deltaX = 0;
+        float deltaY = 0;
+
+        // Calculate movement in the X and Y directions based on the given speed and delta time
+        switch (direction) {
             case Player.left:
-                this.setX(sprite.getX() - speed * delta); // Note: Setting all the values with a constant delta removes hitbox desyncing issues
+                deltaX = -speed * delta;
                 break;
             case Player.right:
-                this.setX(sprite.getX() + speed * delta);
+                deltaX = speed * delta;
                 break;
             case Player.up:
-                this.setY(sprite.getY() + speed * delta);
+                deltaY = speed * delta;
                 break;
             case Player.down:
-                this.setY(sprite.getY() - speed * delta);
+                deltaY = -speed * delta;
                 break;
             default:
                 throw new IllegalArgumentException("Direction must be up, down, left, or right.");
         }
+
+        // Print movement before normalization
+        System.out.println("deltaX before normalization: " + deltaX);
+        System.out.println("deltaY before normalization: " + deltaY);
+
+        // Adjust movement speed if moving diagonally
+        if (deltaX != 0 && deltaY != 0) {
+            // Normalize the movement vector to maintain consistent speed when moving diagonally
+            float combinedSpeed = speed; // Simplify calculation
+            deltaX /= combinedSpeed;
+            deltaY /= combinedSpeed;
+
+            // Print movement after normalization
+            System.out.println("deltaX after normalization: " + deltaX);
+            System.out.println("deltaY after normalization: " + deltaY);
+        }
+
+        // Update player position
+        this.setX(sprite.getX() + deltaX);
+        this.setY(sprite.getY() + deltaY);
+
+        // Return direction
         return direction;
     }
+
 
     /**
      * Returns all game objects player is colliding with

@@ -241,7 +241,7 @@ public class EventManager {
 <span class="nc" id="L241">                game.dialogueBox.setText(&quot;You are too tired to study right now!&quot;);</span>
 <span class="nc" id="L242">                streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
 <span class="nc bnc" id="L243" title="All 2 branches missed.">            } else if (args.length == 1) {</span>
-                // If the player has not already studied or used their catchup, they can study
+                // If the player has already used their catchup and studied that day, they can't study again
 <span class="nc bnc" id="L245" title="All 2 branches missed.">                if (catchup_used){</span>
 <span class="nc" id="L246">                    game.dialogueBox.hideSelectBox();</span>
 <span class="nc" id="L247">                    game.dialogueBox.setText(&quot;You have already studied today!&quot;);</span>
@@ -262,7 +262,7 @@ public class EventManager {
 <span class="nc" id="L262">                    game.addStudyHours(hours);</span>
 <span class="nc" id="L263">                    daily_study++;</span>
 <span class="nc bnc" id="L264" title="All 2 branches missed.">                    if (daily_study &gt; 1){</span>
-<span class="nc" id="L265">                        GameScreen.useCatchup(catchup_used);</span>
+<span class="nc" id="L265">                        catchup_used = GameScreen.useCatchup(catchup_used);</span>
                     }
 <span class="nc" id="L267">                    game.passTime(hours * 60); // in seconds</span>
                 }

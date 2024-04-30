@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import java.io.FileNotFoundException;
+
 /**
  * A class that is initially created by DesktopLauncher, loads consistent files at the start of the game and initialises lots of important classes.
  * Loads the map, ui skin, text files and makes sound manager and more
@@ -35,7 +37,11 @@ public class HustleGame extends Game {
 	public float mapScale;
 	public MapProperties mapProperties;
 
-
+	public static final String skinPath = "../assets/Interface/BlockyInterface.json";
+	public static final String mapPath = "../assets/East Campus/east_campus.tmx";
+	public static final String whiteSquarePath = "../assets/Sprites/white_square.png";
+	public static final String creditsPath = "../assets/Text/credits.txt";
+	public static final String tutorialTextPath = "../assets/Text/tutorial_text.txt";
 	/**
 	 * A class to initialise a lot of the assets required for the game, including the map, sound and UI skin.
 	 * A instance of this object should be shared to most screens to allow resources to be shared and disposed of
@@ -63,9 +69,9 @@ public class HustleGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		skin = new Skin(Gdx.files.internal("Interface/BlockyInterface.json"));
+		skin = new Skin(Gdx.files.internal(skinPath));
 		// Map
-		map = new TmxMapLoader().load("East Campus/east_campus.tmx");
+		map = new TmxMapLoader().load(mapPath);
 		mapProperties = map.getProperties();
 
 		// Define background, foreground and object layers
@@ -81,16 +87,20 @@ public class HustleGame extends Game {
 		soundManager = new SoundManager();
 
 		// Make a stage with a blue background that any screen can draw
-		Image blueImage = new Image(new Texture(Gdx.files.internal("Sprites/white_square.png")));
+		Image blueImage = new Image(new Texture(Gdx.files.internal(whiteSquarePath)));
 		blueImage.setColor(0.53f, 0.81f, 0.92f, 1);
 		blueImage.setName("blue image");
 		blueBackground = new Stage();
 		blueBackground.addActor(blueImage);
 
-		credits = readTextFile("Text/credits.txt");
-		tutorialText = readTextFile("Text/tutorial_text.txt");
+        try {
+            credits = readTextFile(creditsPath);
+			tutorialText = readTextFile(tutorialTextPath);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
-		this.setScreen(new MenuScreen(this,true));
+        this.setScreen(new MenuScreen(this,true));
 	}
 
 	/**
@@ -119,12 +129,12 @@ public class HustleGame extends Game {
 	 * @param filepath The path to the text file
 	 * @return The contents of the file as a String
 	 */
-	public String readTextFile(String filepath) {
+	public String readTextFile(String filepath) throws FileNotFoundException {
 		FileHandle file = Gdx.files.internal(filepath);
 
 		if (!file.exists()) {
 			System.out.println("WARNING: Couldn't load file " + filepath);
-			return "Couldn't load " + filepath;
+			throw new FileNotFoundException("File not found");
 		} else {
 			return file.readString();
 		}
