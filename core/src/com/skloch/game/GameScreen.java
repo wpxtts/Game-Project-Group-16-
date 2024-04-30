@@ -56,6 +56,7 @@ public class GameScreen implements Screen {
     private boolean sleeping = false;
 
 
+
     /**
      *
      * @param game An instance of the class HustleGame containing variables that only need to be loaded or

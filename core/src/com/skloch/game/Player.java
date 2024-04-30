@@ -197,12 +197,20 @@ public class Player {
                 throw new IllegalArgumentException("Direction must be up, down, left, or right.");
         }
 
+        // Print movement before normalization
+        System.out.println("deltaX before normalization: " + deltaX);
+        System.out.println("deltaY before normalization: " + deltaY);
+
         // Adjust movement speed if moving diagonally
         if (deltaX != 0 && deltaY != 0) {
             // Normalize the movement vector to maintain consistent speed when moving diagonally
-            float length = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-            deltaX /= length;
-            deltaY /= length;
+            float combinedSpeed = speed; // Simplify calculation
+            deltaX /= combinedSpeed;
+            deltaY /= combinedSpeed;
+
+            // Print movement after normalization
+            System.out.println("deltaX after normalization: " + deltaX);
+            System.out.println("deltaY after normalization: " + deltaY);
         }
 
         // Update player position
