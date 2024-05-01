@@ -229,7 +229,7 @@ public class EventManager {
 
     /**
      * The event to be run when interacting with the computer science building
-     * Gives the player the option to study for 2, 3 or 4 hours
+     * Gives the player the option to study for 1, 2 or 3 hours - must go into town to study longer
      * @param args
      */
     public void compSciEvent(String[] args) {
@@ -242,13 +242,13 @@ public class EventManager {
                 streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
             } else if (args.length == 1) {
                 // If the player has already used their catchup and studied that day, they can't study again
-                if (catchup_used){
+                if ((catchup_used && daily_study == 1) || catchup_used){
                     game.dialogueBox.hideSelectBox();
                     game.dialogueBox.setText("You have already studied today!");
                 }else{
                     // If the player has not yet chosen how many hours, ask
                     game.dialogueBox.setText("Study for how long?");
-                    game.dialogueBox.getSelectBox().setOptions(new String[]{"2 Hours (20)", "3 Hours (30)", "4 Hours (40)"}, new String[]{"comp_sci-2", "comp_sci-3", "comp_sci-4"});
+                    game.dialogueBox.getSelectBox().setOptions(new String[]{"1 Hour (10)", "2 Hours (20)", "3 Hours (30)"}, new String[]{"comp_sci-1", "comp_sci-2", "comp_sci-3"});
                 }
             } else {
                 int hours = Integer.parseInt(args[1]);
@@ -301,7 +301,7 @@ public class EventManager {
 
     /**
      * The event to be run when interacting with the flowerbed bench
-     * Gives the player the option to study for 0.5, 1 or 1.5 hours
+     * Gives the player the option to study for 1, 2 or 3 hours
      * @param args
      */
     public void flowersEvent(String[] args) {
@@ -443,6 +443,7 @@ public class EventManager {
                     game.setEnergy(hoursSlept*13);
                     game.passTime(secondsSlept);
                     game.addSleptHours(hoursSlept);
+                    daily_study = 0;
                 }
             }
         });
@@ -454,35 +455,7 @@ public class EventManager {
         return streaks;
     }
 
-    // Town POIs
-
-    /**
-     * The event to be run when interacting with the bus stop back to east
-     * Gives the player the option to return to east campus map
-     * @param args
-     */
-    public void townBusStopEvent(String[] args) {
-        if (game.getSeconds() > 8*60) {
-            int energyCost = activityEnergies.get("to_east");
-            // increase player's meeting friends streak
-            streaks.put("to_east", streaks.getOrDefault("to_East", 0) + 1);
-            int hours = Integer.parseInt(args[1]);
-            // If the player does not have enough energy for the selected hours
-            if (game.getEnergy() < hours*energyCost) {
-                game.dialogueBox.setText("You don't have the energy to go into town right now!");
-            } else {
-                // If they do have the energy to go into town
-                game.dialogueBox.setText(String.format("You went into town for for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
-                game.decreaseEnergy(energyCost * hours);
-                game.passTime(hours * 60); // in seconds
-            }
-        }else if (game.getSeconds() > 8*60){
-
-        } else {
-            game.dialogueBox.setText("It's too early in the morning to go into town, there are no buses yet!");
-            streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
-        }
-    }
+    
 
     /**
      * Fades the screen to black
@@ -514,7 +487,6 @@ public class EventManager {
                         // Show a text displaying how many days they have left in the game
                         game.dialogueBox.setText(game.getWakeUpMessage());
                         game.setSleeping(false);
-                        daily_study = 0;
                     }
                 }
             });
