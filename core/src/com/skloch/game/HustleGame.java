@@ -24,8 +24,7 @@ public class HustleGame extends Game {
 	public int WIDTH;
 	public int HEIGHT;
 	public Skin skin;
-	public TiledMap map;
-	public TiledMap town_map;
+	public TiledMap map, town_map, current_map;
 	public String credits, tutorialText;
 	public GameScreen gameScreen;
 	public MenuScreen menuScreen;
@@ -71,8 +70,16 @@ public class HustleGame extends Game {
 		batch = new SpriteBatch();
 		skin = new Skin(Gdx.files.internal(skinPath));
 		// Map
-		map = new TmxMapLoader().load(mapPath);
-		mapProperties = map.getProperties();
+		map = new TmxMapLoader().load("East Campus/east_campus.tmx");
+		town_map = new TmxMapLoader().load("East Campus/town_map.tmx");
+
+		// Changes the map rendered from east (true) to west (false) and back as necessary
+		if (com.skloch.game.EventManager.mapState()){
+			current_map = map;
+		}else{
+			current_map = town_map;
+		}
+		mapProperties = current_map.getProperties();
 
 		// Define background, foreground and object layers
 		// IMPORTANT: CHANGE THESE WHEN UPDATING THE LAYERS IN YOUR EXPORTED MAP FROM TILED
@@ -119,7 +126,7 @@ public class HustleGame extends Game {
 		batch.dispose();
 		blueBackground.dispose();
 		skin.dispose();
-		map.dispose();
+		current_map.dispose();
 		shapeRenderer.dispose();
 		soundManager.dispose();
 	}

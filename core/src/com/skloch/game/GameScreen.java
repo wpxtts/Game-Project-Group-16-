@@ -185,7 +185,7 @@ public class GameScreen implements Screen {
 
         // Setup map
         float unitScale = game.mapScale / game.mapSquareSize;
-        mapRenderer = new OrthogonalTiledMapRenderer(game.map, unitScale);
+        mapRenderer = new OrthogonalTiledMapRenderer(game.current_map, unitScale);
 
         // Set the player to the middle of the map
         // Get the dimensions of the top layer
@@ -197,7 +197,7 @@ public class GameScreen implements Screen {
         // Give objects to player
         for (int layer : game.objectLayers) {
             // Get all objects on the layer
-            MapObjects objects = game.map.getLayers().get(layer).getObjects();
+            MapObjects objects = game.current_map.getLayers().get(layer).getObjects();
 
             // Loop through each, handing them to the player
             for (int i = 0; i < objects.getCount(); i++) {
@@ -678,6 +678,19 @@ public class GameScreen implements Screen {
             catchup_used = true;
         }
         return catchup_used;
+    }
+
+    /**
+     * Changes the map the player is on when they interact with the bus stop
+     * @return east
+     */
+    public static boolean changeMap(boolean east) {
+        if (east){
+            east = false;
+        }else{
+            east = true;
+        }
+        return east;
     }
 
     /**

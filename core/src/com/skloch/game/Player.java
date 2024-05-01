@@ -55,6 +55,7 @@ public class Player {
 
         walkingAnimation = new Array<Animation<TextureRegion>>(4);
         idleAnimation = new Array<Animation<TextureRegion>>(4);
+//        busAnimation = new Array<Animation<TextureRegion>>(4);
 
         // Load walking animation from Sprite atlas
         walkingAnimation.add(
@@ -69,6 +70,12 @@ public class Player {
                 new Animation<TextureRegion>(0.40f, playerAtlas.findRegions(avatar + "_idle_front"), Animation.PlayMode.LOOP),
                 new Animation<TextureRegion>(0.40f, playerAtlas.findRegions(avatar + "_idle_left"), Animation.PlayMode.LOOP)
         );
+//        // Load bus moving animation from Sprite atlas
+//        busAnimation.add(
+//                new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_back"), Animation.PlayMode.LOOP),
+//                new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_right"), Animation.PlayMode.LOOP),
+//                new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_front"), Animation.PlayMode.LOOP),
+//                new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_left"), Animation.PlayMode.LOOP));
 
         collidables = new Array<GameObject>();
 
