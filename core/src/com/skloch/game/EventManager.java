@@ -243,7 +243,7 @@ public class EventManager {
                 streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
             } else if (args.length == 1) {
                 // If the player has already used their catchup and studied that day, they can't study again
-                if (catchup_used && daily_study > 1){
+                if (catchup_used && daily_study == 1){
                     game.dialogueBox.hideSelectBox();
                     game.dialogueBox.setText("You have already studied today!");
                 }else{
@@ -336,7 +336,6 @@ public class EventManager {
             streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
         }
     }
-
 
     /**
      * The event to be run when interacting with the bus stop
@@ -457,6 +456,8 @@ public class EventManager {
     public static HashMap<String, Integer> getStreaks(){
         return streaks;
     }
+
+    
 
     /**
      * Fades the screen to black
