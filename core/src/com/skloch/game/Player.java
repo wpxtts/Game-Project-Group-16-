@@ -13,13 +13,10 @@ import com.badlogic.gdx.utils.Array;
  * A class handling everything needed to control and draw a player, including animation, movement and collision
  */
 public class Player {
-<<<<<<< Updated upstream
-=======
     public static String atlasConfig = "../assets/Sprites/Player/player_sprites.atlas";
     //public static String busAtlasConfig = "../assets/Sprites/Player/bus_sprites.atlas";
     public static String playerSprite = "../assets/Sprites/Player/player_sprites.png";
     //public static String busSprite = "../assets/Sprites/Player/bus_sprites.png";
->>>>>>> Stashed changes
     // Hitboxes
     public Rectangle sprite, feet, eventHitbox;
     public float centreX, centreY;

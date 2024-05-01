@@ -23,11 +23,8 @@ public class HustleGame extends Game {
 	public int HEIGHT;
 	public Skin skin;
 	public TiledMap map;
-<<<<<<< Updated upstream
-=======
 	public TiledMap town_map;
 	public TiledMap current_map;
->>>>>>> Stashed changes
 	public String credits, tutorialText;
 	public GameScreen gameScreen;
 	public MenuScreen menuScreen;
@@ -69,8 +66,8 @@ public class HustleGame extends Game {
 		batch = new SpriteBatch();
 		skin = new Skin(Gdx.files.internal("Interface/BlockyInterface.json"));
 		// Map
-		map = new TmxMapLoader().load("East Campus/east_campus.tmx");
-		mapProperties = map.getProperties();
+//		map = new TmxMapLoader().load("East Campus/east_campus.tmx");
+//		mapProperties = map.getProperties();
 		map = new TmxMapLoader().load("East Campus/east_campus.tmx");
 		town_map = new TmxMapLoader().load("East Campus/town_map.tmx");
 

@@ -15,6 +15,10 @@ public class EventManager {
     public HashMap<String, Integer> activityEnergies;
     private final HashMap<String, String> objectInteractions;
     private final Array<String> talkTopics;
+    public static HashMap<String, Integer> streaks;
+    public boolean catchup_used = false;
+    public int daily_study = 0;
+    public static boolean east = true;
 
     /**
      * A class that maps Object's event strings to actual Java functions.
@@ -407,8 +411,6 @@ public class EventManager {
         fadeToBlack(setTextAction);
     }
 
-<<<<<<< Updated upstream
-=======
     public static HashMap<String, Integer> getStreaks(){
         return streaks;
     }
@@ -527,7 +529,6 @@ public class EventManager {
         }
     }
 
->>>>>>> Stashed changes
     /**
      * Fades the screen to black
      */
