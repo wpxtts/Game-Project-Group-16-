@@ -17,8 +17,8 @@ public class EventManager {
     private final Array&lt;String&gt; talkTopics;
 
     public static HashMap&lt;String, Integer&gt; streaks;
-<span class="nc" id="L20">    public boolean catchup_used = false;</span>
-<span class="nc" id="L21">    public int daily_study = 0;</span>
+<span class="fc" id="L20">    public boolean catchup_used = false;</span>
+<span class="fc" id="L21">    public int daily_study = 0;</span>
 
     /**
      * A class that maps Object's event strings to actual Java functions.
@@ -29,47 +29,47 @@ public class EventManager {
      *
      * @param game An instance of the GameScreen containing a player and dialogue box
      */
-<span class="nc" id="L32">    public EventManager (GameScreen game) {</span>
-<span class="nc" id="L33">        this.game = game;</span>
+<span class="fc" id="L32">    public EventManager (GameScreen game) {</span>
+<span class="fc" id="L33">        this.game = game;</span>
 
         // How much energy an hour of each activity should take
-<span class="nc" id="L36">        activityEnergies = new HashMap&lt;String, Integer&gt;();</span>
-<span class="nc" id="L37">        activityEnergies.put(&quot;studying&quot;, 10);</span>
-<span class="nc" id="L38">        activityEnergies.put(&quot;meet_friends&quot;, 10);</span>
-<span class="nc" id="L39">        activityEnergies.put(&quot;eating&quot;, 10);</span>
-<span class="nc" id="L40">        activityEnergies.put(&quot;flowers&quot;, 10);</span>
-<span class="nc" id="L41">        activityEnergies.put(&quot;town&quot;, 10);</span>
-<span class="nc" id="L42">        activityEnergies.put(&quot;shop&quot;, 10);</span>
+<span class="fc" id="L36">        activityEnergies = new HashMap&lt;String, Integer&gt;();</span>
+<span class="fc" id="L37">        activityEnergies.put(&quot;studying&quot;, 10);</span>
+<span class="fc" id="L38">        activityEnergies.put(&quot;meet_friends&quot;, 10);</span>
+<span class="fc" id="L39">        activityEnergies.put(&quot;eating&quot;, 10);</span>
+<span class="fc" id="L40">        activityEnergies.put(&quot;flowers&quot;, 10);</span>
+<span class="fc" id="L41">        activityEnergies.put(&quot;town&quot;, 10);</span>
+<span class="fc" id="L42">        activityEnergies.put(&quot;shop&quot;, 10);</span>
 
 
         // Define what to say when interacting with an object who's text won't change
-<span class="nc" id="L46">        objectInteractions = new HashMap&lt;String, String&gt;();</span>
-<span class="nc" id="L47">        objectInteractions.put(&quot;chest&quot;, &quot;Open the chest?&quot;);</span>
-<span class="nc" id="L48">        objectInteractions.put(&quot;comp_sci&quot;, &quot;Study in the Computer Science building?&quot;);</span>
-<span class="nc" id="L49">        objectInteractions.put(&quot;piazza&quot;, &quot;Meet your friends at the Piazza?&quot;);</span>
-<span class="nc" id="L50">        objectInteractions.put(&quot;accomodation&quot;, &quot;Go to sleep for the night?\nYour alarm is set for 8am.&quot;);</span>
-<span class="nc" id="L51">        objectInteractions.put(&quot;rch&quot;, null); // Changes, dynamically returned in getObjectInteraction</span>
-<span class="nc" id="L52">        objectInteractions.put(&quot;tree&quot;, &quot;Speak to the tree?&quot;);</span>
-<span class="nc" id="L53">        objectInteractions.put(&quot;flowers&quot;, &quot;Smell the flowers?&quot;);</span>
-<span class="nc" id="L54">        objectInteractions.put(&quot;shop&quot;, &quot;Buy food from the shop?&quot;);</span>
+<span class="fc" id="L46">        objectInteractions = new HashMap&lt;String, String&gt;();</span>
+<span class="fc" id="L47">        objectInteractions.put(&quot;chest&quot;, &quot;Open the chest?&quot;);</span>
+<span class="fc" id="L48">        objectInteractions.put(&quot;comp_sci&quot;, &quot;Study in the Computer Science building?&quot;);</span>
+<span class="fc" id="L49">        objectInteractions.put(&quot;piazza&quot;, &quot;Meet your friends at the Piazza?&quot;);</span>
+<span class="fc" id="L50">        objectInteractions.put(&quot;accomodation&quot;, &quot;Go to sleep for the night?\nYour alarm is set for 8am.&quot;);</span>
+<span class="fc" id="L51">        objectInteractions.put(&quot;rch&quot;, null); // Changes, dynamically returned in getObjectInteraction</span>
+<span class="fc" id="L52">        objectInteractions.put(&quot;tree&quot;, &quot;Speak to the tree?&quot;);</span>
+<span class="fc" id="L53">        objectInteractions.put(&quot;flowers&quot;, &quot;Smell the flowers?&quot;);</span>
+<span class="fc" id="L54">        objectInteractions.put(&quot;shop&quot;, &quot;Buy food from the shop?&quot;);</span>
 
         // How much energy an hour of each activity should take
-<span class="nc" id="L57">        streaks = new HashMap&lt;String, Integer&gt;();</span>
+<span class="fc" id="L57">        streaks = new HashMap&lt;String, Integer&gt;();</span>
 //        streaks.put(&quot;studying&quot;, 0);
 //        streaks.put(&quot;meet_friends&quot;, 0);
-<span class="nc" id="L60">        streaks.put(&quot;eating&quot;, 0);</span>
-<span class="nc" id="L61">        streaks.put(&quot;flowers&quot;, 0);</span>
-<span class="nc" id="L62">        streaks.put(&quot;town&quot;, 0);</span>
-<span class="nc" id="L63">        streaks.put(&quot;shop&quot;, 0);</span>
-<span class="nc" id="L64">        streaks.put(&quot;determined&quot;, 0); //try to do activities without energy</span>
-<span class="nc" id="L65">        streaks.put(&quot;early_bird&quot;, 0); //try to do activities too early in the day</span>
-<span class="nc" id="L66">        streaks.put(&quot;talkative&quot;, 0); //try to interact with non-POIs</span>
-<span class="nc" id="L67">        streaks.put(&quot;secretive&quot;, 0); //interact with the secret</span>
+<span class="fc" id="L60">        streaks.put(&quot;eating&quot;, 0);</span>
+<span class="fc" id="L61">        streaks.put(&quot;flowers&quot;, 0);</span>
+<span class="fc" id="L62">        streaks.put(&quot;town&quot;, 0);</span>
+<span class="fc" id="L63">        streaks.put(&quot;shop&quot;, 0);</span>
+<span class="fc" id="L64">        streaks.put(&quot;determined&quot;, 0); //try to do activities without energy</span>
+<span class="fc" id="L65">        streaks.put(&quot;early_bird&quot;, 0); //try to do activities too early in the day</span>
+<span class="fc" id="L66">        streaks.put(&quot;talkative&quot;, 0); //try to interact with non-POIs</span>
+<span class="fc" id="L67">        streaks.put(&quot;secretive&quot;, 0); //interact with the secret</span>
 
         // Some random topics that can be chatted about
-<span class="nc" id="L70">        String[] topics = {&quot;Dogs&quot;, &quot;Cats&quot;, &quot;Exams&quot;, &quot;Celebrities&quot;, &quot;Flatmates&quot;, &quot;Video games&quot;, &quot;Sports&quot;, &quot;Food&quot;, &quot;Fashion&quot;};</span>
-<span class="nc" id="L71">        talkTopics = new Array&lt;String&gt;(topics);</span>
-<span class="nc" id="L72">    }</span>
+<span class="fc" id="L70">        String[] topics = {&quot;Dogs&quot;, &quot;Cats&quot;, &quot;Exams&quot;, &quot;Celebrities&quot;, &quot;Flatmates&quot;, &quot;Video games&quot;, &quot;Sports&quot;, &quot;Food&quot;, &quot;Fashion&quot;};</span>
+<span class="fc" id="L71">        talkTopics = new Array&lt;String&gt;(topics);</span>
+<span class="fc" id="L72">    }</span>
 
     public void event (String eventKey) {
 <span class="nc" id="L75">        String[] args = eventKey.split(&quot;-&quot;);</span>
@@ -454,46 +454,76 @@ public class EventManager {
 <span class="nc" id="L454">        return streaks;</span>
     }
 
+    // Town POIs
+
+    /**
+     * The event to be run when interacting with the bus stop back to east
+     * Gives the player the option to return to east campus map
+     * @param args
+     */
+    public void townBusStopEvent(String[] args) {
+<span class="nc bnc" id="L465" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
+<span class="nc" id="L466">            int energyCost = activityEnergies.get(&quot;to_east&quot;);</span>
+            // increase player's meeting friends streak
+<span class="nc" id="L468">            streaks.put(&quot;to_east&quot;, streaks.getOrDefault(&quot;to_East&quot;, 0) + 1);</span>
+<span class="nc" id="L469">            int hours = Integer.parseInt(args[1]);</span>
+            // If the player does not have enough energy for the selected hours
+<span class="nc bnc" id="L471" title="All 2 branches missed.">            if (game.getEnergy() &lt; hours*energyCost) {</span>
+<span class="nc" id="L472">                game.dialogueBox.setText(&quot;You don't have the energy to go into town right now!&quot;);</span>
+            } else {
+                // If they do have the energy to go into town
+<span class="nc" id="L475">                game.dialogueBox.setText(String.format(&quot;You went into town for for %s hours!\nYou lost %d energy&quot;, args[1], hours*energyCost));</span>
+<span class="nc" id="L476">                game.decreaseEnergy(energyCost * hours);</span>
+<span class="nc" id="L477">                game.passTime(hours * 60); // in seconds</span>
+            }
+<span class="nc bnc" id="L479" title="All 2 branches missed.">        }else if (game.getSeconds() &gt; 8*60){</span>
+
+        } else {
+<span class="nc" id="L482">            game.dialogueBox.setText(&quot;It's too early in the morning to go into town, there are no buses yet!&quot;);</span>
+<span class="nc" id="L483">            streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
+        }
+<span class="nc" id="L485">    }</span>
+
     /**
      * Fades the screen to black
      */
     public void fadeToBlack() {
-<span class="nc" id="L461">        game.blackScreen.addAction(Actions.fadeIn(3f));</span>
-<span class="nc" id="L462">    }</span>
+<span class="nc" id="L491">        game.blackScreen.addAction(Actions.fadeIn(3f));</span>
+<span class="nc" id="L492">    }</span>
 
     /**
      * Fades the screen to black, then runs a runnable after it is done
      * @param runnable A runnable to execute after fading is finished
      */
     public void fadeToBlack(RunnableAction runnable) {
-<span class="nc" id="L469">        game.blackScreen.addAction(Actions.sequence(Actions.fadeIn(3f), runnable));</span>
-<span class="nc" id="L470">    }</span>
+<span class="nc" id="L499">        game.blackScreen.addAction(Actions.sequence(Actions.fadeIn(3f), runnable));</span>
+<span class="nc" id="L500">    }</span>
 
     /**
      * Fades the screen back in from black, displays a good morning message if the player was sleeping
      */
     public void fadeFromBlack() {
         // If the player is sleeping, queue up a message to be sent
-<span class="nc bnc" id="L477" title="All 2 branches missed.">        if (game.getSleeping()) {</span>
-<span class="nc" id="L478">            RunnableAction setTextAction = new RunnableAction();</span>
-<span class="nc" id="L479">            setTextAction.setRunnable(new Runnable() {</span>
+<span class="nc bnc" id="L507" title="All 2 branches missed.">        if (game.getSleeping()) {</span>
+<span class="nc" id="L508">            RunnableAction setTextAction = new RunnableAction();</span>
+<span class="nc" id="L509">            setTextAction.setRunnable(new Runnable() {</span>
                 @Override
                 public void run() {
-<span class="nc bnc" id="L482" title="All 2 branches missed.">                    if (game.getSleeping()) {</span>
-<span class="nc" id="L483">                        game.dialogueBox.show();</span>
+<span class="nc bnc" id="L512" title="All 2 branches missed.">                    if (game.getSleeping()) {</span>
+<span class="nc" id="L513">                        game.dialogueBox.show();</span>
                         // Show a text displaying how many days they have left in the game
-<span class="nc" id="L485">                        game.dialogueBox.setText(game.getWakeUpMessage());</span>
-<span class="nc" id="L486">                        game.setSleeping(false);</span>
-<span class="nc" id="L487">                        daily_study = 0;</span>
+<span class="nc" id="L515">                        game.dialogueBox.setText(game.getWakeUpMessage());</span>
+<span class="nc" id="L516">                        game.setSleeping(false);</span>
+<span class="nc" id="L517">                        daily_study = 0;</span>
                     }
-<span class="nc" id="L489">                }</span>
+<span class="nc" id="L519">                }</span>
             });
 
             // Queue up events
-<span class="nc" id="L493">            game.blackScreen.addAction(Actions.sequence(Actions.fadeOut(3f), setTextAction));</span>
-<span class="nc" id="L494">        } else {</span>
-<span class="nc" id="L495">            game.blackScreen.addAction(Actions.fadeOut(3f));</span>
+<span class="nc" id="L523">            game.blackScreen.addAction(Actions.sequence(Actions.fadeOut(3f), setTextAction));</span>
+<span class="nc" id="L524">        } else {</span>
+<span class="nc" id="L525">            game.blackScreen.addAction(Actions.fadeOut(3f));</span>
         }
-<span class="nc" id="L497">    }</span>
+<span class="nc" id="L527">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

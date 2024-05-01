@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="io.dimitris.gemo.tests.SettingsScreenTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-04-30T13:41:11" hostname="nas-10-240-128-226.york.ac.uk" time="0.003">
+  <properties/>
+  <testcase name="testUpdateVolume" classname="io.dimitris.gemo.tests.SettingsScreenTests" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

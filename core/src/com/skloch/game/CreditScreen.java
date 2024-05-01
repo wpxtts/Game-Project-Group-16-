@@ -25,6 +25,8 @@ public class CreditScreen implements Screen{
     private OrthographicCamera camera;
     private Viewport viewport;
 
+    private Screen previousScreen;
+
     /**
      * A scene2d window consisting of a title, a scrollable widget and an exit button.
      * Credits are loaded from assets/Text/credits.txt and displayed in the scrollable widget
@@ -37,6 +39,7 @@ public class CreditScreen implements Screen{
 
         // Basically all the same code as the settings menu
         this.game = game;
+        this.previousScreen = previousScreen;
 
         if(draw) {
             creditStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
@@ -94,14 +97,22 @@ public class CreditScreen implements Screen{
             exitButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    game.soundManager.playButton();
-                    dispose();
-                    game.setScreen(previousScreen);
-                    previousScreen.resume();
+                    exitButtonTask();
                 }
             });
         }
 
+    }
+
+    /**
+     * The previous screen we are returning to.
+     * @param previousScreen the previous screen we are returning to
+     */
+    public void exitButtonTask(){
+        game.soundManager.playButton();
+        dispose();
+        game.setScreen(previousScreen);
+        previousScreen.resume();
     }
 
     /**

@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.dimitris.gemo.tests.CreditScreenTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-04-30T11:23:45" hostname="LAPTOP-3JGMF3J6" time="0.926">
+<<<<<<< Updated upstream
+<testsuite name="io.dimitris.gemo.tests.CreditScreenTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-04-30T13:40:16" hostname="LAPTOP-3H729ETC" time="0.714">
   <properties/>
-  <testcase name="testCreditScreenExit" classname="io.dimitris.gemo.tests.CreditScreenTests" time="0.926"/>
+  <testcase name="testCreditScreenExit" classname="io.dimitris.gemo.tests.CreditScreenTests" time="0.714"/>
+=======
+<testsuite name="io.dimitris.gemo.tests.CreditScreenTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-04-30T13:41:10" hostname="nas-10-240-128-226.york.ac.uk" time="0.18">
+  <properties/>
+  <testcase name="testCreditScreenExit" classname="io.dimitris.gemo.tests.CreditScreenTests" time="0.18"/>
+>>>>>>> Stashed changes
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
+  <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (C:\Users\georg\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.14.12\be4984cb6fd1ef1d11f218a648889dfda44b8a15\byte-buddy-agent-1.14.12.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
 </testsuite>
