@@ -19,6 +19,7 @@ public class EventManager {
     public static HashMap<String, Integer> streaks;
     public boolean catchup_used = false;
     public int daily_study = 0;
+    public static boolean east = true;
 
     /**
      * A class that maps Object's event strings to actual Java functions.
@@ -229,7 +230,7 @@ public class EventManager {
 
     /**
      * The event to be run when interacting with the computer science building
-     * Gives the player the option to study for 2, 3 or 4 hours
+     * Gives the player the option to study for 1, 2 or 3 hours - must go into town to study longer
      * @param args
      */
     public void compSciEvent(String[] args) {
@@ -242,13 +243,13 @@ public class EventManager {
                 streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
             } else if (args.length == 1) {
                 // If the player has already used their catchup and studied that day, they can't study again
-                if (catchup_used){
+                if (catchup_used && daily_study > 1){
                     game.dialogueBox.hideSelectBox();
                     game.dialogueBox.setText("You have already studied today!");
                 }else{
                     // If the player has not yet chosen how many hours, ask
                     game.dialogueBox.setText("Study for how long?");
-                    game.dialogueBox.getSelectBox().setOptions(new String[]{"2 Hours (20)", "3 Hours (30)", "4 Hours (40)"}, new String[]{"comp_sci-2", "comp_sci-3", "comp_sci-4"});
+                    game.dialogueBox.getSelectBox().setOptions(new String[]{"1 Hour (10)", "2 Hours (20)", "3 Hours (30)"}, new String[]{"comp_sci-1", "comp_sci-2", "comp_sci-3"});
                 }
             } else {
                 int hours = Integer.parseInt(args[1]);
@@ -301,7 +302,7 @@ public class EventManager {
 
     /**
      * The event to be run when interacting with the flowerbed bench
-     * Gives the player the option to study for 0.5, 1 or 1.5 hours
+     * Gives the player the option to study for 1, 2 or 3 hours
      * @param args
      */
     public void flowersEvent(String[] args) {
@@ -337,6 +338,13 @@ public class EventManager {
     }
 
     /**
+     * Tracks if the player is on east
+     *
+     * @return east boolean true if map is east, false if map is town
+     */
+    public static boolean mapState() {return east;}
+
+    /**
      * The event to be run when interacting with the bus stop
      * Gives the player the option to study for 2, 3 or 4 hours
      * @param args
@@ -365,6 +373,7 @@ public class EventManager {
                     game.dialogueBox.setText(String.format("You went into town for for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.passTime(hours * 60); // in seconds
+                    GameScreen.changeMap(east);
                 }
             }
         } else {
@@ -443,6 +452,7 @@ public class EventManager {
                     game.setEnergy(hoursSlept*13);
                     game.passTime(secondsSlept);
                     game.addSleptHours(hoursSlept);
+                    daily_study = 0;
                 }
             }
         });
@@ -475,11 +485,95 @@ public class EventManager {
                 game.dialogueBox.setText(String.format("You went into town for for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
                 game.decreaseEnergy(energyCost * hours);
                 game.passTime(hours * 60); // in seconds
+                GameScreen.changeMap(east);
             }
-        }else if (game.getSeconds() > 8*60){
-
+        }else if (game.getSeconds() > 22*60){
+            game.dialogueBox.setText("The buses have stopped running!");
         } else {
             game.dialogueBox.setText("It's too early in the morning to go into town, there are no buses yet!");
+            streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+        }
+    }
+
+    /**
+     * The event to be run when interacting with the library
+     * Gives the player the option to study for 2, 3 or 4 hours
+     * @param args
+     */
+    public void libraryEvent(String[] args) {
+        if (game.getSeconds() > 8*60) {
+            int energyCost = activityEnergies.get("library");
+            // If the player is too tired for any studying:
+            if (game.getEnergy() < energyCost) {
+                game.dialogueBox.hideSelectBox();
+                game.dialogueBox.setText("You are too tired to study right now!");
+                streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
+            } else if (args.length == 1) {
+                // If the player has already used their catchup and studied that day, they can't study again
+                if (catchup_used){
+                    game.dialogueBox.hideSelectBox();
+                    game.dialogueBox.setText("You have already studied today!");
+                }else{
+                    // If the player has not yet chosen how many hours, ask
+                    game.dialogueBox.setText("Study for how long?");
+                    game.dialogueBox.getSelectBox().setOptions(new String[]{"2 Hours (20)", "3 Hours (30)", "4 Hours (40)"}, new String[]{"comp_sci-2", "comp_sci-3", "comp_sci-4"});
+                }
+            } else {
+                int hours = Integer.parseInt(args[1]);
+                // If the player does not have enough energy for the selected hours
+                if (game.getEnergy() < hours*energyCost) {
+                    game.dialogueBox.setText("You don't have the energy to study for this long!");
+                } else {
+                    // If they do have the energy to study
+                    game.dialogueBox.setText(String.format("You studied for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
+                    game.decreaseEnergy(energyCost * hours);
+                    game.addStudyHours(hours);
+                    daily_study++;
+                    if (daily_study > 1){
+                        catchup_used = GameScreen.useCatchup(catchup_used);
+                    }
+                    game.passTime(hours * 60); // in seconds
+                }
+            }
+        } else {
+            game.dialogueBox.setText("It's too early, the library isn't open yet.");
+            streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+        }
+    }
+
+    /**
+     * The event to be run when interacting with the gym
+     * Gives the player the option to study for 2, 3 or 4 hours
+     * @param args
+     */
+    public void gymEvent(String[] args) {
+        if (game.getSeconds() > 8*60) {
+            int energyCost = activityEnergies.get("gym");
+            // increase player's smelling flowers streak
+            streaks.put("gym", streaks.getOrDefault("gym", 0) + 1);
+            // If the player is too tired to smell the flowers
+            if (game.getEnergy() < energyCost) {
+                game.dialogueBox.hideSelectBox();
+                game.dialogueBox.setText("You are too tired to go to the gym right now!");
+                streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
+            } else if (args.length == 1) {
+                // If the player has not yet chosen how many hours, ask
+                game.dialogueBox.setText("Work out for how long?");
+                game.dialogueBox.getSelectBox().setOptions(new String[]{"2 Hours (20)", "3 Hours (30)", "4 Hours (40)"}, new String[]{"gym-2", "gym-3", "gym-3"});
+            } else {
+                int hours = Integer.parseInt(args[1]);
+                // If the player does not have enough energy for the selected hours
+                if (game.getEnergy() < hours*energyCost) {
+                    game.dialogueBox.setText("You don't have the energy!");
+                } else {
+                    // If they do have the energy to smell the flowers
+                    game.dialogueBox.setText(String.format("You worked out for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
+                    game.decreaseEnergy(energyCost * hours);
+                    game.passTime(hours * 60); // in seconds
+                }
+            }
+        } else {
+            game.dialogueBox.setText("It's too early in the morning to go to the gym, go back home!");
             streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
         }
     }
@@ -514,7 +608,6 @@ public class EventManager {
                         // Show a text displaying how many days they have left in the game
                         game.dialogueBox.setText(game.getWakeUpMessage());
                         game.setSleeping(false);
-                        daily_study = 0;
                     }
                 }
             });
