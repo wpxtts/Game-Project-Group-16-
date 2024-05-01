@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.dimitris.gemo.tests.PlayerTests" tests="12" skipped="0" failures="0" errors="0" timestamp="2024-04-30T13:41:11" hostname="nas-10-240-128-226.york.ac.uk" time="0.183">
+<testsuite name="io.dimitris.gemo.tests.PlayerTests" tests="12" skipped="0" failures="0" errors="0" timestamp="2024-04-30T14:19:45" hostname="nas-10-240-128-226.york.ac.uk" time="0.183">
   <properties/>
   <testcase name="testCollisionCheck" classname="io.dimitris.gemo.tests.PlayerTests" time="0.002"/>
-  <testcase name="testSetX" classname="io.dimitris.gemo.tests.PlayerTests" time="0.003"/>
-  <testcase name="testSetY" classname="io.dimitris.gemo.tests.PlayerTests" time="0.002"/>
-  <testcase name="testNearObject" classname="io.dimitris.gemo.tests.PlayerTests" time="0.001"/>
-  <testcase name="testMovePlayerWithinBounds" classname="io.dimitris.gemo.tests.PlayerTests" time="0.001"/>
-  <testcase name="testPlayerMovement" classname="io.dimitris.gemo.tests.PlayerTests" time="0.003"/>
-  <testcase name="testFindClosestInteractableObject" classname="io.dimitris.gemo.tests.PlayerTests" time="0.001"/>
-  <testcase name="testGetClosestObject" classname="io.dimitris.gemo.tests.PlayerTests" time="0.001"/>
+  <testcase name="testSetX" classname="io.dimitris.gemo.tests.PlayerTests" time="0.001"/>
+  <testcase name="testSetY" classname="io.dimitris.gemo.tests.PlayerTests" time="0.001"/>
+  <testcase name="testNearObject" classname="io.dimitris.gemo.tests.PlayerTests" time="0.002"/>
+  <testcase name="testMovePlayerWithinBounds" classname="io.dimitris.gemo.tests.PlayerTests" time="0.002"/>
+  <testcase name="testPlayerMovement" classname="io.dimitris.gemo.tests.PlayerTests" time="0.005"/>
+  <testcase name="testFindClosestInteractableObject" classname="io.dimitris.gemo.tests.PlayerTests" time="0.002"/>
+  <testcase name="testGetClosestObject" classname="io.dimitris.gemo.tests.PlayerTests" time="0.002"/>
   <testcase name="testIsMoving" classname="io.dimitris.gemo.tests.PlayerTests" time="0.001"/>
   <testcase name="getPosAsVec3" classname="io.dimitris.gemo.tests.PlayerTests" time="0.008"/>
   <testcase name="testSetMoving" classname="io.dimitris.gemo.tests.PlayerTests" time="0.002"/>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.dimitris.gemo.tests.SoundManagerTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-04-30T13:41:11" hostname="nas-10-240-128-226.york.ac.uk" time="0.135">
+<testsuite name="io.dimitris.gemo.tests.SoundManagerTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-04-30T14:19:45" hostname="nas-10-240-128-226.york.ac.uk" time="0.134">
   <properties/>
   <testcase name="testMusicAssetsExists" classname="io.dimitris.gemo.tests.SoundManagerTests" time="0.0"/>
   <testcase name="testProcessTimers" classname="io.dimitris.gemo.tests.SoundManagerTests" time="0.001"/>
-  <testcase name="testSoundEffectsExist" classname="io.dimitris.gemo.tests.SoundManagerTests" time="0.001"/>
-  <testcase name="testPlayFootstep" classname="io.dimitris.gemo.tests.SoundManagerTests" time="0.03"/>
+  <testcase name="testSoundEffectsExist" classname="io.dimitris.gemo.tests.SoundManagerTests" time="0.0"/>
+  <testcase name="testPlayFootstep" classname="io.dimitris.gemo.tests.SoundManagerTests" time="0.027"/>
   <testcase name="testSetSFXVolume" classname="io.dimitris.gemo.tests.SoundManagerTests" time="0.001"/>
   <testcase name="testSetMusicVolume" classname="io.dimitris.gemo.tests.SoundManagerTests" time="0.021"/>
   <system-out><![CDATA[]]></system-out>
