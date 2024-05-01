@@ -19,7 +19,6 @@ public class EventManager {
     public static HashMap<String, Integer> streaks;
     public boolean catchup_used = false;
     public int daily_study = 0;
-    public static boolean east = true;
 
     /**
      * A class that maps Object's event strings to actual Java functions.
