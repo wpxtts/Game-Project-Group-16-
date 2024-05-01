@@ -9,7 +9,11 @@ buildscript {
         google()
     }
     dependencies {
+<<<<<<< Updated upstream
         
+=======
+        //implementation "com.badlogicgames.gdx:gdx-tools:$libgdxVersion"
+>>>>>>> Stashed changes
 
     }
 }

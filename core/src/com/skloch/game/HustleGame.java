@@ -23,6 +23,11 @@ public class HustleGame extends Game {
 	public int HEIGHT;
 	public Skin skin;
 	public TiledMap map;
+<<<<<<< Updated upstream
+=======
+	public TiledMap town_map;
+	public TiledMap current_map;
+>>>>>>> Stashed changes
 	public String credits, tutorialText;
 	public GameScreen gameScreen;
 	public MenuScreen menuScreen;
@@ -37,7 +42,7 @@ public class HustleGame extends Game {
 
 	/**
 	 * A class to initialise a lot of the assets required for the game, including the map, sound and UI skin.
-	 * A instance of this object should be shared to most screens to allow resources to be shared and disposed of
+	 * An instance of this object should be shared to most screens to allow resources to be shared and disposed of
 	 * correctly.
 	 * Should be created in DesktopLauncher,
 	 *
@@ -66,6 +71,16 @@ public class HustleGame extends Game {
 		// Map
 		map = new TmxMapLoader().load("East Campus/east_campus.tmx");
 		mapProperties = map.getProperties();
+		map = new TmxMapLoader().load("East Campus/east_campus.tmx");
+		town_map = new TmxMapLoader().load("East Campus/town_map.tmx");
+
+		// Changes the map rendered from east (true) to west (false) and back as necessary
+		if (EventManager.mapState()){
+			current_map = map;
+		}else{
+			current_map = town_map;
+		}
+		mapProperties = current_map.getProperties();
 
 		// Define background, foreground and object layers
 		// IMPORTANT: CHANGE THESE WHEN UPDATING THE LAYERS IN YOUR EXPORTED MAP FROM TILED
@@ -108,7 +123,7 @@ public class HustleGame extends Game {
 		batch.dispose();
 		blueBackground.dispose();
 		skin.dispose();
-		map.dispose();
+		current_map.dispose();
 		shapeRenderer.dispose();
 		soundManager.dispose();
 	}

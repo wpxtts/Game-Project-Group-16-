@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -670,6 +671,33 @@ public class GameScreen implements Screen {
     }
 
     /**
+<<<<<<< Updated upstream
+=======
+     * Tracks if the player has used their opportunity to catchup (study twice in one day)
+     * @return catchup_used boolean for if catchup has been used
+     */
+    public static boolean useCatchup(boolean catchup_used) {
+        if (!catchup_used){
+            catchup_used = true;
+        }
+        return catchup_used;
+    }
+
+    /**
+     * Changes the map the player is on when they interact with the bus stop
+     * @return east
+     */
+    public static boolean changeMap(boolean east) {
+        if (east){
+            east = false;
+        }else{
+            east = true;
+        }
+        return east;
+    }
+
+    /**
+>>>>>>> Stashed changes
      * Adds an amount of recreational hours to the total amount for the current day
      * @param hours The amount of hours to add
      */
