@@ -243,7 +243,7 @@ public class EventManager {
                 streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
             } else if (args.length == 1) {
                 // If the player has already used their catchup and studied that day, they can't study again
-                if (catchup_used && daily_study == 1){
+                if ((catchup_used && daily_study == 1) || catchup_used){
                     game.dialogueBox.hideSelectBox();
                     game.dialogueBox.setText("You have already studied today!");
                 }else{
@@ -366,7 +366,6 @@ public class EventManager {
                     game.dialogueBox.setText(String.format("You went into town for for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.passTime(hours * 60); // in seconds
-                    GameScreen.changeMap(east);
                 }
             }
         } else {
