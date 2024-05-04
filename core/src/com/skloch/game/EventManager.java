@@ -12,8 +12,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class EventManager {
     private final GameScreen game;
-    public static HashMap<String, Integer> activityEnergies;
-    private final HashMap<String, String> objectInteractions;
+    public final HashMap<String, Integer> activityEnergies;
+    public final HashMap<String, String> objectInteractions;
     private final Array<String> talkTopics;
 
     public static HashMap<String, Integer> streaks;
