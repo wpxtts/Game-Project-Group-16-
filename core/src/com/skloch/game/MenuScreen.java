@@ -5,6 +5,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -12,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.ArrayList;
 
 /**
  * A screen to display the game menu to the player has the buttons "Start", "Settings", "Credits, "Exit"
@@ -24,6 +28,10 @@ public class MenuScreen implements Screen {
     private Viewport viewport;
     private Image titleImage = new Image();
     public boolean draw;
+    private Texture[] cloudTextures; // Declare an array to hold cloud textures
+    private ArrayList<Vector2> clouds; // Use List interface here
+    int cloudSpeed;
+    private int[] cloudTextureIndices; // Store the texture index for each cloud
 
     /**
      * A class to display a menu screen, initially gives the player 4 options, Start, Settings, Credits, Quit
@@ -35,13 +43,22 @@ public class MenuScreen implements Screen {
      *
      * @param game An instance of HustleGame with loaded variables
      */
-    public MenuScreen(final HustleGame game,boolean draw) {
+    public MenuScreen(final HustleGame game, boolean draw) {
 
         this.game = game;
         this.game.menuScreen = this;
         this.draw = draw;
-
-        if(draw){
+        cloudTextures = new Texture[] {
+                new Texture(Gdx.files.internal("../assets/Sprites/cloud1.png")),
+                new Texture(Gdx.files.internal("../assets/Sprites/cloud2.png")),
+                new Texture(Gdx.files.internal("../assets/Sprites/cloud3.png")),
+                new Texture(Gdx.files.internal("../assets/Sprites/cloud4.png")),
+                new Texture(Gdx.files.internal("../assets/Sprites/cloud5.png")),
+                new Texture(Gdx.files.internal("../assets/Sprites/cloud6.png")),
+        };
+        if (draw) {
+            cloudSpeed = 10; // Adjust speed as needed
+            clouds = new ArrayList<Vector2>(); // Initialize the clouds ArrayList
             // Create stage to draw UI on
             menuStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
             Gdx.input.setInputProcessor(menuStage);
@@ -53,7 +70,16 @@ public class MenuScreen implements Screen {
             // Set the size of the background to the viewport size, only need to do this once, this is then used by all
             // screens as an easy way of having a blue background
             game.blueBackground.getRoot().findActor("blue image").setSize(viewport.getWorldWidth(), viewport.getWorldHeight());
+            Texture randomCloudTexture = cloudTextures[MathUtils.random(cloudTextures.length - 1)];
 
+            // Initialize cloudTextureIndices array with random texture indices
+            cloudTextureIndices = new int[4];
+            for (int i = 0; i < 4; i++) {
+                float x = MathUtils.random(0, game.WIDTH); // Random x position
+                float y = MathUtils.random(0, game.HEIGHT); // Random y position
+                clouds.add(new Vector2(x, y));
+                cloudTextureIndices[i] = MathUtils.random(cloudTextures.length - 1);
+            }
             // Title image
             titleImage = new Image(new Texture(Gdx.files.internal("title.png")));
             titleImage.setPosition((viewport.getWorldWidth() / 2f) - (titleImage.getWidth() / 2f), 525);
@@ -109,7 +135,7 @@ public class MenuScreen implements Screen {
             startButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    startButtonTask(buttonTable,tutorialWindow);
+                    startButtonTask(buttonTable, tutorialWindow);
                 }
             });
 
@@ -149,7 +175,6 @@ public class MenuScreen implements Screen {
         }
 
     }
-
     public void startButtonTask(Table buttonTable, Window tutorialWindow){
         game.soundManager.playButton();
         buttonTable.setVisible(false);
@@ -192,12 +217,33 @@ public class MenuScreen implements Screen {
         camera.update();
 
         game.blueBackground.draw();
+        for (int i = 0; i < clouds.size(); i++) {
+            Vector2 cloud = clouds.get(i);
+            int textureIndex = cloudTextureIndices[i];
+            Texture cloudTexture = cloudTextures[textureIndex];
+            cloud.x += cloudSpeed * delta; // Move cloud horizontally
+            // Wrap around if cloud moves out of screen
+            if (cloud.x > game.WIDTH) {
+                cloud.x = -cloudTexture.getWidth(); // Use cloudTexture instead of randomCloudTexture
+                cloud.y = MathUtils.random(0, game.HEIGHT); // Randomize y position
+                cloudTextureIndices[i] = MathUtils.random(cloudTextures.length - 1); // Update texture index
+            }
+        }
+
+        // Draw clouds
+        game.batch.begin();
+        for (int i = 0; i < clouds.size(); i++) {
+            Vector2 cloud = clouds.get(i);
+            int textureIndex = cloudTextureIndices[i];
+            Texture cloudTexture = cloudTextures[textureIndex];
+            game.batch.draw(cloudTexture, cloud.x, cloud.y); // Use cloudTexture here
+        }
+        game.batch.end();
 
         // Make the stage follow actions and draw itself
         menuStage.setViewport(viewport);
         menuStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         menuStage.draw();
-
     }
 
     /**
