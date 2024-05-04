@@ -122,6 +122,14 @@ public class EventManagerTests {
         assertFalse(dialogueBox.isVisible());
     }
 
+    @Test
+    public void testCatchupUsable() {
+        int daily_study = 2;
+        String[] args = new String[]{"comp_sci-1", "comp_sci-2", "comp_sci-3"};
+        eventManager.compSciEvent(args);
+        assertTrue(eventManager.catchup_used);
+    }
+
 
 
 
