@@ -26,12 +26,12 @@ public class GameObject extends Rectangle {
      * @param height
      */
     public GameObject(float x, float y, float width, float height) {
-<span class="fc" id="L29">        super(x, y, width, height);</span>
-<span class="fc" id="L30">        properties = new MapProperties();</span>
+<span class="nc" id="L29">        super(x, y, width, height);</span>
+<span class="nc" id="L30">        properties = new MapProperties();</span>
 
-<span class="fc" id="L32">        centreX = x + width / 2;</span>
-<span class="fc" id="L33">        centreY = y + height / 2;</span>
-<span class="fc" id="L34">    }</span>
+<span class="nc" id="L32">        centreX = x + width / 2;</span>
+<span class="nc" id="L33">        centreY = y + height / 2;</span>
+<span class="nc" id="L34">    }</span>
 
     /**
      * Creates a GameObject using the MapProperties stored in a object when exported with the Tiled map editor
@@ -60,8 +60,8 @@ public class GameObject extends Rectangle {
      * @param value The object to pass
      */
     public void put(String key, Object value) {
-<span class="fc" id="L63">        properties.put(key, value);</span>
-<span class="fc" id="L64">    }</span>
+<span class="nc" id="L63">        properties.put(key, value);</span>
+<span class="nc" id="L64">    }</span>
 
     /**
      * Gets a property from a key
@@ -69,7 +69,7 @@ public class GameObject extends Rectangle {
      * @return The property as an object, needs to be cast
      */
     public Object get(String key) {
-<span class="fc" id="L72">        return properties.get(key);</span>
+<span class="nc" id="L72">        return properties.get(key);</span>
     }
 
     /**

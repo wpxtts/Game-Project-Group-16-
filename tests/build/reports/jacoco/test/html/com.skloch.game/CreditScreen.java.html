@@ -35,13 +35,13 @@ public class CreditScreen implements Screen{
      * @param game An instance of the HustleGame class
      * @param previousScreen The screen to return to when the exit button is pressed
      */
-<span class="fc" id="L38">    public CreditScreen (final HustleGame game, Screen previousScreen,boolean draw) {</span>
+<span class="nc" id="L38">    public CreditScreen (final HustleGame game, Screen previousScreen,boolean draw) {</span>
 
         // Basically all the same code as the settings menu
-<span class="fc" id="L41">        this.game = game;</span>
-<span class="fc" id="L42">        this.previousScreen = previousScreen;</span>
+<span class="nc" id="L41">        this.game = game;</span>
+<span class="nc" id="L42">        this.previousScreen = previousScreen;</span>
 
-<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        if(draw) {</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if(draw) {</span>
 <span class="nc" id="L45">            creditStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));</span>
 <span class="nc" id="L46">            Gdx.input.setInputProcessor(creditStage);</span>
 
@@ -102,18 +102,18 @@ public class CreditScreen implements Screen{
             });
         }
 
-<span class="fc" id="L105">    }</span>
+<span class="nc" id="L105">    }</span>
 
     /**
      * The previous screen we are returning to.
      * @param previousScreen the previous screen we are returning to
      */
     public void exitButtonTask(){
-<span class="fc" id="L112">        game.soundManager.playButton();</span>
-<span class="fc" id="L113">        dispose();</span>
-<span class="fc" id="L114">        game.setScreen(previousScreen);</span>
-<span class="fc" id="L115">        previousScreen.resume();</span>
-<span class="fc" id="L116">    }</span>
+<span class="nc" id="L112">        game.soundManager.playButton();</span>
+<span class="nc" id="L113">        dispose();</span>
+<span class="nc" id="L114">        game.setScreen(previousScreen);</span>
+<span class="nc" id="L115">        previousScreen.resume();</span>
+<span class="nc" id="L116">    }</span>
 
     /**
      * Renders the credits window
@@ -162,6 +162,6 @@ public class CreditScreen implements Screen{
 
     @Override
     public void dispose() {
-<span class="fc" id="L165">    }</span>
+<span class="nc" id="L165">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
