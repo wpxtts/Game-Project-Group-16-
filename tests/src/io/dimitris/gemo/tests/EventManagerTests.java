@@ -125,9 +125,33 @@ public class EventManagerTests {
     @Test
     public void testCatchupUsable() {
         int daily_study = 2;
-        String[] args = new String[]{"comp_sci-1", "comp_sci-2", "comp_sci-3"};
+        String[] args = new String[]{"fadefromblack"};
         eventManager.compSciEvent(args);
         assertTrue(eventManager.catchup_used);
+    }
+
+    @Test
+    public void testPostSleepEnergy() {
+        String[] args = new String[]{"fadefromblack"};
+        eventManager.accomEvent(args);
+        assertEquals("The player did not regain full energy after sleeping",
+                game.getEnergy(), 100);
+    }
+
+    @Test
+    public void testPostSleepTime() {
+        String[] args = new String[]{"fadefromblack"};
+        eventManager.accomEvent(args);
+        assertEquals("The player did not regain full energy after sleeping",
+                game.getSeconds(), 8*60);
+    }
+
+    @Test
+    public void testPostSleepStudyHours() {
+        String[] args = new String[]{"comp_sci-1", "comp_sci-2", "comp_sci-3"};
+        eventManager.accomEvent(args);
+        assertEquals("The player did not regain full energy after sleeping",
+                eventManager.daily_study, 0);
     }
 
 

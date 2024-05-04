@@ -96,7 +96,7 @@ public class GameScreen implements Screen {
             uiStage.addActor(uiTable);
         }
 
-E
+
         // Create a player class
         if (avatarChoice == 1) {
             player = new Player("avatar1");
