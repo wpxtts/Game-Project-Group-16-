@@ -37,7 +37,10 @@ public class GameScreen implements Screen {
     final HustleGame game;
     private OrthographicCamera camera;
     private int energy = 100;
-    private int hoursStudied, hoursRecreational, hoursSlept;
+    public static int hoursStudied;
+    public static int hoursRecreational;
+    public static int hoursSlept;
+    private int timesStudied;
     private float daySeconds = 0; // Current seconds elapsed in day
     private int day = 1; // What day the game is on
     private Label timeLabel, dayLabel;
@@ -670,6 +673,13 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * Adds 1 to the total amount of times studied
+     */
+    public void addStudyTimes() {
+        timesStudied ++;
+    }
+
+    /**
      *
      * @return catchup_used boolean for if catchup has been used
      */
@@ -753,6 +763,7 @@ public class GameScreen implements Screen {
      * Ends the game, called at the end of the 7th day, switches to a screen that displays a score
      */
     public void GameOver() {
-        game.setScreen(new GameOverScreen(game, hoursStudied, hoursRecreational, hoursSlept));
+        game.setScreen(new GameOverScreen(game, hoursStudied, hoursRecreational, hoursSlept, timesStudied));
     }
+
 }

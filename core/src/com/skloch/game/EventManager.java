@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class EventManager {
     private final GameScreen game;
-    public HashMap<String, Integer> activityEnergies;
+    public static HashMap<String, Integer> activityEnergies;
     private final HashMap<String, String> objectInteractions;
     private final Array<String> talkTopics;
 
@@ -260,6 +260,7 @@ public class EventManager {
                     game.dialogueBox.setText(String.format("You studied for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.addStudyHours(hours);
+                    game.addStudyTimes();
                     daily_study++;
                     if (daily_study > 1){
                         catchup_used = GameScreen.useCatchup(catchup_used);

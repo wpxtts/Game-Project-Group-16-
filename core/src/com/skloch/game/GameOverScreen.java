@@ -25,22 +25,19 @@ import java.util.Map;
  * Currently doesn't calculate a score
  */
 public class GameOverScreen implements Screen {
-    private HustleGame game;
+    public static HustleGame game;
     private EventManager events;
     Stage gameOverStage;
     Viewport viewport;
     OrthographicCamera camera;
+    public static int score;
 
     // Hidden achievement badges
-    public HashMap<String, Integer> streakGoals;
-    private Texture rch;
-    private Texture flower;
-    private Texture bus;
-    private Texture shopping_basket;
-    private Texture fire;
-    private Texture long_boi;
-    private Texture talk;
-    private Texture chest;
+    public static HashMap<String, Integer> streakGoals;
+    private Texture rch, flower, bus, shopping_basket, fire, long_boi, talk, chest;
+    public static String rch_path = "Sprites/achievements/hub.png";
+    public static String flower_path = "Sprites/achievements/flower.png";
+    public static String bus_path = "Sprites/achievements/bus.png";
 
     /**
      * A screen to display a 'Game Over' screen when the player finishes their exams
@@ -52,7 +49,7 @@ public class GameOverScreen implements Screen {
      * @param hoursRecreational The hours of fun had in the playthrough
      * @param hoursSlept The hours slept in the playthrough
      */
-    public GameOverScreen (final HustleGame game, int hoursStudied, int hoursRecreational, int hoursSlept) {
+    public GameOverScreen (final HustleGame game, int hoursStudied, int hoursRecreational, int hoursSlept, int timesStudied) {
         this.game = game;
         gameOverStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
         Gdx.input.setInputProcessor(gameOverStage);
@@ -79,8 +76,14 @@ public class GameOverScreen implements Screen {
         gameOverTable.add(scoresTable).prefHeight(380).prefWidth(450);
         gameOverTable.row();
 
-        Integer score = Integer.valueOf(hoursStudied) + Integer.valueOf(hoursRecreational) + Integer.valueOf(hoursSlept);
-        String scoreString = "Total Score: " + String.valueOf(Integer.valueOf(hoursStudied) + Integer.valueOf(hoursRecreational) + Integer.valueOf(hoursSlept));
+        // Final score calculation
+        if (timesStudied >= 7){
+            int total = hoursStudied + hoursRecreational + hoursSlept;
+            score = 40 + (1/-total);
+        }else{
+            score = (int) (Math.random() * 39);
+        }
+        String scoreString = "Total Score: " + String.valueOf(score);
 
         // Display scores
         scoresTable.add(new Label("Hours Studied", game.skin, "interaction")).padBottom(5);
@@ -122,9 +125,10 @@ public class GameOverScreen implements Screen {
         streakGoals.put("secretive", 5);
 
         // Load your texture
-        rch = new Texture(Gdx.files.internal("Sprites/achievements/hub.png")); //for eating at the right times
-        flower  = new Texture(Gdx.files.internal("Sprites/achievements/flower.png")); //
-        bus = new Texture(Gdx.files.internal("Sprites/achievements/bus.png")); //
+
+        rch = new Texture(Gdx.files.internal(rch_path)); //for eating at the right times
+        flower  = new Texture(Gdx.files.internal(flower_path)); //
+        bus = new Texture(Gdx.files.internal(bus_path)); //
         shopping_basket = new Texture(Gdx.files.internal("Sprites/achievements/shopping_basket.png")); //
         fire = new Texture(Gdx.files.internal("Sprites/achievements/fire.png")); //
         long_boi = new Texture(Gdx.files.internal("Sprites/achievements/early_bird.png")); //bird
