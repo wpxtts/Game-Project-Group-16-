@@ -105,6 +105,10 @@ project(":tests") {
                 fileTree(dir: it, exclude: ['**/*Tests.*', '**/GdxTestRunner.*'])
             }))
         }
+        reports {
+            xml.required = true
+        }
+
     }
     test {
         finalizedBy jacocoTestReport

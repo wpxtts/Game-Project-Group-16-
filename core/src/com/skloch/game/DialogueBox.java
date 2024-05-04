@@ -60,7 +60,7 @@ public class DialogueBox {
     /**
      * A class displaying a little selction box to the user when an input is needed in dialog
      */
-    class SelectBox {
+    public class SelectBox {
         private Window selectWindow;
         private Table selectTable;
         private int choiceIndex = 0;
@@ -167,7 +167,9 @@ public class DialogueBox {
         public String getChoice () {
             return events[choiceIndex];
         }
-
+        public String getText (String textLabel){
+            return textLabel;
+        }
         /**
          * Gets the window of the select box
          *
@@ -373,7 +375,7 @@ public class DialogueBox {
     /**
      * Continues on to the next bit of text, or closes the window if the end is reached
      */
-    private void advanceText(EventManager eventManager) {
+    public void advanceText(EventManager eventManager) {
         if (scrollingText) {
             scrollingText = false;
             textCounter = 0;
