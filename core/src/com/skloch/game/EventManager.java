@@ -21,6 +21,7 @@ public class EventManager {
     public static HashMap<String, Integer> streaks;
     public boolean catchup_used = false;
     public int daily_study = 0;
+    public boolean gotBus = false;
 
     /**
      * A class that maps Object's event strings to actual Java functions.
@@ -51,15 +52,16 @@ public class EventManager {
         objectInteractions = new HashMap<String, String>();
         objectInteractions.put("chest", "Open the chest?");
         objectInteractions.put("comp_sci", "Study in the Computer Science building?");
-        objectInteractions.put("piazza", "Meet your friends at the Piazza?");
+        objectInteractions.put("rch", "Meet your friends at Ron Cooke Hub?");
         objectInteractions.put("accomodation", "Go to sleep for the night?\nYour alarm is set for 8am.");
-        objectInteractions.put("rch", null); // Changes, dynamically returned in getObjectInteraction
+        objectInteractions.put("piazza", null); // Changes, dynamically returned in getObjectInteraction
         objectInteractions.put("tree", "Speak to the tree?");
         objectInteractions.put("flowers", "Smell the flowers?");
         objectInteractions.put("shop", "Buy food from the shop?");
         objectInteractions.put("gym", "Work out at the gym?");
         objectInteractions.put("library", "Study at the library?");
-        objectInteractions.put("to_east", "Get the bus back to east?");
+        objectInteractions.put("town", "Get the bus to town?");
+        objectInteractions.put("east", "Get the bus back to east?");
 
         // How much energy an hour of each activity should take
         streaks = new HashMap<String, Integer>();
@@ -104,7 +106,7 @@ public class EventManager {
                 compSciEvent(args);
                 break;
             case "rch":
-                ronCookeEvent(args);
+                ronCookEvent(args);
                 break;
             case "accomodation":
                 accomEvent(args);
@@ -145,8 +147,8 @@ public class EventManager {
      * @return The object interaction text
      */
     public String getObjectInteraction(String key) {
-        if (key.equals("rch")) {
-            return String.format("Eat %s at the Ron Cooke Hub?", game.getMeal());
+        if (key.equals("piazza")) {
+            return String.format("Eat %s at the Piazza?", game.getMeal());
         } else {
             return objectInteractions.get(key);
         }
@@ -168,7 +170,9 @@ public class EventManager {
         streaks.put("talkative", streaks.getOrDefault("talkative", 0) + 1);
     }
 
-
+    /**
+     * Sets the text when interacting with the secret area
+     */
     public void chestEvent() {
         game.dialogueBox.hideSelectBox();
         game.dialogueBox.setText("Wow! This chest is full of so many magical items! I wonder how they will help you out on your journey! Boy, this is an awfully long piece of text, I wonder if someone is testing something?\n...\n...\n...\nHow cool!");
@@ -187,12 +191,12 @@ public class EventManager {
     }
 
     /**
-     * Lets the player study at the piazza for x num of hours, decreases the player's energy and increments the
+     * Lets the player meet friends at Ron Cooke Hub for x num of hours, decreases the player's energy and increments the
      * game time.
      *
-     * @param args Arguments to be passed, should contain the hours the player wants to study. E.g. ["piazza", "1"]
+     * @param args Arguments to be passed, should contain the hours the player wants to meet friends for. E.g. ["piazza", "1"]
      */
-    public void piazzaEvent(String[] args) {
+    public void ronCookEvent(String[] args) {
         if (game.getSeconds() > 8*60) {
             int energyCost = activityEnergies.get("meet_friends");
             // increase player's meeting friends streak
@@ -206,7 +210,7 @@ public class EventManager {
                 // Ask the player to chat about something (makes no difference)
                 String[] topics = randomTopics(3);
                 game.dialogueBox.setText("What do you want to chat about?");
-                game.dialogueBox.getSelectBox().setOptions(topics, new String[]{"piazza-"+topics[0], "piazza-"+topics[1], "piazza-"+topics[2]});
+                game.dialogueBox.getSelectBox().setOptions(topics, new String[]{"rch-"+topics[0], "rch-"+topics[1], "rch-"+topics[2]});
             } else {
                 // Say that the player chatted about this topic for 1-3 hours
                 // RNG factor adds a slight difficulty (may consume too much energy to study)
@@ -291,11 +295,11 @@ public class EventManager {
 
 
     /**
-     * The event to be run when the player interacts with the ron cooke hub
+     * The event to be run when the player interacts with the Piazza
      * Gives the player the choice to eat breakfast, lunch or dinner depending on the time of day
      * @param args
      */
-    public void ronCookeEvent(String[] args) {
+    public void piazzaEvent(String[] args) {
         // increase player's eating at ronCooke streak
         streaks.put("eating", streaks.getOrDefault("eating", 0) + 1);
         if (game.getSeconds() > 8*60) {
@@ -304,7 +308,7 @@ public class EventManager {
                 game.dialogueBox.setText("You are too tired to eat right now!");
                 streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
             } else {
-                game.dialogueBox.setText(String.format("You took an hour to eat %s at the Ron Cooke Hub!\nYou lost %d energy!", game.getMeal(), energyCost));
+                game.dialogueBox.setText(String.format("You took an hour to eat %s at the Piazza!\nYou lost %d energy!", game.getMeal(), energyCost));
                 game.decreaseEnergy(energyCost);
                 game.passTime(60); // in seconds
             }
@@ -353,37 +357,27 @@ public class EventManager {
     }
 
     /**
-     * The event to be run when interacting with the bus stop
-     * Gives the player the option to study for 2, 3 or 4 hours
+     * The event to be run when interacting with the bus stop to town
      * @param args
      */
     public void busStopEvent(String[] args) throws InterruptedException {
         if (game.getSeconds() > 8*60) {
+            //Still need an energy cost to prevent player from going into town when they have no energy
             int energyCost = activityEnergies.get("town");
-            // increase player's meeting friends streak
-            streaks.put("town", streaks.getOrDefault("town", 0) + 1);
             // If the player is too tired for any travelling:
             if (game.getEnergy() < energyCost) {
                 game.dialogueBox.hideSelectBox();
                 game.dialogueBox.setText("You are too tired to get the bus right now!");
                 streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
             } else if (args.length == 1) {
-                // If the player has not yet chosen how many hours, ask
-                game.dialogueBox.setText("Go into town for how long?");
-                game.dialogueBox.getSelectBox().setOptions(new String[]{"2 Hours (20)", "3 Hours (30)", "4 Hours (40)"}, new String[]{"town-2", "town-3", "town-4"});
-            } else {
-                int hours = Integer.parseInt(args[1]);
-                // If the player does not have enough energy for the selected hours
-                if (game.getEnergy() < hours*energyCost) {
+                // Player goes into town for undefined amount of time so no need to ask
+                // If the player does not have enough energy for at least one hour
+                if (game.getEnergy() < energyCost) {
                     game.dialogueBox.setText("You don't have the energy to go into town right now!");
                 } else {
                     // If they do have the energy to go into town
-//                    game.dialogueBox.setText(String.format("You went into town for for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
-//                    game.decreaseEnergy(energyCost * hours);
-//                    game.passTime(hours * 60); // in seconds
-                    fadeToBlack();
                     HustleGame.setMap();
-                    fadeFromBlack();
+                    game.dialogueBox.setText("You got the bus into town.");
                 }
             }
         } else {
@@ -555,34 +549,20 @@ public class EventManager {
     }
 
     /**
-     * The event to be run when interacting with the bus stop
-     * Gives the player the option to study for 2, 3 or 4 hours
+     * The event to be run when interacting with the bus stop back to east
      * @param args
      */
     public void townBusStopEvent(String[] args) throws InterruptedException {
-        if (game.getSeconds() > 8*60) {
-            int energyCost = activityEnergies.get("east");
-            // increase player's meeting friends streak
-            streaks.put("east", streaks.getOrDefault("east", 0) + 1);
-            // If the player is too tired for any travelling:
-            //player must be able to get the bus home so energy is irrelevant
-            if (args.length == 1) {
-                // If the player has not yet chosen how many hours, ask
-                game.dialogueBox.setText("Go into town for how long?");
-                game.dialogueBox.getSelectBox().setOptions(new String[]{"2 Hours (20)", "3 Hours (30)", "4 Hours (40)"}, new String[]{"town-2", "town-3", "town-4"});
-            } else {
-                int hours = Integer.parseInt(args[1]);
-                // Player must be able to return to east
-                fadeToBlack();
-                HustleGame.setMap();
-                TimeUnit.SECONDS.sleep(5);
-                fadeFromBlack();
-            }
-        } else {
-            game.dialogueBox.setText("It's too early in the morning to go into town, there are no buses yet!");
-            streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
-        }
+        // Player must be able to get back to east at any time in the game, so energy and time of day are irrelevant
+        gotBus = true;
+        HustleGame.setMap();
+        game.dialogueBox.setText("You got the bus back to east.");
     }
+
+    /**
+     * gets the Players current actvity streaks in the game to be used for gaining acheivements
+     * @return
+     */
 
     public static HashMap<String, Integer> getStreaks(){
         return streaks;
@@ -600,6 +580,10 @@ public class EventManager {
     /**
      * Fades the screen to black, then runs a runnable after it is done
      * @param runnable A runnable to execute after fading is finished
+     */
+    /**
+     * Fades the screen to black, executes runnable action after fadde
+     * @ param runnable the runnable exection to be executed
      */
     public void fadeToBlack(RunnableAction runnable) {
         game.blackScreen.addAction(Actions.sequence(Actions.fadeIn(3f), runnable));

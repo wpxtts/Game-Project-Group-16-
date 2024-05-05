@@ -119,14 +119,17 @@ public class HustleGame extends Game {
 	public static void setMap() {
 		if (eastActive) {
 			current_map = town_map;
+			eastActive = false;
 		} else {
 			current_map = map;
+			eastActive = true;
 		}
 		float unitScale = HustleGame.mapScale / HustleGame.mapSquareSize;
 		gameScreen.clearPlayerObjects();
 		gameScreen.loadPlayerObjects(unitScale);
 		gameScreen.mapRenderer.setMap(current_map);
 	}
+
 	/**
 	 * Returns map currently being rendered
 	 * @return current_map the map being rendered

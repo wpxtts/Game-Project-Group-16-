@@ -231,6 +231,14 @@ public class GameScreen implements Screen {
                 if (properties.get("spawn") != null) {
                     player.setPos(((float) properties.get("x")) *unitScale, ((float) properties.get("y"))*unitScale);
                     camera.position.set(player.getPosAsVec3());
+                } else if (properties.containsKey("busSpawn") && properties.get("busSpawn", Boolean.class) && eventManager.gotBus) {
+                    // Found the spawn point so get position
+                    float spawnX = properties.get("x", Float.class);
+                    float spawnY = properties.get("y", Float.class);
+
+                    // Set the player's initial position to the spawn point
+                    player.setPos(spawnX * unitScale, spawnY * unitScale);
+                    eventManager.gotBus = false;
                 }else if (properties.containsKey("spawnPoint") && properties.get("spawnPoint", Boolean.class)) {
                     // Found the spawn point so get position
                     float spawnX = properties.get("x", Float.class);
