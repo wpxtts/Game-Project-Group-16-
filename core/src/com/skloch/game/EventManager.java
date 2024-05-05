@@ -22,6 +22,7 @@ public class EventManager {
     public boolean catchup_used = false;
     public int daily_study = 0;
     public boolean gotBus = false;
+    public boolean breakfast, lunch, dinner = false;
 
     /**
      * A class that maps Object's event strings to actual Java functions.
@@ -65,7 +66,6 @@ public class EventManager {
 
         // How much energy an hour of each activity should take
         streaks = new HashMap<String, Integer>();
-        streaks.put("eating", 0);
         streaks.put("flowers", 0);
         streaks.put("town", 0);
         streaks.put("shop", 0);
@@ -261,7 +261,7 @@ public class EventManager {
                 streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
             } else if (args.length == 1) {
                 // If the player has already used their catchup and studied that day, they can't study again
-                if ((catchup_used && daily_study == 1) || catchup_used){
+                if ((catchup_used && daily_study >= 1)){
                     game.dialogueBox.hideSelectBox();
                     game.dialogueBox.setText("You have already studied today!");
                 }else{
@@ -300,8 +300,6 @@ public class EventManager {
      * @param args
      */
     public void piazzaEvent(String[] args) {
-        // increase player's eating at ronCooke streak
-        streaks.put("eating", streaks.getOrDefault("eating", 0) + 1);
         if (game.getSeconds() > 8*60) {
             int energyCost = activityEnergies.get("eating");
             if (game.getEnergy() < energyCost) {
@@ -396,29 +394,17 @@ public class EventManager {
             int energyCost = activityEnergies.get("shop");
             // increase player's buying food streak
             streaks.put("shop", streaks.getOrDefault("shop", 0) + 1);
-            // If the player is too tired for any travelling:
+            // If the player has the energy to eat
             if (game.getEnergy() < energyCost) {
-                game.dialogueBox.hideSelectBox();
-                game.dialogueBox.setText("You are too tired to buy food right now!");
+                game.dialogueBox.setText("You are too tired to eat right now!");
                 streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
-            } else if (args.length == 1) {
-                // If the player has not yet chosen how many hours, ask
-                game.dialogueBox.setText("Buy food for how long?");
-                game.dialogueBox.getSelectBox().setOptions(new String[]{"1 Hour (10)", "2 Hours (20)", "3 Hours (30)"}, new String[]{"shop-1", "shop-2", "shop-3"});
             } else {
-                int hours = Integer.parseInt(args[1]);
-                // If the player does not have enough energy for the selected hours
-                if (game.getEnergy() < hours*energyCost) {
-                    game.dialogueBox.setText("You don't have the energy to buy food right now!");
-                } else {
-                    // If they do have the energy to buy  food
-                    game.dialogueBox.setText(String.format("You spent %s hours buying then eating food.\nYou lost %d energy", args[1], hours*energyCost));
-                    game.decreaseEnergy(energyCost * hours);
-                    game.passTime(hours * 60); // in seconds
-                }
+                game.dialogueBox.setText(String.format("You took an hour to buy and eat %s at nisa!\nYou lost %d energy!", game.getMeal(), energyCost));
+                game.decreaseEnergy(energyCost);
+                game.passTime(60); // in seconds
             }
         } else {
-            game.dialogueBox.setText("It's too early to buy food, the shop's not open yet!");
+            game.dialogueBox.setText("It's too early in the morning to eat food, go to bed!");
             streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
         }
     }
@@ -444,6 +430,8 @@ public class EventManager {
             secondsSlept = (((60*8) + 1440) - game.getSeconds());
         }
         int hoursSlept = Math.round(secondsSlept / 60f);
+        // Reset number of times studied for new day
+        daily_study = 0;
 
         RunnableAction setTextAction = new RunnableAction();
         setTextAction.setRunnable(new Runnable() {
@@ -456,7 +444,6 @@ public class EventManager {
                     game.setEnergy(hoursSlept*13);
                     game.passTime(secondsSlept);
                     game.addSleptHours(hoursSlept);
-                    daily_study = 0;
                 }
             }
         });

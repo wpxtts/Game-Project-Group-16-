@@ -742,14 +742,17 @@ public class GameScreen implements Screen {
      */
     public String getMeal() {
         int hours = Math.floorDiv((int) daySeconds, 60);
-        if (hours >= 7 && hours <= 10) {
+        if (hours >= 7 && hours <= 10 && !eventManager.breakfast) {
             //Breakfast between 7:00-10:59am
+            eventManager.breakfast = true;
             return "breakfast";
-        } else if (hours > 10 && hours <= 16) {
+        } else if (hours > 10 && hours <= 16 && !eventManager.lunch) {
             // Lunch between 10:00am and 4:59pm
+            eventManager.lunch = true;
             return "lunch";
-        } else if (hours > 16 && hours <= 21) {
+        } else if (hours > 16 && hours <= 21 && !eventManager.dinner) {
             // Dinner served between 4:00pm and 9:59pm
+            eventManager.dinner = true;
             return "dinner";
         } else {
             // Nothing is served between 10:00pm and 6:59am
