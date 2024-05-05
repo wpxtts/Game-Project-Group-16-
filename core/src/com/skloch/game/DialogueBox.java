@@ -26,41 +26,41 @@ public class DialogueBox {
 
 
 
-    public DialogueBox (Skin skin, boolean draw) {
+    public DialogueBox (Skin skin) {
         // Define some key values
         int WIDTH = 800;
         int HEIGHT = 200;
         MAXCHARS = 35;
         this.skin = skin;
-        if(draw) {
-            //Create the window for the dialogue box
-            dialogueWindow = new Window("", skin);
 
-            //Create the table for the text in the dialogue box
-            dialogueTable = new Table();
-            dialogueWindow.addActor(dialogueTable);
-            dialogueTable.setFillParent(true);
+        // Create the window for the dialogue box
+        dialogueWindow = new Window("", skin);
 
-            textLabel = new Label("Are you sure you want to sleep at the Piazza? This will cost you 10 energy", skin, "dialogue");
-            dialogueTable.add(textLabel).expand().width(WIDTH - 80).top().padTop(40);
-            textLabel.setWrap(false);
+        // Create the table for the text in the dialogue box
+        dialogueTable = new Table();
+        dialogueWindow.addActor(dialogueTable);
+        dialogueTable.setFillParent(true);
+
+        textLabel = new Label("Are you sure you want to sleep at the Piazza? This will cost you 10 energy", skin, "dialogue");
+        dialogueTable.add(textLabel).expand().width(WIDTH - 80).top().padTop(40);
+        textLabel.setWrap(false);
 
 
-            dialogueWindow.setWidth(WIDTH);
-            dialogueWindow.setHeight(HEIGHT);
+        dialogueWindow.setWidth(WIDTH);
+        dialogueWindow.setHeight(HEIGHT);
 
-            //Create selection box to allow user to make choices when interacting with objects (class defined below)
-            this.selectBox = new SelectBox();
-            selectBox.setOptions(new String[]{"Yes", "No"}, new String[]{"piazza", "close"});
+        // Create selection box to allow user to make choices when interacting with objects (class defined below)
+        this.selectBox = new SelectBox();
+        selectBox.setOptions(new String[]{"Yes", "No"}, new String[]{"piazza", "close"});
 
-            setText("Are you sure you want to sleep at the Piazza? This will cost you 10 energy");
-       }
+        setText("Are you sure you want to sleep at the Piazza? This will cost you 10 energy");
+
     }
 
     /**
      * A class displaying a little selction box to the user when an input is needed in dialog
      */
-    public class SelectBox {
+    class SelectBox {
         private Window selectWindow;
         private Table selectTable;
         private int choiceIndex = 0;
@@ -167,9 +167,7 @@ public class DialogueBox {
         public String getChoice () {
             return events[choiceIndex];
         }
-        public String getText (String textLabel){
-            return textLabel;
-        }
+
         /**
          * Gets the window of the select box
          *
@@ -363,7 +361,7 @@ public class DialogueBox {
      * Pressing 'confirm' on the dialogue box
      * Either selects the choice if the selectbox is open, or advances text if not
      */
-    public void enter(EventManager eventManager) {
+    public void enter(EventManager eventManager) throws InterruptedException {
         if (selectBox.isVisible()) {
             selectBox.hide();
             eventManager.event(selectBox.getChoice());
@@ -375,7 +373,7 @@ public class DialogueBox {
     /**
      * Continues on to the next bit of text, or closes the window if the end is reached
      */
-    public void advanceText(EventManager eventManager) {
+    private void advanceText(EventManager eventManager) throws InterruptedException {
         if (scrollingText) {
             scrollingText = false;
             textCounter = 0;

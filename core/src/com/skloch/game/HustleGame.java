@@ -24,21 +24,24 @@ public class HustleGame extends Game {
 	public int WIDTH;
 	public int HEIGHT;
 	public Skin skin;
-	public TiledMap map;
-	public TiledMap town_map;
+	public static TiledMap map;
+	public static TiledMap town_map;
+	public static TiledMap current_map;
+	private static boolean eastActive = true;
 	public String credits, tutorialText;
-	public GameScreen gameScreen;
+	public static GameScreen gameScreen;
 	public MenuScreen menuScreen;
 	public ShapeRenderer shapeRenderer;
 	public SoundManager soundManager;
 	public Stage blueBackground;
 	public int[] backgroundLayers, foregroundLayers, objectLayers;
-	public int mapSquareSize;
-	public float mapScale;
+	public static int mapSquareSize;
+	public static float mapScale;
 	public MapProperties mapProperties;
 
 	public static final String skinPath = "../assets/Interface/BlockyInterface.json";
 	public static final String mapPath = "../assets/East Campus/east_campus.tmx";
+	public static final String townMapPath ="East Campus/town_map.tmx";
 	public static final String whiteSquarePath = "../assets/Sprites/white_square.png";
 	public static final String creditsPath = "../assets/Text/credits.txt";
 	public static final String tutorialTextPath = "../assets/Text/tutorial_text.txt";
@@ -72,14 +75,21 @@ public class HustleGame extends Game {
 		skin = new Skin(Gdx.files.internal(skinPath));
 		// Map
 		map = new TmxMapLoader().load(mapPath);
-		mapProperties = map.getProperties();
+		town_map = new TmxMapLoader().load(townMapPath);
+		if (getMap() == null){
+			current_map = map;
+		} else {
+			current_map = getMap();
+		}
+		mapProperties = current_map.getProperties();
 
 		// Define background, foreground and object layers
 		// IMPORTANT: CHANGE THESE WHEN UPDATING THE LAYERS IN YOUR EXPORTED MAP FROM TILED
 		// Bottom most layer on 'layers' tab is 0
-		backgroundLayers = new int[] {0, 1, 2, 3, 4, 5, 6}; // Rendered behind player
-		foregroundLayers = new int[] {7}; // Rendered in front of player
-		objectLayers = new int[] {8}; // Rectangles for the player to collide with
+		backgroundLayers = new int[]{0, 1, 2, 3, 4, 5, 6}; // Rendered behind player
+		foregroundLayers = new int[]{7}; // Rendered in front of player
+		objectLayers = new int[]{8}; // Rectangles for the player to collide with
+
 		mapSquareSize = mapProperties.get("tilewidth", Integer.class);
 		mapScale = 70f;
 
@@ -104,6 +114,31 @@ public class HustleGame extends Game {
 	}
 
 	/**
+	 * Changes rendered map when player interacts with a bus stop
+	 */
+	public static void setMap() {
+		if (eastActive) {
+			current_map = town_map;
+			eastActive = false;
+		} else {
+			current_map = map;
+			eastActive = true;
+		}
+		float unitScale = HustleGame.mapScale / HustleGame.mapSquareSize;
+		gameScreen.clearPlayerObjects();
+		gameScreen.loadPlayerObjects(unitScale);
+		gameScreen.mapRenderer.setMap(current_map);
+	}
+
+	/**
+	 * Returns map currently being rendered
+	 * @return current_map the map being rendered
+	 */
+	public static TiledMap getMap() {
+		return current_map;
+	}
+
+	/**
 	 * Very important, renders the game, remove super.render() to get a black screen
 	 */
 	@Override
@@ -119,7 +154,7 @@ public class HustleGame extends Game {
 		batch.dispose();
 		blueBackground.dispose();
 		skin.dispose();
-		map.dispose();
+		current_map.dispose();
 		shapeRenderer.dispose();
 		soundManager.dispose();
 	}
