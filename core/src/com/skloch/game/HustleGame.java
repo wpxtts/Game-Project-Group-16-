@@ -35,8 +35,8 @@ public class HustleGame extends Game {
 	public SoundManager soundManager;
 	public Stage blueBackground;
 	public int[] backgroundLayers, foregroundLayers, objectLayers;
-	public int mapSquareSize;
-	public float mapScale;
+	public static int mapSquareSize;
+	public static float mapScale;
 	public MapProperties mapProperties;
 
 	public static final String skinPath = "../assets/Interface/BlockyInterface.json";
@@ -122,6 +122,9 @@ public class HustleGame extends Game {
 		} else {
 			current_map = map;
 		}
+		float unitScale = HustleGame.mapScale / HustleGame.mapSquareSize;
+		gameScreen.clearPlayerObjects();
+		gameScreen.loadPlayerObjects(unitScale);
 		gameScreen.mapRenderer.setMap(current_map);
 	}
 	/**

@@ -361,7 +361,7 @@ public class DialogueBox {
      * Pressing 'confirm' on the dialogue box
      * Either selects the choice if the selectbox is open, or advances text if not
      */
-    public void enter(EventManager eventManager) {
+    public void enter(EventManager eventManager) throws InterruptedException {
         if (selectBox.isVisible()) {
             selectBox.hide();
             eventManager.event(selectBox.getChoice());
@@ -373,7 +373,7 @@ public class DialogueBox {
     /**
      * Continues on to the next bit of text, or closes the window if the end is reached
      */
-    private void advanceText(EventManager eventManager) {
+    private void advanceText(EventManager eventManager) throws InterruptedException {
         if (scrollingText) {
             scrollingText = false;
             textCounter = 0;

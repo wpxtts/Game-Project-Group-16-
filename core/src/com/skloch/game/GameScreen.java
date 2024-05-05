@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -190,31 +192,13 @@ public class GameScreen implements Screen {
 
         // Set the player to the middle of the map
         // Get the dimensions of the top layer
-        TiledMapTileLayer layer0 = (TiledMapTileLayer) game.map.getLayers().get(0);
+        TiledMapTileLayer layer0 = (TiledMapTileLayer) game.current_map.getLayers().get(0);
         player.setPos(layer0.getWidth()*game.mapScale / 2f, layer0.getHeight()*game.mapScale / 2f);
         // Put camera on player
         camera.position.set(player.getCentreX(), player.getCentreY(), 0);
 
         // Give objects to player
-        for (int layer : game.objectLayers) {
-            // Get all objects on the layer
-            MapObjects objects = game.current_map.getLayers().get(layer).getObjects();
-
-            // Loop through each, handing them to the player
-            for (int i = 0; i < objects.getCount(); i++) {
-                // Get the properties of each object
-                MapProperties properties = objects.get(i).getProperties();
-                // If this is the spawn object, move the player there and don't collide
-                if (properties.get("spawn") != null) {
-                    player.setPos(((float) properties.get("x")) *unitScale, ((float) properties.get("y"))*unitScale);
-                    camera.position.set(player.getPosAsVec3());
-                } else {
-                    // Make a new gameObject with these properties, passing along the scale the map is rendered
-                    // at for accurate coordinates
-                    player.addCollidable(new GameObject(properties, unitScale));
-                }
-            }
-        }
+        loadPlayerObjects(unitScale);
 
         // Set the player to not go outside the bounds of the map
         // Assumes the bottom left corner of the map is at 0, 0
@@ -232,6 +216,40 @@ public class GameScreen implements Screen {
         dialogueBox.show();
         dialogueBox.setText(getWakeUpMessage());
         }
+    }
+
+    public void loadPlayerObjects(float unitScale){
+        for (int layer : game.objectLayers) {
+            // Get all objects on the layer
+            MapObjects objects = game.current_map.getLayers().get(layer).getObjects();
+
+            // Loop through each, handing them to the player
+            for (int i = 0; i < objects.getCount(); i++) {
+                // Get the properties of each object
+                MapProperties properties = objects.get(i).getProperties();
+                // If this is the spawn object, move the player there and don't collide
+                if (properties.get("spawn") != null) {
+                    player.setPos(((float) properties.get("x")) *unitScale, ((float) properties.get("y"))*unitScale);
+                    camera.position.set(player.getPosAsVec3());
+                }else if (properties.containsKey("spawnPoint") && properties.get("spawnPoint", Boolean.class)) {
+                    // Found the spawn point so get position
+                    float spawnX = properties.get("x", Float.class);
+                    float spawnY = properties.get("y", Float.class);
+
+                    // Set the player's initial position to the spawn point
+                    player.setPos(spawnX * unitScale, spawnY * unitScale);
+                }
+                else {
+                    // Make a new gameObject with these properties, passing along the scale the map is rendered
+                    // at for accurate coordinates
+                    player.addCollidable(new GameObject(properties, unitScale));
+                }
+            }
+        }
+    }
+
+    public void clearPlayerObjects() {
+        player.setCollidables(new Array<GameObject>());
     }
 
     @Override
@@ -579,7 +597,11 @@ public class GameScreen implements Screen {
                     if (!escapeMenu.isVisible()) {
                         // If a dialogue box is visible, choose an option or advance text
                         if (dialogueBox.isVisible()) {
-                            dialogueBox.enter(eventManager);
+                            try {
+                                dialogueBox.enter(eventManager);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
                             game.soundManager.playButton();
 
                         } else if (player.nearObject() && !sleeping) {
@@ -774,4 +796,5 @@ public class GameScreen implements Screen {
     public void GameOver() {
         game.setScreen(new GameOverScreen(game, hoursStudied, hoursRecreational, hoursSlept, timesStudied));
     }
+
 }

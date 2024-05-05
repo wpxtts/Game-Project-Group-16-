@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Array;
 
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A class that maps Object's event strings to actual Java functions.
@@ -41,6 +42,9 @@ public class EventManager {
         activityEnergies.put("flowers", 10);
         activityEnergies.put("town", 10);
         activityEnergies.put("shop", 10);
+        activityEnergies.put("gym", 10);
+        activityEnergies.put("library", 10);
+        activityEnergies.put("east", 10);
 
 
         // Define what to say when interacting with an object whose text won't change
@@ -53,6 +57,9 @@ public class EventManager {
         objectInteractions.put("tree", "Speak to the tree?");
         objectInteractions.put("flowers", "Smell the flowers?");
         objectInteractions.put("shop", "Buy food from the shop?");
+        objectInteractions.put("gym", "Work out at the gym?");
+        objectInteractions.put("library", "Study at the library?");
+        objectInteractions.put("to_east", "Get the bus back to east?");
 
         // How much energy an hour of each activity should take
         streaks = new HashMap<String, Integer>();
@@ -70,7 +77,7 @@ public class EventManager {
         talkTopics = new Array<String>(topics);
     }
 
-    public void event (String eventKey) {
+    public void event (String eventKey) throws InterruptedException {
         String[] args = eventKey.split("-");
 
         // Important functions, most likely called after displaying text
@@ -110,6 +117,15 @@ public class EventManager {
                 break;
             case "shop":
                 shopEvent(args);
+                break;
+            case "gym":
+                gymEvent(args);
+                break;
+            case "library":
+                libraryEvent(args);
+                break;
+            case "east":
+                townBusStopEvent(args);
                 break;
             case "exit":
                 // Should do nothing and just close the dialogue menu
@@ -341,7 +357,7 @@ public class EventManager {
      * Gives the player the option to study for 2, 3 or 4 hours
      * @param args
      */
-    public void busStopEvent(String[] args) {
+    public void busStopEvent(String[] args) throws InterruptedException {
         if (game.getSeconds() > 8*60) {
             int energyCost = activityEnergies.get("town");
             // increase player's meeting friends streak
@@ -384,7 +400,7 @@ public class EventManager {
     public void shopEvent(String[] args) {
         if (game.getSeconds() > 8*60) {
             int energyCost = activityEnergies.get("shop");
-            // increase player's meeting friends streak
+            // increase player's buying food streak
             streaks.put("shop", streaks.getOrDefault("shop", 0) + 1);
             // If the player is too tired for any travelling:
             if (game.getEnergy() < energyCost) {
@@ -452,6 +468,120 @@ public class EventManager {
         });
 
         fadeToBlack(setTextAction);
+    }
+
+    //Town POIs
+
+    /**
+     * The event to be run when interacting with the gym
+     * Gives the player the option to buy food for 2, 3 or 4 hours
+     * @param args
+     */
+    public void gymEvent(String[] args) {
+        if (game.getSeconds() > 8*60) {
+            int energyCost = activityEnergies.get("gym");
+            // If the player is too tired for any travelling:
+            if (game.getEnergy() < energyCost) {
+                game.dialogueBox.hideSelectBox();
+                game.dialogueBox.setText("You are too tired to go to the gym right now!");
+                streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
+            } else if (args.length == 1) {
+                // If the player has not yet chosen how many hours, ask
+                game.dialogueBox.setText("Work out for how long?");
+                game.dialogueBox.getSelectBox().setOptions(new String[]{"2 Hours (20)", "3 Hours (30)", "4 Hours (40)"}, new String[]{"gym-2", "gym-3", "gym-4"});
+            } else {
+                int hours = Integer.parseInt(args[1]);
+                // If the player does not have enough energy for the selected hours
+                if (game.getEnergy() < hours*energyCost) {
+                    game.dialogueBox.setText("You don't have the energy to go to work out right now! Head back to east!");
+                } else {
+                    // If they do have the energy to buy  food
+                    game.dialogueBox.setText(String.format("You spent %s hours working out at the gym.\nYou lost %d energy", args[1], hours*energyCost));
+                    game.decreaseEnergy(energyCost * hours);
+                    game.passTime(hours * 60); // in seconds
+                }
+            }
+        } else {
+            game.dialogueBox.setText("It's too early to work out, the gym's not open yet!");
+            streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+        }
+    }
+
+    /**
+     * The event to be run when interacting with the library
+     * Gives the player the option to study for 2, 3 or 4 hours - must go into town to study longer
+     * @param args
+     */
+    public void libraryEvent(String[] args) {
+        if (game.getSeconds() > 8*60) {
+            int energyCost = activityEnergies.get("library");
+            // If the player is too tired for any studying:
+            if (game.getEnergy() < energyCost) {
+                game.dialogueBox.hideSelectBox();
+                game.dialogueBox.setText("You are too tired to study at the lirbary right now!");
+                streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
+            } else if (args.length == 1) {
+                // If the player has already used their catchup and studied that day, they can't study again
+                if ((catchup_used && daily_study == 1) || catchup_used){
+                    game.dialogueBox.hideSelectBox();
+                    game.dialogueBox.setText("You have already studied today!");
+                }else{
+                    // If the player has not yet chosen how many hours, ask
+                    game.dialogueBox.setText("Study for how long?");
+                    game.dialogueBox.getSelectBox().setOptions(new String[]{"2 Hours (20)", "3 Hours (30)", "4 Hours (40)"}, new String[]{"library-2", "library-3", "library-4"});
+                }
+            } else {
+                int hours = Integer.parseInt(args[1]);
+                // If the player does not have enough energy for the selected hours
+                if (game.getEnergy() < hours*energyCost) {
+                    game.dialogueBox.setText("You don't have the energy to study for this long! Head back to east!");
+                } else {
+                    // If they do have the energy to study
+                    game.dialogueBox.setText(String.format("You studied for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
+                    game.decreaseEnergy(energyCost * hours);
+                    game.addStudyHours(hours);
+                    game.addStudyTimes();
+                    daily_study++;
+                    if (daily_study > 1){
+                        catchup_used = GameScreen.useCatchup(catchup_used);
+                    }
+                    game.passTime(hours * 60); // in seconds
+                }
+            }
+        } else {
+            game.dialogueBox.setText("It's too early in the morning to study, go to bed!");
+            streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+        }
+    }
+
+    /**
+     * The event to be run when interacting with the bus stop
+     * Gives the player the option to study for 2, 3 or 4 hours
+     * @param args
+     */
+    public void townBusStopEvent(String[] args) throws InterruptedException {
+        if (game.getSeconds() > 8*60) {
+            int energyCost = activityEnergies.get("east");
+            // increase player's meeting friends streak
+            streaks.put("east", streaks.getOrDefault("east", 0) + 1);
+            // If the player is too tired for any travelling:
+            //player must be able to get the bus home so energy is irrelevant
+            if (args.length == 1) {
+                // If the player has not yet chosen how many hours, ask
+                game.dialogueBox.setText("Go into town for how long?");
+                game.dialogueBox.getSelectBox().setOptions(new String[]{"2 Hours (20)", "3 Hours (30)", "4 Hours (40)"}, new String[]{"town-2", "town-3", "town-4"});
+            } else {
+                int hours = Integer.parseInt(args[1]);
+                // Player must be able to return to east
+                fadeToBlack();
+                HustleGame.setMap();
+                TimeUnit.SECONDS.sleep(5);
+                fadeFromBlack();
+            }
+        } else {
+            game.dialogueBox.setText("It's too early in the morning to go into town, there are no buses yet!");
+            streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+        }
     }
 
     public static HashMap<String, Integer> getStreaks(){
