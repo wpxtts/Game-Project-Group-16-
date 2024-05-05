@@ -38,6 +38,7 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private int energy = 100;
     private int hoursStudied, hoursRecreational, hoursSlept;
+    private int timesStudied;
     private float daySeconds = 0; // Current seconds elapsed in day
     private int day = 1; // What day the game is on
     private Label timeLabel, dayLabel;
@@ -668,10 +669,15 @@ public class GameScreen implements Screen {
     public void addStudyHours(int hours) {
         hoursStudied += hours;
     }
+    /**
+     * Adds to the total times studied
+     */
+    public void addStudyTimes() {timesStudied++;
+    }
 
     /**
-     *
-     * @return catchup_used boolean for if catchup has been used
+     * @param catchup_used boolean for if catchup has been used
+     * @return catchup_used
      */
     public static boolean useCatchup(boolean catchup_used) {
         if (!catchup_used){
@@ -680,18 +686,18 @@ public class GameScreen implements Screen {
         return catchup_used;
     }
 
-    /**
-     * Changes the map the player is on when they interact with the bus stop
-     * @return east
-     */
-    public static boolean changeMap(boolean east) {
-        if (east){
-            east = false;
-        }else{
-            east = true;
-        }
-        return east;
-    }
+//    /**
+//     * Changes the map the player is on when they interact with the bus stop
+//     * @return east
+//     */
+//    public static boolean changeMap(boolean east) {
+//        if (east){
+//            east = false;
+//        }else{
+//            east = true;
+//        }
+//        return east;
+//    }
 
     /**
      * Adds an amount of recreational hours to the total amount for the current day
@@ -766,6 +772,6 @@ public class GameScreen implements Screen {
      * Ends the game, called at the end of the 7th day, switches to a screen that displays a score
      */
     public void GameOver() {
-        game.setScreen(new GameOverScreen(game, hoursStudied, hoursRecreational, hoursSlept));
+        game.setScreen(new GameOverScreen(game, hoursStudied, hoursRecreational, hoursSlept, timesStudied));
     }
 }

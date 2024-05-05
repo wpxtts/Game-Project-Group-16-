@@ -1300,47 +1300,47 @@
   <object id="110" x="1056" y="2904" width="120" height="24"/>
   <object id="111" x="1152" y="2880" width="96" height="24"/>
   <object id="112" x="1224" y="2856" width="192" height="24"/>
-  <object id="114" x="2616" y="1416" width="255.667" height="48">
+  <object id="114" name="Ron Cooke" x="2616" y="1416" width="255.667" height="48">
    <properties>
     <property name="event" value="rch"/>
    </properties>
   </object>
-  <object id="115" x="2616" y="1464" width="225.417" height="24">
+  <object id="115" name="Ron Cooke" x="2616" y="1464" width="225.417" height="24">
    <properties>
     <property name="event" value="rch"/>
    </properties>
   </object>
-  <object id="116" x="2616" y="1488" width="207.5" height="24">
+  <object id="116" name="Ron Cooke" x="2616" y="1488" width="207.5" height="24">
    <properties>
     <property name="event" value="rch"/>
    </properties>
   </object>
-  <object id="118" x="2630.38" y="1512" width="155.542" height="24.0417">
+  <object id="118" name="Ron Cooke" x="2630.38" y="1512" width="155.542" height="24.0417">
    <properties>
     <property name="event" value="rch"/>
    </properties>
   </object>
-  <object id="119" x="2651.25" y="1536" width="108.75" height="24">
+  <object id="119" name="Ron Cooke" x="2651.25" y="1536" width="108.75" height="24">
    <properties>
     <property name="event" value="rch"/>
    </properties>
   </object>
-  <object id="120" x="2065" y="1701.5" width="150.5" height="87.3333">
+  <object id="120" name="Comp Sci" x="2065" y="1701.5" width="150.5" height="87.3333">
    <properties>
     <property name="event" value="comp_sci"/>
    </properties>
   </object>
-  <object id="129" x="3504" y="1320" width="144" height="216">
+  <object id="129" name="Piazza" x="3504" y="1320" width="144" height="216">
    <properties>
     <property name="event" value="piazza"/>
    </properties>
   </object>
-  <object id="130" x="3624" y="1440" width="264" height="120">
+  <object id="130" name="Piazza" x="3624" y="1440" width="264" height="120">
    <properties>
     <property name="event" value="piazza"/>
    </properties>
   </object>
-  <object id="131" x="3648" y="1392" width="192" height="48">
+  <object id="131" name="Piazza" x="3648" y="1392" width="192" height="48">
    <properties>
     <property name="event" value="piazza"/>
    </properties>
@@ -1507,12 +1507,12 @@
     <property name="event" value="shop"/>
    </properties>
   </object>
-  <object id="213" x="2064.75" y="1678.33" width="45" height="87.3333">
+  <object id="213" name="Comp Sci" x="2064.75" y="1678.33" width="45" height="87.3333">
    <properties>
     <property name="event" value="comp_sci"/>
    </properties>
   </object>
-  <object id="215" x="2170.5" y="1677.33" width="45" height="87.3333">
+  <object id="215" name="Comp Sci" x="2170.5" y="1677.33" width="45" height="87.3333">
    <properties>
     <property name="event" value="comp_sci"/>
    </properties>
