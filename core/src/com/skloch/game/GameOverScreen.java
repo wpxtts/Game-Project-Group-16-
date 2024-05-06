@@ -91,9 +91,7 @@ public class GameOverScreen implements Screen {
             }else{
                 result = "Third";
             }
-            scoresTable.add(new Label(String.format("You scored %d%% in you exam.", score), game.skin, "interaction")).padBottom(5);
-            scoresTable.row();
-            scoresTable.add(new Label(String.format("Well done, you got a %s!", result), game.skin, "interaction")).padBottom(5);
+            scoresTable.add(new Label(String.format("You scored %d%% in you exam. Well done, you got a %s!", score, result), game.skin, "interaction")).padBottom(5);
             scoresTable.row();
         }else{
             //score = 39 + (1/-total);
