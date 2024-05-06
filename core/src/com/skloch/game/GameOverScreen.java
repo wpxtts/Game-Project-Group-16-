@@ -79,7 +79,8 @@ public class GameOverScreen implements Screen {
         gameOverTable.row();
 
         // Final score calculation
-        int total = hoursStudied + hoursRecreational + hoursSlept;
+        //int total = hoursStudied + hoursRecreational + hoursSlept;
+        score = ((hoursStudied/32)*60 + (hoursRecreational/30)*20 + ((hoursSlept)/144)*20);
         if (timesStudied >= 7){
             String result;
             if (score >= 70){
