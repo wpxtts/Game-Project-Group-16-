@@ -261,7 +261,7 @@ public class EventManager {
                 streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
             } else if (args.length == 1) {
                 // If the player has already used their catchup and studied that day, they can't study again
-                if ((catchup_used && daily_study >= 1)){
+                if (daily_study >= 1 && catchup_used){
                     game.dialogueBox.hideSelectBox();
                     game.dialogueBox.setText("You have already studied today!");
                 }else{
