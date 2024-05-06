@@ -476,7 +476,11 @@ public class EventManager {
         game.setSleeping(true);
         game.dialogueBox.hide();
 
-        // Reset number of times studied for new day
+        // Reset number of times studied for new day and streaks depending on consistency
+        if (daily_study == 0){
+            //Reset study streak if player didn't study that day
+            streaks.put("studying", 0);
+        }
         daily_study = 0;
 
         // Calculate the hours slept to the nearest hour
@@ -584,6 +588,11 @@ public class EventManager {
                     game.dialogueBox.setText("You don't have the energy to study for this long! Head back to east!");
                 } else {
                     // If they do have the energy to study
+                    if (daily.get("studying") < 1){
+                        // increase player's meeting friends streak if under limit
+                        streaks.put("studying", streaks.getOrDefault("studying", 0) + 1);
+                    }
+                    streaks.put("library", streaks.getOrDefault("library", 0) + 1);
                     game.dialogueBox.setText(String.format("You studied for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.addStudyHours(hours);
