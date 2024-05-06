@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="200" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="16" nextobjectid="227">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="200" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="16" nextobjectid="228">
  <tileset firstgid="1" source="Tilemaps/StarRealmsCozyForestPack24x24.tsx"/>
  <tileset firstgid="529" source="Tilemaps/RCH.tsx"/>
  <tileset firstgid="649" source="Tilemaps/compsci.tsx"/>
@@ -1530,9 +1530,9 @@
     <property name="spawnPoint" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="226" x="539.333" y="2038.67" width="28" height="24">
+  <object id="227" name="spawnPoint" x="544.667" y="2044.67">
    <properties>
-    <property name="busSpawn" type="bool" value="true"/>
+    <property name="spawnPoint" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

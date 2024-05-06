@@ -231,21 +231,20 @@ public class GameScreen implements Screen {
                 if (properties.get("spawn") != null) {
                     player.setPos(((float) properties.get("x")) *unitScale, ((float) properties.get("y"))*unitScale);
                     camera.position.set(player.getPosAsVec3());
+                //If the player gets the bus from uni bus stop as spawn point but don't collide
                 } else if (properties.containsKey("busSpawn") && properties.get("busSpawn", Boolean.class) && eventManager.gotBus) {
-                    // Found the spawn point so get position
                     float spawnX = properties.get("x", Float.class);
                     float spawnY = properties.get("y", Float.class);
-
-                    // Set the player's initial position to the spawn point
                     player.setPos(spawnX * unitScale, spawnY * unitScale);
+                    camera.position.set(player.getPosAsVec3());
                     eventManager.gotBus = false;
+                // Same for bus from town
                 }else if (properties.containsKey("spawnPoint") && properties.get("spawnPoint", Boolean.class)) {
-                    // Found the spawn point so get position
                     float spawnX = properties.get("x", Float.class);
                     float spawnY = properties.get("y", Float.class);
-
-                    // Set the player's initial position to the spawn point
                     player.setPos(spawnX * unitScale, spawnY * unitScale);
+                    camera.position.set(player.getPosAsVec3());
+                    eventManager.gotBus = false;
                 }
                 else {
                     // Make a new gameObject with these properties, passing along the scale the map is rendered

@@ -99,22 +99,8 @@ public class GameOverScreen implements Screen {
         scoresTable.add(new Label(String.valueOf(hoursSlept), game.skin, "button"));
 
         // Hidden achievements
-        // How much energy an hour of each activity should take
-        streakGoals = new HashMap<String, Integer>();
-//        streakGoals.put("studying", 0);
-//        streakGoals.put("meet_friends", 0);
-//        streakGoals.put("eating", 0);
-//        streakGoals.put("flowers",0);
-//        streakGoals.put("town", 0);
-//        streakGoals.put("shop", 0);
-//        streakGoals.put("determined", 0);
-//        streakGoals.put("early_bird", 0);
-//        streakGoals.put("talkative", 0);
-//        streakGoals.put("secretive", 0);
 
         streakGoals = new HashMap<String, Integer>();
-//        streakGoals.put("studying", 100);
-//        streakGoals.put("meet_friends", 4);
         streakGoals.put("eating", 11);
         streakGoals.put("flowers", 5);
         streakGoals.put("town", 8);
