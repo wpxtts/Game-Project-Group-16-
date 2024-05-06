@@ -72,18 +72,33 @@ public class GameOverScreen implements Screen {
         gameOverTable.add(title).padTop(10);
         gameOverTable.row();
 
-        Table scoresTable = new Table();
-        gameOverTable.add(scoresTable).prefHeight(380).prefWidth(450);
-        gameOverTable.row();
-
         // Final score calculation
         if (timesStudied >= 7){
             int total = hoursStudied + hoursRecreational + hoursSlept;
             score = 40 + (1/-total);
+            String result;
+            if (score >= 70){
+                 result = "First";
+            }else if (score >= 60){
+                result = "2:1";
+            }else if (score >= 50){
+                result = "2:2";
+            }else{
+                result = "Third";
+            }
+            Label message = new Label(String.format("You scored %d%% in you exam. Well done, you got a %s!", score, result), game.skin, "button");
+            gameOverTable.add(message).padTop(10);
+            gameOverTable.row();
         }else{
             score = (int) (Math.random() * 39);
+            Label message = new Label(String.format("You scored %d%% in you exam. That's not a pass :(", score), game.skin, "button");
+            gameOverTable.add(message).padTop(10);
+            gameOverTable.row();
         }
-        String scoreString = "Total Score: " + String.valueOf(score);
+
+        Table scoresTable = new Table();
+        gameOverTable.add(scoresTable).prefHeight(380).prefWidth(450);
+        gameOverTable.row();
 
         // Display scores
         scoresTable.add(new Label("Hours Studied", game.skin, "interaction")).padBottom(5);
