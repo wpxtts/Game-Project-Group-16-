@@ -12,11 +12,15 @@ import com.badlogic.gdx.utils.Array;
  */
 
 public class DialogueBox {
-    private Window dialogueWindow;
+    private static Window dialogueWindow;
     private Table dialogueTable;
     private Label textLabel;
+<<<<<<< Updated upstream
     public String text;
     private Skin skin;
+=======
+    private static Skin skin;
+>>>>>>> Stashed changes
     private final int MAXCHARS;
     private SelectBox selectBox;
     private Array<String> textLines;
@@ -33,7 +37,6 @@ public class DialogueBox {
         int HEIGHT = 200;
         MAXCHARS = 35;
         this.skin = skin;
-
         // Create the window for the dialogue box
         dialogueWindow = new Window("", skin);
 
@@ -61,7 +64,7 @@ public class DialogueBox {
     /**
      * A class displaying a little selction box to the user when an input is needed in dialog
      */
-    class SelectBox {
+    public static class SelectBox {
         private Window selectWindow;
         private Table selectTable;
         private int choiceIndex = 0;
@@ -124,12 +127,14 @@ public class DialogueBox {
             );
 
             // Show first pointer
-            setChoice(0);
+//            setChoice(0);
             show();
 
 
         }
-
+        public static String getText(String text){
+            return text;
+        }
         /**
          * Moves the player's choice up one selection
          * Also hides the pointer at the old index, and shows the pointer at the new index
@@ -225,13 +230,20 @@ public class DialogueBox {
      */
     public void setPos(float x, float y) {
         dialogueWindow.setPosition(x, y);
-
+        DialogueBox.getX(x);
+        DialogueBox.getY(y);
         selectBox.selectWindow.setPosition(
                 x + dialogueWindow.getWidth() - selectBox.selectWindow.getWidth(),
                 y + dialogueWindow.getHeight()-24
         );
-    }
 
+    }
+    public static float getX(float x){
+        return x;
+    }
+    public static float getY(float y){
+        return y;
+    }
     /**
      * Sets the text to be displayed on the dialogue box, automatically wraps it correctly
      * @param text
@@ -263,6 +275,7 @@ public class DialogueBox {
             textCounter += speed;
             if (Math.round(textCounter) >= textLines.get(linePointer).length()) {
                 scrollingText = false;
+                SelectBox.getText(textLines.get(linePointer));
                 textLabel.setText(textLines.get(linePointer));
             }
             textLabel.setText(textLines.get(linePointer).substring(0, Math.round(textCounter)));
@@ -338,7 +351,7 @@ public class DialogueBox {
         if (subString != "") {
             textLines.add(subString);
         }
-
+        SelectBox.getText(textLines.get(0));
         textLabel.setText(textLines.get(0));
         linePointer = 0;
     }
@@ -378,6 +391,7 @@ public class DialogueBox {
         if (scrollingText) {
             scrollingText = false;
             textCounter = 0;
+            SelectBox.getText(textLines.get(linePointer));
             textLabel.setText(textLines.get(linePointer));
 
         } else {

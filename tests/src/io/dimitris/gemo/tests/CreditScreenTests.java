@@ -20,16 +20,14 @@ public class CreditScreenTests {
     public void setUp(){
         game = mock(HustleGame.class);
         game.soundManager = mock(SoundManager.class);
-        menuScreen = new MenuScreen(game,false);
-        creditScreen = new CreditScreen(game, menuScreen, false);
+        menuScreen = mock(MenuScreen.class);
+        creditScreen = mock(CreditScreen.class);
     }
-
     @Test
     public void testCreditScreenExit(){
         creditScreen.exitButtonTask();
         // When the exit button is pressed we need to make sure
         // the screen is returned to the MainScreen
-
         verify(game).setScreen(any(MenuScreen.class));
     }
 }

@@ -12,11 +12,15 @@ import com.badlogic.gdx.utils.Array;
  */
 
 public class DialogueBox {
-    private Window dialogueWindow;
+    private static Window dialogueWindow;
     private Table dialogueTable;
     private Label textLabel;
+<<<<<<< Updated upstream
     public String text;
     private Skin skin;
+=======
+    private static Skin skin;
+>>>>>>> Stashed changes
     private final int MAXCHARS;
     private SelectBox selectBox;
     private Array&lt;String&gt; textLines;
@@ -29,6 +33,7 @@ public class DialogueBox {
 
 <span class="nc" id="L30">    public DialogueBox (Skin skin) {</span>
         // Define some key values
+<<<<<<< Updated upstream
 <span class="nc" id="L32">        int WIDTH = 800;</span>
 <span class="nc" id="L33">        int HEIGHT = 200;</span>
 <span class="nc" id="L34">        MAXCHARS = 35;</span>
@@ -57,13 +62,43 @@ public class DialogueBox {
 <span class="nc" id="L57">        setText(&quot;Are you sure you want to sleep at the Piazza? This will cost you 10 energy&quot;);</span>
 
 <span class="nc" id="L59">    }</span>
+=======
+<span class="nc" id="L31">        int WIDTH = 800;</span>
+<span class="nc" id="L32">        int HEIGHT = 200;</span>
+<span class="nc" id="L33">        MAXCHARS = 35;</span>
+<span class="nc" id="L34">        this.skin = skin;</span>
+        // Create the window for the dialogue box
+<span class="nc" id="L36">        dialogueWindow = new Window(&quot;&quot;, skin);</span>
+
+        // Create the table for the text in the dialogue box
+<span class="nc" id="L39">        dialogueTable = new Table();</span>
+<span class="nc" id="L40">        dialogueWindow.addActor(dialogueTable);</span>
+<span class="nc" id="L41">        dialogueTable.setFillParent(true);</span>
+
+<span class="nc" id="L43">        textLabel = new Label(&quot;Are you sure you want to sleep at the Piazza? This will cost you 10 energy&quot;, skin, &quot;dialogue&quot;);</span>
+<span class="nc" id="L44">        dialogueTable.add(textLabel).expand().width(WIDTH - 80).top().padTop(40);</span>
+<span class="nc" id="L45">        textLabel.setWrap(false);</span>
+
+
+<span class="nc" id="L48">        dialogueWindow.setWidth(WIDTH);</span>
+<span class="nc" id="L49">        dialogueWindow.setHeight(HEIGHT);</span>
+
+        // Create selection box to allow user to make choices when interacting with objects (class defined below)
+<span class="nc" id="L52">        this.selectBox = new SelectBox();</span>
+<span class="nc" id="L53">        selectBox.setOptions(new String[]{&quot;Yes&quot;, &quot;No&quot;}, new String[]{&quot;piazza&quot;, &quot;close&quot;});</span>
+
+<span class="nc" id="L55">        setText(&quot;Are you sure you want to sleep at the Piazza? This will cost you 10 energy&quot;);</span>
+
+<span class="nc" id="L57">    }</span>
+>>>>>>> Stashed changes
 
     /**
      * A class displaying a little selction box to the user when an input is needed in dialog
      */
-    class SelectBox {
+    public static class SelectBox {
         private Window selectWindow;
         private Table selectTable;
+<<<<<<< Updated upstream
 <span class="nc" id="L67">        private int choiceIndex = 0;</span>
         private String[] options;
         private String[] events;
@@ -78,11 +113,31 @@ public class DialogueBox {
 <span class="nc" id="L78">            selectWindow.setPosition(</span>
 <span class="nc" id="L79">                    dialogueWindow.getX() + dialogueWindow.getWidth() - selectWindow.getWidth(),</span>
 <span class="nc" id="L80">                    dialogueWindow.getY() + dialogueWindow.getHeight()-24</span>
+=======
+<span class="nc" id="L65">        private int choiceIndex = 0;</span>
+        private String[] options;
+        private String[] events;
+<span class="nc" id="L68">        private Array&lt;Label&gt; optionPointers = new Array&lt;Label&gt;();</span>
+<span class="nc" id="L69">        public SelectBox () {</span>
+<span class="nc" id="L70">            selectWindow = new Window(&quot;&quot;, skin);</span>
+<span class="nc" id="L71">            selectTable = new Table();</span>
+<span class="nc" id="L72">            selectWindow.add(selectTable);</span>
+
+
+
+<span class="nc" id="L76">            selectWindow.setPosition(</span>
+<span class="nc" id="L77">                    dialogueWindow.getX() + dialogueWindow.getWidth() - selectWindow.getWidth(),</span>
+<span class="nc" id="L78">                    dialogueWindow.getY() + dialogueWindow.getHeight()-24</span>
+>>>>>>> Stashed changes
             );
 
 
 
+<<<<<<< Updated upstream
 <span class="nc" id="L85">        }</span>
+=======
+<span class="nc" id="L83">        }</span>
+>>>>>>> Stashed changes
 
         /**
          * Sets the options visible to the player when asking for a choice.
@@ -94,6 +149,7 @@ public class DialogueBox {
          * @param events The events called to the option of the same index E.g. &quot;piazza&quot; and &quot;closeDialogue&quot;
          */
         public void setOptions (String[] options, String[] events) {
+<<<<<<< Updated upstream
 <span class="nc" id="L97">            selectTable.clearChildren();</span>
 
 <span class="nc" id="L99">            this.options = options;</span>
@@ -114,10 +170,33 @@ public class DialogueBox {
 <span class="nc" id="L114">            selectTable.pack();</span>
 <span class="nc" id="L115">            selectWindow.setWidth(selectTable.getWidth()+70);</span>
 <span class="nc" id="L116">            selectWindow.setHeight(selectTable.getHeight()+70);</span>
+=======
+<span class="nc" id="L95">            selectTable.clearChildren();</span>
+
+<span class="nc" id="L97">            this.options = options;</span>
+<span class="nc" id="L98">            this.events = events;</span>
+<span class="nc" id="L99">            optionPointers.clear();</span>
+
+<span class="nc bnc" id="L101" title="All 2 branches missed.">            for (String option : options) {</span>
+                // Add each pointer to an array so it can be shown/hidden later without searching the table
+<span class="nc" id="L103">                Label pointer = new Label(&quot;&gt;&quot;, skin, &quot;dialogue&quot;);</span>
+<span class="nc" id="L104">                optionPointers.add(pointer);</span>
+<span class="nc" id="L105">                selectTable.add(pointer).padRight(10).padLeft(10);</span>
+<span class="nc" id="L106">                pointer.setVisible(false);</span>
+
+<span class="nc" id="L108">                selectTable.add(new Label(option, skin, &quot;dialogue&quot;)).left().padRight(10);</span>
+<span class="nc" id="L109">                selectTable.row();</span>
+            }
+
+<span class="nc" id="L112">            selectTable.pack();</span>
+<span class="nc" id="L113">            selectWindow.setWidth(selectTable.getWidth()+70);</span>
+<span class="nc" id="L114">            selectWindow.setHeight(selectTable.getHeight()+70);</span>
+>>>>>>> Stashed changes
 
             // selectWindow.add(selectTable);
 
             // Recenter
+<<<<<<< Updated upstream
 <span class="nc" id="L121">            selectWindow.setPosition(</span>
 <span class="nc" id="L122">                    dialogueWindow.getX() + dialogueWindow.getWidth() - selectWindow.getWidth(),</span>
 <span class="nc" id="L123">                    dialogueWindow.getY() + dialogueWindow.getHeight()-24</span>
@@ -130,6 +209,22 @@ public class DialogueBox {
 
 <span class="nc" id="L131">        }</span>
 
+=======
+<span class="nc" id="L119">            selectWindow.setPosition(</span>
+<span class="nc" id="L120">                    dialogueWindow.getX() + dialogueWindow.getWidth() - selectWindow.getWidth(),</span>
+<span class="nc" id="L121">                    dialogueWindow.getY() + dialogueWindow.getHeight()-24</span>
+            );
+
+            // Show first pointer
+//            setChoice(0);
+<span class="nc" id="L126">            show();</span>
+
+
+<span class="nc" id="L129">        }</span>
+        public static String getText(String text){
+<span class="nc" id="L131">            return text;</span>
+        }
+>>>>>>> Stashed changes
         /**
          * Moves the player's choice up one selection
          * Also hides the pointer at the old index, and shows the pointer at the new index
@@ -225,23 +320,46 @@ public class DialogueBox {
      */
     public void setPos(float x, float y) {
 <span class="nc" id="L227">        dialogueWindow.setPosition(x, y);</span>
+<<<<<<< Updated upstream
 
 <span class="nc" id="L229">        selectBox.selectWindow.setPosition(</span>
 <span class="nc" id="L230">                x + dialogueWindow.getWidth() - selectBox.selectWindow.getWidth(),</span>
 <span class="nc" id="L231">                y + dialogueWindow.getHeight()-24</span>
         );
 <span class="nc" id="L233">    }</span>
+=======
+<span class="nc" id="L228">        DialogueBox.getX(x);</span>
+<span class="nc" id="L229">        DialogueBox.getY(y);</span>
+<span class="nc" id="L230">        selectBox.selectWindow.setPosition(</span>
+<span class="nc" id="L231">                x + dialogueWindow.getWidth() - selectBox.selectWindow.getWidth(),</span>
+<span class="nc" id="L232">                y + dialogueWindow.getHeight()-24</span>
+        );
+>>>>>>> Stashed changes
 
+<span class="nc" id="L235">    }</span>
+    public static float getX(float x){
+<span class="nc" id="L237">        return x;</span>
+    }
+    public static float getY(float y){
+<span class="nc" id="L240">        return y;</span>
+    }
     /**
      * Sets the text to be displayed on the dialogue box, automatically wraps it correctly
      * @param text
      */
     public void setText(String text) {
+<<<<<<< Updated upstream
 <span class="nc" id="L240">        this.text = text;</span>
 <span class="nc" id="L241">        initialiseLabelText();</span>
 <span class="nc" id="L242">        scrollingText = true;</span>
 <span class="nc" id="L243">        textCounter = 0;</span>
 <span class="nc" id="L244">    }</span>
+=======
+<span class="nc" id="L247">        initialiseLabelText(text);</span>
+<span class="nc" id="L248">        scrollingText = true;</span>
+<span class="nc" id="L249">        textCounter = 0;</span>
+<span class="nc" id="L250">    }</span>
+>>>>>>> Stashed changes
 
     /**
      * Sets the text to be displayed on the dialogue box, automatically wraps it correctly
@@ -250,6 +368,7 @@ public class DialogueBox {
      * @param eventKey The event key to be triggered
      */
     public void setText(String text, String eventKey) {
+<<<<<<< Updated upstream
 <span class="nc" id="L253">        this.text = text;</span>
 <span class="nc" id="L254">        initialiseLabelText();</span>
 <span class="nc" id="L255">        this.eventKey = eventKey;</span>
@@ -268,6 +387,26 @@ public class DialogueBox {
 <span class="nc" id="L268">            textLabel.setText(textLines.get(linePointer).substring(0, Math.round(textCounter)));</span>
         }
 <span class="nc" id="L270">    }</span>
+=======
+<span class="nc" id="L259">        initialiseLabelText(text);</span>
+<span class="nc" id="L260">        this.eventKey = eventKey;</span>
+<span class="nc" id="L261">        scrollingText = true;</span>
+<span class="nc" id="L262">        textCounter = 0;</span>
+
+<span class="nc" id="L264">    }</span>
+
+    public void scrollText(float speed) {
+<span class="nc bnc" id="L267" title="All 2 branches missed.">        if (scrollingText) {</span>
+<span class="nc" id="L268">            textCounter += speed;</span>
+<span class="nc bnc" id="L269" title="All 2 branches missed.">            if (Math.round(textCounter) &gt;= textLines.get(linePointer).length()) {</span>
+<span class="nc" id="L270">                scrollingText = false;</span>
+<span class="nc" id="L271">                SelectBox.getText(textLines.get(linePointer));</span>
+<span class="nc" id="L272">                textLabel.setText(textLines.get(linePointer));</span>
+            }
+<span class="nc" id="L274">            textLabel.setText(textLines.get(linePointer).substring(0, Math.round(textCounter)));</span>
+        }
+<span class="nc" id="L276">    }</span>
+>>>>>>> Stashed changes
 
     /**
      * Formats the text to be displayed on a label widget. Adds a newline character every MAXCHARS num of characters
@@ -277,6 +416,7 @@ public class DialogueBox {
      */
     public void initialiseLabelText() {
         // Add a newline every 36 chars
+<<<<<<< Updated upstream
 <span class="nc" id="L280">        String newString = &quot;&quot;;</span>
 <span class="nc" id="L281">        int lastSpace = 0;</span>
 <span class="nc" id="L282">        int index = 0;</span>
@@ -316,10 +456,52 @@ public class DialogueBox {
 
 <span class="nc" id="L317">                index += 1;</span>
 <span class="nc" id="L318">                totalIndex += 1;</span>
+=======
+<span class="nc" id="L288">        String newString = &quot;&quot;;</span>
+<span class="nc" id="L289">        int lastSpace = 0;</span>
+<span class="nc" id="L290">        int index = 0;</span>
+<span class="nc" id="L291">        int totalIndex = 0;</span>
+
+        // Add newline characters where the length of a section between two linebreaks is greater than MAXCHARS
+<span class="nc bnc" id="L294" title="All 2 branches missed.">        for (char c : text.toCharArray()) {</span>
+            // Account for any occuring linebreaks
+<span class="nc bnc" id="L296" title="All 2 branches missed.">            if (c == '\n') {</span>
+<span class="nc" id="L297">                index = 0;</span>
+            }
+
+<span class="nc bnc" id="L300" title="All 2 branches missed.">            if (index &gt;= MAXCHARS) {</span>
+                // If the current line is a space, just add a newline instead of a space
+<span class="nc bnc" id="L302" title="All 2 branches missed.">                if (c == ' ') {</span>
+<span class="nc" id="L303">                    newString = newString + &quot;\n&quot;;</span>
+<span class="nc" id="L304">                    totalIndex += 1;</span>
+<span class="nc" id="L305">                    index = 0;</span>
+                } else {
+                    // If not, Replace the last space with a linebreak and add the char
+                    // If the last linebreak is 0 or greater than MAXCHARS away, just add a break now
+<span class="nc bnc" id="L309" title="All 4 branches missed.">                    if (lastSpace == 0 || (totalIndex - lastSpace) &gt;= MAXCHARS) {</span>
+<span class="nc" id="L310">                        newString = newString + &quot;\n&quot;;</span>
+<span class="nc" id="L311">                        index = 0;</span>
+                    } else {
+<span class="nc" id="L313">                        newString = newString.substring(0, lastSpace) + &quot;\n&quot; + newString.substring(lastSpace+1);</span>
+<span class="nc" id="L314">                        newString = newString + c;</span>
+<span class="nc" id="L315">                        index = totalIndex - lastSpace;</span>
+<span class="nc" id="L316">                        totalIndex += 1;</span>
+                    }
+                }
+            } else {
+<span class="nc" id="L320">                newString = newString + c;</span>
+<span class="nc bnc" id="L321" title="All 2 branches missed.">                if (c == ' ') {</span>
+<span class="nc" id="L322">                    lastSpace = totalIndex;</span>
+                }
+
+<span class="nc" id="L325">                index += 1;</span>
+<span class="nc" id="L326">                totalIndex += 1;</span>
+>>>>>>> Stashed changes
             }
         }
 
         // Split the newString into chunks with 3 linebreaks
+<<<<<<< Updated upstream
 <span class="nc" id="L323">        textLines = new Array&lt;String&gt;();</span>
 <span class="nc" id="L324">        int numBreaks = 0;</span>
 <span class="nc" id="L325">        String subString = &quot;&quot;;</span>
@@ -342,27 +524,63 @@ public class DialogueBox {
 <span class="nc" id="L342">        textLabel.setText(textLines.get(0));</span>
 <span class="nc" id="L343">        linePointer = 0;</span>
 <span class="nc" id="L344">    }</span>
+=======
+<span class="nc" id="L331">        textLines = new Array&lt;String&gt;();</span>
+<span class="nc" id="L332">        int numBreaks = 0;</span>
+<span class="nc" id="L333">        String subString = &quot;&quot;;</span>
+
+<span class="nc bnc" id="L335" title="All 2 branches missed.">        for (String s: newString.split(&quot;\n&quot;)) {</span>
+<span class="nc bnc" id="L336" title="All 2 branches missed.">            if (numBreaks == 2) {</span>
+<span class="nc" id="L337">                subString += s;</span>
+<span class="nc" id="L338">                textLines.add(subString);</span>
+<span class="nc" id="L339">                subString = &quot;&quot;;</span>
+<span class="nc" id="L340">                numBreaks = 0;</span>
+            } else {
+<span class="nc" id="L342">                subString += s + &quot;\n&quot;;</span>
+<span class="nc" id="L343">                numBreaks += 1;</span>
+            }
+        }
+<span class="nc bnc" id="L346" title="All 2 branches missed.">        if (subString != &quot;&quot;) {</span>
+<span class="nc" id="L347">            textLines.add(subString);</span>
+        }
+<span class="nc" id="L349">        SelectBox.getText(textLines.get(0));</span>
+<span class="nc" id="L350">        textLabel.setText(textLines.get(0));</span>
+<span class="nc" id="L351">        linePointer = 0;</span>
+<span class="nc" id="L352">    }</span>
+>>>>>>> Stashed changes
 
     /**
      * Makes the dialogue box visible, along with any elements that need to be shown
      */
     public void show() {
+<<<<<<< Updated upstream
 <span class="nc" id="L350">        dialogueWindow.setVisible(true);</span>
 <span class="nc" id="L351">    }</span>
+=======
+<span class="nc" id="L358">        dialogueWindow.setVisible(true);</span>
+<span class="nc" id="L359">    }</span>
+>>>>>>> Stashed changes
 
     /**
      * Hides the dialogue box and all of its elements
      */
     public void hide() {
+<<<<<<< Updated upstream
 <span class="nc" id="L357">        dialogueWindow.setVisible(false);</span>
 <span class="nc" id="L358">        selectBox.hide();</span>
 <span class="nc" id="L359">    }</span>
+=======
+<span class="nc" id="L365">        dialogueWindow.setVisible(false);</span>
+<span class="nc" id="L366">        selectBox.hide();</span>
+<span class="nc" id="L367">    }</span>
+>>>>>>> Stashed changes
 
     /**
      * Pressing 'confirm' on the dialogue box
      * Either selects the choice if the selectbox is open, or advances text if not
      */
     public void enter(EventManager eventManager) throws InterruptedException {
+<<<<<<< Updated upstream
 <span class="nc bnc" id="L366" title="All 2 branches missed.">        if (selectBox.isVisible()) {</span>
 <span class="nc" id="L367">            selectBox.hide();</span>
 <span class="nc" id="L368">            eventManager.event(selectBox.getChoice());</span>
@@ -370,11 +588,21 @@ public class DialogueBox {
 <span class="nc" id="L370">            advanceText(eventManager);</span>
         }
 <span class="nc" id="L372">    }</span>
+=======
+<span class="nc bnc" id="L374" title="All 2 branches missed.">        if (selectBox.isVisible()) {</span>
+<span class="nc" id="L375">            selectBox.hide();</span>
+<span class="nc" id="L376">            eventManager.event(selectBox.getChoice());</span>
+        } else {
+<span class="nc" id="L378">            advanceText(eventManager);</span>
+        }
+<span class="nc" id="L380">    }</span>
+>>>>>>> Stashed changes
 
     /**
      * Continues on to the next bit of text, or closes the window if the end is reached
      */
     private void advanceText(EventManager eventManager) throws InterruptedException {
+<<<<<<< Updated upstream
 <span class="nc bnc" id="L378" title="All 2 branches missed.">        if (scrollingText) {</span>
 <span class="nc" id="L379">            scrollingText = false;</span>
 <span class="nc" id="L380">            textCounter = 0;</span>
@@ -397,20 +625,54 @@ public class DialogueBox {
             }
         }
 <span class="nc" id="L399">    }</span>
+=======
+<span class="nc bnc" id="L386" title="All 2 branches missed.">        if (scrollingText) {</span>
+<span class="nc" id="L387">            scrollingText = false;</span>
+<span class="nc" id="L388">            textCounter = 0;</span>
+<span class="nc" id="L389">            SelectBox.getText(textLines.get(linePointer));</span>
+<span class="nc" id="L390">            textLabel.setText(textLines.get(linePointer));</span>
+
+        } else {
+<span class="nc" id="L393">            linePointer += 1;</span>
+<span class="nc bnc" id="L394" title="All 2 branches missed.">            if (linePointer &gt;= textLines.size) {</span>
+<span class="nc" id="L395">                hide();</span>
+<span class="nc" id="L396">                scrollingText = false;</span>
+<span class="nc" id="L397">                textCounter = 0;</span>
+<span class="nc bnc" id="L398" title="All 2 branches missed.">                if (eventKey != null) {</span>
+<span class="nc" id="L399">                    eventManager.event(eventKey);</span>
+<span class="nc" id="L400">                    eventKey = null;</span>
+                }
+            } else {
+<span class="nc" id="L403">                textCounter = 0;</span>
+<span class="nc" id="L404">                scrollingText = true;</span>
+//            textLabel.setText(textLines.get(linePointer));
+            }
+        }
+<span class="nc" id="L408">    }</span>
+>>>>>>> Stashed changes
 
     /**
      * Hides just the selectbox window
      */
     public void hideSelectBox() {
+<<<<<<< Updated upstream
 <span class="nc" id="L405">        selectBox.hide();</span>
 <span class="nc" id="L406">    }</span>
+=======
+<span class="nc" id="L414">        selectBox.hide();</span>
+<span class="nc" id="L415">    }</span>
+>>>>>>> Stashed changes
 
     /**
      * Checks if the main dialogue box is visible
      * @return true if it is visible, false otherwise
      */
     public boolean isVisible() {
+<<<<<<< Updated upstream
 <span class="nc" id="L413">        return dialogueWindow.isVisible();</span>
+=======
+<span class="nc" id="L422">        return dialogueWindow.isVisible();</span>
+>>>>>>> Stashed changes
     }
 
     /**
@@ -419,7 +681,11 @@ public class DialogueBox {
      * @return A window widget
      */
     public Window getWindow() {
+<<<<<<< Updated upstream
 <span class="nc" id="L422">        return dialogueWindow;</span>
+=======
+<span class="nc" id="L431">        return dialogueWindow;</span>
+>>>>>>> Stashed changes
     }
 
     /**
@@ -428,7 +694,11 @@ public class DialogueBox {
      */
 
     public float getWidth() {
+<<<<<<< Updated upstream
 <span class="nc" id="L431">        return dialogueWindow.getWidth();</span>
+=======
+<span class="nc" id="L440">        return dialogueWindow.getWidth();</span>
+>>>>>>> Stashed changes
     }
 
     /**
@@ -436,7 +706,11 @@ public class DialogueBox {
      * @return The height
      */
     public float getHeight() {
+<<<<<<< Updated upstream
 <span class="nc" id="L439">        return dialogueWindow.getHeight();</span>
+=======
+<span class="nc" id="L448">        return dialogueWindow.getHeight();</span>
+>>>>>>> Stashed changes
     }
 
     /**
@@ -444,7 +718,11 @@ public class DialogueBox {
      * @return A SelectBox class
      */
     public SelectBox getSelectBox() {
+<<<<<<< Updated upstream
 <span class="nc" id="L447">        return selectBox;</span>
+=======
+<span class="nc" id="L456">        return selectBox;</span>
+>>>>>>> Stashed changes
     }
 
 

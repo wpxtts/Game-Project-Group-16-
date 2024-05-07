@@ -20,9 +20,17 @@ import static org.mockito.Mockito.verify;
 public class EventManagerTests {
     private GameScreen game;
     private EventManager eventManager;
+    private DialogueBox dialogueBox;
+    private Window dialogueWindow;
     @Before
     public void setUp(){
+<<<<<<< Updated upstream
         game = new GameScreen(mock(HustleGame.class),1,false);
+=======
+        game = mock(GameScreen.class);
+        dialogueBox = mock(DialogueBox.class);
+        dialogueWindow = mock(Window.class);
+>>>>>>> Stashed changes
         eventManager = new EventManager(game);
     }
     @Test
@@ -94,6 +102,7 @@ public class EventManagerTests {
         assertTrue(eventManager.hasCustomObjectInteraction("object1"));
         assertFalse(eventManager.hasCustomObjectInteraction("This isn't an object"));
     }
+<<<<<<< Updated upstream
 
     @Test
     public void testRonCookeEvent(){
@@ -104,6 +113,30 @@ public class EventManagerTests {
         assertEquals("It's too early in the morning to meet your friends, go to bed!",result);
     }
 
+=======
+    @Test
+    public void testTreeEvent(){
+        eventManager = mock(EventManager.class);
+        eventManager.treeEvent();
+        int current_energy = game.getEnergy();
+        assertEquals(current_energy,game.getEnergy());
+    }
+    @Test
+    public void testChestEvent(){
+        eventManager = mock(EventManager.class);
+        eventManager.chestEvent();
+        int current_energy = game.getEnergy();
+        assertEquals(current_energy,game.getEnergy());
+    }
+    @Test
+    public void testObjectEvent(){
+        eventManager = mock(EventManager.class);
+        String pineapple = "Pineapple";
+        eventManager.objectEvent(pineapple);
+        int current_energy = game.getEnergy();
+        assertEquals(current_energy,game.getEnergy());
+    }
+>>>>>>> Stashed changes
     //add fade to black test?
     //add events trigger test?
 //    @Test
