@@ -125,15 +125,15 @@ public class Player {
                 moving = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
-                direction = movePlayer(left,speed,delta);
+                direction = movePlayer(right,speed,delta);
                 moving = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
-                direction = movePlayer(left,speed,delta);
+                direction = movePlayer(up,speed,delta);
                 moving = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
-                direction = movePlayer(left,speed,delta);
+                direction = movePlayer(down,speed,delta);
                 moving = true;
             }
 
