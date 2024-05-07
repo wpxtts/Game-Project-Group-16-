@@ -17,7 +17,7 @@ public class DialogueBoxTests {
     private float textCounter = 0;
     private int choiceIndex = 0;
     //private final int MAXCHARS;
-    private DialogueBox.SelectBox selectBox;
+    //private DialogueBox.SelectBox selectBox;
     private Array<String> textLines;
     private int linePointer = 0;
     private String eventKey = null;
@@ -26,7 +26,7 @@ public class DialogueBoxTests {
     @Before
     public void setUp() {
         skin = new Skin();
-        dialogueBox = new DialogueBox(skin,false);
+        dialogueBox = new DialogueBox(skin);
     }
     @Test
     public void testSetTexta() {

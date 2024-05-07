@@ -104,6 +104,4 @@ public class LeaderboardScreenTests {
         assertArrayEquals(targetLeaderboardZ,leaderboard10.toArray());
     }
 
-
-    // For leaderboard screen tests I need a test which tests the getting the top 10 from the leaderboard.
 }

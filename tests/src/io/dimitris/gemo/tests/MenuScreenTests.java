@@ -10,6 +10,7 @@ import com.skloch.game.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import java.io.FileWriter;
@@ -72,15 +73,25 @@ public class MenuScreenTests {
     }
 
     @Test
-    public void testButton1Task(){
+    public void testAvatarButton1Task(){
         menuScreen.avatar1ButtonTask();
+        // Capture the argument passed (which is the game screen being set to),
+        // so we can check if it set the correct avatar
+        ArgumentCaptor<GameScreen> argument = ArgumentCaptor.forClass(GameScreen.class);
+        verify(game).setScreen(argument.capture());
         verify(game).setScreen(any(GameScreen.class));
+        assertEquals("avatar1",((GameScreen)argument.getValue()).player.avatar);
     }
 
     @Test
-    public void testButton2Task(){
+    public void testAvatarButton2Task(){
         menuScreen.avatar2ButtonTask();
+        // Capture the argument passed (which is the game screen being set to),
+        // so we can check if it set the correct avatar
+        ArgumentCaptor<GameScreen> argument = ArgumentCaptor.forClass(GameScreen.class);
+        verify(game).setScreen(argument.capture());
         verify(game).setScreen(any(GameScreen.class));
+        assertEquals("avatar2",((GameScreen)argument.getValue()).player.avatar);
     }
 
     // Note: We cannot test the exit button functionality without
