@@ -26,7 +26,7 @@ public class DialogueBoxTests {
     @Before
     public void setUp() {
         skin = new Skin();
-        dialogueBox = new DialogueBox(skin);
+        //dialogueBox = new DialogueBox(skin);
     }
     @Test
     public void testSetTexta() {

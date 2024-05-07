@@ -38,11 +38,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 public class GameScreen implements Screen {
     final HustleGame game;
     private OrthographicCamera camera;
-<span class="nc" id="L41">    private int energy = 100;</span>
+<span class="fc" id="L41">    private int energy = 100;</span>
     private int hoursStudied, hoursRecreational, hoursSlept;
     private int timesStudied;
-<span class="nc" id="L44">    private float daySeconds = 0; // Current seconds elapsed in day</span>
-<span class="nc" id="L45">    private int day = 1; // What day the game is on</span>
+<span class="fc" id="L44">    private float daySeconds = 0; // Current seconds elapsed in day</span>
+<span class="fc" id="L45">    private int day = 1; // What day the game is on</span>
     private Label timeLabel, dayLabel;
     public Player player;
     private Window escapeMenu;
@@ -55,8 +55,8 @@ public class GameScreen implements Screen {
     private Table uiTable;
     private Image energyBar;
     public DialogueBox dialogueBox;
-<span class="nc" id="L58">    public final Image blackScreen = new Image(new Texture(Gdx.files.internal(&quot;../assets/Sprites/black_square.png&quot;)));;</span>
-<span class="nc" id="L59">    private boolean sleeping = false;</span>
+<span class="fc" id="L58">    public final Image blackScreen = new Image(new Texture(Gdx.files.internal(&quot;../assets/Sprites/black_square.png&quot;)));;</span>
+<span class="fc" id="L59">    private boolean sleeping = false;</span>
 
 
 
@@ -66,17 +66,17 @@ public class GameScreen implements Screen {
      *             initialised once.
      * @param avatarChoice Which avatar the player has picked, 0 for the more masculine avatar, 1 for the more feminine
      */
-<span class="nc" id="L69">    public GameScreen(final HustleGame game, int avatarChoice, boolean draw) {</span>
+<span class="fc" id="L69">    public GameScreen(final HustleGame game, int avatarChoice, boolean draw) {</span>
         // Important game variables
-<span class="nc" id="L71">        this.game = game;</span>
-<span class="nc" id="L72">        this.game.gameScreen = this;</span>
-<span class="nc" id="L73">        eventManager = new EventManager(this);</span>
+<span class="fc" id="L71">        this.game = game;</span>
+<span class="fc" id="L72">        this.game.gameScreen = this;</span>
+<span class="fc" id="L73">        eventManager = new EventManager(this);</span>
 
         // Scores
-<span class="nc" id="L76">        hoursStudied = hoursRecreational = hoursSlept = 0;</span>
+<span class="fc" id="L76">        hoursStudied = hoursRecreational = hoursSlept = 0;</span>
 
 
-<span class="nc bnc" id="L79" title="All 2 branches missed.">        if(draw) {</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if(draw) {</span>
             // Camera and viewport settings
 <span class="nc" id="L81">            camera = new OrthographicCamera();</span>
 <span class="nc" id="L82">            viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);</span>
@@ -98,10 +98,10 @@ public class GameScreen implements Screen {
 
 
         // Create a player class
-<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (avatarChoice == 1) {</span>
-<span class="nc" id="L102">            player = new Player(&quot;avatar1&quot;);</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (avatarChoice == 1) {</span>
+<span class="fc" id="L102">            player = new Player(&quot;avatar1&quot;);</span>
         } else {
-<span class="nc" id="L104">            player = new Player(&quot;avatar2&quot;);</span>
+<span class="fc" id="L104">            player = new Player(&quot;avatar2&quot;);</span>
         }
 
 
@@ -118,7 +118,7 @@ public class GameScreen implements Screen {
 //        // Use addActor to add windows to the scene
 //        uiTable.addActor(optionDialogue.getWindow());
 //        optionDialogue.setVisible(false);
-<span class="nc bnc" id="L121" title="All 2 branches missed.">        if(draw){</span>
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">        if(draw){</span>
         // Interaction label to prompt player
 <span class="nc" id="L123">        interactionLabel = new Label(&quot;E - Interact&quot;, game.skin, &quot;default&quot;);</span>
 
@@ -216,7 +216,7 @@ public class GameScreen implements Screen {
 <span class="nc" id="L216">        dialogueBox.show();</span>
 <span class="nc" id="L217">        dialogueBox.setText(getWakeUpMessage());</span>
         }
-<span class="nc" id="L219">    }</span>
+<span class="fc" id="L219">    }</span>
 
     public void loadPlayerObjects(float unitScale){
 <span class="nc bnc" id="L222" title="All 2 branches missed.">        for (int layer : game.objectLayers) {</span>

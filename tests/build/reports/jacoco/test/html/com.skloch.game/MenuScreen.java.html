@@ -26,7 +26,7 @@ public class MenuScreen implements Screen {
     private Stage menuStage;
     OrthographicCamera camera;
     private Viewport viewport;
-<span class="nc" id="L29">    private Image titleImage = new Image();</span>
+<span class="fc" id="L29">    private Image titleImage = new Image();</span>
     public boolean draw;
     private Texture[] cloudTextures; // Declare an array to hold cloud textures
     private ArrayList&lt;Vector2&gt; clouds; // Use List interface here
@@ -43,20 +43,20 @@ public class MenuScreen implements Screen {
      *
      * @param game An instance of HustleGame with loaded variables
      */
-<span class="nc" id="L46">    public MenuScreen(final HustleGame game, boolean draw) {</span>
+<span class="fc" id="L46">    public MenuScreen(final HustleGame game, boolean draw) {</span>
 
-<span class="nc" id="L48">        this.game = game;</span>
-<span class="nc" id="L49">        this.game.menuScreen = this;</span>
-<span class="nc" id="L50">        this.draw = draw;</span>
-<span class="nc" id="L51">        cloudTextures = new Texture[] {</span>
-<span class="nc" id="L52">                new Texture(Gdx.files.internal(&quot;../assets/Sprites/cloud1.png&quot;)),</span>
-<span class="nc" id="L53">                new Texture(Gdx.files.internal(&quot;../assets/Sprites/cloud2.png&quot;)),</span>
-<span class="nc" id="L54">                new Texture(Gdx.files.internal(&quot;../assets/Sprites/cloud3.png&quot;)),</span>
-<span class="nc" id="L55">                new Texture(Gdx.files.internal(&quot;../assets/Sprites/cloud4.png&quot;)),</span>
-<span class="nc" id="L56">                new Texture(Gdx.files.internal(&quot;../assets/Sprites/cloud5.png&quot;)),</span>
-<span class="nc" id="L57">                new Texture(Gdx.files.internal(&quot;../assets/Sprites/cloud6.png&quot;)),</span>
+<span class="fc" id="L48">        this.game = game;</span>
+<span class="fc" id="L49">        this.game.menuScreen = this;</span>
+<span class="fc" id="L50">        this.draw = draw;</span>
+<span class="fc" id="L51">        cloudTextures = new Texture[] {</span>
+<span class="fc" id="L52">                new Texture(Gdx.files.internal(&quot;../assets/Sprites/cloud1.png&quot;)),</span>
+<span class="fc" id="L53">                new Texture(Gdx.files.internal(&quot;../assets/Sprites/cloud2.png&quot;)),</span>
+<span class="fc" id="L54">                new Texture(Gdx.files.internal(&quot;../assets/Sprites/cloud3.png&quot;)),</span>
+<span class="fc" id="L55">                new Texture(Gdx.files.internal(&quot;../assets/Sprites/cloud4.png&quot;)),</span>
+<span class="fc" id="L56">                new Texture(Gdx.files.internal(&quot;../assets/Sprites/cloud5.png&quot;)),</span>
+<span class="fc" id="L57">                new Texture(Gdx.files.internal(&quot;../assets/Sprites/cloud6.png&quot;)),</span>
         };
-<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (draw) {</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (draw) {</span>
 <span class="nc" id="L60">            cloudSpeed = 10; // Adjust speed as needed</span>
 <span class="nc" id="L61">            clouds = new ArrayList&lt;Vector2&gt;(); // Initialize the clouds ArrayList</span>
             // Create stage to draw UI on
@@ -174,24 +174,24 @@ public class MenuScreen implements Screen {
 <span class="nc" id="L174">            game.batch.setProjectionMatrix(camera.combined);</span>
         }
 
-<span class="nc" id="L177">    }</span>
+<span class="fc" id="L177">    }</span>
     public void startButtonTask(Table buttonTable, Window tutorialWindow){
-<span class="nc" id="L179">        game.soundManager.playButton();</span>
-<span class="nc" id="L180">        buttonTable.setVisible(false);</span>
-<span class="nc" id="L181">        titleImage.setVisible(false);</span>
-<span class="nc" id="L182">        tutorialWindow.setVisible(true);</span>
-<span class="nc" id="L183">    }</span>
+<span class="fc" id="L179">        game.soundManager.playButton();</span>
+<span class="fc" id="L180">        buttonTable.setVisible(false);</span>
+<span class="fc" id="L181">        titleImage.setVisible(false);</span>
+<span class="fc" id="L182">        tutorialWindow.setVisible(true);</span>
+<span class="fc" id="L183">    }</span>
 
     public void settingsButtonTask(Screen thisScreen){
-<span class="nc" id="L186">        game.soundManager.playButton();</span>
-<span class="nc" id="L187">        SettingsScreen screen = new SettingsScreen(game,thisScreen,draw);</span>
-<span class="nc" id="L188">        game.setScreen(screen);</span>
-<span class="nc" id="L189">    }</span>
+<span class="fc" id="L186">        game.soundManager.playButton();</span>
+<span class="fc" id="L187">        SettingsScreen screen = new SettingsScreen(game,thisScreen,draw);</span>
+<span class="fc" id="L188">        game.setScreen(screen);</span>
+<span class="fc" id="L189">    }</span>
 
     public void creditsButtonTask(Screen thisScreen){
-<span class="nc" id="L192">        game.soundManager.playButton();</span>
-<span class="nc" id="L193">        game.setScreen(new CreditScreen(game, thisScreen,draw));</span>
-<span class="nc" id="L194">    }</span>
+<span class="fc" id="L192">        game.soundManager.playButton();</span>
+<span class="fc" id="L193">        game.setScreen(new CreditScreen(game, thisScreen,draw));</span>
+<span class="fc" id="L194">    }</span>
 
     public void exitButtonTask(){
 <span class="nc" id="L197">        game.soundManager.playButton();</span>
@@ -201,9 +201,9 @@ public class MenuScreen implements Screen {
 <span class="nc" id="L201">    }</span>
 
     public void leaderboardButtonTask(Screen thisScreen){
-<span class="nc" id="L204">        game.soundManager.playButton();</span>
-<span class="nc" id="L205">        game.setScreen(new LeaderboardScreen(game, thisScreen,draw));</span>
-<span class="nc" id="L206">    }</span>
+<span class="fc" id="L204">        game.soundManager.playButton();</span>
+<span class="fc" id="L205">        game.setScreen(new LeaderboardScreen(game, thisScreen,draw));</span>
+<span class="fc" id="L206">    }</span>
 
     /**
      * Renders the main menu, and any windows that are displaying information
@@ -276,11 +276,11 @@ public class MenuScreen implements Screen {
      * Fixes a small graphical bug
      */
     public void resume() {
-<span class="nc" id="L279">        Gdx.input.setInputProcessor(menuStage);</span>
+<span class="fc" id="L279">        Gdx.input.setInputProcessor(menuStage);</span>
 
         // See the comment in the resume() function in GameScreen to see why this pointless line exists
-<span class="nc" id="L282">        Gdx.input.setCursorPosition(Gdx.input.getX(), Gdx.input.getY());</span>
-<span class="nc" id="L283">    }</span>
+<span class="fc" id="L282">        Gdx.input.setCursorPosition(Gdx.input.getX(), Gdx.input.getY());</span>
+<span class="fc" id="L283">    }</span>
 
     /**
      * Dispose of all menu assets
@@ -393,16 +393,16 @@ public class MenuScreen implements Screen {
     }
 
     public void avatar1ButtonTask(){
-<span class="nc" id="L396">        game.soundManager.playButton();</span>
-<span class="nc" id="L397">        game.setScreen(new GameScreen(game, 1,draw));</span>
-<span class="nc" id="L398">        game.soundManager.stopMenuMusic();</span>
-<span class="nc" id="L399">    }</span>
+<span class="fc" id="L396">        game.soundManager.playButton();</span>
+<span class="fc" id="L397">        game.setScreen(new GameScreen(game, 1,draw));</span>
+<span class="fc" id="L398">        game.soundManager.stopMenuMusic();</span>
+<span class="fc" id="L399">    }</span>
 
     public void avatar2ButtonTask(){
-<span class="nc" id="L402">        game.soundManager.playButton();</span>
-<span class="nc" id="L403">        game.setScreen(new GameScreen(game, 2,draw));</span>
-<span class="nc" id="L404">        game.soundManager.stopMenuMusic();</span>
-<span class="nc" id="L405">    }</span>
+<span class="fc" id="L402">        game.soundManager.playButton();</span>
+<span class="fc" id="L403">        game.setScreen(new GameScreen(game, 2,draw));</span>
+<span class="fc" id="L404">        game.soundManager.stopMenuMusic();</span>
+<span class="fc" id="L405">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
