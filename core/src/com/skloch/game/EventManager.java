@@ -73,8 +73,6 @@ public class EventManager {
         streaks.put("library", 0);
         streaks.put("determined", 0); //try to do activities without energy
         streaks.put("early_bird", 0); //try to do activities too early in the day
-        streaks.put("talkative", 0); //try to interact with non-POIs
-        streaks.put("secretive", 0); //interact with the secret
 
         // Limits number of times each streak can be increased to 3 times a day
         daily = new HashMap<String, Integer>();
@@ -85,8 +83,6 @@ public class EventManager {
         daily.put("library", 0);
         daily.put("determined", 0); //try to do activities without energy
         daily.put("early_bird", 0); //try to do activities too early in the day
-        daily.put("talkative", 0); //try to interact with non-POIs
-        daily.put("secretive", 0); //interact with the secret
 
         // Some random topics that can be chatted about
         String[] topics = {"Dogs", "Cats", "Exams", "Celebrities", "Flatmates", "Video games", "Sports", "Food", "Fashion"};
@@ -181,7 +177,6 @@ public class EventManager {
     public void treeEvent() {
         game.dialogueBox.hideSelectBox();
         game.dialogueBox.setText("The tree doesn't say anything back.");
-        streaks.put("talkative", streaks.getOrDefault("talkative", 0) + 1);
     }
 
     /**
@@ -189,8 +184,7 @@ public class EventManager {
      */
     public void chestEvent() {
         game.dialogueBox.hideSelectBox();
-        game.dialogueBox.setText("Wow! This chest is full of so many magical items! I wonder how they will help you out on your journey! Boy, this is an awfully long piece of text, I wonder if someone is testing something?\n...\n...\n...\nHow cool!");
-        streaks.put("talkative", streaks.getOrDefault("talkative", 0) + 1);
+        game.dialogueBox.setText("Wow! These barrels is full of so many magical items! I wonder how they will help you out on your journey! Boy, this is an awfully long piece of text, I wonder if someone is testing something?\n...\n...\n...\nHow cool!");
 
 
     }
@@ -201,7 +195,6 @@ public class EventManager {
     public void objectEvent(String object) {
         game.dialogueBox.hideSelectBox();
         game.dialogueBox.setText("This is a " +  object + "!");
-        streaks.put("talkative", streaks.getOrDefault("talkative", 0) + 1);
     }
 
     /**

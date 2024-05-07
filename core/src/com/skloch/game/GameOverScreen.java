@@ -33,7 +33,7 @@ public class GameOverScreen implements Screen {
 
     // Hidden achievement badges
     public static HashMap<String, Integer> streakGoals;
-    private Texture apple, flower, bus, shopping_basket, fire, early_bird, talk, chest, book, library_book;
+    private Texture apple, flower, bus, shopping_basket, fire, early_bird, book, library_book;
     public static String apple_path = "Sprites/achievements/apple.png";
     public static String flower_path = "Sprites/achievements/flower.png";
     public static String bus_path = "Sprites/achievements/bus.png";
@@ -124,8 +124,6 @@ public class GameOverScreen implements Screen {
         streakGoals.put("library", 0);
         streakGoals.put("determined", 0);
         streakGoals.put("early_bird", 0);
-        streakGoals.put("talkative", 0);
-        streakGoals.put("secretive", 0);
 
 //        streakGoals = new HashMap<String, Integer>();
 //        streakGoals.put("studying", 5);
@@ -136,8 +134,6 @@ public class GameOverScreen implements Screen {
 //        streakGoals.put("library", 5);
 //        streakGoals.put("determined", 10);
 //        streakGoals.put("early_bird", 10);
-//        streakGoals.put("talkative", 10);
-//        streakGoals.put("secretive", 5);
 
         // Load your texture
 
@@ -149,8 +145,6 @@ public class GameOverScreen implements Screen {
         library_book = new Texture(Gdx.files.internal(library_book_path)); //
         fire = new Texture(Gdx.files.internal("Sprites/achievements/fire.png")); //
         early_bird = new Texture(Gdx.files.internal("Sprites/achievements/early_bird.png")); //bird
-        talk = new Texture(Gdx.files.internal("Sprites/achievements/talk.png")); //
-        chest = new Texture(Gdx.files.internal("Sprites/achievements/chest.png")); //use actual
 
         // Create an Image widget with the texture
         Image apple_image = new Image(apple);
@@ -159,8 +153,6 @@ public class GameOverScreen implements Screen {
         Image shopping_basket_image = new Image(shopping_basket);
         Image fire_image = new Image(fire);
         Image early_bird_image = new Image(early_bird);
-        Image talk_image = new Image(talk);
-        Image chest_image = new Image(chest);
         Image book_image = new Image(book);
         Image library_book_image = new Image(library_book);
 
@@ -172,8 +164,6 @@ public class GameOverScreen implements Screen {
         shopping_basket_image.setPosition(950, 500);
         fire_image.setPosition(950, 750);
         early_bird_image.setPosition(100, 500);
-        talk_image.setPosition(1000, 400);
-        chest_image.setPosition(200, 200);
         book_image.setPosition(50, 75);
         library_book_image.setPosition(1050, 300);
 
@@ -206,12 +196,6 @@ public class GameOverScreen implements Screen {
                             break;
                         case "early_bird":
                             gameOverStage.addActor(early_bird_image);
-                            break;
-                        case "secretive":
-                            gameOverStage.addActor(chest_image);
-                            break;
-                        case "talktative":
-                            gameOverStage.addActor(talk_image);
                             break;
                         case "library":
                             gameOverStage.addActor(library_book_image);
