@@ -34,10 +34,12 @@ public class GameOverScreen implements Screen {
 
     // Hidden achievement badges
     public static HashMap<String, Integer> streakGoals;
-    private Texture rch, flower, bus, shopping_basket, fire, long_boi, talk, chest;
-    public static String rch_path = "Sprites/achievements/hub.png";
+    private Texture apple, flower, bus, shopping_basket, fire, early_bird, talk, chest, book, library_book;
+    public static String apple_path = "Sprites/achievements/apple.png";
     public static String flower_path = "Sprites/achievements/flower.png";
     public static String bus_path = "Sprites/achievements/bus.png";
+    public static String book_path = "Sprites/achievements/book.png";
+    public static String library_book_path = "Sprites/achievements/book.png";
 
     /**
      * A screen to display a 'Game Over' screen when the player finishes their exams
@@ -77,13 +79,28 @@ public class GameOverScreen implements Screen {
         gameOverTable.row();
 
         // Final score calculation
+        //int total = hoursStudied + hoursRecreational + hoursSlept;
+        score = ((hoursStudied/32)*60 + (hoursRecreational/30)*20 + ((hoursSlept)/144)*20);
         if (timesStudied >= 7){
-            int total = hoursStudied + hoursRecreational + hoursSlept;
-            score = 40 + (1/-total);
+            String result;
+            if (score >= 70){
+                result = "First";
+            }else if (score >= 60){
+                result = "2:1";
+            }else if (score >= 50){
+                result = "2:2";
+            }else{
+                result = "Third";
+            }
+            scoresTable.add(new Label(String.format("You scored %d%% in you exam. Well done, you got a %s!", score, result), game.skin, "interaction")).padBottom(5);
+            scoresTable.row();
         }else{
+            //score = 39 + (1/-total);
             score = (int) (Math.random() * 39);
+            Label message = new Label(String.format("You scored %d%% in you exam. That's not a pass :(", score), game.skin, "interaction");
+            scoresTable.add(message).padBottom(5);
+            scoresTable.row();
         }
-        String scoreString = "Total Score: " + String.valueOf(score);
 
         // Display scores
         scoresTable.add(new Label("Hours Studied", game.skin, "interaction")).padBottom(5);
@@ -99,47 +116,67 @@ public class GameOverScreen implements Screen {
         scoresTable.add(new Label(String.valueOf(hoursSlept), game.skin, "button"));
 
         // Hidden achievements
-
         streakGoals = new HashMap<String, Integer>();
-        streakGoals.put("eating", 11);
-        streakGoals.put("flowers", 5);
-        streakGoals.put("town", 8);
-        streakGoals.put("shop", 11);
-        streakGoals.put("determined", 10);
-        streakGoals.put("early_bird", 10);
-        streakGoals.put("talkative", 10);
-        streakGoals.put("secretive", 5);
+        streakGoals.put("studying", 0);
+        streakGoals.put("eating", 0);
+        streakGoals.put("flowers", 0);
+        streakGoals.put("town", 0);
+        streakGoals.put("shop", 0);
+        streakGoals.put("library", 0);
+        streakGoals.put("determined", 0);
+        streakGoals.put("early_bird", 0);
+        streakGoals.put("talkative", 0);
+        streakGoals.put("secretive", 0);
+
+//        streakGoals = new HashMap<String, Integer>();
+//        streakGoals.put("studying", 5);
+//        streakGoals.put("eating", 9);
+//        streakGoals.put("flowers", 5);
+//        streakGoals.put("town", 8);
+//        streakGoals.put("shop", 9);
+//        streakGoals.put("library", 5);
+//        streakGoals.put("determined", 10);
+//        streakGoals.put("early_bird", 10);
+//        streakGoals.put("talkative", 10);
+//        streakGoals.put("secretive", 5);
 
         // Load your texture
 
-        rch = new Texture(Gdx.files.internal(rch_path)); //for eating at the right times
+        book = new Texture(Gdx.files.internal(book_path)); //for studying and library
+        apple = new Texture(Gdx.files.internal(apple_path)); //for eating at the right times
         flower  = new Texture(Gdx.files.internal(flower_path)); //
         bus = new Texture(Gdx.files.internal(bus_path)); //
         shopping_basket = new Texture(Gdx.files.internal("Sprites/achievements/shopping_basket.png")); //
+        library_book = new Texture(Gdx.files.internal(library_book_path)); //
         fire = new Texture(Gdx.files.internal("Sprites/achievements/fire.png")); //
-        long_boi = new Texture(Gdx.files.internal("Sprites/achievements/early_bird.png")); //bird
+        early_bird = new Texture(Gdx.files.internal("Sprites/achievements/early_bird.png")); //bird
         talk = new Texture(Gdx.files.internal("Sprites/achievements/talk.png")); //
         chest = new Texture(Gdx.files.internal("Sprites/achievements/chest.png")); //use actual
 
         // Create an Image widget with the texture
-        Image rch_image = new Image(rch);
+        Image apple_image = new Image(apple);
         Image flower_image = new Image(flower);
         Image bus_image = new Image(bus);
         Image shopping_basket_image = new Image(shopping_basket);
         Image fire_image = new Image(fire);
-        Image long_boi_image = new Image(long_boi);
+        Image early_bird_image = new Image(early_bird);
         Image talk_image = new Image(talk);
         Image chest_image = new Image(chest);
+        Image book_image = new Image(book);
+        Image library_book_image = new Image(library_book);
+
 
         // Set position of the image
-        rch_image.setPosition(100, 20);
+        apple_image.setPosition(100, 20);
         flower_image.setPosition(950, 100);
         bus_image.setPosition(50, 300);
         shopping_basket_image.setPosition(1050, 300);
         fire_image.setPosition(950, 500);
-        long_boi_image.setPosition(100, 500);
+        early_bird_image.setPosition(100, 500);
         talk_image.setPosition(1000, 400);
         chest_image.setPosition(200, 200);
+        book_image.setPosition(3500, 200);
+        library_book_image.setPosition(3350, 200);
 
         //Iterate through the streaks to see which achievements were completed
         HashMap<String, Integer> streaksAchieved = EventManager.getStreaks();
@@ -150,8 +187,11 @@ public class GameOverScreen implements Screen {
             if (goal != null && streaksAchieved.get(task) >= goal) {
                 if (streaksAchieved.get(task) >= streakGoals.get(task)) {
                     switch (task) {
+                        case "studying":
+                            gameOverStage.addActor(book_image);
+                            break;
                         case "eating":
-                            gameOverStage.addActor(rch_image);
+                            gameOverStage.addActor(apple_image);
                             break;
                         case "flowers":
                             gameOverStage.addActor(flower_image);
@@ -166,13 +206,16 @@ public class GameOverScreen implements Screen {
                             gameOverStage.addActor(fire_image);
                             break;
                         case "early_bird":
-                            gameOverStage.addActor(long_boi_image);
+                            gameOverStage.addActor(early_bird_image);
                             break;
                         case "secretive":
                             gameOverStage.addActor(chest_image);
                             break;
                         case "talktative":
                             gameOverStage.addActor(talk_image);
+                            break;
+                        case "library":
+                            gameOverStage.addActor(library_book_image);
                             break;
                         default:
                             break;

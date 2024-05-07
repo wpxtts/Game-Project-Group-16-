@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.skloch.game.*;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -20,10 +21,15 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(GdxTestRunner.class)
 public class GameOverScreenTests {
+    private GameScreen game;
+    @Before
+    public void setUp(){
+        game = mock(GameScreen.class);
+    }
     @Test
-    public void testRCHAssetExists() {
+    public void testAppleAssetExists() {
         assertTrue("The sprite asset for this achievement doesn't exist",
-                Gdx.files.internal(GameOverScreen.rch_path).exists());
+                Gdx.files.internal(GameOverScreen.apple_path).exists());
     }
 
     @Test
@@ -46,7 +52,11 @@ public class GameOverScreenTests {
 
     @Test
     public void testPlayerScorePassed() {
-        int total = GameScreen.hoursStudied + GameScreen.hoursRecreational + GameScreen.hoursSlept;
+        // Example
+        int hoursStudied = 30;
+        int hoursRecreational = 50;
+        int hoursSlept = 144;
+        int total = hoursStudied + hoursRecreational + hoursSlept;
         assertEquals("The players score is above or equal to 40 (they passed)",
                 GameOverScreen.score, 40 + (1 / -total));
     }
