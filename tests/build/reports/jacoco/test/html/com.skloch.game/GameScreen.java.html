@@ -740,22 +740,22 @@ public class GameScreen implements Screen {
      * @return Returns 'breakfast', 'lunch' or 'dinner' depending on the time of day
      */
     public String getMeal() {
-<span class="nc" id="L743">        int hours = Math.floorDiv((int) daySeconds, 60);</span>
-<span class="nc bnc" id="L744" title="All 6 branches missed.">        if (hours &gt;= 7 &amp;&amp; hours &lt;= 10 &amp;&amp; !eventManager.breakfast) {</span>
+<span class="fc" id="L743">        int hours = Math.floorDiv((int) daySeconds, 60);</span>
+<span class="pc bpc" id="L744" title="5 of 6 branches missed.">        if (hours &gt;= 7 &amp;&amp; hours &lt;= 10 &amp;&amp; !eventManager.breakfast) {</span>
             //Breakfast between 7:00-10:59am
 <span class="nc" id="L746">            eventManager.breakfast = true;</span>
 <span class="nc" id="L747">            return &quot;breakfast&quot;;</span>
-<span class="nc bnc" id="L748" title="All 6 branches missed.">        } else if (hours &gt; 10 &amp;&amp; hours &lt;= 16 &amp;&amp; !eventManager.lunch) {</span>
+<span class="pc bpc" id="L748" title="5 of 6 branches missed.">        } else if (hours &gt; 10 &amp;&amp; hours &lt;= 16 &amp;&amp; !eventManager.lunch) {</span>
             // Lunch between 10:00am and 4:59pm
 <span class="nc" id="L750">            eventManager.lunch = true;</span>
 <span class="nc" id="L751">            return &quot;lunch&quot;;</span>
-<span class="nc bnc" id="L752" title="All 6 branches missed.">        } else if (hours &gt; 16 &amp;&amp; hours &lt;= 21 &amp;&amp; !eventManager.dinner) {</span>
+<span class="pc bpc" id="L752" title="5 of 6 branches missed.">        } else if (hours &gt; 16 &amp;&amp; hours &lt;= 21 &amp;&amp; !eventManager.dinner) {</span>
             // Dinner served between 4:00pm and 9:59pm
 <span class="nc" id="L754">            eventManager.dinner = true;</span>
 <span class="nc" id="L755">            return &quot;dinner&quot;;</span>
         } else {
             // Nothing is served between 10:00pm and 6:59am
-<span class="nc" id="L758">            return &quot;food&quot;;</span>
+<span class="fc" id="L758">            return &quot;food&quot;;</span>
         }
     }
 
@@ -797,15 +797,20 @@ public class GameScreen implements Screen {
      * @return The number of seconds elapsed in the day
      */
     public float getSeconds() {
-<span class="nc" id="L800">        return daySeconds;</span>
+<span class="fc" id="L800">        return daySeconds;</span>
     }
 
+    /**
+     * Sets the day's second value
+     * @param daySeconds
+     */
+<span class="fc" id="L807">    public void setSeconds(float daySeconds){this.daySeconds=daySeconds;}</span>
     /**
      * Ends the game, called at the end of the 7th day, switches to a screen that displays a score
      */
     public void GameOver() {
-<span class="nc" id="L807">        game.setScreen(new GameOverScreen(game, hoursStudied, hoursRecreational, hoursSlept, timesStudied));</span>
-<span class="nc" id="L808">    }</span>
+<span class="nc" id="L812">        game.setScreen(new GameOverScreen(game, hoursStudied, hoursRecreational, hoursSlept, timesStudied));</span>
+<span class="nc" id="L813">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

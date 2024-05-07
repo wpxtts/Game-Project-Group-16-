@@ -105,7 +105,8 @@ public class EventManager {
                 compSciEvent(args);
                 break;
             case "rch":
-                ronCookEvent(args);
+                String text = ronCookEvent(args);
+                game.dialogueBox.setText(text);
                 break;
             case "accomodation":
                 accomEvent(args);
@@ -174,8 +175,6 @@ public class EventManager {
     public void chestEvent() {
         game.dialogueBox.hideSelectBox();
         game.dialogueBox.setText("Wow! These barrels is full of so many magical items! I wonder how they will help you out on your journey! Boy, this is an awfully long piece of text, I wonder if someone is testing something?\n...\n...\n...\nHow cool!");
-
-
     }
 
     /**
@@ -192,37 +191,36 @@ public class EventManager {
      *
      * @param args Arguments to be passed, should contain the hours the player wants to meet friends for. E.g. ["piazza", "1"]
      */
-    public void ronCookEvent(String[] args) {
+    public String ronCookEvent(String[] args) {
         if (game.getSeconds() > 8*60) {
             int energyCost = activityEnergies.get("meet_friends");
             // If the player is too tired to meet friends
             if (game.getEnergy() < energyCost) {
-                game.dialogueBox.setText("You are too tired to meet your friends right now!");
                 if (daily.get("determined") < 3){
                     // increase player's meeting friends streak if under limit
                     streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
                 }
-
+                return "You are too tired to meet your friends right now!";
             } else if (args.length == 1) {
                 // Ask the player to chat about something (makes no difference)
                 String[] topics = randomTopics(3);
-                game.dialogueBox.setText("What do you want to chat about?");
                 game.dialogueBox.getSelectBox().setOptions(topics, new String[]{"rch-"+topics[0], "rch-"+topics[1], "rch-"+topics[2]});
+                return "What do you want to chat about?";
             } else {
                 // Say that the player chatted about this topic for 1-3 hours
                 // RNG factor adds a slight difficulty (may consume too much energy to study)
                 int hours = ThreadLocalRandom.current().nextInt(1, 4);
-                game.dialogueBox.setText(String.format("You talked about %s for %d hours!", args[1].toLowerCase(), hours));
                 game.decreaseEnergy(energyCost * hours);
                 game.passTime(hours * 60); // in seconds
                 game.addRecreationalHours(hours);
+                return String.format("You talked about %s for %d hours!", args[1].toLowerCase(), hours);
             }
         } else {
-            game.dialogueBox.setText("It's too early in the morning to meet your friends, go to bed!");
             if (daily.get("early_bird") < 3){
                 // increase player's meeting friends streak if under limit
                 streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
             }
+            return "It's too early in the morning to meet your friends, go to bed!";
         }
     }
 

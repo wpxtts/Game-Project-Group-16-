@@ -3,6 +3,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.skloch.game.*;
 import org.junit.Before;
@@ -21,7 +22,7 @@ public class EventManagerTests {
     private EventManager eventManager;
     @Before
     public void setUp(){
-        game = mock(GameScreen.class);
+        game = new GameScreen(mock(HustleGame.class),1,false);
         eventManager = new EventManager(game);
     }
     @Test
@@ -92,6 +93,15 @@ public class EventManagerTests {
         eventManager.objectInteractions.put("object1","result1");
         assertTrue(eventManager.hasCustomObjectInteraction("object1"));
         assertFalse(eventManager.hasCustomObjectInteraction("This isn't an object"));
+    }
+
+    @Test
+    public void testRonCookeEvent(){
+        game.setSeconds(10);
+        String[] args = new String[1];
+        args[0] = "rch";
+        String result = eventManager.ronCookEvent(args);
+        assertEquals("It's too early in the morning to meet your friends, go to bed!",result);
     }
 
     //add fade to black test?

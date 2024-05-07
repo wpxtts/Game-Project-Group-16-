@@ -15,6 +15,7 @@ public class DialogueBox {
     private Window dialogueWindow;
     private Table dialogueTable;
     private Label textLabel;
+    public String text;
     private Skin skin;
     private final int MAXCHARS;
     private SelectBox selectBox;
@@ -236,7 +237,8 @@ public class DialogueBox {
      * @param text
      */
     public void setText(String text) {
-        initialiseLabelText(text);
+        this.text = text;
+        initialiseLabelText();
         scrollingText = true;
         textCounter = 0;
     }
@@ -248,7 +250,8 @@ public class DialogueBox {
      * @param eventKey The event key to be triggered
      */
     public void setText(String text, String eventKey) {
-        initialiseLabelText(text);
+        this.text = text;
+        initialiseLabelText();
         this.eventKey = eventKey;
         scrollingText = true;
         textCounter = 0;
@@ -271,10 +274,8 @@ public class DialogueBox {
      * accounts for any occuring linebreaks to take use of the size of the most space possible.
      * Stores the formatted text in 3 chunks, which are then queued up to be pushed to the label whenever the user
      * presses e.
-     *
-     * @param text The text to format and push to the label
      */
-    public void initialiseLabelText(String text) {
+    public void initialiseLabelText() {
         // Add a newline every 36 chars
         String newString = "";
         int lastSpace = 0;

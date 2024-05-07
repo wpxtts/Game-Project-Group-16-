@@ -801,6 +801,11 @@ public class GameScreen implements Screen {
     }
 
     /**
+     * Sets the day's second value
+     * @param daySeconds
+     */
+    public void setSeconds(float daySeconds){this.daySeconds=daySeconds;}
+    /**
      * Ends the game, called at the end of the 7th day, switches to a screen that displays a score
      */
     public void GameOver() {
