@@ -28,12 +28,9 @@ public class DialogueBoxTests {
     @Before
     public void setUp() {
         skin = new Skin();
-<<<<<<< Updated upstream
-        //dialogueBox = new DialogueBox(skin);
-=======
+
         dialogueBox = mock(DialogueBox.class);
         selectBox = mock(DialogueBox.SelectBox.class);
->>>>>>> Stashed changes
     }
     @Test
     public void testSetText() {

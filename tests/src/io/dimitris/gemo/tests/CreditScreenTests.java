@@ -21,7 +21,7 @@ public class CreditScreenTests {
         game = mock(HustleGame.class);
         game.soundManager = mock(SoundManager.class);
         menuScreen = mock(MenuScreen.class);
-        creditScreen = mock(CreditScreen.class);
+        creditScreen = new CreditScreen(game, menuScreen,false);
     }
     @Test
     public void testCreditScreenExit(){
