@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +17,8 @@ public class EventManager {
     private final GameScreen game;
     public final HashMap<String, Integer> activityEnergies;
     public final HashMap<String, String> objectInteractions;
+    private String[] activities = {"studying", "meet_friends", "eating", "flowers", "town", "shop", "gym", "library", "east"};
+    public static String[] streak_activities = {"studying", "flowers", "town", "shop", "library", "determined", "early_bird"};
     private final Array<String> talkTopics;
 
     public static HashMap<String, Integer> streaks, daily;
@@ -38,15 +41,9 @@ public class EventManager {
 
         // How much energy an hour of each activity should take
         activityEnergies = new HashMap<String, Integer>();
-        activityEnergies.put("studying", 10);
-        activityEnergies.put("meet_friends", 10);
-        activityEnergies.put("eating", 10);
-        activityEnergies.put("flowers", 10);
-        activityEnergies.put("town", 10);
-        activityEnergies.put("shop", 10);
-        activityEnergies.put("gym", 10);
-        activityEnergies.put("library", 10);
-        activityEnergies.put("east", 10);
+        for (String activity : activities){
+            activityEnergies.put(activity, 10);
+        }
 
 
         // Define what to say when interacting with an object whose text won't change
@@ -66,23 +63,15 @@ public class EventManager {
 
         // How much energy an hour of each activity should take
         streaks = new HashMap<String, Integer>();
-        streaks.put("studying", 0);
-        streaks.put("flowers", 0);
-        streaks.put("town", 0);
-        streaks.put("shop", 0);
-        streaks.put("library", 0);
-        streaks.put("determined", 0); //try to do activities without energy
-        streaks.put("early_bird", 0); //try to do activities too early in the day
+        for (String streak_activity : streak_activities){
+            streaks.put(streak_activity, 0);
+        }
 
         // Limits number of times each streak can be increased to 3 times a day
         daily = new HashMap<String, Integer>();
-        daily.put("studying", 0);
-        daily.put("flowers", 0);
-        daily.put("town", 0);
-        daily.put("shop", 0);
-        daily.put("library", 0);
-        daily.put("determined", 0); //try to do activities without energy
-        daily.put("early_bird", 0); //try to do activities too early in the day
+        for (String streak_activity : streak_activities){
+            daily.put(streak_activity, 0);
+        }
 
         // Some random topics that can be chatted about
         String[] topics = {"Dogs", "Cats", "Exams", "Celebrities", "Flatmates", "Video games", "Sports", "Food", "Fashion"};

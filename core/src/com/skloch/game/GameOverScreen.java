@@ -91,12 +91,12 @@ public class GameOverScreen implements Screen {
             }else{
                 result = "Third";
             }
-            scoresTable.add(new Label(String.format("You scored %d%% in you exam. \n Well done, you got a %s!", score, result), game.skin, "interaction")).padBottom(5);
+            scoresTable.add(new Label(String.format("You scored %d%% in you exam.\nWell done, you got a %s!", score, result), game.skin, "interaction")).padBottom(5);
             scoresTable.row();
         }else{
             //score = 39 + (1/-total);
             score = (int) (Math.random() * 39);
-            Label message = new Label(String.format("You scored %d%% in you exam. That's not a pass :(", score), game.skin, "interaction");
+            Label message = new Label(String.format("You scored %d%% in you exam.\nThat's not a pass :(", score), game.skin, "interaction");
             scoresTable.add(message).padBottom(5);
             scoresTable.row();
         }
@@ -116,14 +116,10 @@ public class GameOverScreen implements Screen {
 
         // Hidden achievements
         streakGoals = new HashMap<String, Integer>();
-        streakGoals.put("studying", 0);
-        streakGoals.put("eating", 0);
-        streakGoals.put("flowers", 0);
-        streakGoals.put("town", 0);
-        streakGoals.put("shop", 0);
-        streakGoals.put("library", 0);
-        streakGoals.put("determined", 0);
-        streakGoals.put("early_bird", 0);
+        //debugging
+        for (String streak_activity : EventManager.streak_activities){
+            streakGoals.put(streak_activity, 0);
+        }
 
 //        streakGoals = new HashMap<String, Integer>();
 //        streakGoals.put("studying", 5);
