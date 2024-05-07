@@ -119,20 +119,21 @@ public class Player {
         if (!frozen) {
             // Move the player and their 2 other hitboxes
             moving = false;
+            //double speed_dampener = 1/Math.sqrt(2);
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
                 direction = movePlayer(left,speed,delta);
                 moving = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
-                direction = movePlayer(right,speed,delta);
+                direction = movePlayer(left,speed,delta);
                 moving = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
-                direction = movePlayer(up,speed,delta);
+                direction = movePlayer(left,speed,delta);
                 moving = true;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
-                direction = movePlayer(down,speed,delta);
+                direction = movePlayer(left,speed,delta);
                 moving = true;
             }
 
