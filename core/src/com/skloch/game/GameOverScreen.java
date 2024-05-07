@@ -26,7 +26,6 @@ import java.util.Map;
  */
 public class GameOverScreen implements Screen {
     public static HustleGame game;
-    private EventManager events;
     Stage gameOverStage;
     Viewport viewport;
     OrthographicCamera camera;
@@ -39,7 +38,7 @@ public class GameOverScreen implements Screen {
     public static String flower_path = "Sprites/achievements/flower.png";
     public static String bus_path = "Sprites/achievements/bus.png";
     public static String book_path = "Sprites/achievements/book.png";
-    public static String library_book_path = "Sprites/achievements/book.png";
+    public static String library_book_path = "Sprites/achievements/library_book.png";
 
     /**
      * A screen to display a 'Game Over' screen when the player finishes their exams
@@ -167,16 +166,16 @@ public class GameOverScreen implements Screen {
 
 
         // Set position of the image
-        apple_image.setPosition(100, 20);
+        apple_image.setPosition(1050, 200);
         flower_image.setPosition(950, 100);
         bus_image.setPosition(50, 300);
-        shopping_basket_image.setPosition(1050, 300);
-        fire_image.setPosition(950, 500);
+        shopping_basket_image.setPosition(950, 500);
+        fire_image.setPosition(950, 750);
         early_bird_image.setPosition(100, 500);
         talk_image.setPosition(1000, 400);
         chest_image.setPosition(200, 200);
-        book_image.setPosition(3500, 200);
-        library_book_image.setPosition(3350, 200);
+        book_image.setPosition(50, 75);
+        library_book_image.setPosition(1050, 300);
 
         //Iterate through the streaks to see which achievements were completed
         HashMap<String, Integer> streaksAchieved = EventManager.getStreaks();
