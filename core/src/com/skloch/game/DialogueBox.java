@@ -15,12 +15,8 @@ public class DialogueBox {
     private static Window dialogueWindow;
     private Table dialogueTable;
     private Label textLabel;
-<<<<<<< Updated upstream
     public String text;
-    private Skin skin;
-=======
     private static Skin skin;
->>>>>>> Stashed changes
     private final int MAXCHARS;
     private SelectBox selectBox;
     private Array<String> textLines;
