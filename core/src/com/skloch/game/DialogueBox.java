@@ -92,7 +92,8 @@ public class DialogueBox {
          * @param options The options available to the player e.g. "Yes" and "No"
          * @param events The events called to the option of the same index E.g. "piazza" and "closeDialogue"
          */
-        public void setOptions (String[] options, String[] events) {
+        public void setOptions(String[] options, String[] events) {
+            choiceIndex = 0;
             selectTable.clearChildren();
 
             this.options = options;
@@ -111,23 +112,26 @@ public class DialogueBox {
             }
 
             selectTable.pack();
-            selectWindow.setWidth(selectTable.getWidth()+70);
-            selectWindow.setHeight(selectTable.getHeight()+70);
+            selectWindow.setWidth(selectTable.getWidth() + 70);
+            selectWindow.setHeight(selectTable.getHeight() + 70);
 
-            // selectWindow.add(selectTable);
+            // Check and adjust choiceIndex if it exceeds the number of current options
+            if (choiceIndex >= options.length) {
+                choiceIndex = options.length - 1; // Set to the last valid index
+            }
 
-            // Recenter
+            // Show the pointer at the adjusted or existing choiceIndex
+            optionPointers.get(choiceIndex).setVisible(true);
+
+            // Reposition the select window if needed
             selectWindow.setPosition(
                     dialogueWindow.getX() + dialogueWindow.getWidth() - selectWindow.getWidth(),
-                    dialogueWindow.getY() + dialogueWindow.getHeight()-24
+                    dialogueWindow.getY() + dialogueWindow.getHeight() - 24
             );
 
-            // Show first pointer
-//            setChoice(0);
-            show();
-
-
+            show(); // Make sure to show the updated options with the pointer
         }
+
         public static String getText(String text){
             return text;
         }
