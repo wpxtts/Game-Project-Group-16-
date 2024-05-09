@@ -17,7 +17,7 @@ public class EventManager {
     private final GameScreen game;
     public final HashMap<String, Integer> activityEnergies;
     public final HashMap<String, String> objectInteractions;
-    private String[] activities = {"studying", "meet_friends", "eating", "flowers", "town", "shop", "gym", "library", "east"};
+    private String[] activities = {"studying", "meet_friends", "eating", "flowers", "town", "shop", "gym", "duck_pond", "library", "east"};
     public static String[] streak_activities = {"studying", "flowers", "town", "shop", "library", "determined", "early_bird"};
     private final Array<String> talkTopics;
 
@@ -57,6 +57,7 @@ public class EventManager {
         objectInteractions.put("flowers", "Smell the flowers?");
         objectInteractions.put("shop", "Buy food from the shop?");
         objectInteractions.put("gym", "Work out at the gym?");
+        objectInteractions.put("duck_pond", "Feed the ducks?");
         objectInteractions.put("library", "Study at the library?");
         objectInteractions.put("town", "Get the bus to town?");
         objectInteractions.put("east", "Get the bus back to east?");
@@ -128,6 +129,9 @@ public class EventManager {
                 break;
             case "east":
                 townBusStopEvent(args);
+                break;
+            case "duck_pond":
+                duckPondEvent(args);
                 break;
             case "exit":
                 // Should do nothing and just close the dialogue menu
@@ -528,6 +532,47 @@ public class EventManager {
             }
         } else {
             game.dialogueBox.setText("It's too early to work out, the gym's not open yet!");
+            if (daily.get("early_bird") < 3){
+                // increase player's meeting friends streak if under limit
+                streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+            }
+        }
+    }
+
+    /**
+     * The event to be run when interacting with the duck pond
+     * Gives the player the option to feed the ducks for 1, 2 or 3 hours
+     * @param args
+     */
+    public void duckPondEvent(String[] args) {
+        if (game.getSeconds() > 8*60) {
+            int energyCost = activityEnergies.get("duck_pond");
+            // If the player is too tired for any travelling:
+            if (game.getEnergy() < energyCost) {
+                game.dialogueBox.hideSelectBox();
+                game.dialogueBox.setText("You are too tired to feed the ducks right now!");
+                if (daily.get("determined") < 3){
+                    // increase player's meeting friends streak if under limit
+                    streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
+                }
+            } else if (args.length == 1) {
+                // If the player has not yet chosen how many hours, ask
+                game.dialogueBox.setText("Feed the ducks for how long?");
+                game.dialogueBox.getSelectBox().setOptions(new String[]{"1 Hour (10)", "2 Hours (20)", "3 Hours (30)"}, new String[]{"duck_pond-1", "duck_pond-2", "duck_pond-3"});
+            } else {
+                int hours = Integer.parseInt(args[1]);
+                // If the player does not have enough energy for the selected hours
+                if (game.getEnergy() < hours*energyCost) {
+                    game.dialogueBox.setText("You don't have the energy to feed the ducks right now! Head back to east!");
+                } else {
+                    // If they do have the energy to buy  food
+                    game.dialogueBox.setText(String.format("You spent %s hours feeding the ducks.\nYou lost %d energy", args[1], hours*energyCost));
+                    game.decreaseEnergy(energyCost * hours);
+                    game.passTime(hours * 60); // in seconds
+                }
+            }
+        } else {
+            game.dialogueBox.setText("It's too early to feed the ducks, they're not hungry!");
             if (daily.get("early_bird") < 3){
                 // increase player's meeting friends streak if under limit
                 streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
