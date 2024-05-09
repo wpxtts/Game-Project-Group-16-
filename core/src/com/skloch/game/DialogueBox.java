@@ -18,7 +18,7 @@ public class DialogueBox {
     public String text;
     private static Skin skin;
     private final int MAXCHARS;
-    private SelectBox selectBox;
+    public SelectBox selectBox;
     private Array<String> textLines;
     private int linePointer = 0;
     private String eventKey = null;
@@ -27,34 +27,35 @@ public class DialogueBox {
 
 
 
-    public DialogueBox (Skin skin) {
+    public DialogueBox (Skin skin,boolean draw) {
         // Define some key values
         int WIDTH = 800;
         int HEIGHT = 200;
         MAXCHARS = 35;
         this.skin = skin;
-        // Create the window for the dialogue box
-        dialogueWindow = new Window("", skin);
+        if(draw) {
+            // Create the window for the dialogue box
+            dialogueWindow = new Window("", skin);
 
-        // Create the table for the text in the dialogue box
-        dialogueTable = new Table();
-        dialogueWindow.addActor(dialogueTable);
-        dialogueTable.setFillParent(true);
+            // Create the table for the text in the dialogue box
+            dialogueTable = new Table();
+            dialogueWindow.addActor(dialogueTable);
+            dialogueTable.setFillParent(true);
 
-        textLabel = new Label("Are you sure you want to sleep at the Piazza? This will cost you 10 energy", skin, "dialogue");
-        dialogueTable.add(textLabel).expand().width(WIDTH - 80).top().padTop(40);
-        textLabel.setWrap(false);
+            textLabel = new Label("Are you sure you want to sleep at the Piazza? This will cost you 10 energy", skin, "dialogue");
+            dialogueTable.add(textLabel).expand().width(WIDTH - 80).top().padTop(40);
+            textLabel.setWrap(false);
 
 
-        dialogueWindow.setWidth(WIDTH);
-        dialogueWindow.setHeight(HEIGHT);
+            dialogueWindow.setWidth(WIDTH);
+            dialogueWindow.setHeight(HEIGHT);
 
-        // Create selection box to allow user to make choices when interacting with objects (class defined below)
-        this.selectBox = new SelectBox();
-        selectBox.setOptions(new String[]{"Yes", "No"}, new String[]{"piazza", "close"});
+            // Create selection box to allow user to make choices when interacting with objects (class defined below)
+            this.selectBox = new SelectBox();
+            selectBox.setOptions(new String[]{"Yes", "No"}, new String[]{"piazza", "close"});
 
-        setText("Are you sure you want to sleep at the Piazza? This will cost you 10 energy");
-
+            setText("Are you sure you want to sleep at the Piazza? This will cost you 10 energy");
+        }
     }
 
     /**

@@ -29,7 +29,7 @@ public class GameOverScreen implements Screen {
     Stage gameOverStage;
     Viewport viewport;
     OrthographicCamera camera;
-    public static int score;
+    public int score;
 
     // Hidden achievement badges
     public static HashMap&lt;String, Integer&gt; streakGoals;
@@ -79,155 +79,154 @@ public class GameOverScreen implements Screen {
 
         // Final score calculation
         //int total = hoursStudied + hoursRecreational + hoursSlept;
-<span class="nc" id="L82">        score = ((hoursStudied/32)*60 + (hoursRecreational/30)*20 + ((hoursSlept)/144)*20);</span>
-<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (timesStudied &gt;= 7){</span>
+<span class="nc" id="L82">        score = Math.max(40,Math.min(100,</span>
+<span class="nc" id="L83">                Math.round((((float)hoursStudied/32)*60 + ((float)hoursRecreational/30)*20 + (((float)hoursSlept)/144)*20))));</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (timesStudied &gt;= 7){</span>
             String result;
-<span class="nc bnc" id="L85" title="All 2 branches missed.">            if (score &gt;= 70){</span>
-<span class="nc" id="L86">                result = &quot;First&quot;;</span>
-<span class="nc bnc" id="L87" title="All 2 branches missed.">            }else if (score &gt;= 60){</span>
-<span class="nc" id="L88">                result = &quot;2:1&quot;;</span>
-<span class="nc bnc" id="L89" title="All 2 branches missed.">            }else if (score &gt;= 50){</span>
-<span class="nc" id="L90">                result = &quot;2:2&quot;;</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">            if (score &gt;= 70){</span>
+<span class="nc" id="L87">                result = &quot;First&quot;;</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">            }else if (score &gt;= 60){</span>
+<span class="nc" id="L89">                result = &quot;2:1&quot;;</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">            }else if (score &gt;= 50){</span>
+<span class="nc" id="L91">                result = &quot;2:2&quot;;</span>
             }else{
-<span class="nc" id="L92">                result = &quot;Third&quot;;</span>
+<span class="nc" id="L93">                result = &quot;Third&quot;;</span>
             }
-<span class="nc" id="L94">            scoresTable.add(new Label(String.format(&quot;You scored %d%% in you exam.\nWell done, you got a %s!&quot;, score, result), game.skin, &quot;interaction&quot;)).padBottom(5);</span>
-<span class="nc" id="L95">            scoresTable.row();</span>
-<span class="nc" id="L96">        }else{</span>
+<span class="nc" id="L95">            scoresTable.add(new Label(String.format(&quot;You scored %d%% in you exam.\nWell done, you got a %s!&quot;, score, result), game.skin, &quot;interaction&quot;)).padBottom(5);</span>
+<span class="nc" id="L96">            scoresTable.row();</span>
+<span class="nc" id="L97">        }else{</span>
             //score = 39 + (1/-total);
-<span class="nc" id="L98">            score = (int) (Math.random() * 39);</span>
-<span class="nc" id="L99">            Label message = new Label(String.format(&quot;You scored %d%% in you exam.\nThat's not a pass :(&quot;, score), game.skin, &quot;interaction&quot;);</span>
-<span class="nc" id="L100">            scoresTable.add(message).padBottom(5);</span>
-<span class="nc" id="L101">            scoresTable.row();</span>
+<span class="nc" id="L99">            score = (int) (Math.random() * 39);</span>
+<span class="nc" id="L100">            Label message = new Label(String.format(&quot;You scored %d%% in you exam.\nThat's not a pass :(&quot;, score), game.skin, &quot;interaction&quot;);</span>
+<span class="nc" id="L101">            scoresTable.add(message).padBottom(5);</span>
+<span class="nc" id="L102">            scoresTable.row();</span>
         }
 
         // Display scores
-<span class="nc" id="L105">        scoresTable.add(new Label(&quot;Hours Studied&quot;, game.skin, &quot;interaction&quot;)).padBottom(5);</span>
-<span class="nc" id="L106">        scoresTable.row();</span>
-<span class="nc" id="L107">        scoresTable.add(new Label(String.valueOf(hoursStudied), game.skin, &quot;button&quot;)).padBottom(15);</span>
-<span class="nc" id="L108">        scoresTable.row();</span>
-<span class="nc" id="L109">        scoresTable.add(new Label(&quot;Recreational hours&quot;, game.skin, &quot;interaction&quot;)).padBottom(5);</span>
-<span class="nc" id="L110">        scoresTable.row();</span>
-<span class="nc" id="L111">        scoresTable.add(new Label(String.valueOf(hoursRecreational), game.skin, &quot;button&quot;)).padBottom(15);</span>
-<span class="nc" id="L112">        scoresTable.row();</span>
-<span class="nc" id="L113">        scoresTable.add(new Label(&quot;Hours Slept&quot;, game.skin, &quot;interaction&quot;)).padBottom(5);</span>
-<span class="nc" id="L114">        scoresTable.row();</span>
-<span class="nc" id="L115">        scoresTable.add(new Label(String.valueOf(hoursSlept), game.skin, &quot;button&quot;));</span>
+<span class="nc" id="L106">        scoresTable.add(new Label(&quot;Hours Studied&quot;, game.skin, &quot;interaction&quot;)).padBottom(5);</span>
+<span class="nc" id="L107">        scoresTable.row();</span>
+<span class="nc" id="L108">        scoresTable.add(new Label(String.valueOf(hoursStudied), game.skin, &quot;button&quot;)).padBottom(15);</span>
+<span class="nc" id="L109">        scoresTable.row();</span>
+<span class="nc" id="L110">        scoresTable.add(new Label(&quot;Recreational hours&quot;, game.skin, &quot;interaction&quot;)).padBottom(5);</span>
+<span class="nc" id="L111">        scoresTable.row();</span>
+<span class="nc" id="L112">        scoresTable.add(new Label(String.valueOf(hoursRecreational), game.skin, &quot;button&quot;)).padBottom(15);</span>
+<span class="nc" id="L113">        scoresTable.row();</span>
+<span class="nc" id="L114">        scoresTable.add(new Label(&quot;Hours Slept&quot;, game.skin, &quot;interaction&quot;)).padBottom(5);</span>
+<span class="nc" id="L115">        scoresTable.row();</span>
+<span class="nc" id="L116">        scoresTable.add(new Label(String.valueOf(hoursSlept), game.skin, &quot;button&quot;));</span>
 
         // Hidden achievements
-<span class="nc" id="L118">        streakGoals = new HashMap&lt;String, Integer&gt;();</span>
-        //debugging
-<span class="nc bnc" id="L120" title="All 2 branches missed.">        for (String streak_activity : EventManager.streak_activities){</span>
-<span class="nc" id="L121">            streakGoals.put(streak_activity, 0);</span>
-        }
-
-//        streakGoals = new HashMap&lt;String, Integer&gt;();
-//        streakGoals.put(&quot;studying&quot;, 5);
-//        streakGoals.put(&quot;eating&quot;, 9);
-//        streakGoals.put(&quot;flowers&quot;, 5);
-//        streakGoals.put(&quot;town&quot;, 8);
-//        streakGoals.put(&quot;shop&quot;, 9);
-//        streakGoals.put(&quot;library&quot;, 5);
-//        streakGoals.put(&quot;determined&quot;, 10);
-//        streakGoals.put(&quot;early_bird&quot;, 10);
+<span class="nc" id="L119">        streakGoals = new HashMap&lt;String, Integer&gt;();</span>
+//        //debugging
+//        for (String streak_activity : EventManager.streak_activities){
+//            streakGoals.put(streak_activity, 0);
+//        }
+<span class="nc" id="L124">        streakGoals.put(&quot;studying&quot;, 5);</span>
+<span class="nc" id="L125">        streakGoals.put(&quot;eating&quot;, 9);</span>
+<span class="nc" id="L126">        streakGoals.put(&quot;flowers&quot;, 5);</span>
+<span class="nc" id="L127">        streakGoals.put(&quot;town&quot;, 8);</span>
+<span class="nc" id="L128">        streakGoals.put(&quot;shop&quot;, 9);</span>
+<span class="nc" id="L129">        streakGoals.put(&quot;library&quot;, 5);</span>
+<span class="nc" id="L130">        streakGoals.put(&quot;determined&quot;, 10);</span>
+<span class="nc" id="L131">        streakGoals.put(&quot;early_bird&quot;, 10);</span>
 
         // Load your texture
 
-<span class="nc" id="L136">        book = new Texture(Gdx.files.internal(book_path)); //for studying and library</span>
-<span class="nc" id="L137">        apple = new Texture(Gdx.files.internal(apple_path)); //for eating at the right times</span>
-<span class="nc" id="L138">        flower  = new Texture(Gdx.files.internal(flower_path)); //</span>
-<span class="nc" id="L139">        bus = new Texture(Gdx.files.internal(bus_path)); //</span>
-<span class="nc" id="L140">        shopping_basket = new Texture(Gdx.files.internal(&quot;Sprites/achievements/shopping_basket.png&quot;)); //</span>
-<span class="nc" id="L141">        library_book = new Texture(Gdx.files.internal(library_book_path)); //</span>
-<span class="nc" id="L142">        fire = new Texture(Gdx.files.internal(&quot;Sprites/achievements/fire.png&quot;)); //</span>
-<span class="nc" id="L143">        early_bird = new Texture(Gdx.files.internal(&quot;Sprites/achievements/early_bird.png&quot;)); //bird</span>
+<span class="nc" id="L135">        book = new Texture(Gdx.files.internal(book_path)); //for studying and library</span>
+<span class="nc" id="L136">        apple = new Texture(Gdx.files.internal(apple_path)); //for eating at the right times</span>
+<span class="nc" id="L137">        flower  = new Texture(Gdx.files.internal(flower_path)); //</span>
+<span class="nc" id="L138">        bus = new Texture(Gdx.files.internal(bus_path)); //</span>
+<span class="nc" id="L139">        shopping_basket = new Texture(Gdx.files.internal(&quot;Sprites/achievements/shopping_basket.png&quot;)); //</span>
+<span class="nc" id="L140">        library_book = new Texture(Gdx.files.internal(library_book_path)); //</span>
+<span class="nc" id="L141">        fire = new Texture(Gdx.files.internal(&quot;Sprites/achievements/fire.png&quot;)); //</span>
+<span class="nc" id="L142">        early_bird = new Texture(Gdx.files.internal(&quot;Sprites/achievements/early_bird.png&quot;)); //bird</span>
 
         // Create an Image widget with the texture
-<span class="nc" id="L146">        Image apple_image = new Image(apple);</span>
-<span class="nc" id="L147">        Image flower_image = new Image(flower);</span>
-<span class="nc" id="L148">        Image bus_image = new Image(bus);</span>
-<span class="nc" id="L149">        Image shopping_basket_image = new Image(shopping_basket);</span>
-<span class="nc" id="L150">        Image fire_image = new Image(fire);</span>
-<span class="nc" id="L151">        Image early_bird_image = new Image(early_bird);</span>
-<span class="nc" id="L152">        Image book_image = new Image(book);</span>
-<span class="nc" id="L153">        Image library_book_image = new Image(library_book);</span>
+<span class="nc" id="L145">        Image apple_image = new Image(apple);</span>
+<span class="nc" id="L146">        Image flower_image = new Image(flower);</span>
+<span class="nc" id="L147">        Image bus_image = new Image(bus);</span>
+<span class="nc" id="L148">        Image shopping_basket_image = new Image(shopping_basket);</span>
+<span class="nc" id="L149">        Image fire_image = new Image(fire);</span>
+<span class="nc" id="L150">        Image early_bird_image = new Image(early_bird);</span>
+<span class="nc" id="L151">        Image book_image = new Image(book);</span>
+<span class="nc" id="L152">        Image library_book_image = new Image(library_book);</span>
 
 
         // Set position of the image
-<span class="nc" id="L157">        apple_image.setPosition(1050, 200);</span>
-<span class="nc" id="L158">        flower_image.setPosition(950, 100);</span>
-<span class="nc" id="L159">        bus_image.setPosition(50, 300);</span>
-<span class="nc" id="L160">        shopping_basket_image.setPosition(950, 500);</span>
-<span class="nc" id="L161">        fire_image.setPosition(950, 750);</span>
-<span class="nc" id="L162">        early_bird_image.setPosition(100, 500);</span>
-<span class="nc" id="L163">        book_image.setPosition(50, 75);</span>
-<span class="nc" id="L164">        library_book_image.setPosition(1050, 300);</span>
+<span class="nc" id="L156">        apple_image.setPosition(1050, 200);</span>
+<span class="nc" id="L157">        flower_image.setPosition(950, 100);</span>
+<span class="nc" id="L158">        bus_image.setPosition(50, 300);</span>
+<span class="nc" id="L159">        shopping_basket_image.setPosition(950, 500);</span>
+<span class="nc" id="L160">        fire_image.setPosition(950, 750);</span>
+<span class="nc" id="L161">        early_bird_image.setPosition(100, 500);</span>
+<span class="nc" id="L162">        book_image.setPosition(50, 75);</span>
+<span class="nc" id="L163">        library_book_image.setPosition(1050, 300);</span>
 
         //Iterate through the streaks to see which achievements were completed
-<span class="nc" id="L167">        HashMap&lt;String, Integer&gt; streaksAchieved = EventManager.getStreaks();</span>
-<span class="nc bnc" id="L168" title="All 2 branches missed.">        for (Map.Entry&lt;String, Integer&gt; entry : streaksAchieved.entrySet()) {</span>
-<span class="nc" id="L169">            String task = entry.getKey();</span>
+<span class="nc" id="L166">        HashMap&lt;String, Integer&gt; streaksAchieved = EventManager.getStreaks();</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">        for (Map.Entry&lt;String, Integer&gt; entry : streaksAchieved.entrySet()) {</span>
+<span class="nc" id="L168">            String task = entry.getKey();</span>
             //render the achievement on the GameOver screen if the achievement requirements have been met
-<span class="nc" id="L171">            Integer goal = streakGoals.get(task);</span>
-<span class="nc bnc" id="L172" title="All 4 branches missed.">            if (goal != null &amp;&amp; streaksAchieved.get(task) &gt;= goal) {</span>
-<span class="nc bnc" id="L173" title="All 2 branches missed.">                if (streaksAchieved.get(task) &gt;= streakGoals.get(task)) {</span>
-<span class="nc bnc" id="L174" title="All 9 branches missed.">                    switch (task) {</span>
+<span class="nc" id="L170">            Integer goal = streakGoals.get(task);</span>
+<span class="nc bnc" id="L171" title="All 4 branches missed.">            if (goal != null &amp;&amp; streaksAchieved.get(task) &gt;= goal) {</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">                if (streaksAchieved.get(task) &gt;= streakGoals.get(task)) {</span>
+<span class="nc bnc" id="L173" title="All 9 branches missed.">                    switch (task) {</span>
                         case &quot;studying&quot;:
-<span class="nc" id="L176">                            gameOverStage.addActor(book_image);</span>
-<span class="nc" id="L177">                            break;</span>
+<span class="nc" id="L175">                            gameOverStage.addActor(book_image);</span>
+<span class="nc" id="L176">                            break;</span>
                         case &quot;eating&quot;:
-<span class="nc" id="L179">                            gameOverStage.addActor(apple_image);</span>
-<span class="nc" id="L180">                            break;</span>
+<span class="nc" id="L178">                            gameOverStage.addActor(apple_image);</span>
+<span class="nc" id="L179">                            break;</span>
                         case &quot;flowers&quot;:
-<span class="nc" id="L182">                            gameOverStage.addActor(flower_image);</span>
-<span class="nc" id="L183">                            break;</span>
+<span class="nc" id="L181">                            gameOverStage.addActor(flower_image);</span>
+<span class="nc" id="L182">                            break;</span>
                         case &quot;town&quot;:
-<span class="nc" id="L185">                            gameOverStage.addActor(bus_image);</span>
-<span class="nc" id="L186">                            break;</span>
+<span class="nc" id="L184">                            gameOverStage.addActor(bus_image);</span>
+<span class="nc" id="L185">                            break;</span>
                         case &quot;shop&quot;:
-<span class="nc" id="L188">                            gameOverStage.addActor(shopping_basket_image);</span>
-<span class="nc" id="L189">                            break;</span>
+<span class="nc" id="L187">                            gameOverStage.addActor(shopping_basket_image);</span>
+<span class="nc" id="L188">                            break;</span>
                         case &quot;determined&quot;:
-<span class="nc" id="L191">                            gameOverStage.addActor(fire_image);</span>
-<span class="nc" id="L192">                            break;</span>
+<span class="nc" id="L190">                            gameOverStage.addActor(fire_image);</span>
+<span class="nc" id="L191">                            break;</span>
                         case &quot;early_bird&quot;:
-<span class="nc" id="L194">                            gameOverStage.addActor(early_bird_image);</span>
-<span class="nc" id="L195">                            break;</span>
+<span class="nc" id="L193">                            gameOverStage.addActor(early_bird_image);</span>
+<span class="nc" id="L194">                            break;</span>
                         case &quot;library&quot;:
-<span class="nc" id="L197">                            gameOverStage.addActor(library_book_image);</span>
-<span class="nc" id="L198">                            break;</span>
+<span class="nc" id="L196">                            gameOverStage.addActor(library_book_image);</span>
+<span class="nc" id="L197">                            break;</span>
                         default:
                             break;
                     }
                 }
             }
-<span class="nc" id="L204">        }</span>
+<span class="nc" id="L203">        }</span>
 
         // Exit button
-<span class="nc" id="L207">        TextButton exitButton = new TextButton(&quot;Next&quot;, game.skin);</span>
-<span class="nc" id="L208">        gameOverTable.add(exitButton).bottom().width(300).padTop(10);</span>
+<span class="nc" id="L206">        TextButton exitButton = new TextButton(&quot;Next&quot;, game.skin);</span>
+<span class="nc" id="L207">        gameOverTable.add(exitButton).bottom().width(300).padTop(10);</span>
 
-<span class="nc" id="L210">        exitButton.addListener(new ChangeListener() {</span>
+<span class="nc" id="L209">        exitButton.addListener(new ChangeListener() {</span>
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-<span class="nc" id="L213">                game.soundManager.playButton();</span>
-<span class="nc" id="L214">                game.setScreen(new SaveScreen(game, score,true));</span>
-<span class="nc" id="L215">                dispose();</span>
-<span class="nc" id="L216">                game.setScreen(new SaveScreen(game, score,true));</span>
-<span class="nc" id="L217">            }</span>
+<span class="nc" id="L212">                game.soundManager.playButton();</span>
+<span class="nc" id="L213">                game.setScreen(new SaveScreen(game, score,true));</span>
+<span class="nc" id="L214">                dispose();</span>
+<span class="nc" id="L215">                game.setScreen(new SaveScreen(game, score,true));</span>
+<span class="nc" id="L216">            }</span>
         });
 
 
 
 
-<span class="nc" id="L223">        gameOverWindow.pack();</span>
+<span class="nc" id="L222">        gameOverWindow.pack();</span>
 
-<span class="nc" id="L225">        gameOverWindow.setSize(600, 600);</span>
+<span class="nc" id="L224">        gameOverWindow.setSize(600, 600);</span>
 
         // Centre the window
-<span class="nc" id="L228">        gameOverWindow.setX((viewport.getWorldWidth() / 2) - (gameOverWindow.getWidth() / 2));</span>
-<span class="nc" id="L229">        gameOverWindow.setY((viewport.getWorldHeight() / 2) - (gameOverWindow.getHeight() / 2));</span>
-<span class="nc" id="L230">    }</span>
+<span class="nc" id="L227">        gameOverWindow.setX((viewport.getWorldWidth() / 2) - (gameOverWindow.getWidth() / 2));</span>
+<span class="nc" id="L228">        gameOverWindow.setY((viewport.getWorldHeight() / 2) - (gameOverWindow.getHeight() / 2));</span>
+<span class="nc" id="L229">    }</span>
 
 
     /**
@@ -236,16 +235,16 @@ public class GameOverScreen implements Screen {
      */
     @Override
     public void render(float delta) {
-<span class="nc" id="L239">        ScreenUtils.clear(0, 0, 0, 1);</span>
+<span class="nc" id="L238">        ScreenUtils.clear(0, 0, 0, 1);</span>
 
-<span class="nc" id="L241">        game.blueBackground.draw();</span>
+<span class="nc" id="L240">        game.blueBackground.draw();</span>
 
-<span class="nc" id="L243">        gameOverStage.act(delta);</span>
-<span class="nc" id="L244">        gameOverStage.draw();</span>
+<span class="nc" id="L242">        gameOverStage.act(delta);</span>
+<span class="nc" id="L243">        gameOverStage.draw();</span>
 
-<span class="nc" id="L246">        camera.update();</span>
+<span class="nc" id="L245">        camera.update();</span>
 
-<span class="nc" id="L248">    }</span>
+<span class="nc" id="L247">    }</span>
 
 
 
@@ -256,35 +255,35 @@ public class GameOverScreen implements Screen {
      */
     @Override
     public void resize(int width, int height) {
-<span class="nc" id="L259">        gameOverStage.getViewport().update(width, height);</span>
-<span class="nc" id="L260">        viewport.update(width, height);</span>
-<span class="nc" id="L261">    }</span>
+<span class="nc" id="L258">        gameOverStage.getViewport().update(width, height);</span>
+<span class="nc" id="L259">        viewport.update(width, height);</span>
+<span class="nc" id="L260">    }</span>
 
 
 
     // Other required methods from Screen
     @Override
     public void show() {
-<span class="nc" id="L268">    }</span>
+<span class="nc" id="L267">    }</span>
 
     @Override
     public void hide() {
-<span class="nc" id="L272">    }</span>
+<span class="nc" id="L271">    }</span>
 
     @Override
     public void pause() {
-<span class="nc" id="L276">    }</span>
+<span class="nc" id="L275">    }</span>
 
     @Override
     public void resume() {
-<span class="nc" id="L280">    }</span>
+<span class="nc" id="L279">    }</span>
 
     @Override
     public void dispose() {
-<span class="nc" id="L284">        gameOverStage.dispose();</span>
+<span class="nc" id="L283">        gameOverStage.dispose();</span>
 
 
-<span class="nc" id="L287">    }</span>
+<span class="nc" id="L286">    }</span>
 }
 
 

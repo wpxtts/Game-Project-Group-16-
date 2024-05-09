@@ -3,6 +3,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.skloch.game.*;
@@ -25,9 +26,9 @@ public class EventManagerTests {
     @Before
     public void setUp(){
         game = new GameScreen(mock(HustleGame.class),1,false);
-        game = mock(GameScreen.class);
-        dialogueBox = mock(DialogueBox.class);
-        dialogueWindow = mock(Window.class);
+        game.energyBar = mock(Image.class);
+        game.dialogueBox = new DialogueBox(mock(Skin.class),false);
+        game.dialogueBox.selectBox = mock(DialogueBox.SelectBox.class);
         eventManager = new EventManager(game);
     }
     @Test
@@ -102,11 +103,67 @@ public class EventManagerTests {
 
     @Test
     public void testRonCookeEvent(){
+        // Test too early in morning case
         game.setSeconds(10);
+        game.setEnergy(0);
         String[] args = new String[1];
         args[0] = "rch";
         String result = eventManager.ronCookEvent(args);
         assertEquals("It's too early in the morning to meet your friends, go to bed!",result);
+        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.ronCookEvent(args);
+        assertEquals("It's too early in the morning to meet your friends, go to bed!",result);
+        assertEquals(2,(int)EventManager.streaks.get("early_bird"));
+
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.ronCookEvent(args);
+        result = eventManager.ronCookEvent(args);
+        assertEquals("It's too early in the morning to meet your friends, go to bed!",result);
+        assertEquals(3,(int)EventManager.streaks.get("early_bird"));
+
+        // Test too tired case
+        game.setSeconds(10*60+1);
+        game.setEnergy(0);
+        result = eventManager.ronCookEvent(args);
+        assertEquals("You are too tired to meet your friends right now!",result);
+        assertEquals(1,(int)EventManager.streaks.get("determined"));
+        eventManager.ronCookEvent(args);
+        eventManager.ronCookEvent(args);
+        eventManager.ronCookEvent(args);
+        assertEquals(3,(int)EventManager.streaks.get("determined"));
+
+        // Correct time + enough energy
+        game.setSeconds(10*60+1);
+        game.setEnergy(30);
+        result = eventManager.ronCookEvent(args);
+        assertEquals("What do you want to chat about?",result);
+
+        args = new String[2];
+        args[0] = "rch";
+        args[1] = "testing";
+        game.setSeconds(10*60+1);
+        result = eventManager.ronCookEvent(args);
+        assertTrue(result.equals("You talked about testing for 1 hours!")||
+                result.equals("You talked about testing for 2 hours!")||
+                result.equals("You talked about testing for 3 hours!"));
+        assertTrue(0==game.getEnergy()||
+                10==game.getEnergy()||
+                20==game.getEnergy());
+        assertTrue(11*60+1==game.getSeconds()||
+                12*60+1==game.getSeconds()||
+                13*60+1==game.getSeconds());
+        // Recreational hours are initialised to 0
+        // so after interacting with the Ron Cooke hub
+        // it will randomly either be 1, 2, or 3
+        assertTrue(game.getRecreationalHours()==1||
+                game.getRecreationalHours()==2||
+                game.getRecreationalHours()==3);
+
     }
 
     @Test

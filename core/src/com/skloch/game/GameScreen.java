@@ -53,7 +53,7 @@ public class GameScreen implements Screen {
     private EventManager eventManager;
     protected InputMultiplexer inputMultiplexer;
     private Table uiTable;
-    private Image energyBar;
+    public Image energyBar;
     public DialogueBox dialogueBox;
     public final Image blackScreen = new Image(new Texture(Gdx.files.internal("../assets/Sprites/black_square.png")));;
     private boolean sleeping = false;
@@ -123,7 +123,7 @@ public class GameScreen implements Screen {
         interactionLabel = new Label("E - Interact", game.skin, "default");
 
         // Dialogue box
-        dialogueBox = new DialogueBox(game.skin);
+        dialogueBox = new DialogueBox(game.skin,true);
         dialogueBox.setPos(
                 (viewport.getWorldWidth() - dialogueBox.getWidth()) / 2f,
                 15f);
@@ -715,19 +715,6 @@ public class GameScreen implements Screen {
         return catchup_used;
     }
 
-//    /**
-//     * Changes the map the player is on when they interact with the bus stop
-//     * @return east
-//     */
-//    public static boolean changeMap(boolean east) {
-//        if (east){
-//            east = false;
-//        }else{
-//            east = true;
-//        }
-//        return east;
-//    }
-
     /**
      * Adds an amount of recreational hours to the total amount for the current day
      * @param hours The amount of hours to add
@@ -736,6 +723,12 @@ public class GameScreen implements Screen {
         hoursRecreational += hours;
     }
 
+    /**
+     * Gets recreational hours
+     */
+    public int getRecreationalHours(){
+        return hoursRecreational;
+    }
     /**
      * @return Returns 'breakfast', 'lunch' or 'dinner' depending on the time of day
      */

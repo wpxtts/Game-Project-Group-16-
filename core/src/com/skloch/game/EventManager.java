@@ -203,6 +203,7 @@ public class EventManager {
                 if (daily.get("determined") < 3){
                     // increase player's meeting friends streak if under limit
                     streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
+                    daily.put("determined",daily.get("determined")+1);
                 }
                 return "You are too tired to meet your friends right now!";
             } else if (args.length == 1) {
@@ -223,6 +224,7 @@ public class EventManager {
             if (daily.get("early_bird") < 3){
                 // increase player's meeting friends streak if under limit
                 streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+                daily.put("early_bird",daily.get("early_bird")+1);
             }
             return "It's too early in the morning to meet your friends, go to bed!";
         }
@@ -258,8 +260,9 @@ public class EventManager {
         if (game.getSeconds() > 8*60) {
             int energyCost = activityEnergies.get("studying");
             if (daily.get("studying") < 1){
-                // increase player's meeting friends streak if under limit
+                // increase player's studying streak if under limit
                 streaks.put("studying", streaks.getOrDefault("studying", 0) + 1);
+                daily.put("studying",daily.get("studying")+1);
             }
             // If the player is too tired for any studying:
             if (game.getEnergy() < energyCost) {
@@ -268,6 +271,7 @@ public class EventManager {
                 if (daily.get("determined") < 3){
                     // increase player's meeting friends streak if under limit
                     streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
+                    daily.put("determined",daily.get("determined")+1);
                 }
             } else if (args.length == 1) {
                 // If the player has already used their catchup and studied that day, they can't study again
@@ -302,6 +306,7 @@ public class EventManager {
             if (daily.get("early_bird") < 3){
                 // increase player's meeting friends streak if under limit
                 streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+                daily.put("early_bird",daily.get("early_bird")+1);
             }
         }
     }
@@ -320,6 +325,7 @@ public class EventManager {
                 if (daily.get("determined") < 3){
                     // increase player's meeting friends streak if under limit
                     streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
+                    daily.put("determined",daily.get("determined")+1);
                 }
             } else {
                 game.dialogueBox.setText(String.format("You took an hour to eat %s at the Piazza!\nYou lost %d energy!", game.getMeal(), energyCost));
@@ -331,6 +337,7 @@ public class EventManager {
             if (daily.get("early_bird") < 3){
                 // increase player's meeting friends streak if under limit
                 streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+                daily.put("early_bird",daily.get("early_bird")+1);
             }
         }
 
@@ -348,6 +355,7 @@ public class EventManager {
             if (daily.get("flowers") < 3){
                 // increase player's meeting friends streak if under limit
                 streaks.put("flowers", streaks.getOrDefault("flowers", 0) + 1);
+                daily.put("flowers",daily.get("flowers")+1);
             }
             // If the player is too tired to smell the flowers
             if (game.getEnergy() < energyCost) {
@@ -356,6 +364,7 @@ public class EventManager {
                 if (daily.get("determined") < 3){
                     // increase player's meeting friends streak if under limit
                     streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
+                    daily.put("determined",daily.get("determined")+1);
                 }
             } else if (args.length == 1) {
                 // If the player has not yet chosen how many hours, ask
@@ -378,6 +387,7 @@ public class EventManager {
             if (daily.get("early_bird") < 3){
                 // increase player's meeting friends streak if under limit
                 streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+                daily.put("early_bird",daily.get("early_bird")+1);
             }
         }
     }
@@ -397,6 +407,7 @@ public class EventManager {
                 if (daily.get("determined") < 3){
                     // increase player's meeting friends streak if under limit
                     streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
+                    daily.put("determined",daily.get("determined")+1);
                 }
             } else if (args.length == 1) {
                 // Player goes into town for undefined amount of time so no need to ask
@@ -414,6 +425,7 @@ public class EventManager {
             if (daily.get("early_bird") < 3){
                 // increase player's meeting friends streak if under limit
                 streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+                daily.put("early_bird",daily.get("early_bird")+1);
             }
         }
     }
@@ -434,6 +446,7 @@ public class EventManager {
                 if (daily.get("determined") < 3){
                     // increase player's meeting friends streak if under limit
                     streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
+                    daily.put("determined",daily.get("determined")+1);
                 }
             } else {
                 game.dialogueBox.setText(String.format("You took an hour to buy and eat %s at nisa!\nYou lost %d energy!", game.getMeal(), energyCost));
@@ -445,6 +458,7 @@ public class EventManager {
             if (daily.get("early_bird") < 3){
                 // increase player's meeting friends streak if under limit
                 streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+                daily.put("early_bird",daily.get("early_bird")+1);
             }
         }
     }
@@ -466,6 +480,11 @@ public class EventManager {
             streaks.put("studying", 0);
         }
         daily_study = 0;
+
+        // Reset daily for each activity to 0
+        for (String streak_activity : streak_activities){
+            daily.put(streak_activity, 0);
+        }
 
         // Calculate the hours slept to the nearest hour
         // Wakes the player up at 8am
@@ -513,6 +532,7 @@ public class EventManager {
                 if (daily.get("determined") < 3){
                     // increase player's meeting friends streak if under limit
                     streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
+                    daily.put("determined",daily.get("determined")+1);
                 }
             } else if (args.length == 1) {
                 // If the player has not yet chosen how many hours, ask
@@ -535,6 +555,7 @@ public class EventManager {
             if (daily.get("early_bird") < 3){
                 // increase player's meeting friends streak if under limit
                 streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+                daily.put("early_bird",daily.get("early_bird")+1);
             }
         }
     }
@@ -554,6 +575,7 @@ public class EventManager {
                 if (daily.get("determined") < 3){
                     // increase player's meeting friends streak if under limit
                     streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
+                    daily.put("determined",daily.get("determined")+1);
                 }
             } else if (args.length == 1) {
                 // If the player has not yet chosen how many hours, ask
@@ -576,6 +598,7 @@ public class EventManager {
             if (daily.get("early_bird") < 3){
                 // increase player's meeting friends streak if under limit
                 streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+                daily.put("early_bird",daily.get("early_bird")+1);
             }
         }
     }
@@ -595,6 +618,7 @@ public class EventManager {
                 if (daily.get("determined") < 3){
                     // increase player's meeting friends streak if under limit
                     streaks.put("determined", streaks.getOrDefault("determined", 0) + 1);
+                    daily.put("determined",daily.get("determined")+1);
                 }
             } else if (args.length == 1) {
                 // If the player has already used their catchup and studied that day, they can't study again
@@ -616,6 +640,7 @@ public class EventManager {
                     if (daily.get("studying") < 1){
                         // increase player's meeting friends streak if under limit
                         streaks.put("studying", streaks.getOrDefault("studying", 0) + 1);
+                        daily.put("studying",daily.get("studying")+1);
                     }
                     streaks.put("library", streaks.getOrDefault("library", 0) + 1);
                     game.dialogueBox.setText(String.format("You studied for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
@@ -634,6 +659,7 @@ public class EventManager {
             if (daily.get("early_bird") < 3){
                 // increase player's meeting friends streak if under limit
                 streaks.put("early_bird", streaks.getOrDefault("early_bird", 0) + 1);
+                streaks.put("early_bird",daily.get("early_bird")+1);
             }
         }
     }
