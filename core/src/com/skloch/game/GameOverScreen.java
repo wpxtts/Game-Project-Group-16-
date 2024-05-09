@@ -116,20 +116,18 @@ public class GameOverScreen implements Screen {
 
         // Hidden achievements
         streakGoals = new HashMap<String, Integer>();
-        //debugging
-        for (String streak_activity : EventManager.streak_activities){
-            streakGoals.put(streak_activity, 0);
-        }
-
-//        streakGoals = new HashMap<String, Integer>();
-//        streakGoals.put("studying", 5);
-//        streakGoals.put("eating", 9);
-//        streakGoals.put("flowers", 5);
-//        streakGoals.put("town", 8);
-//        streakGoals.put("shop", 9);
-//        streakGoals.put("library", 5);
-//        streakGoals.put("determined", 10);
-//        streakGoals.put("early_bird", 10);
+//        //debugging
+//        for (String streak_activity : EventManager.streak_activities){
+//            streakGoals.put(streak_activity, 0);
+//        }
+        streakGoals.put("studying", 5);
+        streakGoals.put("eating", 9);
+        streakGoals.put("flowers", 5);
+        streakGoals.put("town", 8);
+        streakGoals.put("shop", 9);
+        streakGoals.put("library", 5);
+        streakGoals.put("determined", 10);
+        streakGoals.put("early_bird", 10);
 
         // Load your texture
 
