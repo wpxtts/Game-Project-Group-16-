@@ -29,7 +29,7 @@ public class GameOverScreen implements Screen {
     Stage gameOverStage;
     Viewport viewport;
     OrthographicCamera camera;
-    public static int score;
+    public int score;
 
     // Hidden achievement badges
     public static HashMap<String, Integer> streakGoals;
@@ -79,7 +79,8 @@ public class GameOverScreen implements Screen {
 
         // Final score calculation
         //int total = hoursStudied + hoursRecreational + hoursSlept;
-        score = ((hoursStudied/32)*60 + (hoursRecreational/30)*20 + ((hoursSlept)/144)*20);
+        score = Math.max(40,Math.min(100,
+                Math.round((((float)hoursStudied/32)*60 + ((float)hoursRecreational/30)*20 + (((float)hoursSlept)/144)*20))));
         if (timesStudied >= 7){
             String result;
             if (score >= 70){
