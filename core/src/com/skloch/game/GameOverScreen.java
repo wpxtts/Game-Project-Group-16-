@@ -33,12 +33,13 @@ public class GameOverScreen implements Screen {
 
     // Hidden achievement badges
     public static HashMap<String, Integer> streakGoals;
-    private Texture apple, flower, bus, shopping_basket, fire, early_bird, book, library_book;
+    private Texture apple, flower, bus, shopping_basket, fire, early_bird, night_owl, book, library_book;
     public static String apple_path = "Sprites/achievements/apple.png";
     public static String flower_path = "Sprites/achievements/flower.png";
     public static String bus_path = "Sprites/achievements/bus.png";
     public static String book_path = "Sprites/achievements/book.png";
     public static String library_book_path = "Sprites/achievements/library_book.png";
+    public static String night_owl_path = "Sprites/achievements/night_owl.png";
 
     /**
      * A screen to display a 'Game Over' screen when the player finishes their exams
@@ -117,18 +118,19 @@ public class GameOverScreen implements Screen {
 
         // Hidden achievements
         streakGoals = new HashMap<String, Integer>();
-//        //debugging
-//        for (String streak_activity : EventManager.streak_activities){
-//            streakGoals.put(streak_activity, 0);
-//        }
-        streakGoals.put("studying", 5);
-        streakGoals.put("eating", 9);
-        streakGoals.put("flowers", 5);
-        streakGoals.put("town", 8);
-        streakGoals.put("shop", 9);
-        streakGoals.put("library", 5);
-        streakGoals.put("determined", 10);
-        streakGoals.put("early_bird", 10);
+        //debugging
+        for (String streak_activity : EventManager.streak_activities){
+            streakGoals.put(streak_activity, 0);
+        }
+//        streakGoals.put("studying", 5);
+//        streakGoals.put("eating", 9);
+//        streakGoals.put("flowers", 5);
+//        streakGoals.put("town", 8);
+//        streakGoals.put("shop", 9);
+//        streakGoals.put("library", 5);
+//        streakGoals.put("determined", 10);
+//        streakGoals.put("early_bird", 10);
+//          streakGoals.put("night_owl", 10);
 
         // Load your texture
 
@@ -140,6 +142,7 @@ public class GameOverScreen implements Screen {
         library_book = new Texture(Gdx.files.internal(library_book_path)); //
         fire = new Texture(Gdx.files.internal("Sprites/achievements/fire.png")); //
         early_bird = new Texture(Gdx.files.internal("Sprites/achievements/early_bird.png")); //bird
+        night_owl = new Texture(Gdx.files.internal(night_owl_path)); //
 
         // Create an Image widget with the texture
         Image apple_image = new Image(apple);
@@ -148,6 +151,7 @@ public class GameOverScreen implements Screen {
         Image shopping_basket_image = new Image(shopping_basket);
         Image fire_image = new Image(fire);
         Image early_bird_image = new Image(early_bird);
+        Image night_owl_image = new Image(night_owl);
         Image book_image = new Image(book);
         Image library_book_image = new Image(library_book);
 
@@ -159,6 +163,7 @@ public class GameOverScreen implements Screen {
         shopping_basket_image.setPosition(950, 500);
         fire_image.setPosition(950, 750);
         early_bird_image.setPosition(100, 500);
+        night_owl_image.setPosition(1050, 500);
         book_image.setPosition(50, 75);
         library_book_image.setPosition(1050, 300);
 
@@ -191,6 +196,9 @@ public class GameOverScreen implements Screen {
                             break;
                         case "early_bird":
                             gameOverStage.addActor(early_bird_image);
+                            break;
+                        case "night_owl":
+                            gameOverStage.addActor(night_owl_image);
                             break;
                         case "library":
                             gameOverStage.addActor(library_book_image);

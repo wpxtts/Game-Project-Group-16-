@@ -18,7 +18,7 @@ public class EventManager {
     public final HashMap<String, Integer> activityEnergies;
     public final HashMap<String, String> objectInteractions;
     private String[] activities = {"studying", "meet_friends", "eating", "flowers", "town", "shop", "gym", "duck_pond", "library", "east"};
-    public static String[] streak_activities = {"studying", "flowers", "town", "shop", "library", "determined", "early_bird"};
+    public static String[] streak_activities = {"studying", "flowers", "town", "shop", "library", "determined", "early_bird", "night_owl"};
     private final Array<String> talkTopics;
 
     public static HashMap<String, Integer> streaks, daily;
@@ -198,7 +198,7 @@ public class EventManager {
     public String ronCookEvent(String[] args) {
         if (game.getSeconds() > 8*60) {
             int energyCost = activityEnergies.get("meet_friends");
-            // If the player is too tired to meet friends
+                // If the player is too tired to meet friends
             if (game.getEnergy() < energyCost) {
                 if (daily.get("determined") < 3){
                     // increase player's meeting friends streak if under limit
@@ -212,6 +212,14 @@ public class EventManager {
                 game.dialogueBox.getSelectBox().setOptions(topics, new String[]{"rch-"+topics[0], "rch-"+topics[1], "rch-"+topics[2]});
                 return "What do you want to chat about?";
             } else {
+                // If player conducts activities after 8pm increase night_owl streak
+                if (game.getSeconds() > 20*60){
+                    if (daily.get("night_owl") < 3){
+                        // increase player's meeting friends streak if under limit
+                        streaks.put("night_owl", streaks.getOrDefault("night_owl", 0) + 1);
+                        daily.put("night_owl",daily.get("night_owl")+1);
+                    }
+                }
                 // Say that the player chatted about this topic for 1-3 hours
                 // RNG factor adds a slight difficulty (may consume too much energy to study)
                 int hours = ThreadLocalRandom.current().nextInt(1, 4);
@@ -259,11 +267,6 @@ public class EventManager {
     public void compSciEvent(String[] args) {
         if (game.getSeconds() > 8*60) {
             int energyCost = activityEnergies.get("studying");
-            if (daily.get("studying") < 1){
-                // increase player's studying streak if under limit
-                streaks.put("studying", streaks.getOrDefault("studying", 0) + 1);
-                daily.put("studying",daily.get("studying")+1);
-            }
             // If the player is too tired for any studying:
             if (game.getEnergy() < energyCost) {
                 game.dialogueBox.hideSelectBox();
@@ -289,7 +292,19 @@ public class EventManager {
                 if (game.getEnergy() < hours*energyCost) {
                     game.dialogueBox.setText("You don't have the energy to study for this long!");
                 } else {
-                    // If they do have the energy to study
+                    // If they do have the energy to study increase streaks and complete event
+                    if (game.getSeconds() > 20*60){
+                        if (daily.get("night_owl") < 3){
+                            // increase player's meeting friends streak if under limit
+                            streaks.put("night_owl", streaks.getOrDefault("night_owl", 0) + 1);
+                            daily.put("night_owl",daily.get("night_owl")+1);
+                        }
+                    }
+                    if (daily.get("studying") < 1){
+                        // increase player's studying streak if under limit
+                        streaks.put("studying", streaks.getOrDefault("studying", 0) + 1);
+                        daily.put("studying",daily.get("studying")+1);
+                    }
                     game.dialogueBox.setText(String.format("You studied for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.addStudyHours(hours);
@@ -328,6 +343,13 @@ public class EventManager {
                     daily.put("determined",daily.get("determined")+1);
                 }
             } else {
+                if (game.getSeconds() > 20*60){
+                    if (daily.get("night_owl") < 3){
+                        // increase player's meeting friends streak if under limit
+                        streaks.put("night_owl", streaks.getOrDefault("night_owl", 0) + 1);
+                        daily.put("night_owl",daily.get("night_owl")+1);
+                    }
+                }
                 game.dialogueBox.setText(String.format("You took an hour to eat %s at the Piazza!\nYou lost %d energy!", game.getMeal(), energyCost));
                 game.decreaseEnergy(energyCost);
                 game.passTime(60); // in seconds
@@ -377,6 +399,13 @@ public class EventManager {
                     game.dialogueBox.setText("What if you fell asleep? You don't have the energy!");
                 } else {
                     // If they do have the energy to smell the flowers
+                    if (game.getSeconds() > 20*60){
+                        if (daily.get("night_owl") < 3){
+                            // increase player's meeting friends streak if under limit
+                            streaks.put("night_owl", streaks.getOrDefault("night_owl", 0) + 1);
+                            daily.put("night_owl",daily.get("night_owl")+1);
+                        }
+                    }
                     game.dialogueBox.setText(String.format("You smelled the flowers for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.passTime(hours * 60); // in seconds
@@ -449,6 +478,13 @@ public class EventManager {
                     daily.put("determined",daily.get("determined")+1);
                 }
             } else {
+                if (game.getSeconds() > 20*60){
+                    if (daily.get("night_owl") < 3){
+                        // increase player's meeting friends streak if under limit
+                        streaks.put("night_owl", streaks.getOrDefault("night_owl", 0) + 1);
+                        daily.put("night_owl",daily.get("night_owl")+1);
+                    }
+                }
                 game.dialogueBox.setText(String.format("You took an hour to buy and eat %s at nisa!\nYou lost %d energy!", game.getMeal(), energyCost));
                 game.decreaseEnergy(energyCost);
                 game.passTime(60); // in seconds
@@ -544,7 +580,14 @@ public class EventManager {
                 if (game.getEnergy() < hours*energyCost) {
                     game.dialogueBox.setText("You don't have the energy to go to work out right now! Head back to east!");
                 } else {
-                    // If they do have the energy to buy  food
+                    // If they do have the energy to work out
+                    if (game.getSeconds() > 20*60){
+                        if (daily.get("night_owl") < 3){
+                            // increase player's meeting friends streak if under limit
+                            streaks.put("night_owl", streaks.getOrDefault("night_owl", 0) + 1);
+                            daily.put("night_owl",daily.get("night_owl")+1);
+                        }
+                    }
                     game.dialogueBox.setText(String.format("You spent %s hours working out at the gym.\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.passTime(hours * 60); // in seconds
@@ -587,7 +630,14 @@ public class EventManager {
                 if (game.getEnergy() < hours*energyCost) {
                     game.dialogueBox.setText("You don't have the energy to feed the ducks right now! Head back to east!");
                 } else {
-                    // If they do have the energy to buy  food
+                    // If they do have the energy to feed the ducks
+                    if (game.getSeconds() > 20*60){
+                        if (daily.get("night_owl") < 3){
+                            // increase player's meeting friends streak if under limit
+                            streaks.put("night_owl", streaks.getOrDefault("night_owl", 0) + 1);
+                            daily.put("night_owl",daily.get("night_owl")+1);
+                        }
+                    }
                     game.dialogueBox.setText(String.format("You spent %s hours feeding the ducks.\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.passTime(hours * 60); // in seconds
@@ -641,6 +691,13 @@ public class EventManager {
                         // increase player's meeting friends streak if under limit
                         streaks.put("studying", streaks.getOrDefault("studying", 0) + 1);
                         daily.put("studying",daily.get("studying")+1);
+                    }
+                    if (game.getSeconds() > 20*60){
+                        if (daily.get("night_owl") < 3){
+                            // increase player's meeting friends streak if under limit
+                            streaks.put("night_owl", streaks.getOrDefault("night_owl", 0) + 1);
+                            daily.put("night_owl",daily.get("night_owl")+1);
+                        }
                     }
                     streaks.put("library", streaks.getOrDefault("library", 0) + 1);
                     game.dialogueBox.setText(String.format("You studied for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
