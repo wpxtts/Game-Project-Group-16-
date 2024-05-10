@@ -142,7 +142,7 @@ public class GameOverScreen implements Screen {
         library_book = new Texture(Gdx.files.internal(library_book_path)); //
         fire = new Texture(Gdx.files.internal("Sprites/achievements/fire.png")); //
         early_bird = new Texture(Gdx.files.internal("Sprites/achievements/early_bird.png")); //bird
-        night_owl = new Texture(Gdx.files.internal(night_owl_path)); //
+        night_owl = new Texture(Gdx.files.internal(night_owl_path));
 
         // Create an Image widget with the texture
         Image apple_image = new Image(apple);
