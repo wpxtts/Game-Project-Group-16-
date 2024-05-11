@@ -562,44 +562,7 @@ public class EventManagerTests {
         result = eventManager.libraryEvent(args);
         assertEquals("You studied for 4 hours!\nYou lost 40 energy",result);
     }
-//    @Test
-//    public void testBusStopEvent() throws InterruptedException {
-//        String[] args = new String[1];
-//        args[0] = "town";
-//        game.setSeconds(5);
-//        game.setEnergy(0);
-//        String result = eventManager.busStopEvent(args);
-//        assertEquals("It's too early in the morning to go into town, there are no buses yet!",result);
-//        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
-//
-//
-//        game.setSeconds(12*60);
-//        game.setEnergy(0);
-//        result = eventManager.busStopEvent(args);
-//        result = eventManager.busStopEvent(args);
-//        result = eventManager.busStopEvent(args);
-//        assertEquals("You are too tired to get the bus right now!",result);
-//        // Test too tired case
-//        eventManager.busStopEvent(args);
-//        eventManager.busStopEvent(args);
-//        eventManager.busStopEvent(args);
-//        assertEquals(3,(int)EventManager.streaks.get("determined"));
-//
-//        // Correct time + enough energy
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(50);
-//        result = eventManager.busStopEvent(args);
-//        assertEquals("You got the bus into town.",result);
-//    }
-    //add fade to black test?
-    //add events trigger test?
-//    @Test
-//    public void testEventTriggered() {
-//        //event trigger
-//        assertTrue("This event is not able to be triggered",
-//                )
-//    }
-//
+
 //    @Test
 //    public void testEventUsesEnergy() {
 //        int current_energy = game.getEnergy();
