@@ -188,6 +188,409 @@ public class EventManagerTests {
         int current_energy = game.getEnergy();
         assertEquals(current_energy,game.getEnergy());
     }
+    @Test
+    public void testPiazzaEvent(){
+        game.setSeconds(5);
+        game.setEnergy(0);
+        String[] args = new String[1];
+        args[0] = "piazza";
+        String result = eventManager.piazzaEvent(args);
+        assertTrue(game.getMeal()=="food");
+        assertEquals("It's too early in the morning to eat food, go to bed!",result);
+        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.piazzaEvent(args);
+        assertEquals("It's too early in the morning to eat food, go to bed!",result);
+        assertEquals(2,(int)EventManager.streaks.get("early_bird"));
+
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.piazzaEvent(args);
+        result = eventManager.piazzaEvent(args);
+        assertEquals("It's too early in the morning to eat food, go to bed!",result);
+        assertEquals(3,(int)EventManager.streaks.get("early_bird"));
+
+        // Test too tired case
+        game.setSeconds(10*60+1);
+        game.setEnergy(0);
+        result = eventManager.piazzaEvent(args);
+        assertEquals("You are too tired to eat right now!",result);
+        assertEquals(1,(int)EventManager.streaks.get("determined"));
+        eventManager.piazzaEvent(args);
+        eventManager.piazzaEvent(args);
+        eventManager.piazzaEvent(args);
+        assertEquals(3,(int)EventManager.streaks.get("determined"));
+
+        // Correct time + enough energy
+        game.setSeconds(10*60+1);
+        game.setEnergy(30);
+        result = eventManager.piazzaEvent(args);
+        assertEquals("You took an hour to eat lunch at the Piazza!\nYou lost 10 energy!",result);
+
+        args = new String[2];
+        args[0] = "piazza";
+        args[1] = "testing";
+        game.setSeconds(9*60+1);
+        game.setEnergy(30);
+        result = eventManager.piazzaEvent(args);
+        assertTrue(result.equals("You took an hour to eat breakfast at the Piazza!\nYou lost 10 energy!"));
+        assertTrue(20==game.getEnergy());
+        assertTrue(10*60+1==game.getSeconds());
+        // Checking different meal times
+        game.setSeconds(9*60 +1);
+        assertSame("breakfast", game.getMeal());
+        game.setSeconds(12*60+1);
+        assertSame("lunch", game.getMeal());
+        game.setSeconds(18*60+1);
+        assertSame("dinner", game.getMeal());
+
+    }
+    @Test
+    public void testCompSciEvent(){
+        game.setSeconds(10*60+1);
+        game.setEnergy(10);
+        String[] args = new String[2];
+        args[0] = "comp_sci";
+        args[1] = "2";
+        String result = eventManager.compSciEvent(args);
+        assertEquals("You don't have the energy to study for this long!",result);
+
+        game.setSeconds(5);
+        game.setEnergy(0);
+        result = eventManager.compSciEvent(args);
+        assertEquals("It's too early in the morning to study, go to bed!",result);
+        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
+
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.compSciEvent(args);
+        result = eventManager.compSciEvent(args);
+        result = eventManager.compSciEvent(args);
+        assertEquals("It's too early in the morning to study, go to bed!",result);
+        assertEquals(3,(int)EventManager.streaks.get("early_bird"));
+
+        // Test too tired case
+        game.setSeconds(10*60+1);
+        game.setEnergy(0);
+        result = eventManager.compSciEvent(args);
+        assertEquals("You are too tired to study right now!",result);
+        assertEquals(1,(int)EventManager.streaks.get("determined"));
+        eventManager.compSciEvent(args);
+        eventManager.compSciEvent(args);
+        eventManager.compSciEvent(args);
+        assertEquals(3,(int)EventManager.streaks.get("determined"));
+
+        // Correct time + enough energy
+        game.setSeconds(10*60+1);
+        game.setEnergy(10);
+        args[1] = "1";
+        result = eventManager.compSciEvent(args);
+        assertEquals("You studied for 1 hours!\nYou lost 10 energy",result);
+        game.setSeconds(10*60+1);
+        game.setEnergy(20);
+        args[1] = "2";
+        result = eventManager.compSciEvent(args);
+        assertEquals("You studied for 2 hours!\nYou lost 20 energy",result);
+        game.setSeconds(10*60+1);
+        game.setEnergy(30);
+        args[1] = "3";
+        result = eventManager.compSciEvent(args);
+        assertEquals("You studied for 3 hours!\nYou lost 30 energy",result);
+    }
+    @Test
+    public void testFlowersEvent(){
+        game.setSeconds(10*60+1);
+        game.setEnergy(10);
+        String[] args = new String[2];
+        args[0] = "flowers";
+        args[1] = "2";
+        String result = eventManager.flowersEvent(args);
+        assertEquals("What if you fell asleep? You don't have the energy!",result);
+
+        game.setSeconds(5);
+        game.setEnergy(0);
+        result = eventManager.flowersEvent(args);
+        assertEquals("It's too early in the morning to smell the flowers, go to bed!",result);
+        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
+
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.flowersEvent(args);
+        result = eventManager.flowersEvent(args);
+        result = eventManager.flowersEvent(args);
+        assertEquals("It's too early in the morning to smell the flowers, go to bed!",result);
+        assertEquals(3,(int)EventManager.streaks.get("early_bird"));
+
+        // Test too tired case
+        game.setSeconds(10*60+1);
+        game.setEnergy(0);
+        result = eventManager.flowersEvent(args);
+        assertEquals("You are too tired to smell the flowers right now!",result);
+        assertEquals(1,(int)EventManager.streaks.get("determined"));
+        eventManager.flowersEvent(args);
+        eventManager.flowersEvent(args);
+        eventManager.flowersEvent(args);
+        assertEquals(3,(int)EventManager.streaks.get("determined"));
+
+        // Correct time + enough energy
+        game.setSeconds(10*60+1);
+        game.setEnergy(10);
+        args[1] = "1";
+        result = eventManager.flowersEvent(args);
+        assertEquals("You smelled the flowers for 1 hours!\nYou lost 10 energy",result);
+        game.setSeconds(10*60+1);
+        game.setEnergy(20);
+        args[1] = "2";
+        result = eventManager.flowersEvent(args);
+        assertEquals("You smelled the flowers for 2 hours!\nYou lost 20 energy",result);
+        game.setSeconds(10*60+1);
+        game.setEnergy(30);
+        args[1] = "3";
+        result = eventManager.flowersEvent(args);
+        assertEquals("You smelled the flowers for 3 hours!\nYou lost 30 energy",result);
+    }
+    @Test
+    public void testShopEvent(){
+        game.setSeconds(10*60+1);
+        game.setEnergy(0);
+        String[] args = new String[1];
+        args[0] = "shop";
+        String result = eventManager.shopEvent(args);
+        assertEquals("You are too tired to eat right now!",result);
+
+        game.setSeconds(5);
+        game.setEnergy(0);
+        result = eventManager.shopEvent(args);
+        assertEquals("It's too early in the morning to eat food, go to bed!",result);
+        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
+        assertEquals(1,(int)EventManager.streaks.get("determined"));
+
+
+        game.setSeconds(1*60);
+        game.setEnergy(30);
+        result = eventManager.shopEvent(args);
+        result = eventManager.shopEvent(args);
+        result = eventManager.shopEvent(args);
+        assertEquals("It's too early in the morning to eat food, go to bed!",result);
+        assertEquals(3,(int)EventManager.streaks.get("early_bird"));
+
+        // Test too tired case
+        game.setSeconds(10*60+1);
+        game.setEnergy(0);
+        result = eventManager.shopEvent(args);
+        assertEquals("You are too tired to eat right now!",result);
+        assertEquals(2,(int)EventManager.streaks.get("determined"));
+        eventManager.shopEvent(args);
+        eventManager.shopEvent(args);
+        eventManager.shopEvent(args);
+        assertEquals(3,(int)EventManager.streaks.get("determined"));
+
+        // Correct time + enough energy
+        game.setSeconds(9*60+1);
+        game.setEnergy(10);
+        result = eventManager.shopEvent(args);
+        assertEquals("You took an hour to buy and eat breakfast at nisa!\nYou lost 10 energy!",result);
+        game.setSeconds(12*60+1);
+        game.setEnergy(10);
+        result = eventManager.shopEvent(args);
+        assertEquals("You took an hour to buy and eat lunch at nisa!\nYou lost 10 energy!",result);
+        game.setSeconds(19*60+1);
+        game.setEnergy(10);
+        result = eventManager.shopEvent(args);
+        assertEquals("You took an hour to buy and eat dinner at nisa!\nYou lost 10 energy!",result);
+    }
+    @Test
+    public void testGymEvent(){
+        game.setSeconds(10*60+1);
+        game.setEnergy(10);
+        String[] args = new String[2];
+        args[0] = "gym";
+        args[1] = "2";
+        String result = eventManager.gymEvent(args);
+        assertEquals("You don't have the energy to go to work out right now! Head back to east!",result);
+
+        game.setSeconds(5);
+        game.setEnergy(0);
+        result = eventManager.gymEvent(args);
+        assertEquals("It's too early to work out, the gym's not open yet!",result);
+        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
+
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.gymEvent(args);
+        result = eventManager.gymEvent(args);
+        result = eventManager.gymEvent(args);
+        assertEquals("It's too early to work out, the gym's not open yet!",result);
+        assertEquals(3,(int)EventManager.streaks.get("early_bird"));
+
+        // Test too tired case
+        game.setSeconds(10*60+1);
+        game.setEnergy(0);
+        result = eventManager.gymEvent(args);
+        assertEquals("You are too tired to go to the gym right now!",result);
+        assertEquals(1,(int)EventManager.streaks.get("determined"));
+        eventManager.gymEvent(args);
+        eventManager.gymEvent(args);
+        eventManager.gymEvent(args);
+        assertEquals(3,(int)EventManager.streaks.get("determined"));
+
+        // Correct time + enough energy
+        game.setSeconds(10*60+1);
+        game.setEnergy(20);
+        args[1] = "2";
+        result = eventManager.gymEvent(args);
+        assertEquals("You spent 2 hours working out at the gym!\nYou lost 20 energy",result);
+        game.setSeconds(10*60+1);
+        game.setEnergy(30);
+        args[1] = "3";
+        result = eventManager.gymEvent(args);
+        assertEquals("You spent 3 hours working out at the gym!\nYou lost 30 energy",result);
+        game.setSeconds(10*60+1);
+        game.setEnergy(40);
+        args[1] = "4";
+        result = eventManager.gymEvent(args);
+        assertEquals("You spent 4 hours working out at the gym!\nYou lost 40 energy",result);
+    }
+    @Test
+    public void testDuckPondEvent(){
+        game.setSeconds(10*60+1);
+        game.setEnergy(10);
+        String[] args = new String[2];
+        args[0] = "duck_pond";
+        args[1] = "2";
+        String result = eventManager.duckPondEvent(args);
+        assertEquals("You don't have the energy to feed the ducks right now! Head back to east!",result);
+
+        game.setSeconds(5);
+        game.setEnergy(0);
+        result = eventManager.duckPondEvent(args);
+        assertEquals("It's too early to feed the ducks, they're not hungry!",result);
+        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
+
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.duckPondEvent(args);
+        result = eventManager.duckPondEvent(args);
+        result = eventManager.duckPondEvent(args);
+        assertEquals("It's too early to feed the ducks, they're not hungry!",result);
+        assertEquals(3,(int)EventManager.streaks.get("early_bird"));
+
+        // Test too tired case
+        game.setSeconds(10*60+1);
+        game.setEnergy(0);
+        result = eventManager.duckPondEvent(args);
+        assertEquals("You are too tired to feed the ducks right now!",result);
+        assertEquals(1,(int)EventManager.streaks.get("determined"));
+        eventManager.duckPondEvent(args);
+        eventManager.duckPondEvent(args);
+        eventManager.duckPondEvent(args);
+        assertEquals(3,(int)EventManager.streaks.get("determined"));
+
+        // Correct time + enough energy
+        game.setSeconds(10*60+1);
+        game.setEnergy(10);
+        args[1] = "1";
+        result = eventManager.duckPondEvent(args);
+        assertEquals("You spent 1 hours feeding the ducks!\nYou lost 10 energy",result);
+        game.setSeconds(10*60+1);
+        game.setEnergy(20);
+        args[1] = "2";
+        result = eventManager.duckPondEvent(args);
+        assertEquals("You spent 2 hours feeding the ducks!\nYou lost 20 energy",result);
+        game.setSeconds(10*60+1);
+        game.setEnergy(30);
+        args[1] = "3";
+        result = eventManager.duckPondEvent(args);
+        assertEquals("You spent 3 hours feeding the ducks!\nYou lost 30 energy",result);
+    }
+    @Test
+    public void testLibraryEvent(){
+        game.setSeconds(10*60+1);
+        game.setEnergy(10);
+        String[] args = new String[2];
+        args[0] = "comp_sci";
+        args[1] = "2";
+        String result = eventManager.libraryEvent(args);
+        assertEquals("You don't have the energy to study for this long! Head back to east!",result);
+
+        game.setSeconds(5);
+        game.setEnergy(0);
+        result = eventManager.libraryEvent(args);
+        assertEquals("It's too early in the morning to study, go to bed!",result);
+        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
+
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.libraryEvent(args);
+        result = eventManager.libraryEvent(args);
+        result = eventManager.libraryEvent(args);
+        assertEquals("It's too early in the morning to study, go to bed!",result);
+
+        // Test too tired case
+        game.setSeconds(10*60+1);
+        game.setEnergy(0);
+        result = eventManager.libraryEvent(args);
+        assertEquals("You are too tired to study at the library right now!",result);
+        assertEquals(1,(int)EventManager.streaks.get("determined"));
+        eventManager.libraryEvent(args);
+        eventManager.libraryEvent(args);
+        eventManager.libraryEvent(args);
+        assertEquals(3,(int)EventManager.streaks.get("determined"));
+
+        // Correct time + enough energy
+        game.setSeconds(10*60+1);
+        game.setEnergy(20);
+        args[1] = "2";
+        result = eventManager.libraryEvent(args);
+        assertEquals("You studied for 2 hours!\nYou lost 20 energy",result);
+        game.setSeconds(10*60+1);
+        game.setEnergy(30);
+        args[1] = "3";
+        result = eventManager.libraryEvent(args);
+        assertEquals("You studied for 3 hours!\nYou lost 30 energy",result);
+        game.setSeconds(10*60+1);
+        game.setEnergy(40);
+        args[1] = "4";
+        result = eventManager.libraryEvent(args);
+        assertEquals("You studied for 4 hours!\nYou lost 40 energy",result);
+    }
+//    @Test
+//    public void testBusStopEvent() throws InterruptedException {
+//        String[] args = new String[1];
+//        args[0] = "town";
+//        game.setSeconds(5);
+//        game.setEnergy(0);
+//        String result = eventManager.busStopEvent(args);
+//        assertEquals("It's too early in the morning to go into town, there are no buses yet!",result);
+//        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
+//
+//
+//        game.setSeconds(12*60);
+//        game.setEnergy(0);
+//        result = eventManager.busStopEvent(args);
+//        result = eventManager.busStopEvent(args);
+//        result = eventManager.busStopEvent(args);
+//        assertEquals("You are too tired to get the bus right now!",result);
+//        // Test too tired case
+//        eventManager.busStopEvent(args);
+//        eventManager.busStopEvent(args);
+//        eventManager.busStopEvent(args);
+//        assertEquals(3,(int)EventManager.streaks.get("determined"));
+//
+//        // Correct time + enough energy
+//        game.setSeconds(10*60+1);
+//        game.setEnergy(50);
+//        result = eventManager.busStopEvent(args);
+//        assertEquals("You got the bus into town.",result);
+//    }
     //add fade to black test?
     //add events trigger test?
 //    @Test
