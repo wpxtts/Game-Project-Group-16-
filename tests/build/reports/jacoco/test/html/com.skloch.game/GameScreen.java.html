@@ -98,10 +98,10 @@ public class GameScreen implements Screen {
 
 
         // Create a player class
-<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (avatarChoice == 1) {</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if (avatarChoice == 1) {</span>
 <span class="fc" id="L102">            player = new Player(&quot;avatar1&quot;);</span>
         } else {
-<span class="fc" id="L104">            player = new Player(&quot;avatar2&quot;);</span>
+<span class="nc" id="L104">            player = new Player(&quot;avatar2&quot;);</span>
         }
 
 
@@ -696,23 +696,23 @@ public class GameScreen implements Screen {
      * @param hours The amount of hours to add
      */
     public void addStudyHours(int hours) {
-<span class="nc" id="L699">        hoursStudied += hours;</span>
-<span class="nc" id="L700">    }</span>
+<span class="fc" id="L699">        hoursStudied += hours;</span>
+<span class="fc" id="L700">    }</span>
     /**
      * Adds to the total times studied
      */
-<span class="nc" id="L704">    public void addStudyTimes() {timesStudied++;</span>
-<span class="nc" id="L705">    }</span>
+<span class="fc" id="L704">    public void addStudyTimes() {timesStudied++;</span>
+<span class="fc" id="L705">    }</span>
 
     /**
      * @param catchup_used boolean for if catchup has been used
      * @return catchup_used
      */
     public static boolean useCatchup(boolean catchup_used) {
-<span class="nc bnc" id="L712" title="All 2 branches missed.">        if (!catchup_used){</span>
-<span class="nc" id="L713">            catchup_used = true;</span>
+<span class="fc bfc" id="L712" title="All 2 branches covered.">        if (!catchup_used){</span>
+<span class="fc" id="L713">            catchup_used = true;</span>
         }
-<span class="nc" id="L715">        return catchup_used;</span>
+<span class="fc" id="L715">        return catchup_used;</span>
     }
 
     /**
@@ -720,35 +720,35 @@ public class GameScreen implements Screen {
      * @param hours The amount of hours to add
      */
     public void addRecreationalHours(int hours) {
-<span class="fc" id="L723">        hoursRecreational += hours;</span>
-<span class="fc" id="L724">    }</span>
+<span class="nc" id="L723">        hoursRecreational += hours;</span>
+<span class="nc" id="L724">    }</span>
 
     /**
      * Gets recreational hours
      */
     public int getRecreationalHours(){
-<span class="fc" id="L730">        return hoursRecreational;</span>
+<span class="nc" id="L730">        return hoursRecreational;</span>
     }
     /**
      * @return Returns 'breakfast', 'lunch' or 'dinner' depending on the time of day
      */
     public String getMeal() {
-<span class="fc" id="L736">        int hours = Math.floorDiv((int) daySeconds, 60);</span>
-<span class="pc bpc" id="L737" title="5 of 6 branches missed.">        if (hours &gt;= 7 &amp;&amp; hours &lt;= 10 &amp;&amp; !eventManager.breakfast) {</span>
+<span class="nc" id="L736">        int hours = Math.floorDiv((int) daySeconds, 60);</span>
+<span class="nc bnc" id="L737" title="All 4 branches missed.">        if (hours &gt;= 7 &amp;&amp; hours &lt;= 10) {</span>
             //Breakfast between 7:00-10:59am
 <span class="nc" id="L739">            eventManager.breakfast = true;</span>
 <span class="nc" id="L740">            return &quot;breakfast&quot;;</span>
-<span class="pc bpc" id="L741" title="5 of 6 branches missed.">        } else if (hours &gt; 10 &amp;&amp; hours &lt;= 16 &amp;&amp; !eventManager.lunch) {</span>
+<span class="nc bnc" id="L741" title="All 4 branches missed.">        } else if (hours &gt; 10 &amp;&amp; hours &lt;= 16) {</span>
             // Lunch between 10:00am and 4:59pm
 <span class="nc" id="L743">            eventManager.lunch = true;</span>
 <span class="nc" id="L744">            return &quot;lunch&quot;;</span>
-<span class="pc bpc" id="L745" title="5 of 6 branches missed.">        } else if (hours &gt; 16 &amp;&amp; hours &lt;= 21 &amp;&amp; !eventManager.dinner) {</span>
+<span class="nc bnc" id="L745" title="All 4 branches missed.">        } else if (hours &gt; 16 &amp;&amp; hours &lt;= 21) {</span>
             // Dinner served between 4:00pm and 9:59pm
 <span class="nc" id="L747">            eventManager.dinner = true;</span>
 <span class="nc" id="L748">            return &quot;dinner&quot;;</span>
         } else {
             // Nothing is served between 10:00pm and 6:59am
-<span class="fc" id="L751">            return &quot;food&quot;;</span>
+<span class="nc" id="L751">            return &quot;food&quot;;</span>
         }
     }
 
