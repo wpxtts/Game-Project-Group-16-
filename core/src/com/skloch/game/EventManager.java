@@ -18,7 +18,7 @@ public class EventManager {
     public final HashMap<String, Integer> activityEnergies;
     public final HashMap<String, String> objectInteractions;
     private String[] activities = {"studying", "meet_friends", "eating", "flowers", "town", "shop", "gym", "duck_pond", "library", "east"};
-    public static String[] streak_activities = {"studying", "flowers", "town", "shop", "library", "determined", "early_bird", "night_owl"};
+    public static String[] streak_activities = {"studying", "flowers", "town", "shop", "library", "early_bird", "night_owl", "eating"};
     private final Array<String> talkTopics;
 
     public static HashMap<String, Integer> streaks, daily;
@@ -350,6 +350,11 @@ public class EventManager {
                         daily.put("night_owl",daily.get("night_owl")+1);
                     }
                 }
+                if (daily.get("eating") < 3){
+                    // increase player's meeting friends streak if under limit
+                    streaks.put("eating", streaks.getOrDefault("eating", 0) + 1);
+                    daily.put("eating",daily.get("eating")+1);
+                }
                 game.dialogueBox.setText(String.format("You took an hour to eat %s at the Piazza!\nYou lost %d energy!", game.getMeal(), energyCost));
                 game.decreaseEnergy(energyCost);
                 game.passTime(60); // in seconds
@@ -409,6 +414,7 @@ public class EventManager {
                     game.dialogueBox.setText(String.format("You smelled the flowers for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.passTime(hours * 60); // in seconds
+                    game.addRecreationalHours(hours);
                 }
             }
         } else {
@@ -484,6 +490,11 @@ public class EventManager {
                         streaks.put("night_owl", streaks.getOrDefault("night_owl", 0) + 1);
                         daily.put("night_owl",daily.get("night_owl")+1);
                     }
+                }
+                if (daily.get("eating") < 3){
+                    // increase player's meeting friends streak if under limit
+                    streaks.put("eating", streaks.getOrDefault("eating", 0) + 1);
+                    daily.put("eating",daily.get("eating")+1);
                 }
                 game.dialogueBox.setText(String.format("You took an hour to buy and eat %s at nisa!\nYou lost %d energy!", game.getMeal(), energyCost));
                 game.decreaseEnergy(energyCost);
@@ -590,6 +601,7 @@ public class EventManager {
                     }
                     game.dialogueBox.setText(String.format("You spent %s hours working out at the gym.\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
+                    game.addRecreationalHours(hours);
                     game.passTime(hours * 60); // in seconds
                 }
             }
@@ -641,6 +653,7 @@ public class EventManager {
                     game.dialogueBox.setText(String.format("You spent %s hours feeding the ducks.\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.passTime(hours * 60); // in seconds
+                    game.addRecreationalHours(hours);
                 }
             }
         } else {

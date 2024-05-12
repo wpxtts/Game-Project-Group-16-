@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 /**
  * A screen to display the game menu to the player has the buttons "Start", "Settings", "Credits, "Exit"
- * ALso diaplays a tutorial window and an avatar select screen
+ * ALso displays a tutorial window and an avatar select screen
  */
 public class MenuScreen implements Screen {
     final HustleGame game;
