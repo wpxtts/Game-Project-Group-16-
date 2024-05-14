@@ -358,8 +358,7 @@ public class EventManager {
                 }
                 game.decreaseEnergy(energyCost);
                 game.passTime(60); // in seconds
-                game.dialogueBox.setText(String.format("You took an hour to eat %s at the Piazza!\nYou lost %d energy!", game.getMeal(), energyCost));
-                return String.format("You took an hour to eat %s at the Piazza!\nYou lost 10 energy!", game.getMeal());
+                return String.format(String.format("You took an hour to eat %s at the Piazza!\nYou lost %d energy!", game.getMeal(), energyCost));
             }
         } else {
             //game.dialogueBox.setText("It's too early in the morning to eat food, go to bed!");
