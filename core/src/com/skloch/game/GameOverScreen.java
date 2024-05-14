@@ -61,13 +61,14 @@ public class GameOverScreen implements Screen {
         camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
 
 
-        // Create the window
+        // Create Game over window
         Window gameOverWindow = new Window("", game.skin);
         gameOverStage.addActor(gameOverWindow);
 
-        // Table for UI elements in window
+        // Table for UI elements in Game over window
         Table gameOverTable = new Table();
         gameOverWindow.add(gameOverTable);
+
 
         // Title
         Label title = new Label("Game Over!", game.skin, "button");
@@ -75,7 +76,7 @@ public class GameOverScreen implements Screen {
         gameOverTable.row();
 
         Table scoresTable = new Table();
-        gameOverTable.add(scoresTable).prefHeight(380).prefWidth(450);
+        gameOverTable.add(scoresTable).prefHeight(190).prefWidth(225);
         gameOverTable.row();
 
         // Final score calculation
@@ -117,6 +118,25 @@ public class GameOverScreen implements Screen {
         scoresTable.add(new Label(String.valueOf(hoursSlept), game.skin, "button"));
 
         // Hidden achievements
+
+        // Create achievements window
+        Window achievementsWindow = new Window("", game.skin);
+        gameOverStage.addActor(achievementsWindow);
+
+        // Table for UI elements in Game over window
+        Table achievementsTable = new Table();
+        achievementsWindow.add(achievementsTable);
+
+
+        // Title
+        Label achievementsTitle = new Label("Game Over!", game.skin, "button");
+        achievementsTable.add(title).padTop(10);
+        achievementsTable.row();
+
+        Table theAchievements = new Table();
+        achievementsTable.add(theAchievements).prefHeight(190).prefWidth(225);
+        achievementsTable.row();
+
         streakGoals = new HashMap<String, Integer>();
         //debugging
 //        for (String streak_activity : EventManager.streak_activities){
