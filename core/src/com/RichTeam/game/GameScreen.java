@@ -134,7 +134,7 @@ public class GameScreen implements Screen {
         // Load energy bar elements
         Group energyGroup = new Group();
         energyGroup.setDebug(true);
-        energyBar = new Image(new Texture(Gdx.files.internal("Interface/Energy Bar/green_bar.png")));
+        energyBar = new Image(new Texture(Gdx.files.internal("Interface/Energy Bar/blue_bar.png")));
         Image energyBarOutline = new Image(new Texture(Gdx.files.internal("Interface/Energy Bar/bar_outline.png")));
         energyBarOutline.setPosition(viewport.getWorldWidth()-energyBarOutline.getWidth() - 15, 15);
         energyBar.setPosition(energyBarOutline.getX()+16, energyBarOutline.getY()+16);

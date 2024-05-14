@@ -525,7 +525,7 @@ public class EventManager {
 
         // Reset number of times studied for new day and streaks depending on consistency
         for (String streak_activity : streak_activities){
-            if (daily.get(streak_activities) == 0){
+            if (daily.get(streak_activities) == null || daily.get(streak_activities) == 0){
                 //Reset streak if player didn't do activity that day
                 streaks.put(streak_activity, 0);
             }
@@ -681,7 +681,7 @@ public class EventManager {
                 return "You are too tired to study at the library right now!";
             } else if (args.length == 1) {
                 // If the player has already used their catchup and studied that day, they can't study again
-                if (daily_study >= 1 && catchup_used){
+                if (daily.get("studying") >= 1 && catchup_used){
                     game.dialogueBox.hideSelectBox();
                     //game.dialogueBox.setText("You have already studied today!");
                     return "You have already studied today!";
