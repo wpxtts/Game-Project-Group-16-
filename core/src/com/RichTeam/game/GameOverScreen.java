@@ -121,17 +121,17 @@ public class GameOverScreen implements Screen {
         // All achievements are 5 days in a row except eating, which is 3 meals 3 days in a row, and studying, which is every day
         streakGoals = new HashMap<String, Integer>();
         //debugging
-//        for (String streak_activity : EventManager.streak_activities){
-//            streakGoals.put(streak_activity, 0);
-//        }
-        streakGoals.put("studying", 7);
-        streakGoals.put("eating", 3);
-        streakGoals.put("flowers", 5);
-        streakGoals.put("town", 5);
-        streakGoals.put("shop", 5);
-        streakGoals.put("library", 5);
-        streakGoals.put("early_bird", 5);
-        streakGoals.put("night_owl", 5);
+        for (String streak_activity : EventManager.streak_activities){
+            streakGoals.put(streak_activity, 0);
+        }
+//        streakGoals.put("studying", 7);
+//        streakGoals.put("eating", 3);
+//        streakGoals.put("flowers", 5);
+//        streakGoals.put("town", 5);
+//        streakGoals.put("shop", 5);
+//        streakGoals.put("library", 5);
+//        streakGoals.put("early_bird", 5);
+//        streakGoals.put("night_owl", 5);
 
         // Load your texture
 
