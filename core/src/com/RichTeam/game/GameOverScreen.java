@@ -130,8 +130,8 @@ public class GameOverScreen implements Screen {
         streakGoals.put("town", 5);
         streakGoals.put("shop", 5);
         streakGoals.put("library", 5);
-        streakGoals.put("early_bird", 5);
-        streakGoals.put("night_owl", 5);
+        streakGoals.put("early_bird", 2);
+        streakGoals.put("night_owl", 2);
 
         // Load your texture
 
