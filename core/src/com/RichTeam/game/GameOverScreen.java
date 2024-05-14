@@ -81,7 +81,7 @@ public class GameOverScreen implements Screen {
         // Final score calculation
         //int total = hoursStudied + hoursRecreational + hoursSlept;
         score = Math.max(40,Math.min(100,
-                Math.round((((float)hoursStudied/32)*60 + ((float)hoursRecreational/30)*20 + (((float)hoursSlept)/144)*20))));
+                Math.round((((float)hoursStudied/32)*60 + ((float)hoursRecreational/32)*20 + (((float)hoursSlept)/144)*20))));
         if (timesStudied >= 7){
             String result;
             if (score >= 70){
