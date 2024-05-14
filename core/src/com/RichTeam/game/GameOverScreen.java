@@ -136,13 +136,13 @@ public class GameOverScreen implements Screen {
         achievementsTable.add(theAchievements).prefHeight(190).prefWidth(225);
         achievementsTable.row();
 
-        // All 5 days in a row except eating, which is 3 meals 3 days in a row
+        // All achievements are 5 days in a row except eating, which is 3 meals 3 days in a row, and studying, which is every day
         streakGoals = new HashMap<String, Integer>();
         //debugging
 //        for (String streak_activity : EventManager.streak_activities){
 //            streakGoals.put(streak_activity, 0);
 //        }
-        streakGoals.put("studying", 5);
+        streakGoals.put("studying", 7);
         streakGoals.put("eating", 3);
         streakGoals.put("flowers", 5);
         streakGoals.put("town", 5);
