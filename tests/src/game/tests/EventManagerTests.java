@@ -228,63 +228,58 @@ public class EventManagerTests {
         game.setSeconds(18*60+1);
         assertSame("dinner", game.getMeal());
     }
-//    @Test
-//    public void testCompSciEvent(){
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(10);
-//        String[] args = new String[2];
-//        args[0] = "comp_sci";
-//        args[1] = "2";
-//        String result = eventManager.compSciEvent(args);
-//        assertEquals("You don't have the energy to study for this long!",result);
-//
-//        game.setSeconds(5);
-//        game.setEnergy(0);
-//        result = eventManager.compSciEvent(args);
-//        assertEquals("It's too early in the morning to study, go to bed!",result);
-//        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
-//
-//
-//        game.setSeconds(8*60);
-//        game.setEnergy(0);
-//        result = eventManager.compSciEvent(args);
-//        result = eventManager.compSciEvent(args);
-//        result = eventManager.compSciEvent(args);
-//        assertEquals("It's too early in the morning to study, go to bed!",result);
-//        assertEquals(3,(int)EventManager.streaks.get("early_bird"));
-//
-//        // Test too tired case
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(0);
-//        result = eventManager.compSciEvent(args);
-//        assertEquals("You are too tired to study right now!",result);
-//        assertEquals(1,(int)EventManager.streaks.get("determined"));
-//        eventManager.compSciEvent(args);
-//        eventManager.compSciEvent(args);
-//        eventManager.compSciEvent(args);
-//        assertEquals(3,(int)EventManager.streaks.get("determined"));
-//
-//        // Correct time + enough energy
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(10);
-//        args[1] = "1";
-//        result = eventManager.compSciEvent(args);
-//        assertEquals("You studied for 1 hours!\nYou lost 10 energy",result);
-//        assertEquals(0,game.getEnergy());
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(20);
-//        args[1] = "2";
-//        result = eventManager.compSciEvent(args);
-//        assertEquals("You studied for 2 hours!\nYou lost 20 energy",result);
-//        assertEquals(0,game.getEnergy());
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(30);
-//        args[1] = "3";
-//        result = eventManager.compSciEvent(args);
-//        assertEquals("You studied for 3 hours!\nYou lost 30 energy",result);
-//        assertEquals(0,game.getEnergy());
-//    }
-//
+    @Test
+    public void testCompSciEvent(){
+        game.setSeconds(10*60+1);
+        game.setEnergy(10);
+        String[] args = new String[2];
+        args[0] = "comp_sci";
+        args[1] = "2";
+        String result = eventManager.compSciEvent(args);
+        assertEquals("You don't have the energy to study for this long!",result);
+
+        game.setSeconds(5);
+        game.setEnergy(0);
+        result = eventManager.compSciEvent(args);
+        assertEquals("It's too early in the morning to study, go to bed!",result);
+        assertEquals(1,(int)EventManager.daily.get("early_bird"));
+
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.compSciEvent(args);
+        result = eventManager.compSciEvent(args);
+        result = eventManager.compSciEvent(args);
+        assertEquals("It's too early in the morning to study, go to bed!",result);
+        assertEquals(4,(int)EventManager.daily.get("early_bird"));
+
+        // Test too tired case
+        game.setSeconds(10*60+1);
+        game.setEnergy(0);
+        result = eventManager.compSciEvent(args);
+        assertEquals("You are too tired to study right now!",result);
+
+        // Correct time + enough energy
+        game.setSeconds(10*60+1);
+        game.setEnergy(10);
+        args[1] = "1";
+        result = eventManager.compSciEvent(args);
+        assertEquals("You studied for 1 hours!\nYou lost 10 energy",result);
+        assertEquals(0,game.getEnergy());
+        game.setSeconds(10*60+1);
+        game.setEnergy(20);
+        args[1] = "2";
+        result = eventManager.compSciEvent(args);
+        assertEquals("You studied for 2 hours!\nYou lost 20 energy",result);
+        assertEquals(0,game.getEnergy());
+        game.setSeconds(10*60+1);
+        game.setEnergy(30);
+        args[1] = "3";
+        result = eventManager.compSciEvent(args);
+        assertEquals("You studied for 3 hours!\nYou lost 30 energy",result);
+        assertEquals(0,game.getEnergy());
+    }
+
 //    @Test
 //    public void testFlowersEvent(){
 //        game.setSeconds(10*60+1);
