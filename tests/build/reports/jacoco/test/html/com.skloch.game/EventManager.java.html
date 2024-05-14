@@ -18,7 +18,7 @@ public class EventManager {
     public final HashMap&lt;String, Integer&gt; activityEnergies;
     public final HashMap&lt;String, String&gt; objectInteractions;
 <span class="fc" id="L20">    private String[] activities = {&quot;studying&quot;, &quot;meet_friends&quot;, &quot;eating&quot;, &quot;flowers&quot;, &quot;town&quot;, &quot;shop&quot;, &quot;gym&quot;, &quot;duck_pond&quot;, &quot;library&quot;, &quot;east&quot;};</span>
-<span class="fc" id="L21">    public static String[] streak_activities = {&quot;studying&quot;, &quot;flowers&quot;, &quot;town&quot;, &quot;shop&quot;, &quot;library&quot;, &quot;determined&quot;, &quot;early_bird&quot;, &quot;night_owl&quot;};</span>
+<span class="fc" id="L21">    public static String[] streak_activities = {&quot;studying&quot;, &quot;flowers&quot;, &quot;town&quot;, &quot;shop&quot;, &quot;library&quot;, &quot;early_bird&quot;, &quot;night_owl&quot;, &quot;eating&quot;};</span>
     private final Array&lt;String&gt; talkTopics;
 
     public static HashMap&lt;String, Integer&gt; streaks, daily;
@@ -94,64 +94,67 @@ public class EventManager {
         // Events related to objects
 <span class="nc bnc" id="L95" title="All 15 branches missed.">        switch (args[0]) {</span>
             case &quot;tree&quot;:
-<span class="nc" id="L97">                treeEvent();</span>
-<span class="nc" id="L98">                break;</span>
+<span class="nc" id="L97">                String textTree = treeEvent();</span>
+<span class="nc" id="L98">                game.dialogueBox.setText(textTree);</span>
+<span class="nc" id="L99">                break;</span>
             case &quot;chest&quot;:
-<span class="nc" id="L100">                chestEvent();</span>
-<span class="nc" id="L101">                break;</span>
+<span class="nc" id="L101">                String textChest = chestEvent();</span>
+<span class="nc" id="L102">                game.dialogueBox.setText(textChest);</span>
+<span class="nc" id="L103">                break;</span>
             case &quot;piazza&quot;:
-<span class="nc" id="L103">                String textPiazza = piazzaEvent(args);</span>
-<span class="nc" id="L104">                game.dialogueBox.setText(textPiazza);</span>
-<span class="nc" id="L105">                break;</span>
+<span class="nc" id="L105">                String textPiazza = piazzaEvent(args);</span>
+<span class="nc" id="L106">                game.dialogueBox.setText(textPiazza);</span>
+<span class="nc" id="L107">                break;</span>
             case &quot;comp_sci&quot;:
-<span class="nc" id="L107">                String textCompSci = compSciEvent(args);</span>
-<span class="nc" id="L108">                game.dialogueBox.setText(textCompSci);</span>
-<span class="nc" id="L109">                break;</span>
+<span class="nc" id="L109">                String textCompSci = compSciEvent(args);</span>
+<span class="nc" id="L110">                game.dialogueBox.setText(textCompSci);</span>
+<span class="nc" id="L111">                break;</span>
             case &quot;rch&quot;:
-<span class="nc" id="L111">                String textRCH = ronCookEvent(args);</span>
-<span class="nc" id="L112">                game.dialogueBox.setText(textRCH);</span>
-<span class="nc" id="L113">                break;</span>
+<span class="nc" id="L113">                String textRCH = ronCookEvent(args);</span>
+<span class="nc" id="L114">                game.dialogueBox.setText(textRCH);</span>
+<span class="nc" id="L115">                break;</span>
             case &quot;accomodation&quot;:
-<span class="nc" id="L115">                accomEvent(args);</span>
-<span class="nc" id="L116">                break;</span>
+<span class="nc" id="L117">                accomEvent(args);</span>
+<span class="nc" id="L118">                break;</span>
             case &quot;flowers&quot;:
-<span class="nc" id="L118">                String textFlowers = flowersEvent(args);</span>
-<span class="nc" id="L119">                game.dialogueBox.setText(textFlowers);</span>
-<span class="nc" id="L120">                break;</span>
+<span class="nc" id="L120">                String textFlowers = flowersEvent(args);</span>
+<span class="nc" id="L121">                game.dialogueBox.setText(textFlowers);</span>
+<span class="nc" id="L122">                break;</span>
             case &quot;town&quot;:
-<span class="nc" id="L122">                String textBusStop = busStopEvent(args);</span>
-<span class="nc" id="L123">                game.dialogueBox.setText(textBusStop);</span>
-<span class="nc" id="L124">                break;</span>
+<span class="nc" id="L124">                String textBusStop = busStopEvent(args);</span>
+<span class="nc" id="L125">                game.dialogueBox.setText(textBusStop);</span>
+<span class="nc" id="L126">                break;</span>
             case &quot;shop&quot;:
-<span class="nc" id="L126">                String textShop = shopEvent(args);</span>
-<span class="nc" id="L127">                game.dialogueBox.setText(textShop);</span>
-<span class="nc" id="L128">                break;</span>
+<span class="nc" id="L128">                String textShop = shopEvent(args);</span>
+<span class="nc" id="L129">                game.dialogueBox.setText(textShop);</span>
+<span class="nc" id="L130">                break;</span>
             case &quot;gym&quot;:
-<span class="nc" id="L130">                String textGym = gymEvent(args);</span>
-<span class="nc" id="L131">                game.dialogueBox.setText(textGym);</span>
-<span class="nc" id="L132">                break;</span>
+<span class="nc" id="L132">                String textGym = gymEvent(args);</span>
+<span class="nc" id="L133">                game.dialogueBox.setText(textGym);</span>
+<span class="nc" id="L134">                break;</span>
             case &quot;library&quot;:
-<span class="nc" id="L134">                String textLibrary = libraryEvent(args);</span>
-<span class="nc" id="L135">                game.dialogueBox.setText(textLibrary);</span>
-<span class="nc" id="L136">                break;</span>
+<span class="nc" id="L136">                String textLibrary = libraryEvent(args);</span>
+<span class="nc" id="L137">                game.dialogueBox.setText(textLibrary);</span>
+<span class="nc" id="L138">                break;</span>
             case &quot;east&quot;:
-<span class="nc" id="L138">                townBusStopEvent(args);</span>
-<span class="nc" id="L139">                break;</span>
+<span class="nc" id="L140">                townBusStopEvent(args);</span>
+<span class="nc" id="L141">                break;</span>
             case &quot;duck_pond&quot;:
-<span class="nc" id="L141">                String textDuckPond = duckPondEvent(args);</span>
-<span class="nc" id="L142">                game.dialogueBox.setText(textDuckPond);</span>
-<span class="nc" id="L143">                break;</span>
+<span class="nc" id="L143">                String textDuckPond = duckPondEvent(args);</span>
+<span class="nc" id="L144">                game.dialogueBox.setText(textDuckPond);</span>
+<span class="nc" id="L145">                break;</span>
             case &quot;exit&quot;:
                 // Should do nothing and just close the dialogue menu
-<span class="nc" id="L146">                game.dialogueBox.hide();</span>
-<span class="nc" id="L147">                break;</span>
+<span class="nc" id="L148">                game.dialogueBox.hide();</span>
+<span class="nc" id="L149">                break;</span>
             default:
-<span class="nc" id="L149">                objectEvent(eventKey);</span>
+<span class="nc" id="L151">                String textObject = objectEvent(eventKey);</span>
+<span class="nc" id="L152">                game.dialogueBox.setText(textObject);</span>
                 break;
 
         }
 
-<span class="nc" id="L154">    }</span>
+<span class="nc" id="L157">    }</span>
 
     /**
      * Gets the interaction text associated with each object via a key
@@ -159,10 +162,10 @@ public class EventManager {
      * @return The object interaction text
      */
     public String getObjectInteraction(String key) {
-<span class="nc bnc" id="L162" title="All 2 branches missed.">        if (key.equals(&quot;piazza&quot;)) {</span>
-<span class="nc" id="L163">            return String.format(&quot;Eat %s at the Piazza?&quot;, game.getMeal());</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">        if (key.equals(&quot;piazza&quot;)) {</span>
+<span class="nc" id="L166">            return String.format(&quot;Eat %s at the Piazza?&quot;, game.getMeal());</span>
         } else {
-<span class="nc" id="L165">            return objectInteractions.get(key);</span>
+<span class="nc" id="L168">            return objectInteractions.get(key);</span>
         }
     }
 
@@ -170,32 +173,35 @@ public class EventManager {
      * @return True if the object has some custom text to display that isn't just &quot;This is an x!&quot;
      */
     public boolean hasCustomObjectInteraction(String key) {
-<span class="nc" id="L173">        return objectInteractions.containsKey(key);</span>
+<span class="nc" id="L176">        return objectInteractions.containsKey(key);</span>
     }
 
     /**
      * Sets the text when talking to a tree
      */
-    public void treeEvent() {
-<span class="nc" id="L180">        game.dialogueBox.hideSelectBox();</span>
-<span class="nc" id="L181">        game.dialogueBox.setText(&quot;The tree doesn't say anything back.&quot;);</span>
-<span class="nc" id="L182">    }</span>
+    public String treeEvent() {
+<span class="nc" id="L183">        game.dialogueBox.hideSelectBox();</span>
+        //game.dialogueBox.setText(&quot;The tree doesn't say anything back.&quot;);
+<span class="nc" id="L185">        return &quot;The tree doesn't say anything back.&quot;;</span>
+    }
 
     /**
      * Sets the text when interacting with the secret area
      */
-    public void chestEvent() {
-<span class="nc" id="L188">        game.dialogueBox.hideSelectBox();</span>
-<span class="nc" id="L189">        game.dialogueBox.setText(&quot;Wow! These barrels is full of so many magical items! I wonder how they will help you out on your journey! Boy, this is an awfully long piece of text, I wonder if someone is testing something?\n...\n...\n...\nHow cool!&quot;);</span>
-<span class="nc" id="L190">    }</span>
+    public String chestEvent() {
+<span class="nc" id="L192">        game.dialogueBox.hideSelectBox();</span>
+        //game.dialogueBox.setText(&quot;Wow! These barrels is full of so many magical items! I wonder how they will help you out on your journey! Boy, this is an awfully long piece of text, I wonder if someone is testing something?\n...\n...\n...\nHow cool!&quot;);
+<span class="nc" id="L194">        return &quot;Wow! These barrels is full of so many magical items! I wonder how they will help you out on your journey! Boy, this is an awfully long piece of text, I wonder if someone is testing something?\n...\n...\n...\nHow cool!&quot;;</span>
+    }
 
     /**
      * Sets the text when talking to an object without a dedicated function
      */
-    public void objectEvent(String object) {
-<span class="nc" id="L196">        game.dialogueBox.hideSelectBox();</span>
-<span class="nc" id="L197">        game.dialogueBox.setText(&quot;This is a &quot; +  object + &quot;!&quot;);</span>
-<span class="nc" id="L198">    }</span>
+    public String objectEvent(String object) {
+<span class="fc" id="L201">        game.dialogueBox.hideSelectBox();</span>
+        //game.dialogueBox.setText(&quot;This is a &quot; +  object + &quot;!&quot;);
+<span class="fc" id="L203">        return &quot;This is a &quot; +  object + &quot;!&quot;;</span>
+     }
 
     /**
      * Lets the player meet friends at Ron Cooke Hub for x num of hours, decreases the player's energy and increments the
@@ -204,45 +210,45 @@ public class EventManager {
      * @param args Arguments to be passed, should contain the hours the player wants to meet friends for. E.g. [&quot;piazza&quot;, &quot;1&quot;]
      */
     public String ronCookEvent(String[] args) {
-<span class="nc bnc" id="L207" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
-<span class="nc" id="L208">            int energyCost = activityEnergies.get(&quot;meet_friends&quot;);</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
+<span class="nc" id="L214">            int energyCost = activityEnergies.get(&quot;meet_friends&quot;);</span>
                 // If the player is too tired to meet friends
-<span class="nc bnc" id="L210" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
-<span class="nc bnc" id="L211" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L216" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
                     // increase player's meeting friends streak if under limit
-<span class="nc" id="L213">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
-<span class="nc" id="L214">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
+<span class="nc" id="L219">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
+<span class="nc" id="L220">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
                 }
-<span class="nc" id="L216">                return &quot;You are too tired to meet your friends right now!&quot;;</span>
-<span class="nc bnc" id="L217" title="All 2 branches missed.">            } else if (args.length == 1) {</span>
+<span class="nc" id="L222">                return &quot;You are too tired to meet your friends right now!&quot;;</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">            } else if (args.length == 1) {</span>
                 // Ask the player to chat about something (makes no difference)
-<span class="nc" id="L219">                String[] topics = randomTopics(3);</span>
-<span class="nc" id="L220">                game.dialogueBox.getSelectBox().setOptions(topics, new String[]{&quot;rch-&quot;+topics[0], &quot;rch-&quot;+topics[1], &quot;rch-&quot;+topics[2]});</span>
-<span class="nc" id="L221">                return &quot;What do you want to chat about?&quot;;</span>
+<span class="nc" id="L225">                String[] topics = randomTopics(3);</span>
+<span class="nc" id="L226">                game.dialogueBox.getSelectBox().setOptions(topics, new String[]{&quot;rch-&quot;+topics[0], &quot;rch-&quot;+topics[1], &quot;rch-&quot;+topics[2]});</span>
+<span class="nc" id="L227">                return &quot;What do you want to chat about?&quot;;</span>
             } else {
                 // If player conducts activities after 8pm increase night_owl streak
-<span class="nc bnc" id="L224" title="All 2 branches missed.">                if (game.getSeconds() &gt; 20*60){</span>
-<span class="nc bnc" id="L225" title="All 2 branches missed.">                    if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L230" title="All 2 branches missed.">                if (game.getSeconds() &gt; 20*60){</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">                    if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
                         // increase player's meeting friends streak if under limit
-<span class="nc" id="L227">                        streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
-<span class="nc" id="L228">                        daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
+<span class="nc" id="L233">                        streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
+<span class="nc" id="L234">                        daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
                     }
                 }
                 // Say that the player chatted about this topic for 1-3 hours
                 // RNG factor adds a slight difficulty (may consume too much energy to study)
-<span class="nc" id="L233">                int hours = ThreadLocalRandom.current().nextInt(1, 4);</span>
-<span class="nc" id="L234">                game.decreaseEnergy(energyCost * hours);</span>
-<span class="nc" id="L235">                game.passTime(hours * 60); // in seconds</span>
-<span class="nc" id="L236">                game.addRecreationalHours(hours);</span>
-<span class="nc" id="L237">                return String.format(&quot;You talked about %s for %d hours!&quot;, args[1].toLowerCase(), hours);</span>
+<span class="nc" id="L239">                int hours = ThreadLocalRandom.current().nextInt(1, 4);</span>
+<span class="nc" id="L240">                game.decreaseEnergy(energyCost * hours);</span>
+<span class="nc" id="L241">                game.passTime(hours * 60); // in seconds</span>
+<span class="nc" id="L242">                game.addRecreationalHours(hours);</span>
+<span class="nc" id="L243">                return String.format(&quot;You talked about %s for %d hours!&quot;, args[1].toLowerCase(), hours);</span>
             }
         } else {
-<span class="nc bnc" id="L240" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L246" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
                 // increase player's meeting friends streak if under limit
-<span class="nc" id="L242">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
-<span class="nc" id="L243">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
+<span class="nc" id="L248">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
+<span class="nc" id="L249">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
             }
-<span class="nc" id="L245">            return &quot;It's too early in the morning to meet your friends, go to bed!&quot;;</span>
+<span class="nc" id="L251">            return &quot;It's too early in the morning to meet your friends, go to bed!&quot;;</span>
         }
     }
 
@@ -252,19 +258,19 @@ public class EventManager {
      */
     private String[] randomTopics(int amount) {
         // Returns an array of 3 random topics
-<span class="nc" id="L255">        Array&lt;String&gt; topics = new Array&lt;String&gt;(amount);</span>
+<span class="nc" id="L261">        Array&lt;String&gt; topics = new Array&lt;String&gt;(amount);</span>
 
-<span class="nc bnc" id="L257" title="All 2 branches missed.">        for (int i = 0;i&lt;amount;i++) {</span>
-<span class="nc" id="L258">            String choice = talkTopics.random();</span>
+<span class="nc bnc" id="L263" title="All 2 branches missed.">        for (int i = 0;i&lt;amount;i++) {</span>
+<span class="nc" id="L264">            String choice = talkTopics.random();</span>
             // If statement to ensure topic hasn't already been selected
-<span class="nc bnc" id="L260" title="All 2 branches missed.">            if (!topics.contains(choice, false)) {</span>
-<span class="nc" id="L261">                topics.add(choice);</span>
+<span class="nc bnc" id="L266" title="All 2 branches missed.">            if (!topics.contains(choice, false)) {</span>
+<span class="nc" id="L267">                topics.add(choice);</span>
             } else {
-<span class="nc" id="L263">                i -= 1;</span>
+<span class="nc" id="L269">                i -= 1;</span>
             }
         }
 
-<span class="nc" id="L267">        return topics.toArray(String.class);</span>
+<span class="nc" id="L273">        return topics.toArray(String.class);</span>
     }
 
     /**
@@ -273,70 +279,70 @@ public class EventManager {
      * @param args
      */
     public String compSciEvent(String[] args) {
-<span class="nc bnc" id="L276" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
-<span class="nc" id="L277">            int energyCost = activityEnergies.get(&quot;studying&quot;);</span>
+<span class="nc bnc" id="L282" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
+<span class="nc" id="L283">            int energyCost = activityEnergies.get(&quot;studying&quot;);</span>
             // If the player is too tired for any studying:
-<span class="nc bnc" id="L279" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
-<span class="nc" id="L280">                game.dialogueBox.hideSelectBox();</span>
+<span class="nc bnc" id="L285" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
+<span class="nc" id="L286">                game.dialogueBox.hideSelectBox();</span>
                 //game.dialogueBox.setText(&quot;You are too tired to study right now!&quot;);
-<span class="nc bnc" id="L282" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L288" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
                     // increase player's meeting friends streak if under limit
-<span class="nc" id="L284">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
-<span class="nc" id="L285">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
+<span class="nc" id="L290">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
+<span class="nc" id="L291">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
                 }
-<span class="nc" id="L287">                return &quot;You are too tired to study right now!&quot;;</span>
-<span class="nc bnc" id="L288" title="All 2 branches missed.">            } else if (args.length == 1) {</span>
+<span class="nc" id="L293">                return &quot;You are too tired to study right now!&quot;;</span>
+<span class="nc bnc" id="L294" title="All 2 branches missed.">            } else if (args.length == 1) {</span>
                 // If the player has already used their catchup and studied that day, they can't study again
-<span class="nc bnc" id="L290" title="All 4 branches missed.">                if (daily_study &gt;= 1 &amp;&amp; catchup_used){</span>
-<span class="nc" id="L291">                    game.dialogueBox.hideSelectBox();</span>
+<span class="nc bnc" id="L296" title="All 4 branches missed.">                if (daily_study &gt;= 1 &amp;&amp; catchup_used){</span>
+<span class="nc" id="L297">                    game.dialogueBox.hideSelectBox();</span>
                     //game.dialogueBox.setText(&quot;You have already studied today!&quot;);
-<span class="nc" id="L293">                    return &quot;You have already studied today!&quot;;</span>
+<span class="nc" id="L299">                    return &quot;You have already studied today!&quot;;</span>
                 } else{
                     // If the player has not yet chosen how many hours, ask
                     //game.dialogueBox.setText(&quot;Study for how long?&quot;);
-<span class="nc" id="L297">                    game.dialogueBox.getSelectBox().setOptions(new String[]{&quot;1 Hour (10)&quot;, &quot;2 Hours (20)&quot;, &quot;3 Hours (30)&quot;}, new String[]{&quot;comp_sci-1&quot;, &quot;comp_sci-2&quot;, &quot;comp_sci-3&quot;});</span>
-<span class="nc" id="L298">                    return &quot;Study for how long?&quot;;</span>
+<span class="nc" id="L303">                    game.dialogueBox.getSelectBox().setOptions(new String[]{&quot;1 Hour (10)&quot;, &quot;2 Hours (20)&quot;, &quot;3 Hours (30)&quot;}, new String[]{&quot;comp_sci-1&quot;, &quot;comp_sci-2&quot;, &quot;comp_sci-3&quot;});</span>
+<span class="nc" id="L304">                    return &quot;Study for how long?&quot;;</span>
                 }
             } else {
-<span class="nc" id="L301">                int hours = Integer.parseInt(args[1]);</span>
+<span class="nc" id="L307">                int hours = Integer.parseInt(args[1]);</span>
                 // If the player does not have enough energy for the selected hours
-<span class="nc bnc" id="L303" title="All 2 branches missed.">                if (game.getEnergy() &lt; hours*energyCost) {</span>
+<span class="nc bnc" id="L309" title="All 2 branches missed.">                if (game.getEnergy() &lt; hours*energyCost) {</span>
                     //game.dialogueBox.setText(&quot;You don't have the energy to study for this long!&quot;);
-<span class="nc" id="L305">                    return &quot;You don't have the energy to study for this long!&quot;;</span>
+<span class="nc" id="L311">                    return &quot;You don't have the energy to study for this long!&quot;;</span>
                 } else {
                     // If they do have the energy to study increase streaks and complete event
-<span class="nc bnc" id="L308" title="All 2 branches missed.">                    if (game.getSeconds() &gt; 20*60){</span>
-<span class="nc bnc" id="L309" title="All 2 branches missed.">                        if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L314" title="All 2 branches missed.">                    if (game.getSeconds() &gt; 20*60){</span>
+<span class="nc bnc" id="L315" title="All 2 branches missed.">                        if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
                             // increase player's meeting friends streak if under limit
-<span class="nc" id="L311">                            streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
-<span class="nc" id="L312">                            daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
+<span class="nc" id="L317">                            streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
+<span class="nc" id="L318">                            daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
                         }
                     }
-<span class="nc bnc" id="L315" title="All 2 branches missed.">                    if (daily.get(&quot;studying&quot;) &lt; 1){</span>
+<span class="nc bnc" id="L321" title="All 2 branches missed.">                    if (daily.get(&quot;studying&quot;) &lt; 1){</span>
                         // increase player's studying streak if under limit
-<span class="nc" id="L317">                        streaks.put(&quot;studying&quot;, streaks.getOrDefault(&quot;studying&quot;, 0) + 1);</span>
-<span class="nc" id="L318">                        daily.put(&quot;studying&quot;,daily.get(&quot;studying&quot;)+1);</span>
+<span class="nc" id="L323">                        streaks.put(&quot;studying&quot;, streaks.getOrDefault(&quot;studying&quot;, 0) + 1);</span>
+<span class="nc" id="L324">                        daily.put(&quot;studying&quot;,daily.get(&quot;studying&quot;)+1);</span>
                     }
                     //game.dialogueBox.setText(String.format(&quot;You studied for %s hours!\nYou lost %d energy&quot;, args[1], hours*energyCost));
-<span class="nc" id="L321">                    game.decreaseEnergy(energyCost * hours);</span>
-<span class="nc" id="L322">                    game.addStudyHours(hours);</span>
-<span class="nc" id="L323">                    game.addStudyTimes();</span>
-<span class="nc" id="L324">                    daily_study++;</span>
-<span class="nc bnc" id="L325" title="All 2 branches missed.">                    if (daily_study &gt; 1){</span>
-<span class="nc" id="L326">                        catchup_used = GameScreen.useCatchup(catchup_used);</span>
+<span class="nc" id="L327">                    game.decreaseEnergy(energyCost * hours);</span>
+<span class="nc" id="L328">                    game.addStudyHours(hours);</span>
+<span class="nc" id="L329">                    game.addStudyTimes();</span>
+<span class="nc" id="L330">                    daily_study++;</span>
+<span class="nc bnc" id="L331" title="All 2 branches missed.">                    if (daily_study &gt; 1){</span>
+<span class="nc" id="L332">                        catchup_used = GameScreen.useCatchup(catchup_used);</span>
                     }
-<span class="nc" id="L328">                    game.passTime(hours * 60); // in seconds</span>
-<span class="nc" id="L329">                    return String.format(&quot;You studied for %s hours!\nYou lost %d energy&quot;, args[1], hours*energyCost);</span>
+<span class="nc" id="L334">                    game.passTime(hours * 60); // in seconds</span>
+<span class="nc" id="L335">                    return String.format(&quot;You studied for %s hours!\nYou lost %d energy&quot;, args[1], hours*energyCost);</span>
                 }
             }
         } else {
             //game.dialogueBox.setText(&quot;It's too early in the morning to study, go to bed!&quot;);
-<span class="nc bnc" id="L334" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L340" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
                 // increase player's meeting friends streak if under limit
-<span class="nc" id="L336">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
-<span class="nc" id="L337">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
+<span class="nc" id="L342">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
+<span class="nc" id="L343">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
             }
-<span class="nc" id="L339">            return &quot;It's too early in the morning to study, go to bed!&quot;;</span>
+<span class="nc" id="L345">            return &quot;It's too early in the morning to study, go to bed!&quot;;</span>
         }
     }
 
@@ -347,38 +353,42 @@ public class EventManager {
      * @param args
      */
     public String piazzaEvent(String[] args) {
-<span class="nc bnc" id="L350" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
-<span class="nc" id="L351">            int energyCost = activityEnergies.get(&quot;eating&quot;);</span>
-<span class="nc bnc" id="L352" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
+<span class="nc bnc" id="L356" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
+<span class="nc" id="L357">            int energyCost = activityEnergies.get(&quot;eating&quot;);</span>
+<span class="nc bnc" id="L358" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
                 //game.dialogueBox.setText(&quot;You are too tired to eat right now!&quot;);
-<span class="nc bnc" id="L354" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L360" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
                     // increase player's meeting friends streak if under limit
-<span class="nc" id="L356">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
-<span class="nc" id="L357">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
+<span class="nc" id="L362">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
+<span class="nc" id="L363">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
                 }
-<span class="nc" id="L359">                return &quot;You are too tired to eat right now!&quot;;</span>
+<span class="nc" id="L365">                return &quot;You are too tired to eat right now!&quot;;</span>
             } else {
-<span class="nc bnc" id="L361" title="All 2 branches missed.">                if (game.getSeconds() &gt; 20*60){</span>
-<span class="nc bnc" id="L362" title="All 2 branches missed.">                    if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L367" title="All 2 branches missed.">                if (game.getSeconds() &gt; 20*60){</span>
+<span class="nc bnc" id="L368" title="All 2 branches missed.">                    if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
                         // increase player's meeting friends streak if under limit
-<span class="nc" id="L364">                        streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
-<span class="nc" id="L365">                        daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
+<span class="nc" id="L370">                        streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
+<span class="nc" id="L371">                        daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
                     }
                 }
-                //game.dialogueBox.getSelectBox().setOptions(topics, new String[]{&quot;rch-&quot;+topics[0], &quot;rch-&quot;+topics[1], &quot;rch-&quot;+topics[2]});
-                //game.dialogueBox.setText(String.format(&quot;You took an hour to eat %s at the Piazza!\nYou lost %d energy!&quot;, game.getMeal(), energyCost),&quot;piazza&quot;);
-<span class="nc" id="L370">                game.decreaseEnergy(energyCost);</span>
-<span class="nc" id="L371">                game.passTime(60); // in seconds</span>
-<span class="nc" id="L372">                return String.format(&quot;You took an hour to eat %s at the Piazza!\nYou lost 10 energy!&quot;, game.getMeal());</span>
+<span class="nc bnc" id="L374" title="All 2 branches missed.">                if (daily.get(&quot;eating&quot;) &lt; 3){</span>
+                    // increase player's meeting friends streak if under limit
+<span class="nc" id="L376">                    streaks.put(&quot;eating&quot;, streaks.getOrDefault(&quot;eating&quot;, 0) + 1);</span>
+<span class="nc" id="L377">                    daily.put(&quot;eating&quot;,daily.get(&quot;eating&quot;)+1);</span>
+                }
+<span class="nc" id="L379">                game.decreaseEnergy(energyCost);</span>
+<span class="nc" id="L380">                game.passTime(60); // in seconds</span>
+<span class="nc" id="L381">                game.dialogueBox.setText(String.format(&quot;You took an hour to eat %s at the Piazza!\nYou lost %d energy!&quot;, game.getMeal(), energyCost));</span>
+<span class="nc" id="L382">                return String.format(&quot;You took an hour to eat %s at the Piazza!\nYou lost 10 energy!&quot;, game.getMeal());</span>
             }
         } else {
             //game.dialogueBox.setText(&quot;It's too early in the morning to eat food, go to bed!&quot;);
-<span class="nc bnc" id="L376" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L386" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
                 // increase player's meeting friends streak if under limit
-<span class="nc" id="L378">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
-<span class="nc" id="L379">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
+<span class="nc" id="L388">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
+<span class="nc" id="L389">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
             }
-<span class="nc" id="L381">            return &quot;It's too early in the morning to eat food, go to bed!&quot;;</span>
+<span class="nc" id="L391">            return &quot;It's too early in the morning to eat food, go to bed!&quot;;</span>
         }
 
     }
@@ -389,58 +399,59 @@ public class EventManager {
      * @param args
      */
     public String flowersEvent(String[] args) {
-<span class="nc bnc" id="L392" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
-<span class="nc" id="L393">            int energyCost = activityEnergies.get(&quot;flowers&quot;);</span>
+<span class="nc bnc" id="L402" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
+<span class="nc" id="L403">            int energyCost = activityEnergies.get(&quot;flowers&quot;);</span>
             // increase player's smelling flowers streak
-<span class="nc bnc" id="L395" title="All 2 branches missed.">            if (daily.get(&quot;flowers&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L405" title="All 2 branches missed.">            if (daily.get(&quot;flowers&quot;) &lt; 3){</span>
                 // increase player's meeting friends streak if under limit
-<span class="nc" id="L397">                streaks.put(&quot;flowers&quot;, streaks.getOrDefault(&quot;flowers&quot;, 0) + 1);</span>
-<span class="nc" id="L398">                daily.put(&quot;flowers&quot;,daily.get(&quot;flowers&quot;)+1);</span>
+<span class="nc" id="L407">                streaks.put(&quot;flowers&quot;, streaks.getOrDefault(&quot;flowers&quot;, 0) + 1);</span>
+<span class="nc" id="L408">                daily.put(&quot;flowers&quot;,daily.get(&quot;flowers&quot;)+1);</span>
             }
             // If the player is too tired to smell the flowers
-<span class="nc bnc" id="L401" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
-<span class="nc" id="L402">                game.dialogueBox.hideSelectBox();</span>
+<span class="nc bnc" id="L411" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
+<span class="nc" id="L412">                game.dialogueBox.hideSelectBox();</span>
                 //game.dialogueBox.setText(&quot;You are too tired to smell the flowers right now!&quot;);
-<span class="nc bnc" id="L404" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L414" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
                     // increase player's meeting friends streak if under limit
-<span class="nc" id="L406">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
-<span class="nc" id="L407">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
+<span class="nc" id="L416">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
+<span class="nc" id="L417">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
                 }
-<span class="nc" id="L409">                return &quot;You are too tired to smell the flowers right now!&quot;;</span>
-<span class="nc bnc" id="L410" title="All 2 branches missed.">            } else if (args.length == 1) {</span>
+<span class="nc" id="L419">                return &quot;You are too tired to smell the flowers right now!&quot;;</span>
+<span class="nc bnc" id="L420" title="All 2 branches missed.">            } else if (args.length == 1) {</span>
                 // If the player has not yet chosen how many hours, ask
                 //game.dialogueBox.setText(&quot;Smell the flowers for how long?&quot;);
-<span class="nc" id="L413">                game.dialogueBox.getSelectBox().setOptions(new String[]{&quot;1 Hour (10)&quot;, &quot;2 Hours (20)&quot;, &quot;3 Hours (30)&quot;}, new String[]{&quot;flowers-1&quot;, &quot;flowers-2&quot;, &quot;flowers-3&quot;});</span>
-<span class="nc" id="L414">                return &quot;Smell the flowers for how long?&quot;;</span>
+<span class="nc" id="L423">                game.dialogueBox.getSelectBox().setOptions(new String[]{&quot;1 Hour (10)&quot;, &quot;2 Hours (20)&quot;, &quot;3 Hours (30)&quot;}, new String[]{&quot;flowers-1&quot;, &quot;flowers-2&quot;, &quot;flowers-3&quot;});</span>
+<span class="nc" id="L424">                return &quot;Smell the flowers for how long?&quot;;</span>
             } else {
-<span class="nc" id="L416">                int hours = Integer.parseInt(args[1]);</span>
+<span class="nc" id="L426">                int hours = Integer.parseInt(args[1]);</span>
                 // If the player does not have enough energy for the selected hours
-<span class="nc bnc" id="L418" title="All 2 branches missed.">                if (game.getEnergy() &lt; hours*energyCost) {</span>
+<span class="nc bnc" id="L428" title="All 2 branches missed.">                if (game.getEnergy() &lt; hours*energyCost) {</span>
                     //game.dialogueBox.setText(&quot;What if you fell asleep? You don't have the energy!&quot;);
-<span class="nc" id="L420">                    return &quot;What if you fell asleep? You don't have the energy!&quot;;</span>
+<span class="nc" id="L430">                    return &quot;What if you fell asleep? You don't have the energy!&quot;;</span>
                 } else {
                     // If they do have the energy to smell the flowers
-<span class="nc bnc" id="L423" title="All 2 branches missed.">                    if (game.getSeconds() &gt; 20*60){</span>
-<span class="nc bnc" id="L424" title="All 2 branches missed.">                        if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L433" title="All 2 branches missed.">                    if (game.getSeconds() &gt; 20*60){</span>
+<span class="nc bnc" id="L434" title="All 2 branches missed.">                        if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
                             // increase player's meeting friends streak if under limit
-<span class="nc" id="L426">                            streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
-<span class="nc" id="L427">                            daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
+<span class="nc" id="L436">                            streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
+<span class="nc" id="L437">                            daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
                         }
                     }
                     //game.dialogueBox.setText(String.format(&quot;You smelled the flowers for %s hours!\nYou lost %d energy&quot;, args[1], hours*energyCost));
-<span class="nc" id="L431">                    game.decreaseEnergy(energyCost * hours);</span>
-<span class="nc" id="L432">                    game.passTime(hours * 60); // in seconds</span>
-<span class="nc" id="L433">                    return String.format(&quot;You smelled the flowers for %s hours!\nYou lost %d energy&quot;, args[1], hours*energyCost);</span>
+<span class="nc" id="L441">                    game.decreaseEnergy(energyCost * hours);</span>
+<span class="nc" id="L442">                    game.passTime(hours * 60); // in seconds</span>
+<span class="nc" id="L443">                    game.addRecreationalHours(hours);</span>
+<span class="nc" id="L444">                    return String.format(&quot;You smelled the flowers for %s hours!\nYou lost %d energy&quot;, args[1], hours*energyCost);</span>
                 }
             }
         } else {
             //game.dialogueBox.setText(&quot;It's too early in the morning to smell the flowers, go to bed!&quot;);
-<span class="nc bnc" id="L438" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L449" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
                 // increase player's meeting friends streak if under limit
-<span class="nc" id="L440">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
-<span class="nc" id="L441">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
+<span class="nc" id="L451">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
+<span class="nc" id="L452">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
             }
-<span class="nc" id="L443">            return &quot;It's too early in the morning to smell the flowers, go to bed!&quot;;</span>
+<span class="nc" id="L454">            return &quot;It's too early in the morning to smell the flowers, go to bed!&quot;;</span>
         }
     }
 
@@ -449,42 +460,42 @@ public class EventManager {
      * @param args
      */
     public String busStopEvent(String[] args) throws InterruptedException {
-<span class="nc bnc" id="L452" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
+<span class="nc bnc" id="L463" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
             //Still need an energy cost to prevent player from going into town when they have no energy
-<span class="nc" id="L454">            int energyCost = activityEnergies.get(&quot;town&quot;);</span>
+<span class="nc" id="L465">            int energyCost = activityEnergies.get(&quot;town&quot;);</span>
             // If the player is too tired for any travelling:
-<span class="nc bnc" id="L456" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
-<span class="nc" id="L457">                game.dialogueBox.hideSelectBox();</span>
+<span class="nc bnc" id="L467" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
+<span class="nc" id="L468">                game.dialogueBox.hideSelectBox();</span>
                 //game.dialogueBox.setText(&quot;You are too tired to get the bus right now!&quot;);
-<span class="nc bnc" id="L459" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L470" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
                     // increase player's meeting friends streak if under limit
-<span class="nc" id="L461">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
-<span class="nc" id="L462">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
+<span class="nc" id="L472">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
+<span class="nc" id="L473">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
                 }
-<span class="nc" id="L464">                return &quot;You are too tired to get the bus right now!&quot;;</span>
-<span class="nc bnc" id="L465" title="All 2 branches missed.">            } else if (args.length == 1) {</span>
+<span class="nc" id="L475">                return &quot;You are too tired to get the bus right now!&quot;;</span>
+<span class="nc bnc" id="L476" title="All 2 branches missed.">            } else if (args.length == 1) {</span>
                 // Player goes into town for undefined amount of time so no need to ask
                 // If the player does not have enough energy for at least one hour
-<span class="nc bnc" id="L468" title="All 2 branches missed.">                if (game.getEnergy() &lt; energyCost) {</span>
+<span class="nc bnc" id="L479" title="All 2 branches missed.">                if (game.getEnergy() &lt; energyCost) {</span>
                     //game.dialogueBox.setText(&quot;You don't have the energy to go into town right now!&quot;);
-<span class="nc" id="L470">                    return &quot;You don't have the energy to go into town right now!&quot;;</span>
+<span class="nc" id="L481">                    return &quot;You don't have the energy to go into town right now!&quot;;</span>
                 } else {
                     // If they do have the energy to go into town
-<span class="nc" id="L473">                    HustleGame.setMap();</span>
+<span class="nc" id="L484">                    HustleGame.setMap();</span>
                     //game.dialogueBox.setText(&quot;You got the bus into town.&quot;);
-<span class="nc" id="L475">                    return &quot;You got the bus into town.&quot;;</span>
+<span class="nc" id="L486">                    return &quot;You got the bus into town.&quot;;</span>
                 }
             }
-<span class="nc" id="L478">        } else {</span>
+<span class="nc" id="L489">        } else {</span>
             //game.dialogueBox.setText(&quot;It's too early in the morning to go into town, there are no buses yet!&quot;);
-<span class="nc bnc" id="L480" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L491" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
                 // increase player's meeting friends streak if under limit
-<span class="nc" id="L482">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
-<span class="nc" id="L483">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
+<span class="nc" id="L493">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
+<span class="nc" id="L494">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
             }
-<span class="nc" id="L485">            return &quot;It's too early in the morning to go into town, there are no buses yet!&quot;;</span>
+<span class="nc" id="L496">            return &quot;It's too early in the morning to go into town, there are no buses yet!&quot;;</span>
         }
-<span class="nc" id="L487">        return null;</span>
+<span class="nc" id="L498">        return null;</span>
     }
 
     /**
@@ -493,40 +504,44 @@ public class EventManager {
      * @param args
      */
     public String shopEvent(String[] args) {
-<span class="nc bnc" id="L496" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
-<span class="nc" id="L497">            int energyCost = activityEnergies.get(&quot;shop&quot;);</span>
+<span class="nc bnc" id="L507" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
+<span class="nc" id="L508">            int energyCost = activityEnergies.get(&quot;shop&quot;);</span>
             // increase player's buying food streak
-<span class="nc" id="L499">            streaks.put(&quot;shop&quot;, streaks.getOrDefault(&quot;shop&quot;, 0) + 1);</span>
+<span class="nc" id="L510">            streaks.put(&quot;shop&quot;, streaks.getOrDefault(&quot;shop&quot;, 0) + 1);</span>
             // If the player has the energy to eat
-<span class="nc bnc" id="L501" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
+<span class="nc bnc" id="L512" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
                 //game.dialogueBox.setText(&quot;You are too tired to eat right now!&quot;);
-<span class="nc bnc" id="L503" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L514" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
                     // increase player's meeting friends streak if under limit
-<span class="nc" id="L505">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
-<span class="nc" id="L506">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
+<span class="nc" id="L516">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
+<span class="nc" id="L517">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
                 }
-<span class="nc" id="L508">                return &quot;You are too tired to eat right now!&quot;;</span>
+<span class="nc" id="L519">                return &quot;You are too tired to eat right now!&quot;;</span>
             } else {
-<span class="nc bnc" id="L510" title="All 2 branches missed.">                if (game.getSeconds() &gt; 20*60){</span>
-<span class="nc bnc" id="L511" title="All 2 branches missed.">                    if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L521" title="All 2 branches missed.">                if (game.getSeconds() &gt; 20*60){</span>
+<span class="nc bnc" id="L522" title="All 2 branches missed.">                    if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
                         // increase player's meeting friends streak if under limit
-<span class="nc" id="L513">                        streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
-<span class="nc" id="L514">                        daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
+<span class="nc" id="L524">                        streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
+<span class="nc" id="L525">                        daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
                     }
                 }
-                //game.dialogueBox.setText(String.format(&quot;You took an hour to buy and eat %s at nisa!\nYou lost %d energy!&quot;, game.getMeal(), energyCost));
-<span class="nc" id="L518">                game.decreaseEnergy(energyCost);</span>
-<span class="nc" id="L519">                game.passTime(60); // in seconds</span>
-<span class="nc" id="L520">                return String.format(&quot;You took an hour to buy and eat %s at nisa!\nYou lost %d energy!&quot;, game.getMeal(), energyCost);</span>
+<span class="nc bnc" id="L528" title="All 2 branches missed.">                if (daily.get(&quot;eating&quot;) &lt; 3){</span>
+                    // increase player's meeting friends streak if under limit
+<span class="nc" id="L530">                    streaks.put(&quot;eating&quot;, streaks.getOrDefault(&quot;eating&quot;, 0) + 1);</span>
+<span class="nc" id="L531">                    daily.put(&quot;eating&quot;,daily.get(&quot;eating&quot;)+1);</span>
+                }
+<span class="nc" id="L533">                game.decreaseEnergy(energyCost);</span>
+<span class="nc" id="L534">                game.passTime(60); // in seconds</span>
+<span class="nc" id="L535">                return String.format(&quot;You took an hour to buy and eat %s at nisa!\nYou lost %d energy!&quot;, game.getMeal(), energyCost);</span>
             }
         } else {
             //game.dialogueBox.setText(&quot;It's too early in the morning to eat food, go to bed!&quot;);
-<span class="nc bnc" id="L524" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L539" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
                 // increase player's meeting friends streak if under limit
-<span class="nc" id="L526">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
-<span class="nc" id="L527">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
+<span class="nc" id="L541">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
+<span class="nc" id="L542">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
             }
-<span class="nc" id="L529">            return &quot;It's too early in the morning to eat food, go to bed!&quot;;</span>
+<span class="nc" id="L544">            return &quot;It's too early in the morning to eat food, go to bed!&quot;;</span>
         }
     }
 
@@ -538,49 +553,49 @@ public class EventManager {
      * @param args Unused currently
      */
     public void accomEvent(String[] args) {
-<span class="nc" id="L541">        game.setSleeping(true);</span>
-<span class="nc" id="L542">        game.dialogueBox.hide();</span>
+<span class="nc" id="L556">        game.setSleeping(true);</span>
+<span class="nc" id="L557">        game.dialogueBox.hide();</span>
 
         // Reset number of times studied for new day and streaks depending on consistency
-<span class="nc bnc" id="L545" title="All 2 branches missed.">        if (daily_study == 0){</span>
+<span class="nc bnc" id="L560" title="All 2 branches missed.">        if (daily_study == 0){</span>
             //Reset study streak if player didn't study that day
-<span class="nc" id="L547">            streaks.put(&quot;studying&quot;, 0);</span>
+<span class="nc" id="L562">            streaks.put(&quot;studying&quot;, 0);</span>
         }
-<span class="nc" id="L549">        daily_study = 0;</span>
+<span class="nc" id="L564">        daily_study = 0;</span>
 
         // Reset daily for each activity to 0
-<span class="nc bnc" id="L552" title="All 2 branches missed.">        for (String streak_activity : streak_activities){</span>
-<span class="nc" id="L553">            daily.put(streak_activity, 0);</span>
+<span class="nc bnc" id="L567" title="All 2 branches missed.">        for (String streak_activity : streak_activities){</span>
+<span class="nc" id="L568">            daily.put(streak_activity, 0);</span>
         }
 
         // Calculate the hours slept to the nearest hour
         // Wakes the player up at 8am
         float secondsSlept;
-<span class="nc bnc" id="L559" title="All 2 branches missed.">        if (game.getSeconds() &lt; 60*8) {</span>
-<span class="nc" id="L560">            secondsSlept = (60*8 - game.getSeconds());</span>
+<span class="nc bnc" id="L574" title="All 2 branches missed.">        if (game.getSeconds() &lt; 60*8) {</span>
+<span class="nc" id="L575">            secondsSlept = (60*8 - game.getSeconds());</span>
         } else {
             // Account for the wakeup time being in the next day
-<span class="nc" id="L563">            secondsSlept = (((60*8) + 1440) - game.getSeconds());</span>
+<span class="nc" id="L578">            secondsSlept = (((60*8) + 1440) - game.getSeconds());</span>
         }
-<span class="nc" id="L565">        int hoursSlept = Math.round(secondsSlept / 60f);</span>
+<span class="nc" id="L580">        int hoursSlept = Math.round(secondsSlept / 60f);</span>
 
-<span class="nc" id="L567">        RunnableAction setTextAction = new RunnableAction();</span>
-<span class="nc" id="L568">        setTextAction.setRunnable(new Runnable() {</span>
+<span class="nc" id="L582">        RunnableAction setTextAction = new RunnableAction();</span>
+<span class="nc" id="L583">        setTextAction.setRunnable(new Runnable() {</span>
             @Override
             public void run() {
-<span class="nc bnc" id="L571" title="All 2 branches missed.">                if (game.getSleeping()) {</span>
-<span class="nc" id="L572">                    game.dialogueBox.show();</span>
-<span class="nc" id="L573">                    game.dialogueBox.setText(String.format(&quot;You slept for %d hours!\nYou recovered %d energy!&quot;, hoursSlept, Math.min(100, hoursSlept*13)), &quot;fadefromblack&quot;);</span>
+<span class="nc bnc" id="L586" title="All 2 branches missed.">                if (game.getSleeping()) {</span>
+<span class="nc" id="L587">                    game.dialogueBox.show();</span>
+<span class="nc" id="L588">                    game.dialogueBox.setText(String.format(&quot;You slept for %d hours!\nYou recovered %d energy!&quot;, hoursSlept, Math.min(100, hoursSlept*13)), &quot;fadefromblack&quot;);</span>
                     // Restore energy and pass time
-<span class="nc" id="L575">                    game.setEnergy(hoursSlept*13);</span>
-<span class="nc" id="L576">                    game.passTime(secondsSlept);</span>
-<span class="nc" id="L577">                    game.addSleptHours(hoursSlept);</span>
+<span class="nc" id="L590">                    game.setEnergy(hoursSlept*13);</span>
+<span class="nc" id="L591">                    game.passTime(secondsSlept);</span>
+<span class="nc" id="L592">                    game.addSleptHours(hoursSlept);</span>
                 }
-<span class="nc" id="L579">            }</span>
+<span class="nc" id="L594">            }</span>
         });
 
-<span class="nc" id="L582">        fadeToBlack(setTextAction);</span>
-<span class="nc" id="L583">    }</span>
+<span class="nc" id="L597">        fadeToBlack(setTextAction);</span>
+<span class="nc" id="L598">    }</span>
 
     //Town POIs
 
@@ -590,52 +605,53 @@ public class EventManager {
      * @param args
      */
     public String gymEvent(String[] args) {
-<span class="nc bnc" id="L593" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
-<span class="nc" id="L594">            int energyCost = activityEnergies.get(&quot;gym&quot;);</span>
+<span class="nc bnc" id="L608" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
+<span class="nc" id="L609">            int energyCost = activityEnergies.get(&quot;gym&quot;);</span>
             // If the player is too tired for any travelling:
-<span class="nc bnc" id="L596" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
-<span class="nc" id="L597">                game.dialogueBox.hideSelectBox();</span>
+<span class="nc bnc" id="L611" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
+<span class="nc" id="L612">                game.dialogueBox.hideSelectBox();</span>
                 //game.dialogueBox.setText(&quot;You are too tired to go to the gym right now!&quot;);
-<span class="nc bnc" id="L599" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L614" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
                     // increase player's meeting friends streak if under limit
-<span class="nc" id="L601">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
-<span class="nc" id="L602">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
+<span class="nc" id="L616">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
+<span class="nc" id="L617">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
                 }
-<span class="nc" id="L604">                return &quot;You are too tired to go to the gym right now!&quot;;</span>
-<span class="nc bnc" id="L605" title="All 2 branches missed.">            } else if (args.length == 1) {</span>
+<span class="nc" id="L619">                return &quot;You are too tired to go to the gym right now!&quot;;</span>
+<span class="nc bnc" id="L620" title="All 2 branches missed.">            } else if (args.length == 1) {</span>
                 // If the player has not yet chosen how many hours, ask
                 //game.dialogueBox.setText(&quot;Work out for how long?&quot;);
-<span class="nc" id="L608">                game.dialogueBox.getSelectBox().setOptions(new String[]{&quot;2 Hours (20)&quot;, &quot;3 Hours (30)&quot;, &quot;4 Hours (40)&quot;}, new String[]{&quot;gym-2&quot;, &quot;gym-3&quot;, &quot;gym-4&quot;});</span>
-<span class="nc" id="L609">                return &quot;Work out for how long?&quot;;</span>
+<span class="nc" id="L623">                game.dialogueBox.getSelectBox().setOptions(new String[]{&quot;2 Hours (20)&quot;, &quot;3 Hours (30)&quot;, &quot;4 Hours (40)&quot;}, new String[]{&quot;gym-2&quot;, &quot;gym-3&quot;, &quot;gym-4&quot;});</span>
+<span class="nc" id="L624">                return &quot;Work out for how long?&quot;;</span>
             } else {
-<span class="nc" id="L611">                int hours = Integer.parseInt(args[1]);</span>
+<span class="nc" id="L626">                int hours = Integer.parseInt(args[1]);</span>
                 // If the player does not have enough energy for the selected hours
-<span class="nc bnc" id="L613" title="All 2 branches missed.">                if (game.getEnergy() &lt; hours*energyCost) {</span>
+<span class="nc bnc" id="L628" title="All 2 branches missed.">                if (game.getEnergy() &lt; hours*energyCost) {</span>
                     //game.dialogueBox.setText(&quot;You don't have the energy to go to work out right now! Head back to east!&quot;);
-<span class="nc" id="L615">                    return &quot;You don't have the energy to go to work out right now! Head back to east!&quot;;</span>
+<span class="nc" id="L630">                    return &quot;You don't have the energy to go to work out right now! Head back to east!&quot;;</span>
                 } else {
                     // If they do have the energy to work out
-<span class="nc bnc" id="L618" title="All 2 branches missed.">                    if (game.getSeconds() &gt; 20*60){</span>
-<span class="nc bnc" id="L619" title="All 2 branches missed.">                        if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L633" title="All 2 branches missed.">                    if (game.getSeconds() &gt; 20*60){</span>
+<span class="nc bnc" id="L634" title="All 2 branches missed.">                        if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
                             // increase player's meeting friends streak if under limit
-<span class="nc" id="L621">                            streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
-<span class="nc" id="L622">                            daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
+<span class="nc" id="L636">                            streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
+<span class="nc" id="L637">                            daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
                         }
                     }
                     //game.dialogueBox.setText(String.format(&quot;You spent %s hours working out at the gym.\nYou lost %d energy&quot;, args[1], hours*energyCost));
-<span class="nc" id="L626">                    game.decreaseEnergy(energyCost * hours);</span>
-<span class="nc" id="L627">                    game.passTime(hours * 60); // in seconds</span>
-<span class="nc" id="L628">                    return String.format(&quot;You spent %s hours working out at the gym!\nYou lost %d energy&quot;, args[1], hours*energyCost);</span>
+<span class="nc" id="L641">                    game.decreaseEnergy(energyCost * hours);</span>
+<span class="nc" id="L642">                    game.addRecreationalHours(hours);</span>
+<span class="nc" id="L643">                    game.passTime(hours * 60); // in seconds</span>
+<span class="nc" id="L644">                    return String.format(&quot;You spent %s hours working out at the gym!\nYou lost %d energy&quot;, args[1], hours*energyCost);</span>
                 }
             }
         } else {
             //game.dialogueBox.setText(&quot;It's too early to work out, the gym's not open yet!&quot;);
-<span class="nc bnc" id="L633" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L649" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
                 // increase player's meeting friends streak if under limit
-<span class="nc" id="L635">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
-<span class="nc" id="L636">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
+<span class="nc" id="L651">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
+<span class="nc" id="L652">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
             }
-<span class="nc" id="L638">            return &quot;It's too early to work out, the gym's not open yet!&quot;;</span>
+<span class="nc" id="L654">            return &quot;It's too early to work out, the gym's not open yet!&quot;;</span>
         }
     }
 
@@ -645,52 +661,53 @@ public class EventManager {
      * @param args
      */
     public String duckPondEvent(String[] args) {
-<span class="nc bnc" id="L648" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
-<span class="nc" id="L649">            int energyCost = activityEnergies.get(&quot;duck_pond&quot;);</span>
+<span class="nc bnc" id="L664" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
+<span class="nc" id="L665">            int energyCost = activityEnergies.get(&quot;duck_pond&quot;);</span>
             // If the player is too tired for any travelling:
-<span class="nc bnc" id="L651" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
-<span class="nc" id="L652">                game.dialogueBox.hideSelectBox();</span>
+<span class="nc bnc" id="L667" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
+<span class="nc" id="L668">                game.dialogueBox.hideSelectBox();</span>
                 //game.dialogueBox.setText(&quot;You are too tired to feed the ducks right now!&quot;);
-<span class="nc bnc" id="L654" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L670" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
                     // increase player's meeting friends streak if under limit
-<span class="nc" id="L656">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
-<span class="nc" id="L657">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
+<span class="nc" id="L672">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
+<span class="nc" id="L673">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
                 }
-<span class="nc" id="L659">                return &quot;You are too tired to feed the ducks right now!&quot;;</span>
-<span class="nc bnc" id="L660" title="All 2 branches missed.">            } else if (args.length == 1) {</span>
+<span class="nc" id="L675">                return &quot;You are too tired to feed the ducks right now!&quot;;</span>
+<span class="nc bnc" id="L676" title="All 2 branches missed.">            } else if (args.length == 1) {</span>
                 // If the player has not yet chosen how many hours, ask
                 //game.dialogueBox.setText(&quot;Feed the ducks for how long?&quot;);
-<span class="nc" id="L663">                game.dialogueBox.getSelectBox().setOptions(new String[]{&quot;1 Hour (10)&quot;, &quot;2 Hours (20)&quot;, &quot;3 Hours (30)&quot;}, new String[]{&quot;duck_pond-1&quot;, &quot;duck_pond-2&quot;, &quot;duck_pond-3&quot;});</span>
-<span class="nc" id="L664">                return &quot;Feed the ducks for how long?&quot;;</span>
+<span class="nc" id="L679">                game.dialogueBox.getSelectBox().setOptions(new String[]{&quot;1 Hour (10)&quot;, &quot;2 Hours (20)&quot;, &quot;3 Hours (30)&quot;}, new String[]{&quot;duck_pond-1&quot;, &quot;duck_pond-2&quot;, &quot;duck_pond-3&quot;});</span>
+<span class="nc" id="L680">                return &quot;Feed the ducks for how long?&quot;;</span>
             } else {
-<span class="nc" id="L666">                int hours = Integer.parseInt(args[1]);</span>
+<span class="nc" id="L682">                int hours = Integer.parseInt(args[1]);</span>
                 // If the player does not have enough energy for the selected hours
-<span class="nc bnc" id="L668" title="All 2 branches missed.">                if (game.getEnergy() &lt; hours*energyCost) {</span>
+<span class="nc bnc" id="L684" title="All 2 branches missed.">                if (game.getEnergy() &lt; hours*energyCost) {</span>
                     //game.dialogueBox.setText(&quot;You don't have the energy to feed the ducks right now! Head back to east!&quot;);
-<span class="nc" id="L670">                    return &quot;You don't have the energy to feed the ducks right now! Head back to east!&quot;;</span>
+<span class="nc" id="L686">                    return &quot;You don't have the energy to feed the ducks right now! Head back to east!&quot;;</span>
                 } else {
                     // If they do have the energy to feed the ducks
-<span class="nc bnc" id="L673" title="All 2 branches missed.">                    if (game.getSeconds() &gt; 20*60){</span>
-<span class="nc bnc" id="L674" title="All 2 branches missed.">                        if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L689" title="All 2 branches missed.">                    if (game.getSeconds() &gt; 20*60){</span>
+<span class="nc bnc" id="L690" title="All 2 branches missed.">                        if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
                             // increase player's meeting friends streak if under limit
-<span class="nc" id="L676">                            streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
-<span class="nc" id="L677">                            daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
+<span class="nc" id="L692">                            streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
+<span class="nc" id="L693">                            daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
                         }
                     }
                     //game.dialogueBox.setText(String.format(&quot;You spent %s hours feeding the ducks.\nYou lost %d energy&quot;, args[1], hours*energyCost));
-<span class="nc" id="L681">                    game.decreaseEnergy(energyCost * hours);</span>
-<span class="nc" id="L682">                    game.passTime(hours * 60); // in seconds</span>
-<span class="nc" id="L683">                    return String.format(&quot;You spent %s hours feeding the ducks!\nYou lost %d energy&quot;, args[1], hours*energyCost);</span>
+<span class="nc" id="L697">                    game.decreaseEnergy(energyCost * hours);</span>
+<span class="nc" id="L698">                    game.passTime(hours * 60); // in seconds</span>
+<span class="nc" id="L699">                    game.addRecreationalHours(hours);</span>
+<span class="nc" id="L700">                    return String.format(&quot;You spent %s hours feeding the ducks!\nYou lost %d energy&quot;, args[1], hours*energyCost);</span>
                 }
             }
         } else {
             //game.dialogueBox.setText(&quot;It's too early to feed the ducks, they're not hungry!&quot;);
-<span class="nc bnc" id="L688" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L705" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
                 // increase player's meeting friends streak if under limit
-<span class="nc" id="L690">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
-<span class="nc" id="L691">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
+<span class="nc" id="L707">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
+<span class="nc" id="L708">                daily.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
             }
-<span class="nc" id="L693">            return &quot;It's too early to feed the ducks, they're not hungry!&quot;;</span>
+<span class="nc" id="L710">            return &quot;It's too early to feed the ducks, they're not hungry!&quot;;</span>
         }
     }
 
@@ -700,71 +717,71 @@ public class EventManager {
      * @param args
      */
     public String libraryEvent(String[] args) {
-<span class="fc bfc" id="L703" title="All 2 branches covered.">        if (game.getSeconds() &gt; 8*60) {</span>
-<span class="fc" id="L704">            int energyCost = activityEnergies.get(&quot;library&quot;);</span>
+<span class="nc bnc" id="L720" title="All 2 branches missed.">        if (game.getSeconds() &gt; 8*60) {</span>
+<span class="nc" id="L721">            int energyCost = activityEnergies.get(&quot;library&quot;);</span>
             // If the player is too tired for any studying:
-<span class="fc bfc" id="L706" title="All 2 branches covered.">            if (game.getEnergy() &lt; energyCost) {</span>
-<span class="fc" id="L707">                game.dialogueBox.hideSelectBox();</span>
+<span class="nc bnc" id="L723" title="All 2 branches missed.">            if (game.getEnergy() &lt; energyCost) {</span>
+<span class="nc" id="L724">                game.dialogueBox.hideSelectBox();</span>
                 //game.dialogueBox.setText(&quot;You are too tired to study at the library right now!&quot;);
-<span class="fc bfc" id="L709" title="All 2 branches covered.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L726" title="All 2 branches missed.">                if (daily.get(&quot;determined&quot;) &lt; 3){</span>
                     // increase player's meeting friends streak if under limit
-<span class="fc" id="L711">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
-<span class="fc" id="L712">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
+<span class="nc" id="L728">                    streaks.put(&quot;determined&quot;, streaks.getOrDefault(&quot;determined&quot;, 0) + 1);</span>
+<span class="nc" id="L729">                    daily.put(&quot;determined&quot;,daily.get(&quot;determined&quot;)+1);</span>
                 }
-<span class="fc" id="L714">                return &quot;You are too tired to study at the library right now!&quot;;</span>
-<span class="pc bpc" id="L715" title="1 of 2 branches missed.">            } else if (args.length == 1) {</span>
+<span class="nc" id="L731">                return &quot;You are too tired to study at the library right now!&quot;;</span>
+<span class="nc bnc" id="L732" title="All 2 branches missed.">            } else if (args.length == 1) {</span>
                 // If the player has already used their catchup and studied that day, they can't study again
-<span class="nc bnc" id="L717" title="All 4 branches missed.">                if (daily_study &gt;= 1 &amp;&amp; catchup_used){</span>
-<span class="nc" id="L718">                    game.dialogueBox.hideSelectBox();</span>
+<span class="nc bnc" id="L734" title="All 4 branches missed.">                if (daily_study &gt;= 1 &amp;&amp; catchup_used){</span>
+<span class="nc" id="L735">                    game.dialogueBox.hideSelectBox();</span>
                     //game.dialogueBox.setText(&quot;You have already studied today!&quot;);
-<span class="nc" id="L720">                    return &quot;You have already studied today!&quot;;</span>
+<span class="nc" id="L737">                    return &quot;You have already studied today!&quot;;</span>
                 }else{
                     // If the player has not yet chosen how many hours, ask
                     //game.dialogueBox.setText(&quot;Study for how long?&quot;);
-<span class="nc" id="L724">                    game.dialogueBox.getSelectBox().setOptions(new String[]{&quot;2 Hours (20)&quot;, &quot;3 Hours (30)&quot;, &quot;4 Hours (40)&quot;}, new String[]{&quot;library-2&quot;, &quot;library-3&quot;, &quot;library-4&quot;});</span>
-<span class="nc" id="L725">                    return &quot;Study for how long?&quot;;</span>
+<span class="nc" id="L741">                    game.dialogueBox.getSelectBox().setOptions(new String[]{&quot;2 Hours (20)&quot;, &quot;3 Hours (30)&quot;, &quot;4 Hours (40)&quot;}, new String[]{&quot;library-2&quot;, &quot;library-3&quot;, &quot;library-4&quot;});</span>
+<span class="nc" id="L742">                    return &quot;Study for how long?&quot;;</span>
                 }
             } else {
-<span class="fc" id="L728">                int hours = Integer.parseInt(args[1]);</span>
+<span class="nc" id="L745">                int hours = Integer.parseInt(args[1]);</span>
                 // If the player does not have enough energy for the selected hours
-<span class="fc bfc" id="L730" title="All 2 branches covered.">                if (game.getEnergy() &lt; hours*energyCost) {</span>
+<span class="nc bnc" id="L747" title="All 2 branches missed.">                if (game.getEnergy() &lt; hours*energyCost) {</span>
                     //game.dialogueBox.setText(&quot;You don't have the energy to study for this long! Head back to east!&quot;);
-<span class="fc" id="L732">                    return &quot;You don't have the energy to study for this long! Head back to east!&quot;;</span>
+<span class="nc" id="L749">                    return &quot;You don't have the energy to study for this long! Head back to east!&quot;;</span>
                 } else {
                     // If they do have the energy to study
-<span class="fc bfc" id="L735" title="All 2 branches covered.">                    if (daily.get(&quot;studying&quot;) &lt; 1){</span>
+<span class="nc bnc" id="L752" title="All 2 branches missed.">                    if (daily.get(&quot;studying&quot;) &lt; 1){</span>
                         // increase player's meeting friends streak if under limit
-<span class="fc" id="L737">                        streaks.put(&quot;studying&quot;, streaks.getOrDefault(&quot;studying&quot;, 0) + 1);</span>
-<span class="fc" id="L738">                        daily.put(&quot;studying&quot;,daily.get(&quot;studying&quot;)+1);</span>
+<span class="nc" id="L754">                        streaks.put(&quot;studying&quot;, streaks.getOrDefault(&quot;studying&quot;, 0) + 1);</span>
+<span class="nc" id="L755">                        daily.put(&quot;studying&quot;,daily.get(&quot;studying&quot;)+1);</span>
                     }
-<span class="pc bpc" id="L740" title="1 of 2 branches missed.">                    if (game.getSeconds() &gt; 20*60){</span>
-<span class="nc bnc" id="L741" title="All 2 branches missed.">                        if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L757" title="All 2 branches missed.">                    if (game.getSeconds() &gt; 20*60){</span>
+<span class="nc bnc" id="L758" title="All 2 branches missed.">                        if (daily.get(&quot;night_owl&quot;) &lt; 3){</span>
                             // increase player's meeting friends streak if under limit
-<span class="nc" id="L743">                            streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
-<span class="nc" id="L744">                            daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
+<span class="nc" id="L760">                            streaks.put(&quot;night_owl&quot;, streaks.getOrDefault(&quot;night_owl&quot;, 0) + 1);</span>
+<span class="nc" id="L761">                            daily.put(&quot;night_owl&quot;,daily.get(&quot;night_owl&quot;)+1);</span>
                         }
                     }
-<span class="fc" id="L747">                    streaks.put(&quot;library&quot;, streaks.getOrDefault(&quot;library&quot;, 0) + 1);</span>
+<span class="nc" id="L764">                    streaks.put(&quot;library&quot;, streaks.getOrDefault(&quot;library&quot;, 0) + 1);</span>
                     //game.dialogueBox.setText(String.format(&quot;You studied for %s hours!\nYou lost %d energy&quot;, args[1], hours*energyCost));
-<span class="fc" id="L749">                    game.decreaseEnergy(energyCost * hours);</span>
-<span class="fc" id="L750">                    game.addStudyHours(hours);</span>
-<span class="fc" id="L751">                    game.addStudyTimes();</span>
-<span class="fc" id="L752">                    daily_study++;</span>
-<span class="fc bfc" id="L753" title="All 2 branches covered.">                    if (daily_study &gt; 1){</span>
-<span class="fc" id="L754">                        catchup_used = GameScreen.useCatchup(catchup_used);</span>
+<span class="nc" id="L766">                    game.decreaseEnergy(energyCost * hours);</span>
+<span class="nc" id="L767">                    game.addStudyHours(hours);</span>
+<span class="nc" id="L768">                    game.addStudyTimes();</span>
+<span class="nc" id="L769">                    daily_study++;</span>
+<span class="nc bnc" id="L770" title="All 2 branches missed.">                    if (daily_study &gt; 1){</span>
+<span class="nc" id="L771">                        catchup_used = GameScreen.useCatchup(catchup_used);</span>
                     }
-<span class="fc" id="L756">                    game.passTime(hours * 60); // in seconds</span>
-<span class="fc" id="L757">                    return String.format(&quot;You studied for %s hours!\nYou lost %d energy&quot;, args[1], hours*energyCost);</span>
+<span class="nc" id="L773">                    game.passTime(hours * 60); // in seconds</span>
+<span class="nc" id="L774">                    return String.format(&quot;You studied for %s hours!\nYou lost %d energy&quot;, args[1], hours*energyCost);</span>
                 }
             }
         } else {
             //game.dialogueBox.setText(&quot;It's too early in the morning to study, go to bed!&quot;);
-<span class="pc bpc" id="L762" title="1 of 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
+<span class="nc bnc" id="L779" title="All 2 branches missed.">            if (daily.get(&quot;early_bird&quot;) &lt; 3){</span>
                 // increase player's meeting friends streak if under limit
-<span class="fc" id="L764">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
-<span class="fc" id="L765">                streaks.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
+<span class="nc" id="L781">                streaks.put(&quot;early_bird&quot;, streaks.getOrDefault(&quot;early_bird&quot;, 0) + 1);</span>
+<span class="nc" id="L782">                streaks.put(&quot;early_bird&quot;,daily.get(&quot;early_bird&quot;)+1);</span>
             }
-<span class="fc" id="L767">            return &quot;It's too early in the morning to study, go to bed!&quot;;</span>
+<span class="nc" id="L784">            return &quot;It's too early in the morning to study, go to bed!&quot;;</span>
         }
     }
 
@@ -774,10 +791,10 @@ public class EventManager {
      */
     public void townBusStopEvent(String[] args) throws InterruptedException {
         // Player must be able to get back to east at any time in the game, so energy and time of day are irrelevant
-<span class="nc" id="L777">        gotBus = true;</span>
-<span class="nc" id="L778">        HustleGame.setMap();</span>
-<span class="nc" id="L779">        game.dialogueBox.setText(&quot;You got the bus back to east.&quot;);</span>
-<span class="nc" id="L780">    }</span>
+<span class="nc" id="L794">        gotBus = true;</span>
+<span class="nc" id="L795">        HustleGame.setMap();</span>
+<span class="nc" id="L796">        game.dialogueBox.setText(&quot;You got the bus back to east.&quot;);</span>
+<span class="nc" id="L797">    }</span>
 
     /**
      * gets the Players current actvity streaks in the game to be used for gaining acheivements
@@ -785,7 +802,7 @@ public class EventManager {
      */
 
     public static HashMap&lt;String, Integer&gt; getStreaks(){
-<span class="nc" id="L788">        return streaks;</span>
+<span class="nc" id="L805">        return streaks;</span>
     }
 
     
@@ -794,8 +811,8 @@ public class EventManager {
      * Fades the screen to black
      */
     public void fadeToBlack() {
-<span class="nc" id="L797">        game.blackScreen.addAction(Actions.fadeIn(3f));</span>
-<span class="nc" id="L798">    }</span>
+<span class="nc" id="L814">        game.blackScreen.addAction(Actions.fadeIn(3f));</span>
+<span class="nc" id="L815">    }</span>
 
     /**
      * Fades the screen to black, then runs a runnable after it is done
@@ -806,33 +823,33 @@ public class EventManager {
      * @ param runnable the runnable exection to be executed
      */
     public void fadeToBlack(RunnableAction runnable) {
-<span class="nc" id="L809">        game.blackScreen.addAction(Actions.sequence(Actions.fadeIn(3f), runnable));</span>
-<span class="nc" id="L810">    }</span>
+<span class="nc" id="L826">        game.blackScreen.addAction(Actions.sequence(Actions.fadeIn(3f), runnable));</span>
+<span class="nc" id="L827">    }</span>
 
     /**
      * Fades the screen back in from black, displays a good morning message if the player was sleeping
      */
     public void fadeFromBlack() {
         // If the player is sleeping, queue up a message to be sent
-<span class="nc bnc" id="L817" title="All 2 branches missed.">        if (game.getSleeping()) {</span>
-<span class="nc" id="L818">            RunnableAction setTextAction = new RunnableAction();</span>
-<span class="nc" id="L819">            setTextAction.setRunnable(new Runnable() {</span>
+<span class="nc bnc" id="L834" title="All 2 branches missed.">        if (game.getSleeping()) {</span>
+<span class="nc" id="L835">            RunnableAction setTextAction = new RunnableAction();</span>
+<span class="nc" id="L836">            setTextAction.setRunnable(new Runnable() {</span>
                 @Override
                 public void run() {
-<span class="nc bnc" id="L822" title="All 2 branches missed.">                    if (game.getSleeping()) {</span>
-<span class="nc" id="L823">                        game.dialogueBox.show();</span>
+<span class="nc bnc" id="L839" title="All 2 branches missed.">                    if (game.getSleeping()) {</span>
+<span class="nc" id="L840">                        game.dialogueBox.show();</span>
                         // Show a text displaying how many days they have left in the game
-<span class="nc" id="L825">                        game.dialogueBox.setText(game.getWakeUpMessage());</span>
-<span class="nc" id="L826">                        game.setSleeping(false);</span>
+<span class="nc" id="L842">                        game.dialogueBox.setText(game.getWakeUpMessage());</span>
+<span class="nc" id="L843">                        game.setSleeping(false);</span>
                     }
-<span class="nc" id="L828">                }</span>
+<span class="nc" id="L845">                }</span>
             });
 
             // Queue up events
-<span class="nc" id="L832">            game.blackScreen.addAction(Actions.sequence(Actions.fadeOut(3f), setTextAction));</span>
-<span class="nc" id="L833">        } else {</span>
-<span class="nc" id="L834">            game.blackScreen.addAction(Actions.fadeOut(3f));</span>
+<span class="nc" id="L849">            game.blackScreen.addAction(Actions.sequence(Actions.fadeOut(3f), setTextAction));</span>
+<span class="nc" id="L850">        } else {</span>
+<span class="nc" id="L851">            game.blackScreen.addAction(Actions.fadeOut(3f));</span>
         }
-<span class="nc" id="L836">    }</span>
+<span class="nc" id="L853">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

@@ -539,17 +539,17 @@ public class GameScreen implements Screen {
      * @param delta The time in seconds to add
      */
     public void passTime(float delta) {
-<span class="fc" id="L542">        daySeconds += delta;</span>
-<span class="pc bpc" id="L543" title="1 of 2 branches missed.">        while (daySeconds &gt;= 1440) {</span>
+<span class="nc" id="L542">        daySeconds += delta;</span>
+<span class="nc bnc" id="L543" title="All 2 branches missed.">        while (daySeconds &gt;= 1440) {</span>
 <span class="nc" id="L544">            daySeconds -= 1440;</span>
 <span class="nc" id="L545">            day += 1;</span>
 <span class="nc" id="L546">            dayLabel.setText(String.format(&quot;Day %s&quot;, day));</span>
         }
 
-<span class="pc bpc" id="L549" title="1 of 2 branches missed.">        if (day &gt;= 8) {</span>
+<span class="nc bnc" id="L549" title="All 2 branches missed.">        if (day &gt;= 8) {</span>
 <span class="nc" id="L550">            GameOver();</span>
         }
-<span class="fc" id="L552">    }</span>
+<span class="nc" id="L552">    }</span>
 
     /**
      * Takes a time in seconds and formats it a time in the format HH:MMam/pm
@@ -662,12 +662,12 @@ public class GameScreen implements Screen {
      * @param energy An int between 0 and 100
      */
     public void setEnergy(int energy) {
-<span class="fc" id="L665">        this.energy = energy;</span>
-<span class="pc bpc" id="L666" title="1 of 2 branches missed.">        if (this.energy &gt; 100) {</span>
+<span class="nc" id="L665">        this.energy = energy;</span>
+<span class="nc bnc" id="L666" title="All 2 branches missed.">        if (this.energy &gt; 100) {</span>
 <span class="nc" id="L667">            this.energy = 100;</span>
         }
-<span class="fc" id="L669">        energyBar.setScaleY(this.energy / 100f);</span>
-<span class="fc" id="L670">    }</span>
+<span class="nc" id="L669">        energyBar.setScaleY(this.energy / 100f);</span>
+<span class="nc" id="L670">    }</span>
 
     /**
      * @return The player's energy out of 100
@@ -682,12 +682,12 @@ public class GameScreen implements Screen {
      * @param energy The energy to decrement
      */
     public void decreaseEnergy(int energy) {
-<span class="fc" id="L685">        this.energy = this.energy - energy;</span>
-<span class="pc bpc" id="L686" title="1 of 2 branches missed.">        if (this.energy &lt; 0) {</span>
+<span class="nc" id="L685">        this.energy = this.energy - energy;</span>
+<span class="nc bnc" id="L686" title="All 2 branches missed.">        if (this.energy &lt; 0) {</span>
 <span class="nc" id="L687">            this.energy = 0;</span>
         }
-<span class="fc" id="L689">        energyBar.setScaleY(this.energy / 100f);</span>
-<span class="fc" id="L690">    }</span>
+<span class="nc" id="L689">        energyBar.setScaleY(this.energy / 100f);</span>
+<span class="nc" id="L690">    }</span>
 
     // Functions related to game score and requirements
 
@@ -696,23 +696,23 @@ public class GameScreen implements Screen {
      * @param hours The amount of hours to add
      */
     public void addStudyHours(int hours) {
-<span class="fc" id="L699">        hoursStudied += hours;</span>
-<span class="fc" id="L700">    }</span>
+<span class="nc" id="L699">        hoursStudied += hours;</span>
+<span class="nc" id="L700">    }</span>
     /**
      * Adds to the total times studied
      */
-<span class="fc" id="L704">    public void addStudyTimes() {timesStudied++;</span>
-<span class="fc" id="L705">    }</span>
+<span class="nc" id="L704">    public void addStudyTimes() {timesStudied++;</span>
+<span class="nc" id="L705">    }</span>
 
     /**
      * @param catchup_used boolean for if catchup has been used
      * @return catchup_used
      */
     public static boolean useCatchup(boolean catchup_used) {
-<span class="fc bfc" id="L712" title="All 2 branches covered.">        if (!catchup_used){</span>
-<span class="fc" id="L713">            catchup_used = true;</span>
+<span class="nc bnc" id="L712" title="All 2 branches missed.">        if (!catchup_used){</span>
+<span class="nc" id="L713">            catchup_used = true;</span>
         }
-<span class="fc" id="L715">        return catchup_used;</span>
+<span class="nc" id="L715">        return catchup_used;</span>
     }
 
     /**
@@ -790,14 +790,14 @@ public class GameScreen implements Screen {
      * @return The number of seconds elapsed in the day
      */
     public float getSeconds() {
-<span class="fc" id="L793">        return daySeconds;</span>
+<span class="nc" id="L793">        return daySeconds;</span>
     }
 
     /**
      * Sets the day's second value
      * @param daySeconds
      */
-<span class="fc" id="L800">    public void setSeconds(float daySeconds){this.daySeconds=daySeconds;}</span>
+<span class="nc" id="L800">    public void setSeconds(float daySeconds){this.daySeconds=daySeconds;}</span>
     /**
      * Ends the game, called at the end of the 7th day, switches to a screen that displays a score
      */

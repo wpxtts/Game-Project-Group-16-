@@ -94,10 +94,12 @@ public class EventManager {
         // Events related to objects
         switch (args[0]) {
             case "tree":
-                treeEvent();
+                String textTree = treeEvent();
+                game.dialogueBox.setText(textTree);
                 break;
             case "chest":
-                chestEvent();
+                String textChest = chestEvent();
+                game.dialogueBox.setText(textChest);
                 break;
             case "piazza":
                 String textPiazza = piazzaEvent(args);
@@ -146,7 +148,8 @@ public class EventManager {
                 game.dialogueBox.hide();
                 break;
             default:
-                objectEvent(eventKey);
+                String textObject = objectEvent(eventKey);
+                game.dialogueBox.setText(textObject);
                 break;
 
         }
@@ -176,26 +179,29 @@ public class EventManager {
     /**
      * Sets the text when talking to a tree
      */
-    public void treeEvent() {
+    public String treeEvent() {
         game.dialogueBox.hideSelectBox();
-        game.dialogueBox.setText("The tree doesn't say anything back.");
+        //game.dialogueBox.setText("The tree doesn't say anything back.");
+        return "The tree doesn't say anything back.";
     }
 
     /**
      * Sets the text when interacting with the secret area
      */
-    public void chestEvent() {
+    public String chestEvent() {
         game.dialogueBox.hideSelectBox();
-        game.dialogueBox.setText("Wow! These barrels is full of so many magical items! I wonder how they will help you out on your journey! Boy, this is an awfully long piece of text, I wonder if someone is testing something?\n...\n...\n...\nHow cool!");
+        //game.dialogueBox.setText("Wow! These barrels is full of so many magical items! I wonder how they will help you out on your journey! Boy, this is an awfully long piece of text, I wonder if someone is testing something?\n...\n...\n...\nHow cool!");
+        return "Wow! These barrels is full of so many magical items! I wonder how they will help you out on your journey! Boy, this is an awfully long piece of text, I wonder if someone is testing something?\n...\n...\n...\nHow cool!";
     }
 
     /**
      * Sets the text when talking to an object without a dedicated function
      */
-    public void objectEvent(String object) {
+    public String objectEvent(String object) {
         game.dialogueBox.hideSelectBox();
-        game.dialogueBox.setText("This is a " +  object + "!");
-    }
+        //game.dialogueBox.setText("This is a " +  object + "!");
+        return "This is a " +  object + "!";
+     }
 
     /**
      * Lets the player meet friends at Ron Cooke Hub for x num of hours, decreases the player's energy and increments the

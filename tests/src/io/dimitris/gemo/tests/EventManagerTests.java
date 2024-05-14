@@ -168,25 +168,25 @@ public class EventManagerTests {
 
     @Test
     public void testTreeEvent(){
-        eventManager = mock(EventManager.class);
-        eventManager.treeEvent();
+        String result = eventManager.treeEvent();
         int current_energy = game.getEnergy();
         assertEquals(current_energy,game.getEnergy());
+        assertEquals("The tree doesn't say anything back.",result);
     }
     @Test
     public void testChestEvent(){
-        eventManager = mock(EventManager.class);
-        eventManager.chestEvent();
+        String result = eventManager.chestEvent();
         int current_energy = game.getEnergy();
         assertEquals(current_energy,game.getEnergy());
+        assertEquals("Wow! These barrels is full of so many magical items! I wonder how they will help you out on your journey! Boy, this is an awfully long piece of text, I wonder if someone is testing something?\n...\n...\n...\nHow cool!",result);
     }
     @Test
     public void testObjectEvent(){
-        eventManager = mock(EventManager.class);
         String pineapple = "Pineapple";
-        eventManager.objectEvent(pineapple);
+        String result = eventManager.objectEvent(pineapple);
         int current_energy = game.getEnergy();
         assertEquals(current_energy,game.getEnergy());
+        assertEquals("This is a " +  pineapple + "!", result);
     }
     @Test
     public void testPiazzaEvent(){
