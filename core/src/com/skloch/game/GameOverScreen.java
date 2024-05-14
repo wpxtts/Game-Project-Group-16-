@@ -143,7 +143,7 @@ public class GameOverScreen implements Screen {
 //            streakGoals.put(streak_activity, 0);
 //        }
         streakGoals.put("studying", 5);
-        streakGoals.put("eating", 9);
+        streakGoals.put("eating", 3);
         streakGoals.put("flowers", 5);
         streakGoals.put("town", 8);
         streakGoals.put("shop", 9);
