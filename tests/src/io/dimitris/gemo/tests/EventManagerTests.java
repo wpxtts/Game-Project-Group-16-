@@ -246,7 +246,6 @@ public class EventManagerTests {
         assertSame("lunch", game.getMeal());
         game.setSeconds(18*60+1);
         assertSame("dinner", game.getMeal());
-
     }
     @Test
     public void testCompSciEvent(){
@@ -290,17 +289,21 @@ public class EventManagerTests {
         args[1] = "1";
         result = eventManager.compSciEvent(args);
         assertEquals("You studied for 1 hours!\nYou lost 10 energy",result);
+        assertEquals(0,game.getEnergy());
         game.setSeconds(10*60+1);
         game.setEnergy(20);
         args[1] = "2";
         result = eventManager.compSciEvent(args);
         assertEquals("You studied for 2 hours!\nYou lost 20 energy",result);
+        assertEquals(0,game.getEnergy());
         game.setSeconds(10*60+1);
         game.setEnergy(30);
         args[1] = "3";
         result = eventManager.compSciEvent(args);
         assertEquals("You studied for 3 hours!\nYou lost 30 energy",result);
+        assertEquals(0,game.getEnergy());
     }
+
     @Test
     public void testFlowersEvent(){
         game.setSeconds(10*60+1);
@@ -343,17 +346,21 @@ public class EventManagerTests {
         args[1] = "1";
         result = eventManager.flowersEvent(args);
         assertEquals("You smelled the flowers for 1 hours!\nYou lost 10 energy",result);
+        assertEquals(0,game.getEnergy());
         game.setSeconds(10*60+1);
         game.setEnergy(20);
         args[1] = "2";
         result = eventManager.flowersEvent(args);
         assertEquals("You smelled the flowers for 2 hours!\nYou lost 20 energy",result);
+        assertEquals(0,game.getEnergy());
         game.setSeconds(10*60+1);
         game.setEnergy(30);
         args[1] = "3";
         result = eventManager.flowersEvent(args);
         assertEquals("You smelled the flowers for 3 hours!\nYou lost 30 energy",result);
+        assertEquals(0,game.getEnergy());
     }
+
     @Test
     public void testShopEvent(){
         game.setSeconds(10*60+1);
@@ -395,15 +402,19 @@ public class EventManagerTests {
         game.setEnergy(10);
         result = eventManager.shopEvent(args);
         assertEquals("You took an hour to buy and eat breakfast at nisa!\nYou lost 10 energy!",result);
+        assertEquals(0,game.getEnergy());
         game.setSeconds(12*60+1);
         game.setEnergy(10);
         result = eventManager.shopEvent(args);
         assertEquals("You took an hour to buy and eat lunch at nisa!\nYou lost 10 energy!",result);
+        assertEquals(0,game.getEnergy());
         game.setSeconds(19*60+1);
         game.setEnergy(10);
         result = eventManager.shopEvent(args);
         assertEquals("You took an hour to buy and eat dinner at nisa!\nYou lost 10 energy!",result);
+        assertEquals(0,game.getEnergy());
     }
+
     @Test
     public void testGymEvent(){
         game.setSeconds(10*60+1);
@@ -446,17 +457,21 @@ public class EventManagerTests {
         args[1] = "2";
         result = eventManager.gymEvent(args);
         assertEquals("You spent 2 hours working out at the gym!\nYou lost 20 energy",result);
+        assertEquals(0,game.getEnergy());
         game.setSeconds(10*60+1);
         game.setEnergy(30);
         args[1] = "3";
         result = eventManager.gymEvent(args);
         assertEquals("You spent 3 hours working out at the gym!\nYou lost 30 energy",result);
+        assertEquals(0,game.getEnergy());
         game.setSeconds(10*60+1);
         game.setEnergy(40);
         args[1] = "4";
         result = eventManager.gymEvent(args);
         assertEquals("You spent 4 hours working out at the gym!\nYou lost 40 energy",result);
+        assertEquals(0,game.getEnergy());
     }
+
     @Test
     public void testDuckPondEvent(){
         game.setSeconds(10*60+1);
@@ -499,17 +514,21 @@ public class EventManagerTests {
         args[1] = "1";
         result = eventManager.duckPondEvent(args);
         assertEquals("You spent 1 hours feeding the ducks!\nYou lost 10 energy",result);
+        assertEquals(0,game.getEnergy());
         game.setSeconds(10*60+1);
         game.setEnergy(20);
         args[1] = "2";
         result = eventManager.duckPondEvent(args);
         assertEquals("You spent 2 hours feeding the ducks!\nYou lost 20 energy",result);
+        assertEquals(0,game.getEnergy());
         game.setSeconds(10*60+1);
         game.setEnergy(30);
         args[1] = "3";
         result = eventManager.duckPondEvent(args);
         assertEquals("You spent 3 hours feeding the ducks!\nYou lost 30 energy",result);
+        assertEquals(0,game.getEnergy());
     }
+
     @Test
     public void testLibraryEvent(){
         game.setSeconds(10*60+1);
@@ -551,16 +570,19 @@ public class EventManagerTests {
         args[1] = "2";
         result = eventManager.libraryEvent(args);
         assertEquals("You studied for 2 hours!\nYou lost 20 energy",result);
+        assertEquals(0,game.getEnergy());
         game.setSeconds(10*60+1);
         game.setEnergy(30);
         args[1] = "3";
         result = eventManager.libraryEvent(args);
         assertEquals("You studied for 3 hours!\nYou lost 30 energy",result);
+        assertEquals(0,game.getEnergy());
         game.setSeconds(10*60+1);
         game.setEnergy(40);
         args[1] = "4";
         result = eventManager.libraryEvent(args);
         assertEquals("You studied for 4 hours!\nYou lost 40 energy",result);
+        assertEquals(0,game.getEnergy());
     }
 
 //    @Test

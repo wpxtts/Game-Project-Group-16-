@@ -1,0 +1,11 @@
+Eat food at the Piazza?
+t[flowers=10, east=10, studying=10, shop=10, library=10, town=10, duck_pond=10, meet_friends=10, gym=10, eating=10]
+.WARNING: Couldn't load file a/fake/file/path
+).$deltaX before normalization: -10.0
+)."deltaY before normalization: 0.0
+).#deltaX before normalization: 10.0
+)."deltaY before normalization: 0.0
+)."deltaX before normalization: 0.0
+).#deltaY before normalization: 10.0
+)."deltaX before normalization: 0.0
+).$deltaY before normalization: -10.0
