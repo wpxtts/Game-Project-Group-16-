@@ -648,6 +648,7 @@ daily.put("early_bird",daily.get("early_bird")+1);
                 } else {
                     // If they do have the energy to study
                     daily.put("studying",daily.get("studying")+1);
+                    daily.put("library",daily.get("library")+1);
                     if (game.getSeconds() > 20*60){
                         daily.put("night_owl",daily.get("night_owl")+1);
                     }
