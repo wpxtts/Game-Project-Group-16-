@@ -219,10 +219,8 @@ public class EventManager {
             } else {
                 // If player conducts activities after 8pm increase night_owl streak
                 if (game.getSeconds() > 20*60){
-                    if (daily.get("night_owl") < 3){
-                        // increase player's streak if under limit
-                        daily.put("night_owl",daily.get("night_owl")+1);
-                    }
+                    // increase player's streak
+                    daily.put("night_owl",daily.get("night_owl")+1);
                 }
                 // Say that the player chatted about this topic for 1-3 hours
                 // RNG factor adds a slight difficulty (may consume too much energy to study)
@@ -233,10 +231,8 @@ public class EventManager {
                 return String.format("You talked about %s for %d hours!", args[1].toLowerCase(), hours);
             }
         } else {
-            if (daily.get("early_bird") < 3 && game.getSeconds() > 0){
-                // increase player's streak if under limit
-                daily.put("early_bird",daily.get("early_bird")+1);
-            }
+            // increase player's streak
+daily.put("early_bird",daily.get("early_bird")+1);
             return "It's too early in the morning to meet your friends, go to bed!";
         }
     }
@@ -297,11 +293,11 @@ public class EventManager {
                     // If they do have the energy to study increase streaks and complete event
                     if (game.getSeconds() > 20*60){
                         if (daily.get("night_owl") < 3){
-                            // increase player's streak if under limit
+                            // increase player's streak
                             daily.put("night_owl",daily.get("night_owl")+1);
                         }
                     }
-                    // increase player's streak if under limit
+                    // increase player's streak
                     daily.put("studying",daily.get("studying")+1);
                     //game.dialogueBox.setText(String.format("You studied for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
@@ -317,7 +313,7 @@ public class EventManager {
         } else {
             //game.dialogueBox.setText("It's too early in the morning to study, go to bed!");
             if (daily.get("early_bird") < 3 && game.getSeconds() > 0){
-                // increase player's streak if under limit
+                // increase player's streak
                 
                 daily.put("early_bird",daily.get("early_bird")+1);
             }
@@ -339,14 +335,11 @@ public class EventManager {
                 return "You are too tired to eat right now!";
             } else {
                 if (game.getSeconds() > 20*60){
-                    if (daily.get("night_owl") < 3){
-                        // increase player's streak if under limit
-                        
-                        daily.put("night_owl",daily.get("night_owl")+1);
-                    }
+                    // increase player's streak
+                    daily.put("night_owl",daily.get("night_owl")+1);
                 }
                 if (daily.get("eating") == 3){
-                    // increase player's streak if under limit
+                    // increase player's streak
                     streaks.put("eating", streaks.getOrDefault("eating", 0) + 1);
                 } else if (daily.get("eating") < 3){
                     // increase player's eating for the day streak if under limit
@@ -359,9 +352,8 @@ public class EventManager {
             }
         } else {
             //game.dialogueBox.setText("It's too early in the morning to eat food, go to bed!");
-            if (daily.get("early_bird") < 3 && game.getSeconds() > 0){
-                // increase player's streak if under limit
-                
+            if (game.getSeconds() > 0){
+                // increase player's streak
                 daily.put("early_bird",daily.get("early_bird")+1);
             }
             return "It's too early in the morning to eat food, go to bed!";
@@ -377,10 +369,6 @@ public class EventManager {
     public String flowersEvent(String[] args) {
         if (game.getSeconds() > 8*60) {
             int energyCost = activityEnergies.get("flowers");
-            if (daily.get("flowers") < 3){
-                // increase player's streak if under limit
-                daily.put("flowers",daily.get("flowers")+1);
-            }
             // If the player is too tired to smell the flowers
             if (game.getEnergy() < energyCost) {
                 game.dialogueBox.hideSelectBox();
@@ -400,15 +388,11 @@ public class EventManager {
                 } else {
                     // If they do have the energy to smell the flowers
                     if (game.getSeconds() > 20*60){
-                        if (daily.get("night_owl") < 3){
-                            // increase player's streak if under limit
-                            daily.put("night_owl",daily.get("night_owl")+1);
-                        }
+                        // increase player's streak
+                        daily.put("night_owl",daily.get("night_owl")+1);
                     }
-                    if (daily.get("flowers") < 3){
-                        // increase player's streak if under limit
-                        daily.put("flowers",daily.get("flowers")+1);
-                    }
+                    // increase player's streak
+                    daily.put("flowers",daily.get("flowers")+1);
                     //game.dialogueBox.setText(String.format("You smelled the flowers for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.passTime(hours * 60); // in seconds
@@ -418,10 +402,8 @@ public class EventManager {
             }
         } else {
             //game.dialogueBox.setText("It's too early in the morning to smell the flowers, go to bed!");
-            if (daily.get("early_bird") < 3 && game.getSeconds() > 0){
-                // increase player's streak if under limit
-                daily.put("early_bird",daily.get("early_bird")+1);
-            }
+            // increase player's streak
+daily.put("early_bird",daily.get("early_bird")+1);
             return "It's too early in the morning to smell the flowers, go to bed!";
         }
     }
@@ -447,7 +429,7 @@ public class EventManager {
                     return "You don't have the energy to go into town right now!";
                 } else {
                     if (daily.get("town") < 3){
-                        // increase player's streak if under limit
+                        // increase player's streak
                         daily.put("town",daily.get("town")+1);
                     }
                     // If they do have the energy to go into town
@@ -458,10 +440,8 @@ public class EventManager {
             }
         } else {
             //game.dialogueBox.setText("It's too early in the morning to go into town, there are no buses yet!");
-            if (daily.get("early_bird") < 3 && game.getSeconds() > 0){
-                // increase player's streak if under limit
-                daily.put("early_bird",daily.get("early_bird")+1);
-            }
+            // increase player's streak
+            daily.put("early_bird",daily.get("early_bird")+1);
             return "It's too early in the morning to go into town, there are no buses yet!";
         }
         return null;
@@ -482,7 +462,7 @@ public class EventManager {
             } else {
                 if (game.getSeconds() > 20*60){
                     if (daily.get("night_owl") < 3){
-                        // increase player's streak if under limit
+                        // increase player's streak
                         
                         daily.put("night_owl",daily.get("night_owl")+1);
                     }
@@ -504,7 +484,7 @@ public class EventManager {
         } else {
             //game.dialogueBox.setText("It's too early in the morning to eat food, go to bed!");
             if (daily.get("early_bird") < 3 && game.getSeconds() > 0){
-                // increase player's streak if under limit
+                // increase player's streak
                 
                 daily.put("early_bird",daily.get("early_bird")+1);
             }
@@ -582,7 +562,7 @@ public class EventManager {
                     // If they do have the energy to work out
                     if (game.getSeconds() > 20*60){
                         if (daily.get("night_owl") < 3){
-                            // increase player's streak if under limit
+                            // increase player's streak
                             
                             daily.put("night_owl",daily.get("night_owl")+1);
                         }
@@ -597,7 +577,7 @@ public class EventManager {
         } else {
             //game.dialogueBox.setText("It's too early to work out, the gym's not open yet!");
             if (daily.get("early_bird") < 3 && game.getSeconds() > 0){
-                // increase player's streak if under limit
+                // increase player's streak
                 
                 daily.put("early_bird",daily.get("early_bird")+1);
             }
@@ -633,7 +613,7 @@ public class EventManager {
                     // If they do have the energy to feed the ducks
                     if (game.getSeconds() > 20*60){
                         if (daily.get("night_owl") < 3){
-                            // increase player's streak if under limit
+                            // increase player's streak
                             
                             daily.put("night_owl",daily.get("night_owl")+1);
                         }
@@ -648,7 +628,7 @@ public class EventManager {
         } else {
             //game.dialogueBox.setText("It's too early to feed the ducks, they're not hungry!");
             if (daily.get("early_bird") < 3 && game.getSeconds() > 0 && game.getSeconds() > 0){
-                // increase player's streak if under limit
+                // increase player's streak
                 
                 daily.put("early_bird",daily.get("early_bird")+1);
             }
@@ -692,7 +672,7 @@ public class EventManager {
                     daily.put("studying",daily.get("studying")+1);
                     if (game.getSeconds() > 20*60){
                         if (daily.get("night_owl") < 3){
-                            // increase player's streak if under limit
+                            // increase player's streak
                             
                             daily.put("night_owl",daily.get("night_owl")+1);
                         }
@@ -712,7 +692,7 @@ public class EventManager {
         } else {
             //game.dialogueBox.setText("It's too early in the morning to study, go to bed!");
             if (daily.get("early_bird") < 3 && game.getSeconds() > 0){
-                // increase player's streak if under limit
+                // increase player's streak
                 
                 streaks.put("early_bird",daily.get("early_bird")+1);
             }
