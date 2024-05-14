@@ -280,63 +280,58 @@ public class EventManagerTests {
         assertEquals(0,game.getEnergy());
     }
 
-//    @Test
-//    public void testFlowersEvent(){
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(10);
-//        String[] args = new String[2];
-//        args[0] = "flowers";
-//        args[1] = "2";
-//        String result = eventManager.flowersEvent(args);
-//        assertEquals("What if you fell asleep? You don't have the energy!",result);
-//
-//        game.setSeconds(5);
-//        game.setEnergy(0);
-//        result = eventManager.flowersEvent(args);
-//        assertEquals("It's too early in the morning to smell the flowers, go to bed!",result);
-//        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
-//
-//
-//        game.setSeconds(8*60);
-//        game.setEnergy(0);
-//        result = eventManager.flowersEvent(args);
-//        result = eventManager.flowersEvent(args);
-//        result = eventManager.flowersEvent(args);
-//        assertEquals("It's too early in the morning to smell the flowers, go to bed!",result);
-//        assertEquals(3,(int)EventManager.streaks.get("early_bird"));
-//
-//        // Test too tired case
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(0);
-//        result = eventManager.flowersEvent(args);
-//        assertEquals("You are too tired to smell the flowers right now!",result);
-//        assertEquals(1,(int)EventManager.streaks.get("determined"));
-//        eventManager.flowersEvent(args);
-//        eventManager.flowersEvent(args);
-//        eventManager.flowersEvent(args);
-//        assertEquals(3,(int)EventManager.streaks.get("determined"));
-//
-//        // Correct time + enough energy
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(10);
-//        args[1] = "1";
-//        result = eventManager.flowersEvent(args);
-//        assertEquals("You smelled the flowers for 1 hours!\nYou lost 10 energy",result);
-//        assertEquals(0,game.getEnergy());
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(20);
-//        args[1] = "2";
-//        result = eventManager.flowersEvent(args);
-//        assertEquals("You smelled the flowers for 2 hours!\nYou lost 20 energy",result);
-//        assertEquals(0,game.getEnergy());
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(30);
-//        args[1] = "3";
-//        result = eventManager.flowersEvent(args);
-//        assertEquals("You smelled the flowers for 3 hours!\nYou lost 30 energy",result);
-//        assertEquals(0,game.getEnergy());
-//    }
-//
+    @Test
+    public void testFlowersEvent(){
+        game.setSeconds(10*60+1);
+        game.setEnergy(10);
+        String[] args = new String[2];
+        args[0] = "flowers";
+        args[1] = "2";
+        String result = eventManager.flowersEvent(args);
+        assertEquals("What if you fell asleep? You don't have the energy!",result);
+
+        game.setSeconds(5);
+        game.setEnergy(0);
+        result = eventManager.flowersEvent(args);
+        assertEquals("It's too early in the morning to smell the flowers, go to bed!",result);
+        assertEquals(1,(int)EventManager.daily.get("early_bird"));
+
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.flowersEvent(args);
+        result = eventManager.flowersEvent(args);
+        result = eventManager.flowersEvent(args);
+        assertEquals("It's too early in the morning to smell the flowers, go to bed!",result);
+        assertEquals(4,(int)EventManager.daily.get("early_bird"));
+
+        // Test too tired case
+        game.setSeconds(10*60+1);
+        game.setEnergy(0);
+        result = eventManager.flowersEvent(args);
+        assertEquals("You are too tired to smell the flowers right now!",result);
+
+        // Correct time + enough energy
+        game.setSeconds(10*60+1);
+        game.setEnergy(10);
+        args[1] = "1";
+        result = eventManager.flowersEvent(args);
+        assertEquals("You smelled the flowers for 1 hours!\nYou lost 10 energy",result);
+        assertEquals(0,game.getEnergy());
+        game.setSeconds(10*60+1);
+        game.setEnergy(20);
+        args[1] = "2";
+        result = eventManager.flowersEvent(args);
+        assertEquals("You smelled the flowers for 2 hours!\nYou lost 20 energy",result);
+        assertEquals(0,game.getEnergy());
+        game.setSeconds(10*60+1);
+        game.setEnergy(30);
+        args[1] = "3";
+        result = eventManager.flowersEvent(args);
+        assertEquals("You smelled the flowers for 3 hours!\nYou lost 30 energy",result);
+        assertEquals(0,game.getEnergy());
+    }
+
 //    @Test
 //    public void testShopEvent(){
 //        game.setSeconds(10*60+1);
