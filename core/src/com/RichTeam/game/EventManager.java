@@ -232,7 +232,7 @@ public class EventManager {
             }
         } else {
             // increase player's streak
-daily.put("early_bird",daily.get("early_bird")+1);
+            daily.put("early_bird",daily.get("early_bird")+1);
             return "It's too early in the morning to meet your friends, go to bed!";
         }
     }
