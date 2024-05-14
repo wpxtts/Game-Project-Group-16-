@@ -108,7 +108,7 @@ public class EventManager {
                 game.dialogueBox.setText(textCompSci);
                 break;
             case "rch":
-                String textRCH = ronCookEvent(args);
+                String textRCH = ronCookeEvent(args);
                 game.dialogueBox.setText(textRCH);
                 break;
             case "accomodation":
@@ -203,7 +203,7 @@ public class EventManager {
      *
      * @param args Arguments to be passed, should contain the hours the player wants to meet friends for. E.g. ["piazza", "1"]
      */
-    public String ronCookEvent(String[] args) {
+    public String ronCookeEvent(String[] args) {
         if (game.getSeconds() > 8*60) {
             int energyCost = activityEnergies.get("meet_friends");
                 // If the player is too tired to meet friends
