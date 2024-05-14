@@ -121,17 +121,17 @@ public class GameOverScreen implements Screen {
         // All achievements are 5 days in a row except eating, which is 3 meals 3 days in a row, and studying, which is every day
         streakGoals = new HashMap<String, Integer>();
         //debugging
-        for (String streak_activity : EventManager.streak_activities){
-            streakGoals.put(streak_activity, 0);
-        }
-//        streakGoals.put("studying", 7);
-//        streakGoals.put("eating", 3);
-//        streakGoals.put("flowers", 5);
-//        streakGoals.put("town", 5);
-//        streakGoals.put("shop", 5);
-//        streakGoals.put("library", 5);
-//        streakGoals.put("early_bird", 5);
-//        streakGoals.put("night_owl", 5);
+//        for (String streak_activity : EventManager.streak_activities){
+//            streakGoals.put(streak_activity, 0);
+//        }
+        streakGoals.put("studying", 7);
+        streakGoals.put("eating", 3);
+        streakGoals.put("flowers", 5);
+        streakGoals.put("town", 5);
+        streakGoals.put("shop", 5);
+        streakGoals.put("library", 5);
+        streakGoals.put("early_bird", 5);
+        streakGoals.put("night_owl", 5);
 
         // Load your texture
 
@@ -156,14 +156,14 @@ public class GameOverScreen implements Screen {
 
 
         // Set position of the image
-        apple_image.setPosition(200, 225);
-        flower_image.setPosition(950, 100);
+        apple_image.setPosition(175, 225);
+        flower_image.setPosition(950, 75);
         bus_image.setPosition(50, 325);
         shopping_basket_image.setPosition(950, 350);
         early_bird_image.setPosition(100, 500);
         night_owl_image.setPosition(1050, 500);
-        book_image.setPosition(50, 50);
-        library_book_image.setPosition(1050, 200);
+        book_image.setPosition(30, 30);
+        library_book_image.setPosition(1100, 150);
 
         //Iterate through the streaks to see which achievements were completed
         HashMap<String, Integer> streaksAchieved = EventManager.getStreaks();
