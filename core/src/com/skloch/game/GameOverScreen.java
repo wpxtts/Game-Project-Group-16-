@@ -129,7 +129,7 @@ public class GameOverScreen implements Screen {
 
 
         // Title
-        Label achievementsTitle = new Label("Game Over!", game.skin, "button");
+        Label achievementsTitle = new Label("Achievements", game.skin, "button");
         achievementsTable.add(title).padTop(10);
         achievementsTable.row();
 
@@ -137,6 +137,7 @@ public class GameOverScreen implements Screen {
         achievementsTable.add(theAchievements).prefHeight(190).prefWidth(225);
         achievementsTable.row();
 
+        // All 5 days in a row except eating, which is 3 meals 3 days in a row
         streakGoals = new HashMap<String, Integer>();
         //debugging
 //        for (String streak_activity : EventManager.streak_activities){
@@ -145,11 +146,11 @@ public class GameOverScreen implements Screen {
         streakGoals.put("studying", 5);
         streakGoals.put("eating", 3);
         streakGoals.put("flowers", 5);
-        streakGoals.put("town", 8);
-        streakGoals.put("shop", 9);
+        streakGoals.put("town", 5);
+        streakGoals.put("shop", 5);
         streakGoals.put("library", 5);
-        streakGoals.put("early_bird", 3);
-        streakGoals.put("night_owl", 7);
+        streakGoals.put("early_bird", 5);
+        streakGoals.put("night_owl", 5);
 
         // Load your texture
 
@@ -194,21 +195,33 @@ public class GameOverScreen implements Screen {
                     switch (task) {
                         case "studying":
                             gameOverStage.addActor(book_image);
+                            achievementsTable.add(new Label("Bookworm", game.skin, "interaction")).padBottom(5);
+                            achievementsTable.row();
                             break;
                         case "eating":
                             gameOverStage.addActor(apple_image);
+                            achievementsTable.add(new Label("Piazza goer", game.skin, "interaction")).padBottom(5);
+                            achievementsTable.row();
                             break;
                         case "flowers":
                             gameOverStage.addActor(flower_image);
+                            achievementsTable.add(new Label("Flowers", game.skin, "interaction")).padBottom(5);
+                            achievementsTable.row();
                             break;
                         case "town":
                             gameOverStage.addActor(bus_image);
+                            achievementsTable.add(new Label("Townie", game.skin, "interaction")).padBottom(5);
+                            achievementsTable.row();
                             break;
                         case "shop":
                             gameOverStage.addActor(shopping_basket_image);
+                            achievementsTable.add(new Label("Nisa Local", game.skin, "interaction")).padBottom(5);
+                            achievementsTable.row();
                             break;
                         case "early_bird":
                             gameOverStage.addActor(early_bird_image);
+                            achievementsTable.add(new Label("Nisa Local", game.skin, "interaction")).padBottom(5);
+                            achievementsTable.row();
                             break;
                         case "night_owl":
                             gameOverStage.addActor(night_owl_image);
