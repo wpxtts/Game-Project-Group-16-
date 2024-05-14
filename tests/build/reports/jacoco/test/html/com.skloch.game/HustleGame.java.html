@@ -54,10 +54,10 @@ public class HustleGame extends Game {
 	 * @param width Width of the window
 	 * @param height Height of the window
 	 */
-<span class="nc" id="L57">	public HustleGame (int width, int height) {</span>
-<span class="nc" id="L58">		WIDTH = width;</span>
-<span class="nc" id="L59">		HEIGHT = height;</span>
-<span class="nc" id="L60">	}</span>
+<span class="fc" id="L57">	public HustleGame (int width, int height) {</span>
+<span class="fc" id="L58">		WIDTH = width;</span>
+<span class="fc" id="L59">		HEIGHT = height;</span>
+<span class="fc" id="L60">	}</span>
 
 	/**
 	 * Loads resources used throughout the game.
@@ -165,13 +165,13 @@ public class HustleGame extends Game {
 	 * @return The contents of the file as a String
 	 */
 	public String readTextFile(String filepath) throws FileNotFoundException {
-<span class="nc" id="L168">		FileHandle file = Gdx.files.internal(filepath);</span>
+<span class="fc" id="L168">		FileHandle file = Gdx.files.internal(filepath);</span>
 
-<span class="nc bnc" id="L170" title="All 2 branches missed.">		if (!file.exists()) {</span>
-<span class="nc" id="L171">			System.out.println(&quot;WARNING: Couldn't load file &quot; + filepath);</span>
-<span class="nc" id="L172">			throw new FileNotFoundException(&quot;File not found&quot;);</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">		if (!file.exists()) {</span>
+<span class="fc" id="L171">			System.out.println(&quot;WARNING: Couldn't load file &quot; + filepath);</span>
+<span class="fc" id="L172">			throw new FileNotFoundException(&quot;File not found&quot;);</span>
 		} else {
-<span class="nc" id="L174">			return file.readString();</span>
+<span class="fc" id="L174">			return file.readString();</span>
 		}
 
 	}

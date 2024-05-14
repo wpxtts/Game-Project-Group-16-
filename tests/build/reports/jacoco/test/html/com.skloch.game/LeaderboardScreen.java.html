@@ -26,11 +26,11 @@ public class LeaderboardScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
 
-<span class="nc" id="L29">    public static String leaderboardPath = &quot;../assets/Text/leaderboard.csv&quot;;</span>
+<span class="fc" id="L29">    public static String leaderboardPath = &quot;../assets/Text/leaderboard.csv&quot;;</span>
 
-<span class="nc" id="L31">    public LeaderboardScreen(final HustleGame game, Screen previousScreen,boolean draw) {</span>
-<span class="nc" id="L32">        this.game = game;</span>
-<span class="nc bnc" id="L33" title="All 2 branches missed.">        if(draw){</span>
+<span class="fc" id="L31">    public LeaderboardScreen(final HustleGame game, Screen previousScreen,boolean draw) {</span>
+<span class="fc" id="L32">        this.game = game;</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        if(draw){</span>
 <span class="nc" id="L34">            leaderboardStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));</span>
 <span class="nc" id="L35">            Gdx.input.setInputProcessor(leaderboardStage);</span>
 
@@ -88,7 +88,7 @@ public class LeaderboardScreen implements Screen {
 <span class="nc" id="L88">            }</span>
         }
 
-<span class="nc" id="L91">    }</span>
+<span class="fc" id="L91">    }</span>
 
     /**
      * Calculates the top 10 places on the leaderboard
@@ -97,28 +97,28 @@ public class LeaderboardScreen implements Screen {
      *      being the score
      */
     public ArrayList&lt;String[]&gt; getLeaderboard10(){
-<span class="nc" id="L100">        ArrayList&lt;String[]&gt; leaderboardData = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L101">        try (BufferedReader br = new BufferedReader(new FileReader(leaderboardPath))) {</span>
+<span class="fc" id="L100">        ArrayList&lt;String[]&gt; leaderboardData = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L101">        try (BufferedReader br = new BufferedReader(new FileReader(leaderboardPath))) {</span>
             String line;
-<span class="nc bnc" id="L103" title="All 2 branches missed.">            while ((line = br.readLine()) != null) {</span>
-<span class="nc" id="L104">                String[] values = line.split(&quot;,&quot;);</span>
-<span class="nc bnc" id="L105" title="All 2 branches missed.">                if (values.length &gt;= 2) {</span>
-<span class="nc" id="L106">                    leaderboardData.add(values);</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">            while ((line = br.readLine()) != null) {</span>
+<span class="fc" id="L104">                String[] values = line.split(&quot;,&quot;);</span>
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">                if (values.length &gt;= 2) {</span>
+<span class="fc" id="L106">                    leaderboardData.add(values);</span>
                 }
-<span class="nc" id="L108">            }</span>
+<span class="fc" id="L108">            }</span>
 <span class="nc" id="L109">        } catch (IOException e) {</span>
 <span class="nc" id="L110">            e.printStackTrace();</span>
-<span class="nc" id="L111">        }</span>
+<span class="fc" id="L111">        }</span>
 
-<span class="nc bnc" id="L113" title="All 2 branches missed.">        Collections.sort(leaderboardData.subList(leaderboardData.size() &gt; 0 ? 1 : 0, leaderboardData.size()), new Comparator&lt;String[]&gt;() {</span>
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">        Collections.sort(leaderboardData.subList(leaderboardData.size() &gt; 0 ? 1 : 0, leaderboardData.size()), new Comparator&lt;String[]&gt;() {</span>
             @Override
             public int compare(String[] o1, String[] o2) {
-<span class="nc" id="L116">                return Integer.parseInt(o2[1]) - Integer.parseInt(o1[1]); // Sort in descending order</span>
+<span class="fc" id="L116">                return Integer.parseInt(o2[1]) - Integer.parseInt(o1[1]); // Sort in descending order</span>
             }
         });
 
-<span class="nc" id="L120">        ArrayList&lt;String[]&gt; leaderboard10 = new ArrayList&lt;&gt;(leaderboardData.subList(1, Math.min(leaderboardData.size(), 11)));</span>
-<span class="nc" id="L121">        return leaderboard10;</span>
+<span class="fc" id="L120">        ArrayList&lt;String[]&gt; leaderboard10 = new ArrayList&lt;&gt;(leaderboardData.subList(1, Math.min(leaderboardData.size(), 11)));</span>
+<span class="fc" id="L121">        return leaderboard10;</span>
     }
 
     @Override

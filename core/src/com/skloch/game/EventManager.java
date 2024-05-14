@@ -361,7 +361,7 @@ public class EventManager {
                     streaks.put("eating", streaks.getOrDefault("eating", 0) + 1);
                     daily.put("eating",daily.get("eating")+1);
                 } else if (daily.get("eating") == 3){
-                    daily_eat = true;
+                    //daily_eat = true;
                 }
                 game.decreaseEnergy(energyCost);
                 game.passTime(60); // in seconds
