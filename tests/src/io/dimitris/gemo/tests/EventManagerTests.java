@@ -108,46 +108,46 @@ public class EventManagerTests {
         game.setEnergy(0);
         String[] args = new String[1];
         args[0] = "rch";
-        String result = eventManager.ronCookEvent(args);
+        String result = eventManager.ronCookeEvent(args);
         assertEquals("It's too early in the morning to meet your friends, go to bed!",result);
         assertEquals(1,(int)EventManager.streaks.get("early_bird"));
 
         game.setSeconds(8*60);
         game.setEnergy(0);
-        result = eventManager.ronCookEvent(args);
+        result = eventManager.ronCookeEvent(args);
         assertEquals("It's too early in the morning to meet your friends, go to bed!",result);
         assertEquals(2,(int)EventManager.streaks.get("early_bird"));
 
 
         game.setSeconds(8*60);
         game.setEnergy(0);
-        result = eventManager.ronCookEvent(args);
-        result = eventManager.ronCookEvent(args);
+        result = eventManager.ronCookeEvent(args);
+        result = eventManager.ronCookeEvent(args);
         assertEquals("It's too early in the morning to meet your friends, go to bed!",result);
         assertEquals(3,(int)EventManager.streaks.get("early_bird"));
 
         // Test too tired case
         game.setSeconds(10*60+1);
         game.setEnergy(0);
-        result = eventManager.ronCookEvent(args);
+        result = eventManager.ronCookeEvent(args);
         assertEquals("You are too tired to meet your friends right now!",result);
         assertEquals(1,(int)EventManager.streaks.get("determined"));
-        eventManager.ronCookEvent(args);
-        eventManager.ronCookEvent(args);
-        eventManager.ronCookEvent(args);
+        eventManager.ronCookeEvent(args);
+        eventManager.ronCookeEvent(args);
+        eventManager.ronCookeEvent(args);
         assertEquals(3,(int)EventManager.streaks.get("determined"));
 
         // Correct time + enough energy
         game.setSeconds(10*60+1);
         game.setEnergy(30);
-        result = eventManager.ronCookEvent(args);
+        result = eventManager.ronCookeEvent(args);
         assertEquals("What do you want to chat about?",result);
 
         args = new String[2];
         args[0] = "rch";
         args[1] = "testing";
         game.setSeconds(10*60+1);
-        result = eventManager.ronCookEvent(args);
+        result = eventManager.ronCookeEvent(args);
         assertTrue(result.equals("You talked about testing for 1 hours!")||
                 result.equals("You talked about testing for 2 hours!")||
                 result.equals("You talked about testing for 3 hours!"));
