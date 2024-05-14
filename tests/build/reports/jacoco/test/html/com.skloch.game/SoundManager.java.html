@@ -22,7 +22,7 @@ public class SoundManager implements Disposable {
     public Sound footstep1, footstep2;
     public boolean footstepBool;
     private float footstepTimer;
-<span class="nc" id="L25">    private float sfxVolume = 0.8f, musicVolume = 0.8f;</span>
+<span class="fc" id="L25">    private float sfxVolume = 0.8f, musicVolume = 0.8f;</span>
     private Sound pauseSound, dialogueOpenSound, dialogueOptionSound, buttonSound;
 
     /**
@@ -30,46 +30,46 @@ public class SoundManager implements Disposable {
      * so a GameScreen can just call &quot;play overworld music&quot; without needing to know the track title.
      * Also handles disposing sounds and music
      */
-<span class="nc" id="L33">    public SoundManager () {</span>
+<span class="fc" id="L33">    public SoundManager () {</span>
         // Load music
-<span class="nc" id="L35">        overworldMusic = Gdx.audio.newMusic(Gdx.files.internal(overworldMusicPath));</span>
-<span class="nc" id="L36">        overworldMusic.setLooping(true);</span>
-<span class="nc" id="L37">        menuMusic = Gdx.audio.newMusic(Gdx.files.internal(menuMusicPath));</span>
-<span class="nc" id="L38">        menuMusic.setLooping(true);</span>
+<span class="fc" id="L35">        overworldMusic = Gdx.audio.newMusic(Gdx.files.internal(overworldMusicPath));</span>
+<span class="fc" id="L36">        overworldMusic.setLooping(true);</span>
+<span class="fc" id="L37">        menuMusic = Gdx.audio.newMusic(Gdx.files.internal(menuMusicPath));</span>
+<span class="fc" id="L38">        menuMusic.setLooping(true);</span>
 
         // Load SFX
-<span class="nc" id="L41">        footstep1 = Gdx.audio.newSound(Gdx.files.internal(footstep1Path));</span>
-<span class="nc" id="L42">        footstep2 = Gdx.audio.newSound(Gdx.files.internal(footstep2Path));</span>
+<span class="fc" id="L41">        footstep1 = Gdx.audio.newSound(Gdx.files.internal(footstep1Path));</span>
+<span class="fc" id="L42">        footstep2 = Gdx.audio.newSound(Gdx.files.internal(footstep2Path));</span>
 
-<span class="nc" id="L44">        pauseSound = Gdx.audio.newSound(Gdx.files.internal(pauseSoundPath));</span>
-<span class="nc" id="L45">        dialogueOpenSound = Gdx.audio.newSound(Gdx.files.internal(dialogueOpenSoundPath));</span>
-<span class="nc" id="L46">        dialogueOptionSound = Gdx.audio.newSound(Gdx.files.internal(dialogueOptionSoundPath));</span>
-<span class="nc" id="L47">        buttonSound = Gdx.audio.newSound(Gdx.files.internal(buttonSoundPath));</span>
-<span class="nc" id="L48">    }</span>
+<span class="fc" id="L44">        pauseSound = Gdx.audio.newSound(Gdx.files.internal(pauseSoundPath));</span>
+<span class="fc" id="L45">        dialogueOpenSound = Gdx.audio.newSound(Gdx.files.internal(dialogueOpenSoundPath));</span>
+<span class="fc" id="L46">        dialogueOptionSound = Gdx.audio.newSound(Gdx.files.internal(dialogueOptionSoundPath));</span>
+<span class="fc" id="L47">        buttonSound = Gdx.audio.newSound(Gdx.files.internal(buttonSoundPath));</span>
+<span class="fc" id="L48">    }</span>
 
     /**
      * Sets the volume of the music
      * @param volume
      */
     public void setMusicVolume (float volume) {
-<span class="nc bnc" id="L55" title="All 4 branches missed.">        if(volume&lt;0.0f || volume&gt;1.0f){</span>
-<span class="nc" id="L56">            throw new IllegalArgumentException(&quot;Volume must be between 0.0 and 1.0&quot;);</span>
+<span class="fc bfc" id="L55" title="All 4 branches covered.">        if(volume&lt;0.0f || volume&gt;1.0f){</span>
+<span class="fc" id="L56">            throw new IllegalArgumentException(&quot;Volume must be between 0.0 and 1.0&quot;);</span>
         }
-<span class="nc" id="L58">        this.musicVolume = volume;</span>
-<span class="nc" id="L59">        overworldMusic.setVolume(musicVolume);</span>
-<span class="nc" id="L60">        menuMusic.setVolume(musicVolume);</span>
-<span class="nc" id="L61">    }</span>
+<span class="fc" id="L58">        this.musicVolume = volume;</span>
+<span class="fc" id="L59">        overworldMusic.setVolume(musicVolume);</span>
+<span class="fc" id="L60">        menuMusic.setVolume(musicVolume);</span>
+<span class="fc" id="L61">    }</span>
 
     /**
      * Sets the sound effect volume
      * @param volume
      */
     public void setSfxVolume (float volume) {
-<span class="nc bnc" id="L68" title="All 4 branches missed.">        if(volume&lt;0.0f || volume&gt;1.0f){</span>
-<span class="nc" id="L69">            throw new IllegalArgumentException(&quot;Volume must be between 0.0 and 1.0&quot;);</span>
+<span class="fc bfc" id="L68" title="All 4 branches covered.">        if(volume&lt;0.0f || volume&gt;1.0f){</span>
+<span class="fc" id="L69">            throw new IllegalArgumentException(&quot;Volume must be between 0.0 and 1.0&quot;);</span>
         }
-<span class="nc" id="L71">        this.sfxVolume = volume;</span>
-<span class="nc" id="L72">    }</span>
+<span class="fc" id="L71">        this.sfxVolume = volume;</span>
+<span class="fc" id="L72">    }</span>
 
     /**
      * A sound for when the pause menu appears
@@ -119,12 +119,12 @@ public class SoundManager implements Disposable {
     /**
      * @return The current music volume
      */
-<span class="nc" id="L122">    public float getMusicVolume() {return musicVolume;}</span>
+<span class="fc" id="L122">    public float getMusicVolume() {return musicVolume;}</span>
 
     /**
      * @return The current sound effect volume
      */
-<span class="nc" id="L127">    public float getSfxVolume() {return sfxVolume;}</span>
+<span class="fc" id="L127">    public float getSfxVolume() {return sfxVolume;}</span>
 
     /**
      * Updates the timers for sounds that repeat regularly, needs to be called every render cycle.
@@ -133,24 +133,24 @@ public class SoundManager implements Disposable {
      */
 
     public float getFootstepTimer(){
-<span class="nc" id="L136">        return footstepTimer;</span>
+<span class="fc" id="L136">        return footstepTimer;</span>
     }
 
     public void setFootstepTimer(float time){
-<span class="nc" id="L140">        footstepTimer = time;</span>
-<span class="nc" id="L141">    }</span>
+<span class="fc" id="L140">        footstepTimer = time;</span>
+<span class="fc" id="L141">    }</span>
 
     public void processTimers(float delta) {
         // Decrements timers for any recurring sounds, like footsteps
         // Events that make these sounds can then check that their specific timer is zero and play a noise
-<span class="nc bnc" id="L146" title="All 2 branches missed.">        if(delta&lt;0.0f){</span>
-<span class="nc" id="L147">            throw new IllegalArgumentException(&quot;delta must be 0 or greater&quot;);</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        if(delta&lt;0.0f){</span>
+<span class="fc" id="L147">            throw new IllegalArgumentException(&quot;delta must be 0 or greater&quot;);</span>
         }
-<span class="nc" id="L149">        footstepTimer -= delta;</span>
-<span class="nc bnc" id="L150" title="All 2 branches missed.">        if (footstepTimer &lt; 0) {</span>
-<span class="nc" id="L151">            footstepTimer = 0;</span>
+<span class="fc" id="L149">        footstepTimer -= delta;</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">        if (footstepTimer &lt; 0) {</span>
+<span class="fc" id="L151">            footstepTimer = 0;</span>
         }
-<span class="nc" id="L153">    }</span>
+<span class="fc" id="L153">    }</span>
 
     /**
      * Plays an alternating footstep sound when the player is moving and the footstepTimer variable has hit zero.
@@ -158,17 +158,17 @@ public class SoundManager implements Disposable {
      */
     public void playFootstep() {
         // If it is time to play a footstep, play one
-<span class="nc bnc" id="L161" title="All 2 branches missed.">        if (footstepTimer &lt;= 0) {</span>
-<span class="nc" id="L162">            footstepTimer = 0.5f; // Delay between each footstep sound, increase to have slower steps</span>
-<span class="nc bnc" id="L163" title="All 2 branches missed.">            if (footstepBool == false) {</span>
-<span class="nc" id="L164">                footstep1.play(sfxVolume);</span>
-<span class="nc" id="L165">                footstepBool = true;</span>
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">        if (footstepTimer &lt;= 0) {</span>
+<span class="fc" id="L162">            footstepTimer = 0.5f; // Delay between each footstep sound, increase to have slower steps</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">            if (footstepBool == false) {</span>
+<span class="fc" id="L164">                footstep1.play(sfxVolume);</span>
+<span class="fc" id="L165">                footstepBool = true;</span>
             } else {
-<span class="nc" id="L167">                footstep2.play(sfxVolume);</span>
-<span class="nc" id="L168">                footstepBool = false;</span>
+<span class="fc" id="L167">                footstep2.play(sfxVolume);</span>
+<span class="fc" id="L168">                footstepBool = false;</span>
             }
         }
-<span class="nc" id="L171">    }</span>
+<span class="fc" id="L171">    }</span>
 
 
     /**
