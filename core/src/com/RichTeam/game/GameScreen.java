@@ -30,6 +30,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
+import static com.RichTeam.game.EventManager.*;
+
 /**
  * Handles the majority of the game logic, rendering and user inputs of the game.
  * Responsible for rendering the player and the map, and calling events.
@@ -543,6 +545,17 @@ public class GameScreen implements Screen {
             daySeconds -= 1440;
             day += 1;
             dayLabel.setText(String.format("Day %s", day));
+            // Reset number of times studied for new day and streaks depending on consistency
+            for (String streak_activity : streak_activities){
+                if (daily.get(streak_activities) == null || daily.get(streak_activities) == 0){
+                    //Reset streak if player didn't do activity that day
+                    streaks.put(streak_activity, 0);
+                }else{
+                    streaks.put("town",streaks.get("town")+1);
+                }
+                // Reset daily for each activity to 0
+                daily.put(streak_activity, 0);
+            }
         }
 
         if (day >= 8) {

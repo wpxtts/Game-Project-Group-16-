@@ -450,6 +450,10 @@ public class EventManager {
                     //game.dialogueBox.setText("You don't have the energy to go into town right now!");
                     return "You don't have the energy to go into town right now!";
                 } else {
+                    if (daily.get("town") < 3){
+                        // increase player's streak if under limit
+                        daily.put("town",daily.get("town")+1);
+                    }
                     // If they do have the energy to go into town
                     HustleGame.setMap();
                     //game.dialogueBox.setText("You got the bus into town.");
@@ -522,16 +526,6 @@ public class EventManager {
     public void accomEvent(String[] args) {
         game.setSleeping(true);
         game.dialogueBox.hide();
-
-        // Reset number of times studied for new day and streaks depending on consistency
-        for (String streak_activity : streak_activities){
-            if (daily.get(streak_activities) == null || daily.get(streak_activities) == 0){
-                //Reset streak if player didn't do activity that day
-                streaks.put(streak_activity, 0);
-            }
-            // Reset daily for each activity to 0
-            daily.put(streak_activity, 0);
-        }
 
         // Calculate the hours slept to the nearest hour
         // Wakes the player up at 8am
