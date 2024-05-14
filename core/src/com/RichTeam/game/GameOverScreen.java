@@ -25,10 +25,11 @@ import java.util.Map;
  */
 public class GameOverScreen implements Screen {
     public static HustleGame game;
+    public static Object scoreCalculation;
     Stage gameOverStage;
     Viewport viewport;
     OrthographicCamera camera;
-    public int score;
+    public static int score;
 
     // Hidden achievement badges
     public static HashMap<String, Integer> streakGoals;
@@ -260,7 +261,11 @@ public class GameOverScreen implements Screen {
         gameOverWindow.setX((viewport.getWorldWidth() / 2) - (gameOverWindow.getWidth() / 2));
         gameOverWindow.setY((viewport.getWorldHeight() / 2) - (gameOverWindow.getHeight() / 2));
     }
-
+    public static int scoreCalculation(int hoursStudied,int hoursRecreational,int hoursSlept){
+        int newScore = Math.max(40,Math.min(100,
+                Math.round((((float)hoursStudied/32)*60 + ((float)hoursRecreational/30)*20 + (((float)hoursSlept)/144)*20))));
+        return newScore;
+    }
 
     /**
      * Renders the screen and the background each frame

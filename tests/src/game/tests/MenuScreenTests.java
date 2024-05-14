@@ -81,7 +81,7 @@ public class MenuScreenTests {
         verify(game).setScreen(any(GameScreen.class));
         assertEquals("avatar2",((GameScreen)argument.getValue()).player.avatar);
     }
-
+    
     // Note: We cannot test the exit button functionality without
     // excessive effort and using tools like PowerMockito, so we test it manually
     // instead
