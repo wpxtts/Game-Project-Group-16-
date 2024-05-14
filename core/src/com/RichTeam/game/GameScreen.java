@@ -547,11 +547,11 @@ public class GameScreen implements Screen {
             dayLabel.setText(String.format("Day %s", day));
             // Reset number of times studied for new day and streaks depending on consistency
             for (String streak_activity : streak_activities){
-                if (daily.get(streak_activities) == null || daily.get(streak_activities) == 0){
+                if (daily.get(streak_activity) == null || daily.get(streak_activity) == 0){
                     //Reset streak if player didn't do activity that day
                     streaks.put(streak_activity, 0);
                 }else{
-                    streaks.put("town",streaks.get("town")+1);
+                    streaks.put(streak_activity,streaks.get(streak_activity)+1);
                 }
                 // Reset daily for each activity to 0
                 daily.put(streak_activity, 0);
