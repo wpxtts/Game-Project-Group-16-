@@ -21,23 +21,38 @@ public class GameOverScreenTests {
     public void setUp(){
         game = mock(GameScreen.class);
     }
-//    @Test
-//    public void testAppleAssetExists() {
-//        assertTrue("The sprite asset for this achievement doesn't exist",
-//                Gdx.files.internal(GameOverScreen.apple_path).exists());
-//    }
-//
-//    @Test
-//    public void testFlowerAssetExists() {
-//        assertTrue("The sprite asset for this achievement doesn't exist",
-//                Gdx.files.internal(GameOverScreen.flower_path).exists());
-//    }
-//
-//    @Test
-//    public void testBusAssetExists() {
-//        assertTrue("The sprite asset for this achievement doesn't exist",
-//                Gdx.files.internal(GameOverScreen.bus_path).exists());
-//    }
+    @Test
+    public void testAppleAssetExists() {
+        assertTrue("The sprite asset for this achievement doesn't exist",
+                Gdx.files.internal(GameOverScreen.apple_path).exists());
+    }
+
+    @Test
+    public void testFlowerAssetExists() {
+        assertTrue("The sprite asset for this achievement doesn't exist",
+                Gdx.files.internal(GameOverScreen.flower_path).exists());
+    }
+
+    @Test
+    public void testBusAssetExists() {
+        assertTrue("The sprite asset for this achievement doesn't exist",
+                Gdx.files.internal(GameOverScreen.bus_path).exists());
+    }
+    @Test
+    public void testBookAssetExists() {
+        assertTrue("The sprite asset for this achievement doesn't exist",
+                Gdx.files.internal(GameOverScreen.book_path).exists());
+    }
+    @Test
+    public void testLibraryBookAssetExists() {
+        assertTrue("The sprite asset for this achievement doesn't exist",
+                Gdx.files.internal(GameOverScreen.library_book_path).exists());
+    }
+    @Test
+    public void testNightOwlAssetExists() {
+        assertTrue("The sprite asset for this achievement doesn't exist",
+                Gdx.files.internal(GameOverScreen.night_owl_path).exists());
+    }
 
     @Test
     public void testPlayerScoreFailed() {
