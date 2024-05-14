@@ -1,6 +1,7 @@
 package game.tests;
 import com.RichTeam.game.*;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -590,7 +591,7 @@ public class EventManagerTests {
         game.setEnergy(0);
         game.setSeconds(10*60);
         game.dayLabel = mock(Label.class);
-        eventManager.accomEvent(args);
+        eventManager.sleepAction(10,60*10);
         assertEquals("The player did not regain full energy after sleeping",100,
                 game.getEnergy());
     }
@@ -600,9 +601,9 @@ public class EventManagerTests {
         String[] args = new String[]{"fadefromblack"};
         game.dialogueBox = mock(DialogueBox.class);
         game.setEnergy(0);
-        game.setSeconds(10*60);
+        game.setSeconds(23*60);
         game.dayLabel = mock(Label.class);
-        eventManager.accomEvent(args);
+        eventManager.sleepAction(9,60*9);
         assertEquals(8*60,game.getSeconds(),0.001);
     }
 
@@ -611,10 +612,10 @@ public class EventManagerTests {
         String[] args = new String[]{"fadefromblack"};
         game.dialogueBox = mock(DialogueBox.class);
         game.setEnergy(0);
-        game.setSeconds(10*60);
+        game.setSeconds(23*60);
         game.dayLabel = mock(Label.class);
         EventManager.daily.put("early_bird",1);
-        eventManager.accomEvent(args);
+        eventManager.sleepAction(9,60*9);
         assertEquals(0,EventManager.daily.get("early_bird"),0.001);
     }
 
@@ -623,10 +624,10 @@ public class EventManagerTests {
         String[] args = new String[]{"fadefromblack"};
         game.dialogueBox = mock(DialogueBox.class);
         game.setEnergy(0);
-        game.setSeconds(10*60);
+        game.setSeconds(23*60);
         game.dayLabel = mock(Label.class);
         EventManager.daily.put("studying",1);
-        eventManager.accomEvent(args);
+        eventManager.sleepAction(9,60*9);
         assertEquals(1,EventManager.streaks.get("studying"),0.001);
     }
 }

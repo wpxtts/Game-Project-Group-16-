@@ -168,7 +168,6 @@ public class HustleGame extends Game {
 		FileHandle file = Gdx.files.internal(filepath);
 
 		if (!file.exists()) {
-			System.out.println("WARNING: Couldn't load file " + filepath);
 			throw new FileNotFoundException("File not found");
 		} else {
 			return file.readString();
