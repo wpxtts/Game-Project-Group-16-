@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="200" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="12" nextobjectid="415">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="200" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="12" nextobjectid="416">
  <tileset firstgid="1" source="Tilemaps/StarRealmsCozyForestPack24x24.tsx"/>
  <tileset firstgid="529" source="Tilemaps/roads.tsx"/>
  <tileset firstgid="1297" source="Tilemaps/buildings2.tsx"/>
@@ -1398,13 +1398,6 @@
     <property name="event" value="duck_pond"/>
    </properties>
   </object>
-  <object id="391" x="3180" y="1476">
-   <properties>
-    <property name="text">West: Library
-South: Gym
-SouthWest: Duck Pond</property>
-   </properties>
-  </object>
   <object id="392" x="1319" y="1727" width="24" height="30"/>
   <object id="393" x="1553" y="1801" width="165" height="101.5"/>
   <object id="394" x="1598.5" y="1886.5" width="70.5" height="31"/>
@@ -1427,5 +1420,12 @@ SouthWest: Duck Pond</property>
   <object id="412" x="1321.33" y="1392.33" width="22" height="4"/>
   <object id="413" x="1296.33" y="1405.83" width="21.5" height="10.5"/>
   <object id="414" x="2927.33" y="985" width="24" height="30"/>
+  <object id="415" x="3170.5" y="1466.83" width="19" height="19.6667">
+   <properties>
+    <property name="text">West: Library
+ South: Gym
+ Southwest: Duck Pond</property>
+   </properties>
+  </object>
  </objectgroup>
 </map>
