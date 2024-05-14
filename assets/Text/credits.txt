@@ -18,6 +18,9 @@ Male Player sprite - https://cuddle-bug.itch.io/apocalypse
 Female Player sprite - E.Giles
 Buttons - https://paperhatlizard.itch.io/cryos-mini-gui?download
 Map sprites - https://kerrielake.itch.io/star-realms-cozy-forest-pack
+Bus achievement sprite - https://dai420.itch.io/public-bus
+Early bird achievement sprite - https://ma9ici4n.itch.io/pixel-art-bird-16x16
+
 
 Fonts:
 https://www.dafont.com/w95fa.font

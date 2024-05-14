@@ -298,15 +298,11 @@ public class EventManager {
                     if (game.getSeconds() > 20*60){
                         if (daily.get("night_owl") < 3){
                             // increase player's streak if under limit
-                            
                             daily.put("night_owl",daily.get("night_owl")+1);
                         }
                     }
-                    if (daily.get("studying") < 1){
-                        // increase player's streak if under limit
-                        streaks.put("studying", streaks.getOrDefault("studying", 0) + 1);
-                        daily.put("studying",daily.get("studying")+1);
-                    }
+                    // increase player's streak if under limit
+                    daily.put("studying",daily.get("studying")+1);
                     //game.dialogueBox.setText(String.format("You studied for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.addStudyHours(hours);
@@ -693,11 +689,7 @@ public class EventManager {
                     return "You don't have the energy to study for this long! Head back to east!";
                 } else {
                     // If they do have the energy to study
-                    if (daily.get("studying") < 1){
-                        // increase player's streak if under limit
-                        streaks.put("studying", streaks.getOrDefault("studying", 0) + 1);
-                        daily.put("studying",daily.get("studying")+1);
-                    }
+                    daily.put("studying",daily.get("studying")+1);
                     if (game.getSeconds() > 20*60){
                         if (daily.get("night_owl") < 3){
                             // increase player's streak if under limit
