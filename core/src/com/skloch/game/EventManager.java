@@ -23,7 +23,7 @@ public class EventManager {
 
     public static HashMap<String, Integer> streaks, daily;
     public boolean catchup_used = false;
-    public int daily_study, daily_eat = 0;
+    public int daily_study = 0;
     public boolean gotBus = false;
     public boolean breakfast, lunch, dinner = false;
 
@@ -356,12 +356,12 @@ public class EventManager {
                         daily.put("night_owl",daily.get("night_owl")+1);
                     }
                 }
-                if (daily.get("eating") < 3){
-                    // increase player's meeting friends streak if under limit
+                if (daily.get("eating") == 3){
+                    // increase player's eating streak if under limit
                     streaks.put("eating", streaks.getOrDefault("eating", 0) + 1);
+                } else if (daily.get("eating") < 3){
+                    // increase player's eating for the day streak if under limit
                     daily.put("eating",daily.get("eating")+1);
-                } else if (daily.get("eating") == 3){
-                    daily_eat = true;
                 }
                 game.decreaseEnergy(energyCost);
                 game.passTime(60); // in seconds
@@ -546,12 +546,6 @@ public class EventManager {
         // Reset daily for each activity to 0
         for (String streak_activity : streak_activities){
             daily.put(streak_activity, 0);
-        }
-
-        // Increment daily_eating if player ate 3 times that day
-        if (daily_eat == 0){
-            //Reset study streak if player didn't study that day
-            streaks.put("studying", 0);
         }
 
         // Calculate the hours slept to the nearest hour
