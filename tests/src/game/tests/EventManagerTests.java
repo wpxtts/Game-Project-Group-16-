@@ -2,6 +2,7 @@ package game.tests;
 import com.RichTeam.game.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import org.junit.Before;
@@ -286,6 +287,14 @@ public class EventManagerTests {
         assertEquals("You studied for 3 hours!\nYou lost 30 energy",result);
         assertEquals(0,game.getEnergy());
         assertEquals(13*60+1,game.getSeconds(),0.001);
+
+        // Check to stop overstudying
+        args = new String[1];
+        args[0] = "comp_sci";
+        game.setSeconds(10*60+1);
+        game.setEnergy(40);
+        result = eventManager.libraryEvent(args);
+        assertEquals("You have already studied today!",result);
     }
 
     @Test
@@ -564,38 +573,60 @@ public class EventManagerTests {
         assertEquals("You studied for 4 hours!\nYou lost 40 energy",result);
         assertEquals(0,game.getEnergy());
         assertEquals(14*60+1,game.getSeconds(),0.001);
+
+        // Check to stop overstudying
+        args = new String[1];
+        args[0] = "comp_sci";
+        game.setSeconds(10*60+1);
+        game.setEnergy(40);
+        result = eventManager.libraryEvent(args);
+        assertEquals("You have already studied today!",result);
     }
 
-    //
-//    @Test
-//    public void testCatchupUsable() {
-//        int daily_study = 2;
-//        String[] args = new String[]{"fadefromblack"};
-//        eventManager.compSciEvent(args);
-//        assertTrue(eventManager.catchup_used);
-//    }
-//
-//    @Test
-//    public void testPostSleepEnergy() {
-//        String[] args = new String[]{"fadefromblack"};
-//        eventManager.accomEvent(args);
-//        assertEquals("The player did not regain full energy after sleeping",
-//                game.getEnergy(), 100);
-//    }
-//
-//    @Test
-//    public void testPostSleepTime() {
-//        String[] args = new String[]{"fadefromblack"};
-//        eventManager.accomEvent(args);
-//        assertEquals("The player did not regain full energy after sleeping",
-//                game.getSeconds(), 8*60);
-//    }
-//
-//    @Test
-//    public void testPostSleepStudyHours() {
-//        String[] args = new String[]{"comp_sci-1", "comp_sci-2", "comp_sci-3"};
-//        eventManager.accomEvent(args);
-//        assertEquals("The player did not regain full energy after sleeping",
-//                eventManager.daily_study, 0);
-//    }
+    @Test
+    public void testPostSleepEnergy() {
+        String[] args = new String[]{"fadefromblack"};
+        game.dialogueBox = mock(DialogueBox.class);
+        game.setEnergy(0);
+        game.setSeconds(10*60);
+        game.dayLabel = mock(Label.class);
+        eventManager.accomEvent(args);
+        assertEquals("The player did not regain full energy after sleeping",100,
+                game.getEnergy());
+    }
+
+    @Test
+    public void testPostSleepTime() {
+        String[] args = new String[]{"fadefromblack"};
+        game.dialogueBox = mock(DialogueBox.class);
+        game.setEnergy(0);
+        game.setSeconds(10*60);
+        game.dayLabel = mock(Label.class);
+        eventManager.accomEvent(args);
+        assertEquals(8*60,game.getSeconds(),0.001);
+    }
+
+    @Test
+    public void testResetDaily() {
+        String[] args = new String[]{"fadefromblack"};
+        game.dialogueBox = mock(DialogueBox.class);
+        game.setEnergy(0);
+        game.setSeconds(10*60);
+        game.dayLabel = mock(Label.class);
+        EventManager.daily.put("early_bird",1);
+        eventManager.accomEvent(args);
+        assertEquals(0,EventManager.daily.get("early_bird"),0.001);
+    }
+
+    @Test
+    public void testUpdateStreak() {
+        String[] args = new String[]{"fadefromblack"};
+        game.dialogueBox = mock(DialogueBox.class);
+        game.setEnergy(0);
+        game.setSeconds(10*60);
+        game.dayLabel = mock(Label.class);
+        EventManager.daily.put("studying",1);
+        eventManager.accomEvent(args);
+        assertEquals(1,EventManager.streaks.get("studying"),0.001);
+    }
 }
