@@ -332,59 +332,52 @@ public class EventManagerTests {
         assertEquals(0,game.getEnergy());
     }
 
-//    @Test
-//    public void testShopEvent(){
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(0);
-//        String[] args = new String[1];
-//        args[0] = "shop";
-//        String result = eventManager.shopEvent(args);
-//        assertEquals("You are too tired to eat right now!",result);
-//
-//        game.setSeconds(5);
-//        game.setEnergy(0);
-//        result = eventManager.shopEvent(args);
-//        assertEquals("It's too early in the morning to eat food, go to bed!",result);
-//        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
-//        assertEquals(1,(int)EventManager.streaks.get("determined"));
-//
-//
-//        game.setSeconds(1*60);
-//        game.setEnergy(30);
-//        result = eventManager.shopEvent(args);
-//        result = eventManager.shopEvent(args);
-//        result = eventManager.shopEvent(args);
-//        assertEquals("It's too early in the morning to eat food, go to bed!",result);
-//        assertEquals(3,(int)EventManager.streaks.get("early_bird"));
-//
-//        // Test too tired case
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(0);
-//        result = eventManager.shopEvent(args);
-//        assertEquals("You are too tired to eat right now!",result);
-//        assertEquals(2,(int)EventManager.streaks.get("determined"));
-//        eventManager.shopEvent(args);
-//        eventManager.shopEvent(args);
-//        eventManager.shopEvent(args);
-//        assertEquals(3,(int)EventManager.streaks.get("determined"));
-//
-//        // Correct time + enough energy
-//        game.setSeconds(9*60+1);
-//        game.setEnergy(10);
-//        result = eventManager.shopEvent(args);
-//        assertEquals("You took an hour to buy and eat breakfast at nisa!\nYou lost 10 energy!",result);
-//        assertEquals(0,game.getEnergy());
-//        game.setSeconds(12*60+1);
-//        game.setEnergy(10);
-//        result = eventManager.shopEvent(args);
-//        assertEquals("You took an hour to buy and eat lunch at nisa!\nYou lost 10 energy!",result);
-//        assertEquals(0,game.getEnergy());
-//        game.setSeconds(19*60+1);
-//        game.setEnergy(10);
-//        result = eventManager.shopEvent(args);
-//        assertEquals("You took an hour to buy and eat dinner at nisa!\nYou lost 10 energy!",result);
-//        assertEquals(0,game.getEnergy());
-//    }
+    @Test
+    public void testShopEvent(){
+        game.setSeconds(10*60+1);
+        game.setEnergy(0);
+        String[] args = new String[1];
+        args[0] = "shop";
+        String result = eventManager.shopEvent(args);
+        assertEquals("You are too tired to eat right now!",result);
+
+        game.setSeconds(5);
+        game.setEnergy(0);
+        result = eventManager.shopEvent(args);
+        assertEquals("It's too early in the morning to eat food, go to bed!",result);
+        assertEquals(1,(int)EventManager.daily.get("early_bird"));
+
+        game.setSeconds(1*60);
+        game.setEnergy(30);
+        result = eventManager.shopEvent(args);
+        result = eventManager.shopEvent(args);
+        result = eventManager.shopEvent(args);
+        assertEquals("It's too early in the morning to eat food, go to bed!",result);
+        assertEquals(4,(int)EventManager.daily.get("early_bird"));
+
+        // Test too tired case
+        game.setSeconds(10*60+1);
+        game.setEnergy(0);
+        result = eventManager.shopEvent(args);
+        assertEquals("You are too tired to eat right now!",result);
+
+        // Correct time + enough energy
+        game.setSeconds(9*60+1);
+        game.setEnergy(10);
+        result = eventManager.shopEvent(args);
+        assertEquals("You took an hour to buy and eat breakfast at nisa!\nYou lost 10 energy!",result);
+        assertEquals(0,game.getEnergy());
+        game.setSeconds(12*60+1);
+        game.setEnergy(10);
+        result = eventManager.shopEvent(args);
+        assertEquals("You took an hour to buy and eat lunch at nisa!\nYou lost 10 energy!",result);
+        assertEquals(0,game.getEnergy());
+        game.setSeconds(19*60+1);
+        game.setEnergy(10);
+        result = eventManager.shopEvent(args);
+        assertEquals("You took an hour to buy and eat dinner at nisa!\nYou lost 10 energy!",result);
+        assertEquals(0,game.getEnergy());
+    }
 //
 //    @Test
 //    public void testGymEvent(){
