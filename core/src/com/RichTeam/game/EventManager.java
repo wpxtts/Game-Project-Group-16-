@@ -403,7 +403,7 @@ daily.put("early_bird",daily.get("early_bird")+1);
         } else {
             //game.dialogueBox.setText("It's too early in the morning to smell the flowers, go to bed!");
             // increase player's streak
-daily.put("early_bird",daily.get("early_bird")+1);
+            daily.put("early_bird",daily.get("early_bird")+1);
             return "It's too early in the morning to smell the flowers, go to bed!";
         }
     }
@@ -665,7 +665,7 @@ daily.put("early_bird",daily.get("early_bird")+1);
             }
         } else {
             //game.dialogueBox.setText("It's too early in the morning to study, go to bed!");
-            streaks.put("early_bird",daily.get("early_bird")+1);
+            daily.put("early_bird",daily.get("early_bird")+1);
             return "It's too early in the morning to study, go to bed!";
         }
     }
