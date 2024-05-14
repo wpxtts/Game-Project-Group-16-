@@ -1,6 +1,6 @@
 package game.tests;
 import com.RichTeam.game.GameScreen;
-import com.skloch.game.*;
+import com.RichTeam.game.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

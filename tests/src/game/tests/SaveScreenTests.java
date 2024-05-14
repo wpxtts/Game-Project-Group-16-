@@ -4,7 +4,7 @@ import com.RichTeam.game.SaveScreen;
 import com.RichTeam.game.SoundManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.skloch.game.*;
+import com.RichTeam.game.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -2,7 +2,7 @@ package game.tests;
 import com.RichTeam.game.HustleGame;
 import com.RichTeam.game.LeaderboardScreen;
 import com.badlogic.gdx.Screen;
-import com.skloch.game.*;
+import com.RichTeam.game.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

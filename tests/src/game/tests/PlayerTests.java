@@ -4,7 +4,7 @@ import com.RichTeam.game.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.skloch.game.*;
+import com.RichTeam.game.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

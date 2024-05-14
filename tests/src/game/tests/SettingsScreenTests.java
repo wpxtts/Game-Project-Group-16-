@@ -3,7 +3,7 @@ import com.RichTeam.game.HustleGame;
 import com.RichTeam.game.SettingsScreen;
 import com.RichTeam.game.SoundManager;
 import com.badlogic.gdx.Screen;
-import com.skloch.game.*;
+import com.RichTeam.game.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

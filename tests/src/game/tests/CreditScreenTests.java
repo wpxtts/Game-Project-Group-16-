@@ -3,7 +3,7 @@ import com.RichTeam.game.CreditScreen;
 import com.RichTeam.game.HustleGame;
 import com.RichTeam.game.MenuScreen;
 import com.RichTeam.game.SoundManager;
-import com.skloch.game.*;
+import com.RichTeam.game.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

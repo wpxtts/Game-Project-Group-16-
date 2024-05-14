@@ -3,7 +3,7 @@ import com.RichTeam.game.SoundManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.skloch.game.*;
+import com.RichTeam.game.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;

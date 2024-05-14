@@ -1,7 +1,7 @@
 package game.tests;
 import com.RichTeam.game.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.skloch.game.*;
+import com.RichTeam.game.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

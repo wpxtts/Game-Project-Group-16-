@@ -1,7 +1,7 @@
 package game.tests;
 import com.RichTeam.game.HustleGame;
 import com.badlogic.gdx.Gdx;
-import com.skloch.game.*;
+import com.RichTeam.game.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
