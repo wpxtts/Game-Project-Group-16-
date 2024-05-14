@@ -428,10 +428,8 @@ daily.put("early_bird",daily.get("early_bird")+1);
                     //game.dialogueBox.setText("You don't have the energy to go into town right now!");
                     return "You don't have the energy to go into town right now!";
                 } else {
-                    if (daily.get("town") < 3){
-                        // increase player's streak
-                        daily.put("town",daily.get("town")+1);
-                    }
+                    // increase player's streak
+                    daily.put("town",daily.get("town")+1);
                     // If they do have the energy to go into town
                     HustleGame.setMap();
                     //game.dialogueBox.setText("You got the bus into town.");
@@ -461,31 +459,23 @@ daily.put("early_bird",daily.get("early_bird")+1);
                 return "You are too tired to eat right now!";
             } else {
                 if (game.getSeconds() > 20*60){
-                    if (daily.get("night_owl") < 3){
-                        // increase player's streak
-                        
-                        daily.put("night_owl",daily.get("night_owl")+1);
-                    }
+                    daily.put("night_owl",daily.get("night_owl")+1);
                 }
-                if (daily.get("eating") < 3){
-                    // increase player's eating streak if under limit
+                if (daily.get("eating") == 3){
+                    // increase player's streak
                     streaks.put("eating", streaks.getOrDefault("eating", 0) + 1);
+                } else if (daily.get("eating") < 3){
+                    // increase player's eating for the day streak if under limit
                     daily.put("eating",daily.get("eating")+1);
                 }
-                if (daily.get("shop") < 3){
-                    // increase player's shop streak if under limit
-                    streaks.put("shop", streaks.getOrDefault("shop", 0) + 1);
-                    daily.put("shop",daily.get("shop")+1);
-                }
+                daily.put("shop",daily.get("shop")+1);
                 game.decreaseEnergy(energyCost);
                 game.passTime(60); // in seconds
                 return String.format("You took an hour to buy and eat %s at nisa!\nYou lost %d energy!", game.getMeal(), energyCost);
             }
         } else {
             //game.dialogueBox.setText("It's too early in the morning to eat food, go to bed!");
-            if (daily.get("early_bird") < 3 && game.getSeconds() > 0){
-                // increase player's streak
-                
+            if (game.getSeconds() > 0){
                 daily.put("early_bird",daily.get("early_bird")+1);
             }
             return "It's too early in the morning to eat food, go to bed!";
@@ -561,11 +551,7 @@ daily.put("early_bird",daily.get("early_bird")+1);
                 } else {
                     // If they do have the energy to work out
                     if (game.getSeconds() > 20*60){
-                        if (daily.get("night_owl") < 3){
-                            // increase player's streak
-                            
-                            daily.put("night_owl",daily.get("night_owl")+1);
-                        }
+                        daily.put("night_owl",daily.get("night_owl")+1);
                     }
                     //game.dialogueBox.setText(String.format("You spent %s hours working out at the gym.\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
@@ -576,9 +562,7 @@ daily.put("early_bird",daily.get("early_bird")+1);
             }
         } else {
             //game.dialogueBox.setText("It's too early to work out, the gym's not open yet!");
-            if (daily.get("early_bird") < 3 && game.getSeconds() > 0){
-                // increase player's streak
-                
+            if (game.getSeconds() > 0){
                 daily.put("early_bird",daily.get("early_bird")+1);
             }
             return "It's too early to work out, the gym's not open yet!";
@@ -612,11 +596,7 @@ daily.put("early_bird",daily.get("early_bird")+1);
                 } else {
                     // If they do have the energy to feed the ducks
                     if (game.getSeconds() > 20*60){
-                        if (daily.get("night_owl") < 3){
-                            // increase player's streak
-                            
-                            daily.put("night_owl",daily.get("night_owl")+1);
-                        }
+                        daily.put("night_owl",daily.get("night_owl")+1);
                     }
                     //game.dialogueBox.setText(String.format("You spent %s hours feeding the ducks.\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
@@ -627,9 +607,7 @@ daily.put("early_bird",daily.get("early_bird")+1);
             }
         } else {
             //game.dialogueBox.setText("It's too early to feed the ducks, they're not hungry!");
-            if (daily.get("early_bird") < 3 && game.getSeconds() > 0 && game.getSeconds() > 0){
-                // increase player's streak
-                
+            if (game.getSeconds() > 0){
                 daily.put("early_bird",daily.get("early_bird")+1);
             }
             return "It's too early to feed the ducks, they're not hungry!";
@@ -671,13 +649,8 @@ daily.put("early_bird",daily.get("early_bird")+1);
                     // If they do have the energy to study
                     daily.put("studying",daily.get("studying")+1);
                     if (game.getSeconds() > 20*60){
-                        if (daily.get("night_owl") < 3){
-                            // increase player's streak
-                            
-                            daily.put("night_owl",daily.get("night_owl")+1);
-                        }
+                        daily.put("night_owl",daily.get("night_owl")+1);
                     }
-                    streaks.put("library", streaks.getOrDefault("library", 0) + 1);
                     //game.dialogueBox.setText(String.format("You studied for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
                     game.decreaseEnergy(energyCost * hours);
                     game.addStudyHours(hours);
@@ -691,11 +664,7 @@ daily.put("early_bird",daily.get("early_bird")+1);
             }
         } else {
             //game.dialogueBox.setText("It's too early in the morning to study, go to bed!");
-            if (daily.get("early_bird") < 3 && game.getSeconds() > 0){
-                // increase player's streak
-                
-                streaks.put("early_bird",daily.get("early_bird")+1);
-            }
+            streaks.put("early_bird",daily.get("early_bird")+1);
             return "It's too early in the morning to study, go to bed!";
         }
     }
