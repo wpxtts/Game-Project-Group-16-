@@ -16,17 +16,6 @@ public class GameScreenTests {
     private GameScreen game;
     private HustleGame hGame;
     private EventManager eventManager;
-    //    @Test
-//    public void testPlaceholder(){
-//        assertTrue(true);
-//    }
-//    @Before
-//    public void setUp(){
-//        eventManager = mock(EventManager.class);
-//        int avatarChoice = 1;
-//        boolean draw = true;
-//        game = new GameScreen(hGame, avatarChoice, draw);
-//    }
 //    @Test
 //    public void testPOIAssetsExists() {
 //        //Check POI sprites exist
