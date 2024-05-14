@@ -347,7 +347,6 @@ daily.put("early_bird",daily.get("early_bird")+1);
                 }
                 game.decreaseEnergy(energyCost);
                 game.passTime(60); // in seconds
-                game.dialogueBox.setText(String.format("You took an hour to eat %s at the Piazza!\nYou lost %d energy!", game.getMeal(), energyCost));
                 return String.format("You took an hour to eat %s at the Piazza!\nYou lost 10 energy!", game.getMeal());
             }
         } else {
@@ -403,7 +402,7 @@ daily.put("early_bird",daily.get("early_bird")+1);
         } else {
             //game.dialogueBox.setText("It's too early in the morning to smell the flowers, go to bed!");
             // increase player's streak
-daily.put("early_bird",daily.get("early_bird")+1);
+            daily.put("early_bird",daily.get("early_bird")+1);
             return "It's too early in the morning to smell the flowers, go to bed!";
         }
     }
@@ -665,7 +664,7 @@ daily.put("early_bird",daily.get("early_bird")+1);
             }
         } else {
             //game.dialogueBox.setText("It's too early in the morning to study, go to bed!");
-            streaks.put("early_bird",daily.get("early_bird")+1);
+            daily.put("early_bird",daily.get("early_bird")+1);
             return "It's too early in the morning to study, go to bed!";
         }
     }

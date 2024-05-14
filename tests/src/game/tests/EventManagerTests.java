@@ -174,65 +174,60 @@ public class EventManagerTests {
         assertEquals(current_energy,game.getEnergy());
         assertEquals("This is a " +  pineapple + "!", result);
     }
-//    @Test
-//    public void testPiazzaEvent(){
-//        game.setSeconds(5);
-//        game.setEnergy(0);
-//        String[] args = new String[1];
-//        args[0] = "piazza";
-//        String result = eventManager.piazzaEvent(args);
-//        assertTrue(game.getMeal()=="food");
-//        assertEquals("It's too early in the morning to eat food, go to bed!",result);
-//        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
-//
-//        game.setSeconds(8*60);
-//        game.setEnergy(0);
-//        result = eventManager.piazzaEvent(args);
-//        assertEquals("It's too early in the morning to eat food, go to bed!",result);
-//        assertEquals(2,(int)EventManager.streaks.get("early_bird"));
-//
-//
-//        game.setSeconds(8*60);
-//        game.setEnergy(0);
-//        result = eventManager.piazzaEvent(args);
-//        result = eventManager.piazzaEvent(args);
-//        assertEquals("It's too early in the morning to eat food, go to bed!",result);
-//        assertEquals(3,(int)EventManager.streaks.get("early_bird"));
-//
-//        // Test too tired case
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(0);
-//        result = eventManager.piazzaEvent(args);
-//        assertEquals("You are too tired to eat right now!",result);
-//        assertEquals(1,(int)EventManager.streaks.get("determined"));
-//        eventManager.piazzaEvent(args);
-//        eventManager.piazzaEvent(args);
-//        eventManager.piazzaEvent(args);
-//        assertEquals(3,(int)EventManager.streaks.get("determined"));
-//
-//        // Correct time + enough energy
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(30);
-//        result = eventManager.piazzaEvent(args);
-//        assertEquals("You took an hour to eat lunch at the Piazza!\nYou lost 10 energy!",result);
-//
-//        args = new String[2];
-//        args[0] = "piazza";
-//        args[1] = "testing";
-//        game.setSeconds(9*60+1);
-//        game.setEnergy(30);
-//        result = eventManager.piazzaEvent(args);
-//        assertTrue(result.equals("You took an hour to eat breakfast at the Piazza!\nYou lost 10 energy!"));
-//        assertTrue(20==game.getEnergy());
-//        assertTrue(10*60+1==game.getSeconds());
-//        // Checking different meal times
-//        game.setSeconds(9*60 +1);
-//        assertSame("breakfast", game.getMeal());
-//        game.setSeconds(12*60+1);
-//        assertSame("lunch", game.getMeal());
-//        game.setSeconds(18*60+1);
-//        assertSame("dinner", game.getMeal());
-//    }
+    @Test
+    public void testPiazzaEvent(){
+        game.setSeconds(5);
+        game.setEnergy(0);
+        String[] args = new String[1];
+        args[0] = "piazza";
+        String result = eventManager.piazzaEvent(args);
+        assertEquals("food", game.getMeal());
+        assertEquals("It's too early in the morning to eat food, go to bed!",result);
+        assertEquals(1,(int)EventManager.daily.get("early_bird"));
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.piazzaEvent(args);
+        assertEquals("It's too early in the morning to eat food, go to bed!",result);
+        assertEquals(2,(int)EventManager.daily.get("early_bird"));
+
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.piazzaEvent(args);
+        result = eventManager.piazzaEvent(args);
+        assertEquals("It's too early in the morning to eat food, go to bed!",result);
+        assertEquals(4,(int)EventManager.daily.get("early_bird"));
+
+        // Test too tired case
+        game.setSeconds(10*60+1);
+        game.setEnergy(0);
+        result = eventManager.piazzaEvent(args);
+        assertEquals("You are too tired to eat right now!",result);
+
+        // Correct time + enough energy
+        game.setSeconds(10*60+1);
+        game.setEnergy(30);
+        result = eventManager.piazzaEvent(args);
+        assertEquals("You took an hour to eat lunch at the Piazza!\nYou lost 10 energy!",result);
+
+        args = new String[2];
+        args[0] = "piazza";
+        args[1] = "testing";
+        game.setSeconds(9*60+1);
+        game.setEnergy(30);
+        result = eventManager.piazzaEvent(args);
+        assertEquals("You took an hour to eat breakfast at the Piazza!\nYou lost 10 energy!", result);
+        assertEquals(20, game.getEnergy());
+        assertEquals(10 * 60 + 1, game.getSeconds(), 0.0);
+        // Checking different meal times
+        game.setSeconds(9*60 +1);
+        assertSame("breakfast", game.getMeal());
+        game.setSeconds(12*60+1);
+        assertSame("lunch", game.getMeal());
+        game.setSeconds(18*60+1);
+        assertSame("dinner", game.getMeal());
+    }
 //    @Test
 //    public void testCompSciEvent(){
 //        game.setSeconds(10*60+1);
