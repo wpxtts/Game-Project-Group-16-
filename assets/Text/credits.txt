@@ -20,9 +20,13 @@ Buttons - https://paperhatlizard.itch.io/cryos-mini-gui?download
 Map sprites:
 https://kerrielake.itch.io/star-realms-cozy-forest-pack
 https://opengameart.org/content/rpg-urban-pack
-Bus achievement sprite - https://dai420.itch.io/public-bus
-Early bird achievement sprite - https://ma9ici4n.itch.io/pixel-art-bird-16x16
-
+https://caz-creates-games.itch.io/ducky-3
+Achievement sprites:
+Bus sprite - https://dai420.itch.io/public-bus
+Bird sprite - https://ma9ici4n.itch.io/pixel-art-bird-16x16
+Apple sprite - https://santigou.itch.io/apple-sprite
+Book sprite - https://andelrodis.itch.io/books-for-32x32
+Computer sprite - https://viergacht.itch.io/four-retro-computer-sprites
 
 Fonts:
 https://www.dafont.com/w95fa.font
