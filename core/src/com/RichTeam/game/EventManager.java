@@ -292,10 +292,8 @@ daily.put("early_bird",daily.get("early_bird")+1);
                 } else {
                     // If they do have the energy to study increase streaks and complete event
                     if (game.getSeconds() > 20*60){
-                        if (daily.get("night_owl") < 3){
-                            // increase player's streak
-                            daily.put("night_owl",daily.get("night_owl")+1);
-                        }
+                        // increase player's streak
+                        daily.put("night_owl",daily.get("night_owl")+1);
                     }
                     // increase player's streak
                     daily.put("studying",daily.get("studying")+1);
@@ -312,11 +310,8 @@ daily.put("early_bird",daily.get("early_bird")+1);
             }
         } else {
             //game.dialogueBox.setText("It's too early in the morning to study, go to bed!");
-            if (daily.get("early_bird") < 3 && game.getSeconds() > 0){
-                // increase player's streak
-                
-                daily.put("early_bird",daily.get("early_bird")+1);
-            }
+            // increase player's streak
+            daily.put("early_bird",daily.get("early_bird")+1);
             return "It's too early in the morning to study, go to bed!";
         }
     }
