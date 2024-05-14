@@ -3,6 +3,7 @@ import com.RichTeam.game.EventManager;
 import com.RichTeam.game.GameScreen;
 import com.RichTeam.game.HustleGame;
 import com.RichTeam.game.*;
+import com.badlogic.gdx.Gdx;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,7 @@ public class GameScreenTests {
     private GameScreen game;
     private HustleGame hGame;
     private EventManager eventManager;
+    public int hoursStudied, hoursRecreational, hoursSlept;
 //    @Test
 //    public void testPOIAssetsExists() {
 //        //Check POI sprites exist
@@ -70,5 +72,52 @@ public class GameScreenTests {
         hour = Math.floorDiv(daySeconds, 60);
         minutes = String.format("%02d", (daySeconds - hour * 60));
         assertFalse(hour<=12);
+    }
+    @Test
+    public void testMealNames(){
+        game.setSeconds(480);
+        String meal = game.getMeal();
+        assertEquals(meal,"breakfast");
+
+        game.setSeconds(720);
+        meal = game.getMeal();
+        assertEquals(meal,"lunch");
+
+        game.setSeconds(1080);
+        meal = game.getMeal();
+        assertEquals(meal,"dinner");
+    }
+    @Test
+    public void testSetSeconds(){
+        //test to show an illegal amount of seconds
+        int seconds = 1550;
+        game.setSeconds(seconds);
+        assertEquals(game.getSeconds(),1550,0.01);
+        game.formatTime(seconds);
+        assertEquals(game.getSeconds(),110,0.01);
+    }
+    @Test
+    public void testStudyHours(){
+        int hours = 2;
+        game.addStudyHours(hours);
+        game.addStudyHours(hours);
+        game.addStudyHours(hours);
+        assertEquals(hours+hours+hours,game.getStudyingHours(),0.01);
+    }
+    @Test
+    public void testRecreationalHours(){
+        int hours = 2;
+        game.addRecreationalHours(hours);
+        game.addRecreationalHours(hours);
+        game.addRecreationalHours(hours);
+        assertEquals(hours+hours+hours,game.getRecreationalHours(),0.01);
+    }
+    @Test
+    public void testSleepingHours(){
+        int hours = 2;
+        game.addSleptHours(hours);
+        game.addSleptHours(hours);
+        game.addSleptHours(hours);
+        assertEquals(hours+hours+hours,game.getHoursSlept(),0.01);
     }
 }

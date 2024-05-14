@@ -40,9 +40,9 @@ public class GameScreen implements Screen {
     final HustleGame game;
     private OrthographicCamera camera;
     private int energy = 100;
-    private int hoursStudied, hoursRecreational, hoursSlept;
+    public int hoursStudied, hoursRecreational, hoursSlept;
     private int timesStudied;
-    private float daySeconds = 0; // Current seconds elapsed in day
+    private static float daySeconds = 0; // Current seconds elapsed in day
     private int day = 1; // What day the game is on
     private Label timeLabel, dayLabel;
     public Player player;
@@ -51,12 +51,12 @@ public class GameScreen implements Screen {
     public OrthogonalTiledMapRenderer mapRenderer;
     public Stage uiStage;
     private Label interactionLabel;
-    private EventManager eventManager;
+    private static EventManager eventManager;
     protected InputMultiplexer inputMultiplexer;
     private Table uiTable;
     public Image energyBar;
     public DialogueBox dialogueBox;
-    public final Image blackScreen = new Image(new Texture(Gdx.files.internal("../assets/Sprites/black_square.png")));;
+    public static final Image blackScreen = new Image(new Texture(Gdx.files.internal("../assets/Sprites/black_square.png")));;
     private boolean sleeping = false;
 
 
@@ -571,6 +571,9 @@ public class GameScreen implements Screen {
      */
     public String formatTime(int seconds) {
         // Takes a number of seconds and converts it into a 12 hour clock time
+        if (seconds>=1440){
+            daySeconds=seconds-1440;
+        }
         int hour = Math.floorDiv(seconds, 60);
         String minutes = String.format("%02d", (seconds - hour * 60));
 
@@ -710,6 +713,9 @@ public class GameScreen implements Screen {
     public void addStudyHours(int hours) {
         hoursStudied += hours;
     }
+    public int getStudyingHours() {
+        return hoursStudied;
+    }
     /**
      * Adds to the total times studied
      */
@@ -744,7 +750,7 @@ public class GameScreen implements Screen {
     /**
      * @return Returns 'breakfast', 'lunch' or 'dinner' depending on the time of day
      */
-    public String getMeal() {
+    public static String getMeal() {
         int hours = Math.floorDiv((int) daySeconds, 60);
         if (hours >= 7 && hours <= 10) {
             //Breakfast between 7:00-10:59am
@@ -797,7 +803,9 @@ public class GameScreen implements Screen {
     public void addSleptHours(int hours) {
         hoursSlept += hours;
     }
-
+    public int getHoursSlept(){
+        return hoursSlept;
+    }
     /**
      * @return The number of seconds elapsed in the day
      */
