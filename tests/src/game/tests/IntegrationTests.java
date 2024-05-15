@@ -37,9 +37,9 @@ public class IntegrationTests {
         hoursRecreational = 0;
         hoursSlept = 0;
         for(int i=0; i<40;i++){
-        game.addRecreationalHours(hours);
-        game.addSleptHours(hours);
-        game.addStudyHours(hours);}
+            game.addRecreationalHours(hours);
+            game.addSleptHours(hours);
+            game.addStudyHours(hours);}
         score = GameOverScreen.scoreCalculation(hoursStudied,hoursRecreational,hoursSlept);
         assertTrue(score>=40);
     }
