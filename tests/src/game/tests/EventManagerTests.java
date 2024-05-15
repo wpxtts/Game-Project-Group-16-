@@ -1,7 +1,9 @@
 package game.tests;
 import com.RichTeam.game.*;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import org.junit.Before;
@@ -98,59 +100,59 @@ public class EventManagerTests {
         assertFalse(eventManager.hasCustomObjectInteraction("This isn't an object"));
     }
 
-//    @Test
-//    public void testRonCookeEvent(){
-//        // Test too early in morning case
-//        game.setSeconds(10);
-//        game.setEnergy(0);
-//        String[] args = new String[1];
-//        args[0] = "rch";
-//        String result = eventManager.ronCookeEvent(args);
-//        assertEquals("It's too early in the morning to meet your friends, go to bed!",result);
-//        assertEquals(1,(int)EventManager.streaks.get("early_bird"));
-//
-//        game.setSeconds(8*60);
-//        game.setEnergy(0);
-//        result = eventManager.ronCookeEvent(args);
-//        assertEquals("It's too early in the morning to meet your friends, go to bed!",result);
-//        assertEquals(2,(int)EventManager.streaks.get("early_bird"));
-//
-//
-//        game.setSeconds(8*60);
-//        game.setEnergy(0);
-//        result = eventManager.ronCookeEvent(args);
-//        result = eventManager.ronCookeEvent(args);
-//        assertEquals("It's too early in the morning to meet your friends, go to bed!",result);
-//        assertEquals(3,(int)EventManager.streaks.get("early_bird"));
-//
-//        // Correct time + enough energy
-//        game.setSeconds(10*60+1);
-//        game.setEnergy(30);
-//        result = eventManager.ronCookeEvent(args);
-//        assertEquals("What do you want to chat about?",result);
-//
-//        args = new String[2];
-//        args[0] = "rch";
-//        args[1] = "testing";
-//        game.setSeconds(10*60+1);
-//        result = eventManager.ronCookeEvent(args);
-//        assertTrue(result.equals("You talked about testing for 1 hours!")||
-//                result.equals("You talked about testing for 2 hours!")||
-//                result.equals("You talked about testing for 3 hours!"));
-//        assertTrue(0==game.getEnergy()||
-//                10==game.getEnergy()||
-//                20==game.getEnergy());
-//        assertTrue(11*60+1==game.getSeconds()||
-//                12*60+1==game.getSeconds()||
-//                13*60+1==game.getSeconds());
-//        // Recreational hours are initialised to 0
-//        // so after interacting with the Ron Cooke hub
-//        // it will randomly either be 1, 2, or 3
-//        assertTrue(game.getRecreationalHours()==1||
-//                game.getRecreationalHours()==2||
-//                game.getRecreationalHours()==3);
-//
-//    }
+    @Test
+    public void testRonCookeEvent(){
+        // Test too early in morning case
+        game.setSeconds(10);
+        game.setEnergy(0);
+        String[] args = new String[1];
+        args[0] = "rch";
+        String result = eventManager.ronCookeEvent(args);
+        assertEquals("It's too early in the morning to meet your friends, go to bed!",result);
+        assertEquals(1,(int)EventManager.daily.get("early_bird"));
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.ronCookeEvent(args);
+        assertEquals("It's too early in the morning to meet your friends, go to bed!",result);
+        assertEquals(2,(int)EventManager.daily.get("early_bird"));
+
+
+        game.setSeconds(8*60);
+        game.setEnergy(0);
+        result = eventManager.ronCookeEvent(args);
+        result = eventManager.ronCookeEvent(args);
+        assertEquals("It's too early in the morning to meet your friends, go to bed!",result);
+        assertEquals(4,(int)EventManager.daily.get("early_bird"));
+
+        // Correct time + enough energy
+        game.setSeconds(10*60+1);
+        game.setEnergy(30);
+        result = eventManager.ronCookeEvent(args);
+        assertEquals("What do you want to chat about?",result);
+
+        args = new String[2];
+        args[0] = "rch";
+        args[1] = "testing";
+        game.setSeconds(10*60+1);
+        result = eventManager.ronCookeEvent(args);
+        assertTrue(result.equals("You talked about testing for 1 hours!")||
+                result.equals("You talked about testing for 2 hours!")||
+                result.equals("You talked about testing for 3 hours!"));
+        assertTrue(0==game.getEnergy()||
+                10==game.getEnergy()||
+                20==game.getEnergy());
+        assertTrue(11*60+1==game.getSeconds()||
+                12*60+1==game.getSeconds()||
+                13*60+1==game.getSeconds());
+        // Recreational hours are initialised to 0
+        // so after interacting with the Ron Cooke hub
+        // it will randomly either be 1, 2, or 3
+        assertTrue(game.getRecreationalHours()==1||
+                game.getRecreationalHours()==2||
+                game.getRecreationalHours()==3);
+
+    }
 
     @Test
     public void testTreeEvent(){
@@ -210,6 +212,8 @@ public class EventManagerTests {
         game.setEnergy(30);
         result = eventManager.piazzaEvent(args);
         assertEquals("You took an hour to eat lunch at the Piazza!\nYou lost 10 energy!",result);
+        assertEquals(20,game.getEnergy(),0.0001);
+        assertEquals(11*60+1,game.getSeconds(),0.001);
 
         args = new String[2];
         args[0] = "piazza";
@@ -266,18 +270,32 @@ public class EventManagerTests {
         result = eventManager.compSciEvent(args);
         assertEquals("You studied for 1 hours!\nYou lost 10 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(11*60+1,game.getSeconds(),0.001);
+
+
         game.setSeconds(10*60+1);
         game.setEnergy(20);
         args[1] = "2";
         result = eventManager.compSciEvent(args);
         assertEquals("You studied for 2 hours!\nYou lost 20 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(12*60+1,game.getSeconds(),0.001);
+
         game.setSeconds(10*60+1);
         game.setEnergy(30);
         args[1] = "3";
         result = eventManager.compSciEvent(args);
         assertEquals("You studied for 3 hours!\nYou lost 30 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(13*60+1,game.getSeconds(),0.001);
+
+        // Check to stop overstudying
+        args = new String[1];
+        args[0] = "comp_sci";
+        game.setSeconds(10*60+1);
+        game.setEnergy(40);
+        result = eventManager.libraryEvent(args);
+        assertEquals("You have already studied today!",result);
     }
 
     @Test
@@ -318,18 +336,23 @@ public class EventManagerTests {
         result = eventManager.flowersEvent(args);
         assertEquals("You smelled the flowers for 1 hours!\nYou lost 10 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(11*60+1,game.getSeconds(),0.001);
+
         game.setSeconds(10*60+1);
         game.setEnergy(20);
         args[1] = "2";
         result = eventManager.flowersEvent(args);
         assertEquals("You smelled the flowers for 2 hours!\nYou lost 20 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(12*60+1,game.getSeconds(),0.001);
+
         game.setSeconds(10*60+1);
         game.setEnergy(30);
         args[1] = "3";
         result = eventManager.flowersEvent(args);
         assertEquals("You smelled the flowers for 3 hours!\nYou lost 30 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(13*60+1,game.getSeconds(),0.001);
     }
 
     @Test
@@ -367,16 +390,21 @@ public class EventManagerTests {
         result = eventManager.shopEvent(args);
         assertEquals("You took an hour to buy and eat breakfast at nisa!\nYou lost 10 energy!",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(10*60+1,game.getSeconds(),0.001);
+
         game.setSeconds(12*60+1);
         game.setEnergy(10);
         result = eventManager.shopEvent(args);
         assertEquals("You took an hour to buy and eat lunch at nisa!\nYou lost 10 energy!",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(13*60+1,game.getSeconds(),0.001);
+
         game.setSeconds(19*60+1);
         game.setEnergy(10);
         result = eventManager.shopEvent(args);
         assertEquals("You took an hour to buy and eat dinner at nisa!\nYou lost 10 energy!",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(20*60+1,game.getSeconds(),0.001);
     }
 
     @Test
@@ -417,18 +445,23 @@ public class EventManagerTests {
         result = eventManager.gymEvent(args);
         assertEquals("You spent 2 hours working out at the gym!\nYou lost 20 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(12*60+1,game.getSeconds(),0.001);
+
         game.setSeconds(10*60+1);
         game.setEnergy(30);
         args[1] = "3";
         result = eventManager.gymEvent(args);
         assertEquals("You spent 3 hours working out at the gym!\nYou lost 30 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(13*60+1,game.getSeconds(),0.001);
+
         game.setSeconds(10*60+1);
         game.setEnergy(40);
         args[1] = "4";
         result = eventManager.gymEvent(args);
         assertEquals("You spent 4 hours working out at the gym!\nYou lost 40 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(14*60+1,game.getSeconds(),0.001);
     }
 
     @Test
@@ -446,7 +479,6 @@ public class EventManagerTests {
         result = eventManager.duckPondEvent(args);
         assertEquals("It's too early to feed the ducks, they're not hungry!",result);
         assertEquals(1,(int)EventManager.daily.get("early_bird"));
-
 
         game.setSeconds(8*60);
         game.setEnergy(0);
@@ -469,18 +501,23 @@ public class EventManagerTests {
         result = eventManager.duckPondEvent(args);
         assertEquals("You spent 1 hours feeding the ducks!\nYou lost 10 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(11*60+1,game.getSeconds(),0.001);
+
         game.setSeconds(10*60+1);
         game.setEnergy(20);
         args[1] = "2";
         result = eventManager.duckPondEvent(args);
         assertEquals("You spent 2 hours feeding the ducks!\nYou lost 20 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(12*60+1,game.getSeconds(),0.001);
+
         game.setSeconds(10*60+1);
         game.setEnergy(30);
         args[1] = "3";
         result = eventManager.duckPondEvent(args);
         assertEquals("You spent 3 hours feeding the ducks!\nYou lost 30 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(13*60+1,game.getSeconds(),0.001);
     }
 
     @Test
@@ -512,7 +549,7 @@ public class EventManagerTests {
         game.setEnergy(0);
         result = eventManager.libraryEvent(args);
         assertEquals("You are too tired to study at the library right now!",result);
-        
+
         // Correct time + enough energy
         game.setSeconds(10*60+1);
         game.setEnergy(20);
@@ -520,97 +557,77 @@ public class EventManagerTests {
         result = eventManager.libraryEvent(args);
         assertEquals("You studied for 2 hours!\nYou lost 20 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(12*60+1,game.getSeconds(),0.001);
+
         game.setSeconds(10*60+1);
         game.setEnergy(30);
         args[1] = "3";
         result = eventManager.libraryEvent(args);
         assertEquals("You studied for 3 hours!\nYou lost 30 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(13*60+1,game.getSeconds(),0.001);
+
         game.setSeconds(10*60+1);
         game.setEnergy(40);
         args[1] = "4";
         result = eventManager.libraryEvent(args);
         assertEquals("You studied for 4 hours!\nYou lost 40 energy",result);
         assertEquals(0,game.getEnergy());
+        assertEquals(14*60+1,game.getSeconds(),0.001);
+
+        // Check to stop overstudying
+        args = new String[1];
+        args[0] = "comp_sci";
+        game.setSeconds(10*60+1);
+        game.setEnergy(40);
+        result = eventManager.libraryEvent(args);
+        assertEquals("You have already studied today!",result);
     }
 
-//    @Test
-//    public void testEventUsesEnergy() {
-//        int current_energy = game.getEnergy();
-//        int energyCost = 100;
-//        String[] args = new String[]{"flowers-1", "flowers-2", "flowers-3"};
-//        int hours = Integer.parseInt(args[1]);
-//        eventManager.flowersEvent(args);
-//        assertEquals("The streak for smelling flowers was not increased",
-//                current_energy, game.getEnergy() - (energyCost * hours));
-//    }
-//
-//    @Test
-//    public void testEventPassesTime() {
-//        float current_time = game.getSeconds();
-//        String[] args = new String[]{"flowers-1", "flowers-2", "flowers-3"};
-//        int hours = Integer.parseInt(args[1]);
-//        eventManager.flowersEvent(args);
-//        assertEquals("The streak for smelling flowers was not increased",
-//                current_time, current_time - (hours * 60));
-//    }
-//
-//    @Test
-//    public void testStreaksIncrease() {
-//        int current_streak = eventManager.streaks.get("flowers");
-//        String[] args = new String[]{"flowers-1", "flowers-2", "flowers-3"};
-//        eventManager.flowersEvent(args);
-//        assertEquals("The streak for smelling flowers was not increased",
-//                Integer.valueOf((current_streak + 1)), eventManager.streaks.get("flowers"));
-//    }
-//
-//    @Test
-//    public void testEventBlockedTired() {
-//        String[] args = new String[]{"flowers-1", "flowers-2", "flowers-3"};
-//        eventManager.flowersEvent(args);
-//        game.setEnergy(0);
-//        DialogueBox dialogueBox = mock(DialogueBox.class);
-//        assertTrue(dialogueBox.isVisible());
-//    }
-//
-//    @Test
-//    public void testEventBlockedLate() {
-//        game.passTime(9*60);
-//        String[] args = new String[]{"flowers-1", "flowers-2", "flowers-3"};
-//        eventManager.flowersEvent(args);
-//        DialogueBox dialogueBox = mock(DialogueBox.class);
-//        assertFalse(dialogueBox.isVisible());
-//    }
-//
-//    @Test
-//    public void testCatchupUsable() {
-//        int daily_study = 2;
-//        String[] args = new String[]{"fadefromblack"};
-//        eventManager.compSciEvent(args);
-//        assertTrue(eventManager.catchup_used);
-//    }
-//
-//    @Test
-//    public void testPostSleepEnergy() {
-//        String[] args = new String[]{"fadefromblack"};
-//        eventManager.accomEvent(args);
-//        assertEquals("The player did not regain full energy after sleeping",
-//                game.getEnergy(), 100);
-//    }
-//
-//    @Test
-//    public void testPostSleepTime() {
-//        String[] args = new String[]{"fadefromblack"};
-//        eventManager.accomEvent(args);
-//        assertEquals("The player did not regain full energy after sleeping",
-//                game.getSeconds(), 8*60);
-//    }
-//
-//    @Test
-//    public void testPostSleepStudyHours() {
-//        String[] args = new String[]{"comp_sci-1", "comp_sci-2", "comp_sci-3"};
-//        eventManager.accomEvent(args);
-//        assertEquals("The player did not regain full energy after sleeping",
-//                eventManager.daily_study, 0);
-//    }
+    @Test
+    public void testPostSleepEnergy() {
+        String[] args = new String[]{"fadefromblack"};
+        game.dialogueBox = mock(DialogueBox.class);
+        game.setEnergy(0);
+        game.setSeconds(10*60);
+        game.dayLabel = mock(Label.class);
+        eventManager.sleepAction(10,60*10);
+        assertEquals("The player did not regain full energy after sleeping",100,
+                game.getEnergy());
+    }
+
+    @Test
+    public void testPostSleepTime() {
+        String[] args = new String[]{"fadefromblack"};
+        game.dialogueBox = mock(DialogueBox.class);
+        game.setEnergy(0);
+        game.setSeconds(23*60);
+        game.dayLabel = mock(Label.class);
+        eventManager.sleepAction(9,60*9);
+        assertEquals(8*60,game.getSeconds(),0.001);
+    }
+
+    @Test
+    public void testResetDaily() {
+        String[] args = new String[]{"fadefromblack"};
+        game.dialogueBox = mock(DialogueBox.class);
+        game.setEnergy(0);
+        game.setSeconds(23*60);
+        game.dayLabel = mock(Label.class);
+        EventManager.daily.put("early_bird",1);
+        eventManager.sleepAction(9,60*9);
+        assertEquals(0,EventManager.daily.get("early_bird"),0.001);
+    }
+
+    @Test
+    public void testUpdateStreak() {
+        String[] args = new String[]{"fadefromblack"};
+        game.dialogueBox = mock(DialogueBox.class);
+        game.setEnergy(0);
+        game.setSeconds(23*60);
+        game.dayLabel = mock(Label.class);
+        EventManager.daily.put("studying",1);
+        eventManager.sleepAction(9,60*9);
+        assertEquals(1,EventManager.streaks.get("studying"),0.001);
+    }
 }

@@ -44,7 +44,8 @@ public class GameScreen implements Screen {
     private int timesStudied;
     private static float daySeconds = 0; // Current seconds elapsed in day
     private int day = 1; // What day the game is on
-    private Label timeLabel, dayLabel;
+    private Label timeLabel;
+    public Label dayLabel;
     public Player player;
     private Window escapeMenu;
     private Viewport viewport;

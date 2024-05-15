@@ -503,17 +503,27 @@ public class EventManager {
             @Override
             public void run() {
                 if (game.getSleeping()) {
-                    game.dialogueBox.show();
-                    game.dialogueBox.setText(String.format("You slept for %d hours!\nYou recovered %d energy!", hoursSlept, Math.min(100, hoursSlept*13)), "fadefromblack");
-                    // Restore energy and pass time
-                    game.setEnergy(hoursSlept*13);
-                    game.passTime(secondsSlept);
-                    game.addSleptHours(hoursSlept);
+//                    game.dialogueBox.show();
+//                    game.dialogueBox.setText(String.format("You slept for %d hours!\nYou recovered %d energy!", hoursSlept, Math.min(100, hoursSlept*13)), "fadefromblack");
+//                    // Restore energy and pass time
+//                    game.setEnergy(hoursSlept*13);
+//                    game.passTime(secondsSlept);
+//                    game.addSleptHours(hoursSlept);
+                    sleepAction(hoursSlept,secondsSlept);
                 }
             }
         });
 
         fadeToBlack(setTextAction);
+    }
+
+    public void sleepAction(int hoursSlept, float secondsSlept){
+        game.dialogueBox.show();
+        game.dialogueBox.setText(String.format("You slept for %d hours!\nYou recovered %d energy!", hoursSlept, Math.min(100, hoursSlept*13)), "fadefromblack");
+        // Restore energy and pass time
+        game.setEnergy(hoursSlept*13);
+        game.passTime(secondsSlept);
+        game.addSleptHours(hoursSlept);
     }
 
     //Town POIs
