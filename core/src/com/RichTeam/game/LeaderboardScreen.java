@@ -2,6 +2,7 @@ package com.RichTeam.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -26,7 +28,7 @@ public class LeaderboardScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
 
-    public static String leaderboardPath = "Text/leaderboard.csv";
+    public static String leaderboardPath = "/assets/Text/leaderboard.csv";
 
     public LeaderboardScreen(final HustleGame game, Screen previousScreen,boolean draw) {
         this.game = game;
@@ -98,7 +100,8 @@ public class LeaderboardScreen implements Screen {
      */
     public ArrayList<String[]> getLeaderboard10(){
         ArrayList<String[]> leaderboardData = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(leaderboardPath))) {
+        FileHandle file = Gdx.files.internal("Text/leaderboard.csv");
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.read()))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
@@ -109,7 +112,6 @@ public class LeaderboardScreen implements Screen {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         Collections.sort(leaderboardData.subList(leaderboardData.size() > 0 ? 1 : 0, leaderboardData.size()), new Comparator<String[]>() {
             @Override
             public int compare(String[] o1, String[] o2) {
