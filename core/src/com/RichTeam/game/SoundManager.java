@@ -11,14 +11,14 @@ import com.badlogic.gdx.utils.Disposable;
 public class SoundManager implements Disposable {
     public Music overworldMusic, menuMusic;
 
-    public static final String overworldMusicPath = "../assets/Music/OverworldMusic.mp3";
-    public static final String menuMusicPath = "../assets/Music/Streetlights.ogg";
-    public static final String footstep1Path = "../assets/Sounds/footstep1 grass.ogg";
-    public static final String footstep2Path = "../assets/Sounds/footstep2 grass.ogg";
-    public static final String pauseSoundPath = "../assets/Sounds/Pause01.wav";
-    public static final String dialogueOpenSoundPath = "../assets/Sounds/DialogueOpen.wav";
-    public static final String dialogueOptionSoundPath = "../assets/Sounds/DialogueOption.wav";
-    public static final String buttonSoundPath = "../assets/Sounds/Button.wav";
+    public static final String overworldMusicPath = "Music/OverworldMusic.mp3";
+    public static final String menuMusicPath = "Music/Streetlights.ogg";
+    public static final String footstep1Path = "Sounds/footstep1 grass.ogg";
+    public static final String footstep2Path = "Sounds/footstep2 grass.ogg";
+    public static final String pauseSoundPath = "Sounds/Pause01.wav";
+    public static final String dialogueOpenSoundPath = "Sounds/DialogueOpen.wav";
+    public static final String dialogueOptionSoundPath = "Sounds/DialogueOption.wav";
+    public static final String buttonSoundPath = "Sounds/Button.wav";
     public Sound footstep1, footstep2;
     public boolean footstepBool;
     private float footstepTimer;

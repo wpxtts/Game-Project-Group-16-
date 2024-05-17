@@ -49,12 +49,12 @@ public class MenuScreen implements Screen {
         this.game.menuScreen = this;
         this.draw = draw;
         cloudTextures = new Texture[] {
-                new Texture(Gdx.files.internal("../assets/Sprites/cloud1.png")),
-                new Texture(Gdx.files.internal("../assets/Sprites/cloud2.png")),
-                new Texture(Gdx.files.internal("../assets/Sprites/cloud3.png")),
-                new Texture(Gdx.files.internal("../assets/Sprites/cloud4.png")),
-                new Texture(Gdx.files.internal("../assets/Sprites/cloud5.png")),
-                new Texture(Gdx.files.internal("../assets/Sprites/cloud6.png")),
+                new Texture(Gdx.files.internal("Sprites/cloud1.png")),
+                new Texture(Gdx.files.internal("Sprites/cloud2.png")),
+                new Texture(Gdx.files.internal("Sprites/cloud3.png")),
+                new Texture(Gdx.files.internal("Sprites/cloud4.png")),
+                new Texture(Gdx.files.internal("Sprites/cloud5.png")),
+                new Texture(Gdx.files.internal("Sprites/cloud6.png")),
         };
         if (draw) {
             cloudSpeed = 10; // Adjust speed as needed

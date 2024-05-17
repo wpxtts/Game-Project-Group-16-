@@ -27,7 +27,7 @@ public class SaveScreen implements Screen{
     private OrthographicCamera camera;
     private Viewport viewport;
     private boolean saved;
-    public static String leaderboardPath = "../assets/Text/leaderboard.csv";
+    public static String leaderboardPath = "Text/leaderboard.csv";
 
     public boolean drawOnExit;
     public MenuScreen menuScreen;

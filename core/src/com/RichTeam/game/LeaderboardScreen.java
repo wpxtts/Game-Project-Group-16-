@@ -26,7 +26,7 @@ public class LeaderboardScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
 
-    public static String leaderboardPath = "../assets/Text/leaderboard.csv";
+    public static String leaderboardPath = "Text/leaderboard.csv";
 
     public LeaderboardScreen(final HustleGame game, Screen previousScreen,boolean draw) {
         this.game = game;

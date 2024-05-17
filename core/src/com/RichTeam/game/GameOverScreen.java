@@ -33,12 +33,12 @@ public class GameOverScreen implements Screen {
     // Hidden achievement badges
     public static HashMap<String, Integer> streakGoals;
     private Texture apple, flower, bus, shopping_basket, early_bird, night_owl, book, library_book;
-    public static String apple_path = "../assets/Sprites/achievements/apple.png";
-    public static String flower_path = "../assets/Sprites/achievements/flower.png";
-    public static String bus_path = "../assets/Sprites/achievements/bus.png";
-    public static String book_path = "../assets/Sprites/achievements/book.png";
-    public static String library_book_path = "../assets/Sprites/achievements/library_book.png";
-    public static String night_owl_path = "../assets/Sprites/achievements/night_owl.png";
+    public static String apple_path = "Sprites/achievements/apple.png";
+    public static String flower_path = "Sprites/achievements/flower.png";
+    public static String bus_path = "Sprites/achievements/bus.png";
+    public static String book_path = "Sprites/achievements/book.png";
+    public static String library_book_path = "Sprites/achievements/library_book.png";
+    public static String night_owl_path = "Sprites/achievements/night_owl.png";
 
     /**
      * A screen to display a 'Game Over' screen when the player finishes their exams

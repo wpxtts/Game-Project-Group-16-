@@ -15,8 +15,8 @@ import java.util.ArrayList;
  * A class handling everything needed to control and draw a player, including animation, movement and collision
  */
 public class Player {
-    public static String atlasConfig = "../assets/Sprites/Player/player_sprites.atlas";
-    public static String playerSprite = "../assets/Sprites/Player/player_sprites.png";
+    public static String atlasConfig = "Sprites/Player/player_sprites.atlas";
+    public static String playerSprite = "Sprites/Player/player_sprites.png";
     // Hitboxes
     public Rectangle sprite, feet, eventHitbox;
     public float centreX, centreY;

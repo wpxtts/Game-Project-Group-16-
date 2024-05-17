@@ -57,7 +57,7 @@ public class GameScreen implements Screen {
     private Table uiTable;
     public Image energyBar;
     public DialogueBox dialogueBox;
-    public static final Image blackScreen = new Image(new Texture(Gdx.files.internal("../assets/Sprites/black_square.png")));;
+    public static final Image blackScreen = new Image(new Texture(Gdx.files.internal("Sprites/black_square.png")));;
     private boolean sleeping = false;
 
 

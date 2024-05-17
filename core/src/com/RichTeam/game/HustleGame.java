@@ -39,12 +39,12 @@ public class HustleGame extends Game {
 	public static float mapScale;
 	public MapProperties mapProperties;
 
-	public static final String skinPath = "../assets/Interface/BlockyInterface.json";
-	public static final String mapPath = "../assets/East Campus/east_campus.tmx";
+	public static final String skinPath = "Interface/BlockyInterface.json";
+	public static final String mapPath = "East Campus/east_campus.tmx";
 	public static final String townMapPath ="East Campus/town_map.tmx";
-	public static final String whiteSquarePath = "../assets/Sprites/white_square.png";
-	public static final String creditsPath = "../assets/Text/credits.txt";
-	public static final String tutorialTextPath = "../assets/Text/tutorial_text.txt";
+	public static final String whiteSquarePath = "Sprites/white_square.png";
+	public static final String creditsPath = "Text/credits.txt";
+	public static final String tutorialTextPath = "Text/tutorial_text.txt";
 	/**
 	 * A class to initialise a lot of the assets required for the game, including the map, sound and UI skin.
 	 * A instance of this object should be shared to most screens to allow resources to be shared and disposed of
