@@ -2,6 +2,7 @@ package com.RichTeam.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -185,10 +186,10 @@ public class SaveScreen implements Screen{
         String data = name + "," + score + "\n"; // Format the data to append
 
         try {
-            FileWriter writer = new FileWriter(filename, true); // Create a FileWriter in append mode
-            writer.write(data); // Write the data to the file
-            writer.close(); // Close the FileWriter
-        } catch (IOException e) {
+            System.out.println(Gdx.files.getLocalStoragePath());
+            FileHandle file = Gdx.files.local("leaderboard.csv");// Use Gdx.files.local for writing
+            file.writeString(data, true); // Write the data to the file, append mode
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -195,8 +195,6 @@ public class MenuScreen implements Screen {
 
     public void exitButtonTask(){
         game.soundManager.playButton();
-        game.dispose();
-        dispose();
         Gdx.app.exit();
     }
 

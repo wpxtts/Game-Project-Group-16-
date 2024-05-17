@@ -111,6 +111,11 @@ public class HustleGame extends Game {
         }
 
         this.setScreen(new MenuScreen(this,true));
+
+		if(!Gdx.files.local("leaderboard.csv").exists()) {
+			FileHandle file = Gdx.files.local("leaderboard.csv");// Use Gdx.files.local for writing
+			file.writeString("Player Name,Score\n", true);
+		}
 	}
 
 	/**

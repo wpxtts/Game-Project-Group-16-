@@ -100,7 +100,8 @@ public class LeaderboardScreen implements Screen {
      */
     public ArrayList<String[]> getLeaderboard10(){
         ArrayList<String[]> leaderboardData = new ArrayList<>();
-        FileHandle file = Gdx.files.internal("Text/leaderboard.csv");
+        System.out.println(Gdx.files.getLocalStoragePath());
+        FileHandle file = Gdx.files.local("leaderboard.csv");
         try (BufferedReader br = new BufferedReader(new InputStreamReader(file.read()))) {
             String line;
             while ((line = br.readLine()) != null) {
