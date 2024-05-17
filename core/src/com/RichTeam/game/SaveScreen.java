@@ -187,7 +187,7 @@ public class SaveScreen implements Screen{
 
         try {
             System.out.println(Gdx.files.getLocalStoragePath());
-            FileHandle file = Gdx.files.local("leaderboard.csv");// Use Gdx.files.local for writing
+            FileHandle file = Gdx.files.local(LeaderboardScreen.leaderboardPath);// Use Gdx.files.local for writing
             file.writeString(data, true); // Write the data to the file, append mode
         } catch (Exception e) {
             e.printStackTrace();

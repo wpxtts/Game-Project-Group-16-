@@ -16,25 +16,25 @@ public class SoundManagerTests {
     @Test
     public void testMusicAssetsExists() {
         assertTrue("The overworld music doesn't exist",
-                Gdx.files.internal(SoundManager.overworldMusicPath).exists());
+                Gdx.files.internal("../assets/"+SoundManager.overworldMusicPath).exists());
         assertTrue("The menu music doesn't exist",
-                Gdx.files.internal(SoundManager.menuMusicPath).exists());
+                Gdx.files.internal("../assets/"+SoundManager.menuMusicPath).exists());
     }
 
     @Test
     public void testSoundEffectsExist(){
         assertTrue("The footstep 1 sound doesn't exist",
-                Gdx.files.internal(SoundManager.footstep1Path).exists());
+                Gdx.files.internal("../assets/"+SoundManager.footstep1Path).exists());
         assertTrue("The footstep 2 sound doesn't exist",
-                Gdx.files.internal(SoundManager.footstep2Path).exists());
+                Gdx.files.internal("../assets/"+SoundManager.footstep2Path).exists());
         assertTrue("The pause sound doesn't exist",
-                Gdx.files.internal(SoundManager.pauseSoundPath).exists());
+                Gdx.files.internal("../assets/"+SoundManager.pauseSoundPath).exists());
         assertTrue("The dialogue open sound doesn't exist",
-                Gdx.files.internal(SoundManager.dialogueOpenSoundPath).exists());
+                Gdx.files.internal("../assets/"+SoundManager.dialogueOpenSoundPath).exists());
         assertTrue("The dialogue option sound doesn't exist",
-                Gdx.files.internal(SoundManager.dialogueOptionSoundPath).exists());
+                Gdx.files.internal("../assets/"+SoundManager.dialogueOptionSoundPath).exists());
         assertTrue("The button sound doesn't exist",
-                Gdx.files.internal(SoundManager.buttonSoundPath).exists());
+                Gdx.files.internal("../assets/"+SoundManager.buttonSoundPath).exists());
     }
 
     @Test

@@ -24,7 +24,7 @@ public class PlayerTests {
 
     @Test
     public void testPlayerMovement(){
-        Player player = new Player("avatar1");
+        Player player = new Player("avatar1",false);
         // Sprite starts at (0,0)
 
         //Check left movement
@@ -48,7 +48,7 @@ public class PlayerTests {
     }
     @Test
     public void testCollisionCheck(){
-        Player player = new Player("avatar1");
+        Player player = new Player("avatar1",false);
         ArrayList<GameObject> collidingObjects = new ArrayList<>();
         collidingObjects.add(new GameObject(player.feet.getX() -100, player.feet.getY()-100, 2000, 2000));
         // Edge case
@@ -72,7 +72,7 @@ public class PlayerTests {
 
     @Test
     public void testMovePlayerWithinBounds(){
-        Player player = new Player("avatar1");
+        Player player = new Player("avatar1",false);
         player.setBounds(new Rectangle(0,0,100,100));
 
         // Player within bounds
@@ -99,7 +99,7 @@ public class PlayerTests {
 
     @Test
     public void testFindClosestInteractableObject(){
-        Player player = new Player("avatar1");
+        Player player = new Player("avatar1",false);
         GameObject closestObject = new GameObject(player.getX()-1,player.getY()-1,1,1);
         GameObject midObject = new GameObject(player.getX()-2,player.getY()-2,1,1);
         GameObject furthestObject = new GameObject(player.getX()-3,player.getY()-3,1,1);
@@ -127,7 +127,7 @@ public class PlayerTests {
 
     @Test
     public void testNearObject(){
-        Player player = new Player("avatar1");
+        Player player = new Player("avatar1",false);
         GameObject closeObject = new GameObject(player.getX()-1,player.getY()-1,1,1);
         GameObject outOfRangeObject = new GameObject(player.getX()-1000, player.getY()-1000,1,1);
         GameObject unInteractableObject = new GameObject(player.getX()-1,player.getY()-1,1,1);
@@ -155,7 +155,7 @@ public class PlayerTests {
     }
     @Test
     public void testGetClosestObject(){
-        Player player = new Player("avatar1");
+        Player player = new Player("avatar1",false);
         GameObject closestObject = new GameObject(player.getX()-1,player.getY()-1,1,1);
         GameObject midObject = new GameObject(player.getX()-2,player.getY()-2,1,1);
         GameObject furthestObject = new GameObject(player.getX()-3,player.getY()-3,1,1);
@@ -189,7 +189,7 @@ public class PlayerTests {
 
     @Test
     public void testIsMoving(){
-        Player player = new Player("avatar1");
+        Player player = new Player("avatar1",false);
         player.moving = false;
         assertFalse(player.isMoving());
         player.moving = true;
@@ -198,7 +198,7 @@ public class PlayerTests {
 
     @Test
     public void testSetMoving(){
-        Player player = new Player("avatar1");
+        Player player = new Player("avatar1",false);
         player.setMoving(false);
         assertFalse(player.isMoving());
         player.setMoving(true);
@@ -207,7 +207,7 @@ public class PlayerTests {
 
     @Test
     public void getPosAsVec3(){
-        Player player = new Player("avatar1");
+        Player player = new Player("avatar1",false);
         player.setX(10);
         player.setY(10);
         assertEquals(new Vector3(10,10,0),player.getPosAsVec3());
@@ -215,7 +215,7 @@ public class PlayerTests {
 
     @Test
     public void testSetX(){
-        Player player = new Player("avatar1");
+        Player player = new Player("avatar1",false);
         // Set up values
         player.scale = 4;
         player.eventHitbox.setWidth(20);
@@ -233,7 +233,7 @@ public class PlayerTests {
 
     @Test
     public void testSetY(){
-        Player player = new Player("avatar1");
+        Player player = new Player("avatar1",false);
         player.eventHitbox.setHeight(20);
         player.sprite.setHeight(10);
 

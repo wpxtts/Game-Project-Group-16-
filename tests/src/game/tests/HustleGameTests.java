@@ -15,15 +15,15 @@ public class HustleGameTests {
     @Test
     public void testHustleGameAssetsExists(){
         assertTrue("The game skin doesn't exist",
-                Gdx.files.internal(HustleGame.skinPath).exists());
+                Gdx.files.internal("../assets/"+HustleGame.skinPath).exists());
         assertTrue("The map doesn't exist",
-                Gdx.files.internal(HustleGame.mapPath).exists());
+                Gdx.files.internal("../assets/"+HustleGame.mapPath).exists());
         assertTrue("The white square image doesn't exist",
-                Gdx.files.internal(HustleGame.whiteSquarePath).exists());
+                Gdx.files.internal("../assets/"+HustleGame.whiteSquarePath).exists());
         assertTrue("The credits text file doesn't exist",
-                Gdx.files.internal(HustleGame.creditsPath).exists());
+                Gdx.files.internal("../assets/"+HustleGame.creditsPath).exists());
         assertTrue("The tutorial text file doesn't exist",
-                Gdx.files.internal(HustleGame.tutorialTextPath).exists());
+                Gdx.files.internal("../assets/"+HustleGame.tutorialTextPath).exists());
     }
 
     @Test

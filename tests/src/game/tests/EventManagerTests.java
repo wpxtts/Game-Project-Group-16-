@@ -34,7 +34,7 @@ public class EventManagerTests {
     public void testPOIAssetsExists() {
         //Check POI sprites exist
         assertTrue("The sprite asset for the POI doesn't exist",
-                Gdx.files.internal(Player.playerSprite).exists());
+                Gdx.files.internal("../assets/East Campus/Textures/buildings.png").exists());
     }
 
     @Test

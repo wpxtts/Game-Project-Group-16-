@@ -28,7 +28,7 @@ public class LeaderboardScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
 
-    public static String leaderboardPath = "/assets/Text/leaderboard.csv";
+    public static String leaderboardPath = "leaderboard.csv";
 
     public LeaderboardScreen(final HustleGame game, Screen previousScreen,boolean draw) {
         this.game = game;
@@ -100,8 +100,7 @@ public class LeaderboardScreen implements Screen {
      */
     public ArrayList<String[]> getLeaderboard10(){
         ArrayList<String[]> leaderboardData = new ArrayList<>();
-        System.out.println(Gdx.files.getLocalStoragePath());
-        FileHandle file = Gdx.files.local("leaderboard.csv");
+        FileHandle file = Gdx.files.local(leaderboardPath);
         try (BufferedReader br = new BufferedReader(new InputStreamReader(file.read()))) {
             String line;
             while ((line = br.readLine()) != null) {

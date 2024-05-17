@@ -48,15 +48,16 @@ public class MenuScreen implements Screen {
         this.game = game;
         this.game.menuScreen = this;
         this.draw = draw;
-        cloudTextures = new Texture[] {
-                new Texture(Gdx.files.internal("Sprites/cloud1.png")),
-                new Texture(Gdx.files.internal("Sprites/cloud2.png")),
-                new Texture(Gdx.files.internal("Sprites/cloud3.png")),
-                new Texture(Gdx.files.internal("Sprites/cloud4.png")),
-                new Texture(Gdx.files.internal("Sprites/cloud5.png")),
-                new Texture(Gdx.files.internal("Sprites/cloud6.png")),
-        };
+
         if (draw) {
+            cloudTextures = new Texture[] {
+                    new Texture(Gdx.files.internal("Sprites/cloud1.png")),
+                    new Texture(Gdx.files.internal("Sprites/cloud2.png")),
+                    new Texture(Gdx.files.internal("Sprites/cloud3.png")),
+                    new Texture(Gdx.files.internal("Sprites/cloud4.png")),
+                    new Texture(Gdx.files.internal("Sprites/cloud5.png")),
+                    new Texture(Gdx.files.internal("Sprites/cloud6.png")),
+            };
             cloudSpeed = 10; // Adjust speed as needed
             clouds = new ArrayList<Vector2>(); // Initialize the clouds ArrayList
             // Create stage to draw UI on

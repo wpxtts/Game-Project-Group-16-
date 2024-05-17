@@ -18,10 +18,7 @@ public class GameScreenTests {
     private HustleGame hGame;
     private EventManager eventManager;
     public int hoursStudied, hoursRecreational, hoursSlept;
-//    @Test
-//    public void testPOIAssetsExists() {
-//        //Check POI sprites exist
-//    }
+
     @Before
     public void setUp() {
         //game = mock(GameScreen.class);

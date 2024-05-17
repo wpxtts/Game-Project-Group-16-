@@ -47,28 +47,31 @@ public class Player {
      * @param avatar "avatar1" for the more masculine character, "avatar2" for the more feminine character,
      *               player animations are packed in the player_sprites atlas
      */
-    public Player (String avatar) {
+    public Player (String avatar, boolean draw) {
+        if(!draw){
+            atlasConfig = "../assets/"+atlasConfig;
+            playerSprite = "../assets/"+playerSprite;
+        }
         this.avatar = avatar;
         // Load the player's textures from the atlas
         TextureAtlas playerAtlas = new TextureAtlas(Gdx.files.internal(atlasConfig));
-
         walkingAnimation = new Array<Animation<TextureRegion>>(4);
         idleAnimation = new Array<Animation<TextureRegion>>(4);
-//        busAnimation = new Array<Animation<TextureRegion>>(4);
-
-        // Load walking animation from Sprite atlas
-        walkingAnimation.add(
-                new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_back"), Animation.PlayMode.LOOP),
-                new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_right"), Animation.PlayMode.LOOP),
-                new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_front"), Animation.PlayMode.LOOP),
-                new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_left"), Animation.PlayMode.LOOP));
-        // Load idle animation
-        idleAnimation.add(
-                new Animation<TextureRegion>(0.40f, playerAtlas.findRegions(avatar + "_idle_back"), Animation.PlayMode.LOOP),
-                new Animation<TextureRegion>(0.40f, playerAtlas.findRegions(avatar + "_idle_right"), Animation.PlayMode.LOOP),
-                new Animation<TextureRegion>(0.40f, playerAtlas.findRegions(avatar + "_idle_front"), Animation.PlayMode.LOOP),
-                new Animation<TextureRegion>(0.40f, playerAtlas.findRegions(avatar + "_idle_left"), Animation.PlayMode.LOOP)
-        );
+        if(draw) {
+            // Load walking animation from Sprite atlas
+            walkingAnimation.add(
+                    new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_back"), Animation.PlayMode.LOOP),
+                    new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_right"), Animation.PlayMode.LOOP),
+                    new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_front"), Animation.PlayMode.LOOP),
+                    new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_left"), Animation.PlayMode.LOOP));
+            // Load idle animation
+            idleAnimation.add(
+                    new Animation<TextureRegion>(0.40f, playerAtlas.findRegions(avatar + "_idle_back"), Animation.PlayMode.LOOP),
+                    new Animation<TextureRegion>(0.40f, playerAtlas.findRegions(avatar + "_idle_right"), Animation.PlayMode.LOOP),
+                    new Animation<TextureRegion>(0.40f, playerAtlas.findRegions(avatar + "_idle_front"), Animation.PlayMode.LOOP),
+                    new Animation<TextureRegion>(0.40f, playerAtlas.findRegions(avatar + "_idle_left"), Animation.PlayMode.LOOP)
+            );
+        }
 
         collidables = new Array<GameObject>();
 

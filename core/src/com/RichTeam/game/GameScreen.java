@@ -57,7 +57,7 @@ public class GameScreen implements Screen {
     private Table uiTable;
     public Image energyBar;
     public DialogueBox dialogueBox;
-    public static final Image blackScreen = new Image(new Texture(Gdx.files.internal("Sprites/black_square.png")));;
+    public static Image blackScreen;
     private boolean sleeping = false;
 
 
@@ -79,6 +79,7 @@ public class GameScreen implements Screen {
 
 
         if(draw) {
+            blackScreen = new Image(new Texture(Gdx.files.internal("Sprites/black_square.png")));
             // Camera and viewport settings
             camera = new OrthographicCamera();
             viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
@@ -101,9 +102,9 @@ public class GameScreen implements Screen {
 
         // Create a player class
         if (avatarChoice == 1) {
-            player = new Player("avatar1");
+            player = new Player("avatar1",draw);
         } else {
-            player = new Player("avatar2");
+            player = new Player("avatar2",draw);
         }
 
 
@@ -137,13 +138,14 @@ public class GameScreen implements Screen {
         // Load energy bar elements
         Group energyGroup = new Group();
         energyGroup.setDebug(true);
-        energyBar = new Image(new Texture(Gdx.files.internal("Interface/Energy Bar/blue_bar.png")));
-        Image energyBarOutline = new Image(new Texture(Gdx.files.internal("Interface/Energy Bar/bar_outline.png")));
-        energyBarOutline.setPosition(viewport.getWorldWidth()-energyBarOutline.getWidth() - 15, 15);
-        energyBar.setPosition(energyBarOutline.getX()+16, energyBarOutline.getY()+16);
-        energyGroup.addActor(energyBar);
-        energyGroup.addActor(energyBarOutline);
-
+        if(draw) {
+            energyBar = new Image(new Texture(Gdx.files.internal("Interface/Energy Bar/blue_bar.png")));
+            Image energyBarOutline = new Image(new Texture(Gdx.files.internal("Interface/Energy Bar/bar_outline.png")));
+            energyBarOutline.setPosition(viewport.getWorldWidth() - energyBarOutline.getWidth() - 15, 15);
+            energyBar.setPosition(energyBarOutline.getX() + 16, energyBarOutline.getY() + 16);
+            energyGroup.addActor(energyBar);
+            energyGroup.addActor(energyBarOutline);
+        }
 
         // Set initial time
         daySeconds = (8*60); // 8:00 am

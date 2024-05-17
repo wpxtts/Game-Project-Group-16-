@@ -23,9 +23,9 @@ public class SaveScreenTests {
     @Before
     public void setUp(){
         // Set up test leaderboard file
-        SaveScreen.leaderboardPath = "../tests/testAssets/testLeaderboard.csv";
+        LeaderboardScreen.leaderboardPath = "../tests/testAssets/testLeaderboard.csv";
         try {
-            FileWriter writer = new FileWriter(SaveScreen.leaderboardPath, false);
+            FileWriter writer = new FileWriter(LeaderboardScreen.leaderboardPath, false);
             writer.write("Player Name,Score\n"); // Write the data to the file
             writer.close(); // Close the FileWriter
         } catch (IOException e) {
@@ -35,7 +35,7 @@ public class SaveScreenTests {
     @Test
     public void testLeaderboardCsvExists() {
         assertTrue("The leaderboard CSV doesn't exist",
-                Gdx.files.internal(SaveScreen.leaderboardPath).exists());
+                Gdx.files.internal(LeaderboardScreen.leaderboardPath).exists());
     }
 
     @Test
@@ -43,13 +43,13 @@ public class SaveScreenTests {
         HustleGame game = mock(HustleGame.class);
         Integer score = 10;
         SaveScreen saveScreen = new SaveScreen(game,score,false);
-
+        LeaderboardScreen.leaderboardPath = "../tests/testAssets/testLeaderboard.csv";
         saveScreen.saveScore("George",0);
         saveScreen.saveScore("Seyi",32);
         saveScreen.saveScore("Will",16);
         String leaderboardContents ="";
         try {
-            leaderboardContents = Files.readString(Path.of(SaveScreen.leaderboardPath));
+            leaderboardContents = Files.readString(Path.of(LeaderboardScreen.leaderboardPath));
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -73,7 +73,7 @@ public class SaveScreenTests {
         saveScreen.saveButtonPress("Ben",10,button);
         String leaderboardContents ="";
         try {
-            leaderboardContents = Files.readString(Path.of(SaveScreen.leaderboardPath));
+            leaderboardContents = Files.readString(Path.of(LeaderboardScreen.leaderboardPath));
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -85,7 +85,7 @@ public class SaveScreenTests {
         // as a score should only be saved once
         saveScreen.saveButtonPress("Ben",10,button);
         try {
-            leaderboardContents = Files.readString(Path.of(SaveScreen.leaderboardPath));
+            leaderboardContents = Files.readString(Path.of(LeaderboardScreen.leaderboardPath));
         }catch(IOException e){
             e.printStackTrace();
         }
